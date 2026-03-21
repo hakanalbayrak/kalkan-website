@@ -99,6 +99,15 @@ body {
   margin: 0 0 var(--kalkan-space-2);
 }
 
+.kalkan-home h2 {
+  font-size: clamp(1.4rem, 4.5vw, 2rem);
+  line-height: 1.2;
+}
+
+.kalkan-home h3 {
+  font-size: clamp(1.1rem, 3.5vw, 1.3rem);
+}
+
 .kalkan-home p {
   color: var(--kalkan-muted-color);
   margin: 0;
@@ -128,29 +137,40 @@ body {
   gap: var(--kalkan-space-2);
 }
 
+.kalkan-button-primary,
+.kalkan-button-secondary,
 .kalkan-button {
   border: 1px solid #12263f;
   border-radius: 0.5rem;
-  color: #fff;
   display: inline-block;
   font-weight: 600;
   min-height: 2.75rem;
   padding: 0.75rem 1rem;
   text-decoration: none;
-  background: #12263f;
 }
 
+.kalkan-button-primary,
+.kalkan-button {
+  background: #12263f;
+  color: #fff;
+}
+
+.kalkan-button-primary:hover,
+.kalkan-button-primary:focus-visible,
 .kalkan-button:hover,
 .kalkan-button:focus-visible {
   background: #0f2035;
   color: #fff;
 }
 
+.kalkan-button-secondary,
 .kalkan-button--secondary {
   background: transparent;
   color: #12263f;
 }
 
+.kalkan-button-secondary:hover,
+.kalkan-button-secondary:focus-visible,
 .kalkan-button--secondary:hover,
 .kalkan-button--secondary:focus-visible {
   background: #f5f7fa;
