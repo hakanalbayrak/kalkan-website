@@ -1,13 +1,13 @@
 name: Deploy
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:
   deploy:
+    # Deployment via GitHub Actions is temporarily disabled.
+    # Current production deployment is managed by WP Pusher.
+    if: ${{ false }}
     runs-on: ubuntu-latest
 
     steps:
