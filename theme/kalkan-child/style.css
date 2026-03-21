@@ -1,0 +1,80 @@
+/*
+Theme Name: Kalkan Child
+Theme URI: https://kalkan.website
+Description: Lightweight Blocksy child theme for Kalkan website customizations.
+Author: Kalkan
+Author URI: https://kalkan.website
+Template: blocksy
+Version: 1.0.0
+Text Domain: kalkan-child
+*/
+
+/*
+ * Kalkan child theme foundation.
+ * Keep styles small and predictable; extend section by section.
+ */
+
+:root {
+  --kalkan-space-1: 0.5rem;
+  --kalkan-space-2: 1rem;
+  --kalkan-space-3: 1.5rem;
+  --kalkan-space-4: 2rem;
+  --kalkan-space-5: 3rem;
+  --kalkan-content-width: 72rem;
+  --kalkan-text-color: #17212b;
+  --kalkan-muted-color: #4a5b6c;
+  --kalkan-border-color: #e4e8ed;
+}
+
+/* Mobile-first reading defaults */
+body {
+  color: var(--kalkan-text-color);
+  line-height: 1.6;
+}
+
+/* Keep core content width controlled and readable */
+.entry-content > * {
+  margin-inline: auto;
+  max-width: var(--kalkan-content-width);
+  padding-inline: var(--kalkan-space-2);
+}
+
+.entry-content h1,
+.entry-content h2,
+.entry-content h3 {
+  line-height: 1.25;
+  margin-bottom: var(--kalkan-space-2);
+}
+
+.entry-content p,
+.entry-content li {
+  margin-bottom: var(--kalkan-space-2);
+}
+
+/* Reusable lightweight section rhythm for homepage blocks */
+.kalkan-section {
+  border-bottom: 1px solid var(--kalkan-border-color);
+  padding-block: var(--kalkan-space-4);
+}
+
+.kalkan-section:last-child {
+  border-bottom: 0;
+}
+
+/* Keep buttons clear and touch-friendly without visual effects */
+.wp-block-button__link {
+  border-radius: 0.5rem;
+  font-weight: 600;
+  min-height: 2.75rem;
+  padding: 0.7rem 1rem;
+}
+
+@media (min-width: 48rem) {
+  .entry-content > * {
+    padding-inline: var(--kalkan-space-3);
+  }
+
+  .kalkan-section {
+    padding-block: var(--kalkan-space-5);
+  }
+}
