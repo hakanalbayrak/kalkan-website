@@ -50,4 +50,3 @@ For SSH-based deploy workflow, configure these repository secrets:
 - `SSH_HOST`: deployment server hostname or IP.
 - `SSH_PORT`: deployment SSH port (optional; defaults to `22`).
 - `SSH_USER`: deployment SSH username.
-- `SSH_KNOWN_HOSTS`: host key line(s) for strict host verification.

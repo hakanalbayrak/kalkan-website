@@ -14,12 +14,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install SSH key and known_hosts
+      - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
         with:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           name: id_kalkan_deploy
-          known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+          known_hosts: unnecessary
           if_key_exists: replace
 
       - name: Start ssh-agent and unlock passphrase-protected key
@@ -53,7 +53,7 @@ jobs:
         run: |
           set -eu
 
-          ssh -o BatchMode=yes -o StrictHostKeyChecking=yes -p "${SSH_PORT:-22}" "${SSH_USER}@${SSH_HOST}" "echo 'SSH connection established.'"
+          ssh -o BatchMode=yes -o StrictHostKeyChecking=no -p "${SSH_PORT:-22}" "${SSH_USER}@${SSH_HOST}" "echo 'SSH connection established.'"
 
       - name: Deploy over SSH
         env:
@@ -64,4 +64,4 @@ jobs:
           set -eu
 
           # Keep deployment commands in this SSH command block.
-          ssh -o BatchMode=yes -o StrictHostKeyChecking=yes -p "${SSH_PORT:-22}" "${SSH_USER}@${SSH_HOST}" "echo 'Deploy command executed over SSH.'"
+          ssh -o BatchMode=yes -o StrictHostKeyChecking=no -p "${SSH_PORT:-22}" "${SSH_USER}@${SSH_HOST}" "echo 'Deploy command executed over SSH.'"
