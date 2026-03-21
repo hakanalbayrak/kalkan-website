@@ -1,10 +1,19 @@
 # Kalkan Website Codex Rules
 
-1. Keep the site lightweight and production-safe.
-2. Do not add unnecessary plugins.
-3. Build mobile-first layouts and experiences.
-4. Prioritize SEO in structure, content flow, and metadata.
-5. Do not break core WordPress structure or expected behavior.
-6. Prefer simple PHP/CSS solutions over heavy JavaScript.
-7. After major feature changes, always update documentation.
-8. Markdown docs in this repo are the persistent source of truth.
+## Working Rules
+
+1. Keep the stack lightweight: WordPress + Blocksy baseline.
+2. Use minimal plugins; avoid plugin sprawl.
+3. Build mobile-first by default.
+4. Build SEO-first by default.
+5. Do not break normal WordPress structure or update paths.
+6. Prefer simple PHP/CSS over heavy JavaScript.
+7. Do not add unnecessary frameworks or build systems.
+8. After major feature/content-structure changes, update docs in the same workflow.
+9. Markdown docs in this repo are durable memory and the source of truth, not chat history.
+
+## Practical Execution Notes
+
+- Choose the simplest implementation that keeps future extension possible.
+- Favor maintainability and performance over novelty.
+- Document decisions explicitly in `docs/KALKAN_WEBSITE_DECISIONS_LOG.md`.

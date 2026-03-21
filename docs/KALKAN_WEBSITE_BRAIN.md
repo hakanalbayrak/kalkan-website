@@ -2,37 +2,53 @@
 
 ## Site Purpose
 
-Kalkan website is the public web presence for number lookup utility content, trust-building informational pages, and growth-oriented educational content.
+The website is a growth and trust surface for Kalkan, aligned with product goals but intentionally lightweight.
 
-Primary goals:
-- Help users quickly find useful number lookup information.
-- Build search visibility around lookup-related intent.
-- Support product discovery for related Kalkan tools.
+Primary outcomes:
+- Acquisition through intent-driven SEO content and landing pages.
+- Trust through clear product framing and transparent policy/support pages.
+- App Store conversion from web traffic that has strong mobile-product intent.
+- Community-growth support through educational content tied to spam/scam awareness.
 
 ## Core Pages
 
-1. Home
-- Explains what Kalkan does and who it helps.
-- Directs users to key actions quickly.
+### Home
+- Communicates what Kalkan is and why it matters.
+- Routes users to Number Lookup, Blog / Guides, and app-install intent.
 
-2. Number Lookup
-- Main utility-focused page/flow.
-- Optimized for high-intent user tasks and clarity.
+### Number Lookup
+- Main intent page for users checking unknown numbers.
+- Prioritizes clarity and speed on mobile.
 
-3. Blog
-- SEO growth engine via useful, evergreen content.
-- Supports authority, education, and long-tail acquisition.
+### Blog / Guides
+- SEO and education layer for long-tail growth.
+- Explains safety, scam patterns, and responsible reporting context.
+
+### Privacy Policy
+- Documents data/privacy practices clearly.
+
+### Terms
+- Defines legal terms and usage boundaries.
+
+### Contact / Support
+- Provides direct support/contact pathways and trust signals.
 
 ## Growth Strategy
 
-- SEO-first content architecture targeting real user intent.
-- Fast, mobile-first UX to reduce friction and improve engagement.
-- Clear internal linking between Home, Number Lookup, and Blog.
-- Ongoing content iteration based on search performance and user behavior.
+- SEO-first structure and publishing cadence.
+- Mobile-first UX and page performance.
+- Strong internal linking between Home, Number Lookup, and Blog / Guides.
+- Clear conversion paths from informational pages to app-install intent.
 
 ## Relationship to iOS App and Backend
 
-- Website and iOS app should share a consistent product narrative and trust signals.
-- Website acts as discoverability and education surface; iOS app is the product experience endpoint for mobile users.
-- Backend services should remain compatible across web and app use cases where relevant.
-- Documentation and decisions in this repo should keep web, app, and backend alignment explicit.
+- The iOS app drives core protection/reporting value.
+- The website supports discovery, search visibility, and education.
+- Backend capabilities should stay compatible with both web and app context.
+- Future number lookup capability on web may use community spam signals, if validated and implemented.
+
+## Scope Guardrails
+
+- Do not assume unapproved product features.
+- Keep implementation and messaging aligned with currently decided scope.
+- Update this document when major direction changes are approved.
