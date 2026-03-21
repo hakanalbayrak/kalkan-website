@@ -23,7 +23,10 @@ Text Domain: kalkan-child
   --kalkan-content-width: 72rem;
   --kalkan-text-color: #17212b;
   --kalkan-muted-color: #4a5b6c;
-  --kalkan-border-color: #e4e8ed;
+  --kalkan-border-color: #d7e2ee;
+  --kalkan-soft-bg: #f3f7fc;
+  --kalkan-card-bg: #ffffff;
+  --kalkan-brand: #112846;
 }
 
 /* Mobile-first reading defaults */
@@ -51,17 +54,12 @@ body {
   margin-bottom: var(--kalkan-space-2);
 }
 
-/* Reusable lightweight section rhythm for homepage blocks */
+/* Base section rhythm for homepage blocks */
 .kalkan-section {
-  border-bottom: 1px solid var(--kalkan-border-color);
   padding-block: var(--kalkan-space-4);
 }
 
-.kalkan-section:last-child {
-  border-bottom: 0;
-}
-
-/* Keep buttons clear and touch-friendly without visual effects */
+/* Keep WordPress button defaults touch-friendly */
 .wp-block-button__link {
   border-radius: 0.5rem;
   font-weight: 600;
@@ -84,7 +82,7 @@ body {
  * Scoped to .kalkan-home to avoid side effects on other pages.
  */
 .kalkan-home {
-  background: #fff;
+  background: #f8fbff;
 }
 
 .kalkan-home .kalkan-container {
@@ -93,19 +91,43 @@ body {
   padding-inline: var(--kalkan-space-2);
 }
 
+.kalkan-home .kalkan-section {
+  border-bottom: 1px solid #e2eaf3;
+  padding-block: clamp(2.4rem, 6vw, 4rem);
+}
+
+.kalkan-home .kalkan-section:last-child {
+  border-bottom: 0;
+}
+
+.kalkan-home .kalkan-section--soft .kalkan-container {
+  background: var(--kalkan-soft-bg);
+  border: 1px solid #dce7f3;
+  border-radius: 1rem;
+  padding-block: clamp(1.2rem, 3.2vw, 2rem);
+}
+
 .kalkan-home h1,
 .kalkan-home h2,
 .kalkan-home h3 {
-  margin: 0 0 var(--kalkan-space-2);
+  margin: 0;
+  color: var(--kalkan-text-color);
+}
+
+.kalkan-hero__headline {
+  font-size: clamp(2rem, 6vw, 3.3rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 .kalkan-home h2 {
-  font-size: clamp(1.4rem, 4.5vw, 2rem);
-  line-height: 1.2;
+  font-size: clamp(1.4rem, 4.4vw, 2.2rem);
+  line-height: 1.15;
 }
 
 .kalkan-home h3 {
-  font-size: clamp(1.1rem, 3.5vw, 1.3rem);
+  font-size: clamp(1.05rem, 3.2vw, 1.25rem);
+  line-height: 1.25;
 }
 
 .kalkan-home p {
@@ -117,13 +139,22 @@ body {
   margin-top: var(--kalkan-space-2);
 }
 
-.kalkan-hero__headline {
-  font-size: clamp(1.75rem, 5.6vw, 2.75rem);
-  line-height: 1.15;
+.kalkan-section__lead {
+  font-size: 1.05rem;
+  max-width: 44rem;
+}
+
+.kalkan-hero__layout {
+  display: grid;
+  gap: var(--kalkan-space-4);
+}
+
+.kalkan-hero__content > * + * {
+  margin-top: var(--kalkan-space-2);
 }
 
 .kalkan-hero__body,
-.kalkan-cta__body {
+.kalkan-cta-card p {
   max-width: 42rem;
 }
 
@@ -134,15 +165,17 @@ body {
 .kalkan-home .kalkan-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--kalkan-space-2);
+  gap: 0.75rem;
 }
 
 .kalkan-button-primary,
 .kalkan-button-secondary,
 .kalkan-button {
-  border: 1px solid #12263f;
-  border-radius: 0.5rem;
-  display: inline-block;
+  border: 1px solid var(--kalkan-brand);
+  border-radius: 0.62rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-weight: 600;
   min-height: 2.75rem;
   padding: 0.75rem 1rem;
@@ -151,7 +184,7 @@ body {
 
 .kalkan-button-primary,
 .kalkan-button {
-  background: #12263f;
+  background: var(--kalkan-brand);
   color: #fff;
 }
 
@@ -159,59 +192,124 @@ body {
 .kalkan-button-primary:focus-visible,
 .kalkan-button:hover,
 .kalkan-button:focus-visible {
-  background: #0f2035;
+  background: #0b1f36;
   color: #fff;
 }
 
 .kalkan-button-secondary,
 .kalkan-button--secondary {
   background: transparent;
-  color: #12263f;
+  color: var(--kalkan-brand);
 }
 
 .kalkan-button-secondary:hover,
 .kalkan-button-secondary:focus-visible,
 .kalkan-button--secondary:hover,
 .kalkan-button--secondary:focus-visible {
-  background: #f5f7fa;
-  color: #12263f;
+  background: #edf3fa;
+  color: var(--kalkan-brand);
 }
 
-.kalkan-home .kalkan-list {
+.kalkan-app-store {
+  margin-top: var(--kalkan-space-2);
+}
+
+.kalkan-app-store__badge {
+  display: block;
+  width: 180px;
+  max-width: 100%;
+  height: auto;
+}
+
+.kalkan-app-store--centered {
+  display: flex;
+  justify-content: center;
+}
+
+.kalkan-hero__visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.kalkan-device-mockup {
+  position: relative;
+  width: min(20rem, 78vw);
+  aspect-ratio: 0.48;
+}
+
+.kalkan-device-mockup__screen {
+  position: absolute;
+  top: 3.2%;
+  left: 7.6%;
+  width: 84.8%;
+  height: 93.6%;
+  border-radius: 2.2rem;
+  object-fit: cover;
+}
+
+.kalkan-device-mockup__frame {
+  position: relative;
+  width: 100%;
+  height: auto;
+  z-index: 2;
+}
+
+.kalkan-step-list,
+.kalkan-card-grid {
+  list-style: none;
   margin: 0;
-  padding-left: 1.2rem;
-}
-
-.kalkan-home .kalkan-list li + li {
-  margin-top: 0.65rem;
-}
-
-.kalkan-home .kalkan-grid {
+  padding: 0;
   display: grid;
   gap: var(--kalkan-space-2);
 }
 
-.kalkan-home .kalkan-card {
+.kalkan-step-card,
+.kalkan-card,
+.kalkan-highlight-card,
+.kalkan-cta-card {
+  background: var(--kalkan-card-bg);
   border: 1px solid var(--kalkan-border-color);
-  border-radius: 0.75rem;
-  padding: var(--kalkan-space-2);
+  border-radius: 1rem;
+  padding: clamp(1rem, 2.6vw, 1.5rem);
+  box-shadow: 0 10px 24px rgba(17, 40, 70, 0.06);
 }
 
-.kalkan-home .kalkan-card p {
-  margin-top: 0.5rem;
+.kalkan-step-card h3,
+.kalkan-card h3,
+.kalkan-highlight-card h2,
+.kalkan-cta-card h2,
+.kalkan-faq-card h3 {
+  margin-bottom: 0.55rem;
 }
 
-.kalkan-home .kalkan-inline-links {
+.kalkan-inline-links {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--kalkan-space-2);
+  gap: 0.75rem;
   margin-top: var(--kalkan-space-2);
 }
 
-.kalkan-home .kalkan-inline-links a {
-  color: #12263f;
+.kalkan-inline-links a {
+  border: 1px solid #c9d7e7;
+  border-radius: 999px;
+  color: var(--kalkan-brand);
   font-weight: 600;
-  text-decoration-thickness: 1px;
+  padding: 0.45rem 0.8rem;
+  text-decoration: none;
+}
+
+.kalkan-inline-links a:hover,
+.kalkan-inline-links a:focus-visible {
+  background: #ecf3fb;
+}
+
+.kalkan-cta-card {
+  text-align: center;
+}
+
+.kalkan-cta-card .kalkan-actions {
+  justify-content: center;
 }
 
 @media (min-width: 48rem) {
@@ -219,7 +317,19 @@ body {
     padding-inline: var(--kalkan-space-3);
   }
 
-  .kalkan-home .kalkan-grid--three {
+  .kalkan-card-grid--two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .kalkan-card-grid--three,
+  .kalkan-step-list {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 64rem) {
+  .kalkan-hero__layout {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    align-items: center;
   }
 }
