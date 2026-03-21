@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1170" height="2532" viewBox="0 0 1170 2532" role="img" aria-labelledby="title desc">
+  <title id="title">Kalkan app screenshot placeholder</title>
+  <desc id="desc">Placeholder app screenshot used in homepage mockup composition.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eff6ff"/>
+      <stop offset="1" stop-color="#dbeafe"/>
+    </linearGradient>
+  </defs>
+  <rect width="1170" height="2532" fill="url(#bg)"/>
+  <rect x="88" y="150" width="994" height="184" rx="32" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="138" y="266" fill="#0f172a" font-size="68" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif">Kalkan</text>
+  <rect x="88" y="412" width="994" height="380" rx="36" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="138" y="520" fill="#1e293b" font-size="54" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif">Spam Protection</text>
+  <text x="138" y="600" fill="#475569" font-size="42" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif">Placeholder preview block</text>
+  <rect x="88" y="852" width="994" height="380" rx="36" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="138" y="960" fill="#1e293b" font-size="54" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif">Caller ID</text>
+  <rect x="88" y="1292" width="994" height="380" rx="36" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="138" y="1400" fill="#1e293b" font-size="54" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif">Reporting</text>
+  <rect x="88" y="1938" width="994" height="344" rx="36" fill="#112846"/>
+  <text x="138" y="2088" fill="#ffffff" font-size="64" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif">App Store CTA</text>
+</svg>

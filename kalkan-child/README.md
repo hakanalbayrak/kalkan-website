@@ -11,6 +11,8 @@ This is the controlled customization layer for `kalkan.website`.
 
 - `style.css`: WordPress child theme header + lightweight style foundation.
 - `functions.php`: child stylesheet enqueue and safe extension point.
+- `front-page.php`: code-rendered marketing homepage template.
+- `assets/`: homepage visual placeholders (App Store badge, iPhone frame, app screenshot).
 
 ## Screenshot Note
 

@@ -68,3 +68,152 @@ function kalkan_child_filter_app_store_url($url) {
     return $url;
 }
 add_filter('kalkan_app_store_url', 'kalkan_child_filter_app_store_url');
+
+/**
+ * Map menu item labels to a normalized key used for ordering.
+ */
+function kalkan_child_get_menu_item_key($menu_item) {
+    $title = isset($menu_item->title) ? wp_strip_all_tags((string) $menu_item->title) : '';
+    $title = strtolower(trim((string) preg_replace('/\s+/', ' ', $title)));
+
+    if ('home' === $title) {
+        return 'home';
+    }
+
+    if (false !== strpos($title, 'number lookup')) {
+        return 'number lookup';
+    }
+
+    if (false !== strpos($title, 'blog')) {
+        return 'blog';
+    }
+
+    if (false !== strpos($title, 'privacy')) {
+        return 'privacy policy';
+    }
+
+    if (false !== strpos($title, 'term')) {
+        return 'terms';
+    }
+
+    if (false !== strpos($title, 'contact') || false !== strpos($title, 'support')) {
+        return 'contact';
+    }
+
+    return '';
+}
+
+/**
+ * Resolve root parent menu item ID for consistent top-level sorting.
+ */
+function kalkan_child_get_root_menu_item_id($item_id, $parent_map) {
+    $root   = (int) $item_id;
+    $safety = 0;
+
+    while (isset($parent_map[$root]) && (int) $parent_map[$root] > 0 && $safety < 25) {
+        $root = (int) $parent_map[$root];
+        $safety++;
+    }
+
+    return $root;
+}
+
+/**
+ * Enforce top menu order for Kalkan marketing navigation.
+ */
+function kalkan_child_reorder_menu_items($items, $args) {
+    if (empty($items) || !is_array($items)) {
+        return $items;
+    }
+
+    // Skip footer-like locations to avoid unintended reordering.
+    if (isset($args->theme_location) && false !== strpos((string) $args->theme_location, 'footer')) {
+        return $items;
+    }
+
+    $target_order = array(
+        'home',
+        'number lookup',
+        'blog',
+        'privacy policy',
+        'terms',
+        'contact',
+    );
+
+    $top_level_items = array();
+    foreach ($items as $item) {
+        if ((int) $item->menu_item_parent === 0) {
+            $top_level_items[] = $item;
+        }
+    }
+
+    if (empty($top_level_items)) {
+        return $items;
+    }
+
+    $ordered_root_ids = array();
+    $matched_count     = 0;
+
+    foreach ($target_order as $target_key) {
+        foreach ($top_level_items as $top_level_item) {
+            if (in_array((int) $top_level_item->ID, $ordered_root_ids, true)) {
+                continue;
+            }
+
+            if (kalkan_child_get_menu_item_key($top_level_item) === $target_key) {
+                $ordered_root_ids[] = (int) $top_level_item->ID;
+                $matched_count++;
+                break;
+            }
+        }
+    }
+
+    // If this does not look like the main site menu, leave it untouched.
+    if ($matched_count < 3) {
+        return $items;
+    }
+
+    foreach ($top_level_items as $top_level_item) {
+        if (!in_array((int) $top_level_item->ID, $ordered_root_ids, true)) {
+            $ordered_root_ids[] = (int) $top_level_item->ID;
+        }
+    }
+
+    $root_rank      = array();
+    $parent_map     = array();
+    $original_index = array();
+
+    foreach ($ordered_root_ids as $index => $root_id) {
+        $root_rank[(int) $root_id] = (int) $index;
+    }
+
+    foreach ($items as $index => $item) {
+        $parent_map[(int) $item->ID]     = (int) $item->menu_item_parent;
+        $original_index[(int) $item->ID] = (int) $index;
+    }
+
+    usort(
+        $items,
+        function ($a, $b) use ($root_rank, $parent_map, $original_index) {
+            $a_id   = (int) $a->ID;
+            $b_id   = (int) $b->ID;
+            $a_root = kalkan_child_get_root_menu_item_id($a_id, $parent_map);
+            $b_root = kalkan_child_get_root_menu_item_id($b_id, $parent_map);
+
+            $a_rank = $root_rank[$a_root] ?? 9999;
+            $b_rank = $root_rank[$b_root] ?? 9999;
+
+            if ($a_rank === $b_rank) {
+                $a_original = $original_index[$a_id] ?? 0;
+                $b_original = $original_index[$b_id] ?? 0;
+
+                return $a_original <=> $b_original;
+            }
+
+            return $a_rank <=> $b_rank;
+        }
+    );
+
+    return $items;
+}
+add_filter('wp_nav_menu_objects', 'kalkan_child_reorder_menu_items', 20, 2);
