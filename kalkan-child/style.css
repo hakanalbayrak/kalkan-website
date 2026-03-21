@@ -9,139 +9,211 @@ Version: 1.0.0
 Text Domain: kalkan-child
 */
 
-/*
- * Kalkan child theme foundation.
- * Keep styles small and predictable; extend section by section.
- */
-
 :root {
+  --kalkan-navy-900: #0b1730;
+  --kalkan-navy-800: #122447;
+  --kalkan-blue-600: #2b67f6;
+  --kalkan-blue-500: #3b82f6;
+  --kalkan-blue-100: #dbeafe;
+  --kalkan-blue-50: #eff6ff;
+  --kalkan-neutral-900: #111827;
+  --kalkan-neutral-700: #334155;
+  --kalkan-neutral-600: #475569;
+  --kalkan-neutral-300: #d5deea;
+  --kalkan-neutral-200: #e5ebf3;
+  --kalkan-white: #ffffff;
+  --kalkan-shadow: 0 14px 34px rgba(11, 23, 48, 0.08);
+  --kalkan-radius-lg: 1rem;
+  --kalkan-radius-md: 0.75rem;
   --kalkan-space-1: 0.5rem;
   --kalkan-space-2: 1rem;
   --kalkan-space-3: 1.5rem;
   --kalkan-space-4: 2rem;
   --kalkan-space-5: 3rem;
-  --kalkan-content-width: 72rem;
-  --kalkan-text-color: #17212b;
-  --kalkan-muted-color: #4a5b6c;
-  --kalkan-border-color: #d7e2ee;
-  --kalkan-soft-bg: #f3f7fc;
-  --kalkan-card-bg: #ffffff;
-  --kalkan-brand: #112846;
+  --kalkan-shell: 72rem;
+  --kalkan-header-height: 4.5rem;
 }
 
-/* Mobile-first reading defaults */
-body {
-  color: var(--kalkan-text-color);
-  line-height: 1.6;
+/* Hide Blocksy default header/footer on front page because this template renders both. */
+.home .ct-header,
+.home .ct-footer {
+  display: none !important;
 }
 
-/* Keep core content width controlled and readable */
-.entry-content > * {
+.kalkan-homepage {
+  background: linear-gradient(180deg, #f7faff 0%, #f4f7fc 100%);
+  color: var(--kalkan-neutral-900);
+  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+}
+
+.kalkan-shell {
   margin-inline: auto;
-  max-width: var(--kalkan-content-width);
+  max-width: var(--kalkan-shell);
   padding-inline: var(--kalkan-space-2);
 }
 
-.entry-content h1,
-.entry-content h2,
-.entry-content h3 {
-  line-height: 1.25;
-  margin-bottom: var(--kalkan-space-2);
+.kalkan-main-stack {
+  padding-top: var(--kalkan-header-height);
 }
 
-.entry-content p,
-.entry-content li {
-  margin-bottom: var(--kalkan-space-2);
-}
-
-/* Base section rhythm for homepage blocks */
 .kalkan-section {
-  padding-block: var(--kalkan-space-4);
+  padding-block: clamp(2.5rem, 7vw, 5rem);
 }
 
-/* Keep WordPress button defaults touch-friendly */
-.wp-block-button__link {
-  border-radius: 0.5rem;
-  font-weight: 600;
-  min-height: 2.75rem;
-  padding: 0.7rem 1rem;
-}
-
-@media (min-width: 48rem) {
-  .entry-content > * {
-    padding-inline: var(--kalkan-space-3);
-  }
-
-  .kalkan-section {
-    padding-block: var(--kalkan-space-5);
-  }
-}
-
-/*
- * Homepage template styles.
- * Scoped to .kalkan-home to avoid side effects on other pages.
- */
-.kalkan-home {
-  background: #f8fbff;
-}
-
-.kalkan-home .kalkan-container {
-  margin-inline: auto;
-  max-width: var(--kalkan-content-width);
-  padding-inline: var(--kalkan-space-2);
-}
-
-.kalkan-home .kalkan-section {
-  border-bottom: 1px solid #e2eaf3;
-  padding-block: clamp(2.4rem, 6vw, 4rem);
-}
-
-.kalkan-home .kalkan-section:last-child {
-  border-bottom: 0;
-}
-
-.kalkan-home .kalkan-section--soft .kalkan-container {
-  background: var(--kalkan-soft-bg);
-  border: 1px solid #dce7f3;
-  border-radius: 1rem;
-  padding-block: clamp(1.2rem, 3.2vw, 2rem);
-}
-
-.kalkan-home h1,
-.kalkan-home h2,
-.kalkan-home h3 {
+.kalkan-homepage h1,
+.kalkan-homepage h2,
+.kalkan-homepage h3,
+.kalkan-homepage p {
   margin: 0;
-  color: var(--kalkan-text-color);
 }
 
-.kalkan-hero__headline {
-  font-size: clamp(2rem, 6vw, 3.3rem);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+.kalkan-homepage h1 {
+  color: var(--kalkan-navy-900);
+  font-size: clamp(2rem, 7vw, 3.4rem);
+  letter-spacing: -0.025em;
+  line-height: 1.08;
 }
 
-.kalkan-home h2 {
-  font-size: clamp(1.4rem, 4.4vw, 2.2rem);
+.kalkan-homepage h2 {
+  color: var(--kalkan-navy-900);
+  font-size: clamp(1.5rem, 5vw, 2.3rem);
+  letter-spacing: -0.015em;
   line-height: 1.15;
 }
 
-.kalkan-home h3 {
-  font-size: clamp(1.05rem, 3.2vw, 1.25rem);
+.kalkan-homepage h3 {
+  color: var(--kalkan-navy-800);
+  font-size: clamp(1.08rem, 3.2vw, 1.3rem);
   line-height: 1.25;
 }
 
-.kalkan-home p {
-  color: var(--kalkan-muted-color);
-  margin: 0;
+.kalkan-homepage p {
+  color: var(--kalkan-neutral-600);
+  line-height: 1.65;
 }
 
-.kalkan-home .kalkan-section > * + * {
+.kalkan-section-lead {
   margin-top: var(--kalkan-space-2);
+  max-width: 44rem;
+  font-size: 1.06rem;
 }
 
-.kalkan-section__lead {
-  font-size: 1.05rem;
-  max-width: 44rem;
+/* Header */
+.kalkan-site-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid var(--kalkan-neutral-200);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+  backdrop-filter: saturate(160%) blur(8px);
+}
+
+.kalkan-site-header .kalkan-shell {
+  min-height: var(--kalkan-header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--kalkan-space-2);
+}
+
+.kalkan-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  text-decoration: none;
+}
+
+.kalkan-brand__mark {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.62rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--kalkan-white);
+  font-weight: 700;
+  background: linear-gradient(145deg, var(--kalkan-blue-600), #1d4ed8);
+}
+
+.kalkan-brand__wordmark {
+  color: var(--kalkan-navy-900);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.kalkan-nav-desktop {
+  display: none;
+}
+
+.kalkan-nav-desktop ul,
+.kalkan-nav-mobile ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.kalkan-nav-desktop a,
+.kalkan-nav-mobile a {
+  color: var(--kalkan-neutral-700);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.kalkan-nav-desktop a:hover,
+.kalkan-nav-desktop a:focus-visible,
+.kalkan-nav-mobile a:hover,
+.kalkan-nav-mobile a:focus-visible {
+  color: var(--kalkan-navy-900);
+}
+
+.kalkan-nav-mobile {
+  position: relative;
+}
+
+.kalkan-nav-mobile summary {
+  cursor: pointer;
+  list-style: none;
+  border: 1px solid var(--kalkan-neutral-300);
+  border-radius: 0.6rem;
+  padding: 0.45rem 0.75rem;
+  color: var(--kalkan-neutral-700);
+  font-weight: 600;
+}
+
+.kalkan-nav-mobile summary::-webkit-details-marker {
+  display: none;
+}
+
+.kalkan-nav-mobile[open] nav {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 14rem;
+  background: var(--kalkan-white);
+  border: 1px solid var(--kalkan-neutral-200);
+  border-radius: 0.85rem;
+  box-shadow: var(--kalkan-shadow);
+  padding: 0.55rem;
+}
+
+.kalkan-nav-mobile[open] a {
+  display: block;
+  border-radius: 0.5rem;
+  padding: 0.55rem 0.65rem;
+}
+
+.kalkan-nav-mobile[open] a:hover,
+.kalkan-nav-mobile[open] a:focus-visible {
+  background: var(--kalkan-blue-50);
+}
+
+/* Hero */
+.kalkan-hero {
+  background: radial-gradient(120% 120% at 100% 0%, #eaf2ff 0%, #f8fbff 48%, transparent 100%);
 }
 
 .kalkan-hero__layout {
@@ -153,98 +225,99 @@ body {
   margin-top: var(--kalkan-space-2);
 }
 
-.kalkan-hero__body,
-.kalkan-cta-card p {
-  max-width: 42rem;
+.kalkan-eyebrow {
+  color: var(--kalkan-blue-600);
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.kalkan-hero__supporting {
-  font-size: 0.95rem;
+.kalkan-hero__lead {
+  max-width: 38rem;
+  font-size: 1.08rem;
 }
 
-.kalkan-home .kalkan-actions {
+.kalkan-hero__trust {
+  color: var(--kalkan-neutral-700);
+  font-size: 0.96rem;
+}
+
+.kalkan-actions {
+  margin-top: 0.2rem;
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
 }
 
 .kalkan-button-primary,
-.kalkan-button-secondary,
-.kalkan-button {
-  border: 1px solid var(--kalkan-brand);
-  border-radius: 0.62rem;
+.kalkan-button-secondary {
+  border-radius: 0.7rem;
+  border: 1px solid transparent;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
-  min-height: 2.75rem;
-  padding: 0.75rem 1rem;
+  font-weight: 700;
+  min-height: 2.85rem;
+  padding: 0.7rem 1.05rem;
   text-decoration: none;
+  transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
 }
 
-.kalkan-button-primary,
-.kalkan-button {
-  background: var(--kalkan-brand);
-  color: #fff;
+.kalkan-button-primary {
+  background: var(--kalkan-blue-600);
+  border-color: var(--kalkan-blue-600);
+  color: var(--kalkan-white);
 }
 
 .kalkan-button-primary:hover,
-.kalkan-button-primary:focus-visible,
-.kalkan-button:hover,
-.kalkan-button:focus-visible {
-  background: #0b1f36;
-  color: #fff;
+.kalkan-button-primary:focus-visible {
+  background: #2459d9;
+  border-color: #2459d9;
+  color: var(--kalkan-white);
 }
 
-.kalkan-button-secondary,
-.kalkan-button--secondary {
-  background: transparent;
-  color: var(--kalkan-brand);
+.kalkan-button-secondary {
+  background: var(--kalkan-white);
+  border-color: var(--kalkan-neutral-300);
+  color: var(--kalkan-navy-900);
 }
 
 .kalkan-button-secondary:hover,
-.kalkan-button-secondary:focus-visible,
-.kalkan-button--secondary:hover,
-.kalkan-button--secondary:focus-visible {
-  background: #edf3fa;
-  color: var(--kalkan-brand);
+.kalkan-button-secondary:focus-visible {
+  background: var(--kalkan-blue-50);
+  border-color: #b8cdf0;
+  color: var(--kalkan-navy-900);
 }
 
-.kalkan-app-store {
+.kalkan-app-store-wrap {
   margin-top: var(--kalkan-space-2);
 }
 
-.kalkan-app-store__badge {
-  display: block;
+.kalkan-app-store-link {
+  display: inline-block;
+}
+
+.kalkan-app-store-badge {
   width: 180px;
   max-width: 100%;
   height: auto;
-}
-
-.kalkan-app-store--centered {
-  display: flex;
-  justify-content: center;
-}
-
-.kalkan-hero__visual {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: block;
 }
 
 .kalkan-device-mockup {
   position: relative;
-  width: min(20rem, 78vw);
+  margin-inline: auto;
+  width: min(20rem, 82vw);
   aspect-ratio: 0.48;
 }
 
 .kalkan-device-mockup__screen {
   position: absolute;
-  top: 3.2%;
-  left: 7.6%;
-  width: 84.8%;
-  height: 93.6%;
-  border-radius: 2.2rem;
+  inset: 3.2% 7.5% auto;
+  width: 85%;
+  height: 93.5%;
+  border-radius: 2rem;
   object-fit: cover;
 }
 
@@ -252,68 +325,280 @@ body {
   position: relative;
   width: 100%;
   height: auto;
-  z-index: 2;
+  filter: drop-shadow(0 22px 40px rgba(11, 23, 48, 0.24));
 }
 
-.kalkan-step-list,
+/* Grids and cards */
+.kalkan-step-grid,
 .kalkan-card-grid {
   list-style: none;
-  margin: 0;
+  margin: var(--kalkan-space-3) 0 0;
   padding: 0;
   display: grid;
   gap: var(--kalkan-space-2);
 }
 
-.kalkan-step-card,
 .kalkan-card,
+.kalkan-step-card,
 .kalkan-highlight-card,
-.kalkan-cta-card {
-  background: var(--kalkan-card-bg);
-  border: 1px solid var(--kalkan-border-color);
-  border-radius: 1rem;
-  padding: clamp(1rem, 2.6vw, 1.5rem);
-  box-shadow: 0 10px 24px rgba(17, 40, 70, 0.06);
+.kalkan-final-cta__card {
+  background: var(--kalkan-white);
+  border: 1px solid var(--kalkan-neutral-200);
+  border-radius: var(--kalkan-radius-lg);
+  box-shadow: var(--kalkan-shadow);
 }
 
-.kalkan-step-card h3,
+.kalkan-card,
+.kalkan-step-card {
+  padding: clamp(1rem, 3vw, 1.35rem);
+}
+
+.kalkan-icon {
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+  background: var(--kalkan-blue-50);
+  color: var(--kalkan-blue-600);
+}
+
+.kalkan-icon svg,
+.kalkan-highlight-card__icon svg,
+.kalkan-trust-badge svg {
+  width: 1.35rem;
+  height: 1.35rem;
+  fill: currentColor;
+}
+
 .kalkan-card h3,
-.kalkan-highlight-card h2,
-.kalkan-cta-card h2,
+.kalkan-step-card h3,
 .kalkan-faq-card h3 {
-  margin-bottom: 0.55rem;
+  margin-bottom: 0.5rem;
+}
+
+.kalkan-step-card {
+  position: relative;
+  padding-top: 2.2rem;
+}
+
+.kalkan-step-card__index {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--kalkan-blue-50);
+  color: var(--kalkan-blue-600);
+}
+
+/* Reporting */
+.kalkan-reporting {
+  background: linear-gradient(180deg, rgba(219, 234, 254, 0.28) 0%, rgba(219, 234, 254, 0.1) 100%);
+}
+
+.kalkan-highlight-card {
+  padding: clamp(1.2rem, 3.3vw, 1.8rem);
+  display: grid;
+  gap: var(--kalkan-space-2);
+}
+
+.kalkan-highlight-card__icon {
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--kalkan-blue-50);
+  color: var(--kalkan-blue-600);
+}
+
+/* Trust */
+.kalkan-trust {
+  background: #f6f9fe;
+}
+
+.kalkan-trust__layout {
+  display: grid;
+  gap: var(--kalkan-space-3);
+}
+
+.kalkan-trust__visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.kalkan-trust-badge {
+  width: min(10rem, 48vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 30% 30%, #4f8cff 0%, #2b67f6 55%, #1f4ccb 100%);
+  color: var(--kalkan-white);
+  box-shadow: 0 18px 35px rgba(37, 99, 235, 0.28);
+}
+
+.kalkan-trust-badge svg {
+  width: 3rem;
+  height: 3rem;
 }
 
 .kalkan-inline-links {
+  margin-top: var(--kalkan-space-2);
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: var(--kalkan-space-2);
+  gap: 0.65rem;
 }
 
 .kalkan-inline-links a {
-  border: 1px solid #c9d7e7;
   border-radius: 999px;
-  color: var(--kalkan-brand);
+  border: 1px solid #c7d5eb;
+  background: var(--kalkan-white);
+  color: var(--kalkan-navy-900);
   font-weight: 600;
-  padding: 0.45rem 0.8rem;
+  padding: 0.45rem 0.78rem;
   text-decoration: none;
 }
 
 .kalkan-inline-links a:hover,
 .kalkan-inline-links a:focus-visible {
-  background: #ecf3fb;
+  background: var(--kalkan-blue-50);
 }
 
-.kalkan-cta-card {
+/* Final CTA */
+.kalkan-final-cta__card {
+  padding: clamp(1.3rem, 3.8vw, 2rem);
   text-align: center;
+  background: linear-gradient(160deg, #112846 0%, #1a3a62 60%, #224b78 100%);
+  border-color: #1e3f67;
 }
 
-.kalkan-cta-card .kalkan-actions {
+.kalkan-final-cta__card h2,
+.kalkan-final-cta__card p {
+  color: var(--kalkan-white);
+}
+
+.kalkan-final-cta__card p {
+  margin-top: 0.7rem;
+  margin-inline: auto;
+  max-width: 40rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.kalkan-final-cta__card .kalkan-actions {
   justify-content: center;
+  margin-top: var(--kalkan-space-2);
+}
+
+.kalkan-final-cta__card .kalkan-button-primary {
+  background: var(--kalkan-white);
+  border-color: var(--kalkan-white);
+  color: var(--kalkan-navy-900);
+}
+
+.kalkan-final-cta__card .kalkan-button-primary:hover,
+.kalkan-final-cta__card .kalkan-button-primary:focus-visible {
+  background: #eaf0fa;
+  border-color: #eaf0fa;
+}
+
+.kalkan-app-store-link--centered {
+  margin-top: var(--kalkan-space-2);
+  display: inline-block;
+}
+
+/* FAQ */
+.kalkan-faq {
+  background: #f7fbff;
+}
+
+.kalkan-faq-card {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Footer */
+.kalkan-site-footer {
+  border-top: 1px solid var(--kalkan-neutral-200);
+  background: #f3f7fd;
+  padding-block: var(--kalkan-space-4);
+}
+
+.kalkan-site-footer__layout {
+  display: grid;
+  gap: var(--kalkan-space-3);
+}
+
+.kalkan-site-footer__brand p {
+  margin-top: 0.7rem;
+  color: var(--kalkan-neutral-700);
+}
+
+.kalkan-site-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.kalkan-site-footer__links a,
+.kalkan-site-footer__social a {
+  color: var(--kalkan-navy-900);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.kalkan-site-footer__meta {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.kalkan-language-ready {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.kalkan-language-ready__label {
+  color: var(--kalkan-neutral-700);
+  font-size: 0.9rem;
+}
+
+.kalkan-language-ready__item {
+  border: 1px solid #c5d4ea;
+  border-radius: 999px;
+  color: var(--kalkan-neutral-700);
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 0.22rem 0.52rem;
+}
+
+.kalkan-language-ready__item.is-active {
+  color: var(--kalkan-navy-900);
+  border-color: #8fb0ea;
+  background: var(--kalkan-blue-100);
+}
+
+.kalkan-site-footer__social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
 }
 
 @media (min-width: 48rem) {
-  .kalkan-home .kalkan-container {
+  .kalkan-shell {
     padding-inline: var(--kalkan-space-3);
   }
 
@@ -322,14 +607,51 @@ body {
   }
 
   .kalkan-card-grid--three,
-  .kalkan-step-list {
+  .kalkan-step-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .kalkan-highlight-card {
+    grid-template-columns: auto 1fr;
+    align-items: start;
+  }
+
+  .kalkan-trust__layout {
+    grid-template-columns: minmax(0, 0.35fr) minmax(0, 1fr);
+    align-items: center;
+  }
+
+  .kalkan-site-footer__layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .kalkan-site-footer__meta {
+    justify-items: end;
   }
 }
 
 @media (min-width: 64rem) {
-  .kalkan-hero__layout {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  .kalkan-nav-mobile {
+    display: none;
+  }
+
+  .kalkan-nav-desktop {
+    display: block;
+  }
+
+  .kalkan-nav-desktop ul {
+    display: flex;
     align-items: center;
+    gap: 1.05rem;
+  }
+
+  .kalkan-hero__layout {
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+    align-items: center;
+  }
+
+  .kalkan-site-footer__layout {
+    grid-template-columns: minmax(0, 1fr) auto auto;
   }
 }
