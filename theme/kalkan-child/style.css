@@ -78,3 +78,128 @@ body {
     padding-block: var(--kalkan-space-5);
   }
 }
+
+/*
+ * Homepage template styles.
+ * Scoped to .kalkan-home to avoid side effects on other pages.
+ */
+.kalkan-home {
+  background: #fff;
+}
+
+.kalkan-home .kalkan-container {
+  margin-inline: auto;
+  max-width: var(--kalkan-content-width);
+  padding-inline: var(--kalkan-space-2);
+}
+
+.kalkan-home h1,
+.kalkan-home h2,
+.kalkan-home h3 {
+  margin: 0 0 var(--kalkan-space-2);
+}
+
+.kalkan-home p {
+  color: var(--kalkan-muted-color);
+  margin: 0;
+}
+
+.kalkan-home .kalkan-section > * + * {
+  margin-top: var(--kalkan-space-2);
+}
+
+.kalkan-hero__headline {
+  font-size: clamp(1.75rem, 5.6vw, 2.75rem);
+  line-height: 1.15;
+}
+
+.kalkan-hero__body,
+.kalkan-cta__body {
+  max-width: 42rem;
+}
+
+.kalkan-hero__supporting {
+  font-size: 0.95rem;
+}
+
+.kalkan-home .kalkan-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--kalkan-space-2);
+}
+
+.kalkan-button {
+  border: 1px solid #12263f;
+  border-radius: 0.5rem;
+  color: #fff;
+  display: inline-block;
+  font-weight: 600;
+  min-height: 2.75rem;
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  background: #12263f;
+}
+
+.kalkan-button:hover,
+.kalkan-button:focus-visible {
+  background: #0f2035;
+  color: #fff;
+}
+
+.kalkan-button--secondary {
+  background: transparent;
+  color: #12263f;
+}
+
+.kalkan-button--secondary:hover,
+.kalkan-button--secondary:focus-visible {
+  background: #f5f7fa;
+  color: #12263f;
+}
+
+.kalkan-home .kalkan-list {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.kalkan-home .kalkan-list li + li {
+  margin-top: 0.65rem;
+}
+
+.kalkan-home .kalkan-grid {
+  display: grid;
+  gap: var(--kalkan-space-2);
+}
+
+.kalkan-home .kalkan-card {
+  border: 1px solid var(--kalkan-border-color);
+  border-radius: 0.75rem;
+  padding: var(--kalkan-space-2);
+}
+
+.kalkan-home .kalkan-card p {
+  margin-top: 0.5rem;
+}
+
+.kalkan-home .kalkan-inline-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--kalkan-space-2);
+  margin-top: var(--kalkan-space-2);
+}
+
+.kalkan-home .kalkan-inline-links a {
+  color: #12263f;
+  font-weight: 600;
+  text-decoration-thickness: 1px;
+}
+
+@media (min-width: 48rem) {
+  .kalkan-home .kalkan-container {
+    padding-inline: var(--kalkan-space-3);
+  }
+
+  .kalkan-home .kalkan-grid--three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
