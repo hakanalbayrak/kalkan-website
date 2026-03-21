@@ -40,3 +40,14 @@ WordPress handles page/content publishing at `kalkan.website`. This repository k
 - Mobile-first and SEO-first execution.
 - No unnecessary frameworks/build systems.
 - Markdown documents in this repo are the durable source of truth, not chat history.
+
+## GitHub Actions Deploy Secrets
+
+For SSH-based deploy workflow, configure these repository secrets:
+
+- `SSH_PRIVATE_KEY`: passphrase-protected SSH private key.
+- `SSH_PASSPHRASE`: passphrase for `SSH_PRIVATE_KEY`.
+- `SSH_HOST`: deployment server hostname or IP.
+- `SSH_PORT`: deployment SSH port (optional; defaults to `22`).
+- `SSH_USER`: deployment SSH username.
+- `SSH_KNOWN_HOSTS`: host key line(s) for strict host verification.
