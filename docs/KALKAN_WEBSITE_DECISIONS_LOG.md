@@ -29,3 +29,10 @@ This file records durable website/growth decisions.
 - Date or commit reference: 2026-03-21
 - Decision: App remains primary protection/reporting surface; website focuses on discovery/education; future web lookup may use community spam signals.
 - Rationale: Keeps product roles clear while preserving a path for future community-informed lookup capabilities.
+
+## Decision 005
+
+- Short title: Homepage V1 trust + App Store conversion structure
+- Date or commit reference: 2026-03-21
+- Decision: Adopt a seven-section homepage order (Hero, How It Works, Core Features, Communication Reporting, Trust and Privacy, App Store CTA, FAQ Preview) with simple non-technical copy and clear reporting messaging.
+- Rationale: Supports growth, trust, and App Store conversion goals while staying lightweight and easy to implement in WordPress + Blocksy.
