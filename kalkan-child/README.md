@@ -5,7 +5,7 @@ This is the controlled customization layer for `kalkan.website`.
 ## Parent Theme
 
 - Parent theme slug: `blocksy`
-- Child theme directory: `theme/kalkan-child/`
+- Child theme directory: `kalkan-child/`
 
 ## Files
 

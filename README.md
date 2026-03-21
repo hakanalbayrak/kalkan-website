@@ -30,7 +30,7 @@ WordPress handles page/content publishing at `kalkan.website`. This repository k
 
 - `docs/`: durable documentation and decisions.
 - `content/`: content assets/drafts/export-ready source material.
-- `theme/kalkan-child/`: child-theme customizations when needed.
+- `kalkan-child/`: child-theme customizations when needed.
 - `plugins/kalkan-tools/`: lightweight custom plugin logic when needed.
 
 ## Working Approach
