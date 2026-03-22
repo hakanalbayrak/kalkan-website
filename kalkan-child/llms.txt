@@ -1,0 +1,36 @@
+# Kalkan - iOS Spam Call Blocker
+
+## About
+Kalkan is a free iOS application that blocks spam calls and identifies unknown phone numbers. It protects users from unwanted calls, scams, and phone fraud. The app is especially designed to be useful for children and elderly people.
+
+## How It Works
+- Downloads a comprehensive spam number database to the user's device
+- Uses iOS Call Directory Extension for call blocking and identification
+- All protection happens offline on the device
+- Does not access user contacts or call logs
+- Regular database updates for new spam numbers
+
+## Key Features
+- Spam Protection: Automatically blocks known spam numbers
+- Caller Identification: Shows information about unknown incoming calls
+- Extra Protection: Extended pattern-based blocking for additional coverage
+- Communication Reporting: Users can report suspicious numbers
+
+## Privacy
+- No access to contacts or call history
+- All processing happens locally on device
+- Data is never sold to third parties
+- KVKK (Turkish Data Protection) compliant
+
+## Links
+- Website: https://kalkan.website
+- App Store: https://apple.co/4cYKmRG
+- Privacy Policy: https://kalkan.website/privacy-policy/
+- Contact: info@kalkan.website
+
+## Content Pages
+- Blog: https://kalkan.website/blog/
+- How to Block Spam Calls on iPhone: https://kalkan.website/spam-arama-nasil-engellenir-iphone/
+- How to Recognize Scam Numbers: https://kalkan.website/dolandirici-numaralar-nasil-anlasilir/
+- Free Number Lookup Methods: https://kalkan.website/numara-sorgulama-ucretsiz-yontemler/
+- Who Does This Number Belong To: https://kalkan.website/bu-numara-kime-ait-numara-sorgula/
