@@ -217,3 +217,45 @@ function kalkan_child_reorder_menu_items($items, $args) {
     return $items;
 }
 add_filter('wp_nav_menu_objects', 'kalkan_child_reorder_menu_items', 20, 2);
+
+/**
+ * Theme setup: title-tag, thumbnails, navigation.
+ */
+function kalkan_child_theme_setup() {
+    add_theme_support('title-tag');
+    add_theme_support('post-thumbnails');
+
+    register_nav_menus(
+        array(
+            'kalkan-header' => __('Kalkan Header Menu', 'kalkan-child'),
+            'kalkan-footer' => __('Kalkan Footer Menu', 'kalkan-child'),
+        )
+    );
+}
+add_action('after_setup_theme', 'kalkan_child_theme_setup');
+
+/**
+ * Enqueue Google Fonts: Plus Jakarta Sans + Inter.
+ */
+function kalkan_child_enqueue_google_fonts() {
+    wp_enqueue_style(
+        'kalkan-google-fonts',
+        'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap',
+        array(),
+        null
+    );
+}
+add_action('wp_enqueue_scripts', 'kalkan_child_enqueue_google_fonts', 5);
+
+/**
+ * Shortcode: [kalkan_subscribe] — placeholder for FluentCRM form.
+ * Replace the inner HTML with the actual FluentCRM shortcode when ready.
+ *
+ * @return string HTML output.
+ */
+function kalkan_subscribe_shortcode() {
+    return '<div class="kalkan-subscribe-placeholder" style="padding:1.5rem;border:1px dashed rgba(139,92,246,0.35);border-radius:0.75rem;text-align:center;color:#c4b5fd;font-size:0.95rem;">'
+        . esc_html__('Email subscription form — connect FluentCRM here.', 'kalkan-child')
+        . '</div>';
+}
+add_shortcode('kalkan_subscribe', 'kalkan_subscribe_shortcode');
