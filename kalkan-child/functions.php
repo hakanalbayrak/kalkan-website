@@ -249,7 +249,6 @@ add_action('wp_enqueue_scripts', 'kalkan_child_enqueue_google_fonts', 5);
 
 /**
  * Shortcode: [kalkan_subscribe] — placeholder for FluentCRM form.
- * Replace the inner HTML with the actual FluentCRM shortcode when ready.
  *
  * @return string HTML output.
  */
@@ -271,117 +270,54 @@ function kalkan_child_favicon() {
 add_action('wp_head', 'kalkan_child_favicon', 1);
 
 /**
- * Create/update launch blog post on theme activation or first load.
+ * Create SEO-optimized blog categories.
  */
-function kalkan_create_launch_post() {
-    $existing = get_posts(array(
-        'meta_key'       => '_kalkan_launch_post',
-        'meta_value'     => '1',
-        'post_type'      => 'post',
-        'posts_per_page' => 1,
-    ));
+function kalkan_create_categories() {
+    if (get_option('kalkan_categories_created_v2')) return;
 
-    if (!empty($existing)) {
-        return;
+    $categories = array(
+        array('name' => 'Spam Aramalar', 'slug' => 'spam-aramalar', 'desc' => 'Spam arama engelleme yöntemleri ve ipuçları'),
+        array('name' => 'Numara Sorgulama', 'slug' => 'numara-sorgulama', 'desc' => 'Bilinmeyen numara sorgulama ve arayan kimliği'),
+        array('name' => 'Güvenlik', 'slug' => 'guvenlik', 'desc' => 'Telefon güvenliği ve dolandırıcılıktan korunma'),
+        array('name' => 'Uygulama', 'slug' => 'uygulama', 'desc' => 'Kalkan uygulaması haberleri ve güncellemeleri'),
+    );
+
+    foreach ($categories as $cat) {
+        if (!term_exists($cat['slug'], 'category')) {
+            wp_insert_term($cat['name'], 'category', array(
+                'slug' => $cat['slug'],
+                'description' => $cat['desc'],
+            ));
+        }
     }
 
-    // Delete Hello World post if it exists.
-    $hello = get_page_by_path('hello-world', OBJECT, 'post');
-    if ($hello) {
-        wp_delete_post($hello->ID, true);
+    $uncategorized = get_cat_ID('Uncategorized');
+    if ($uncategorized) {
+        wp_delete_category($uncategorized);
     }
 
-    $content_tr = '<p>Kalkan, iOS kullanıcıları için geliştirilmiş bir spam arama engelleyici ve arayan kimliği uygulamasıdır. Amacımız, sizi istenmeyen ve şüpheli aramalardan korumaktır.</p>
-
-<h2>Kalkan Neden Oluşturuldu?</h2>
-
-<p>Günümüzde spam aramalar ciddi bir sorun haline geldi. Dolandırıcılık girişimleri, istenmeyen satış aramaları ve rahatsız edici numaralar günlük hayatımızı olumsuz etkiliyor. Özellikle çocuklar ve yaşlılar bu tür aramalara karşı daha savunmasız durumdadır.</p>
-
-<p>Kalkan, bu soruna pratik ve güvenilir bir çözüm sunmak için geliştirildi.</p>
-
-<h2>Kalkan Ne İşe Yarar?</h2>
-
-<p>Kalkan, bilinen spam numaraları otomatik olarak engeller ve bilinmeyen numaralar hakkında bilgi gösterir. Böylece telefonu açmadan önce kimin aradığını görebilirsiniz.</p>
-
-<p>Uygulama özellikle şu gruplar için çok faydalıdır:</p>
-
-<ul>
-<li><strong>Çocuklar</strong> — Bilinmeyen veya şüpheli numaralardan gelen aramalara karşı koruma sağlar</li>
-<li><strong>Yaşlılar</strong> — Dolandırıcılık aramalarını tanımlayarak güvenli bir arama deneyimi sunar</li>
-<li><strong>Herkes</strong> — Spam aramaların yarattığı rahatsızlığı en aza indirir</li>
-</ul>
-
-<h2>Temel Özellikler</h2>
-
-<ul>
-<li><strong>Spam Koruması</strong> — Bilinen spam numaralar otomatik olarak engellenir</li>
-<li><strong>Arayan Kimliği</strong> — Bilinmeyen numaralar hakkında bilgi görüntüler</li>
-<li><strong>Ekstra Koruma</strong> — Genişletilmiş numara kalıplarını engelleyen gelişmiş koruma</li>
-<li><strong>İletişim Bildirimi</strong> — Şüpheli numaraları kolayca bildirin</li>
-</ul>
-
-<h2>Gizlilik Önceliğimizdir</h2>
-
-<p>Kalkan, rehberinize veya arama geçmişinize erişmez. Tüm arama koruma işlemleri cihazınızda yerel olarak gerçekleşir. Verileriniz üçüncü taraflara satılmaz.</p>
-
-<h2>Hemen İndirin</h2>
-
-<p>Kalkan şu anda App Store\'da ücretsiz olarak mevcuttur. Hemen indirerek kendinizi ve sevdiklerinizi spam aramalardan koruyun.</p>';
-
-    $post_id = wp_insert_post(array(
-        'post_title'   => 'Kalkan Uygulaması Yayında',
-        'post_content' => $content_tr,
-        'post_status'  => 'publish',
-        'post_type'    => 'post',
-        'post_name'    => 'kalkan-uygulamasi-yayinda',
-    ));
-
-    if ($post_id && !is_wp_error($post_id)) {
-        update_post_meta($post_id, '_kalkan_launch_post', '1');
-
-        $content_en = '<p>Kalkan is a spam call blocker and caller identification app developed for iOS users. Our goal is to protect you from unwanted and suspicious calls.</p>
-
-<h2>Why Was Kalkan Created?</h2>
-
-<p>Spam calls have become a serious problem today. Fraud attempts, unwanted sales calls, and harassing numbers negatively affect our daily lives. Children and elderly people are especially vulnerable to these types of calls.</p>
-
-<p>Kalkan was developed to provide a practical and reliable solution to this problem.</p>
-
-<h2>What Does Kalkan Do?</h2>
-
-<p>Kalkan automatically blocks known spam numbers and shows information about unknown numbers. This way, you can see who is calling before answering the phone.</p>
-
-<p>The app is especially useful for:</p>
-
-<ul>
-<li><strong>Children</strong> — Provides protection against calls from unknown or suspicious numbers</li>
-<li><strong>Elderly People</strong> — Identifies fraud calls and offers a safe calling experience</li>
-<li><strong>Everyone</strong> — Minimizes the disturbance caused by spam calls</li>
-</ul>
-
-<h2>Key Features</h2>
-
-<ul>
-<li><strong>Spam Protection</strong> — Known spam numbers are automatically blocked</li>
-<li><strong>Caller Identification</strong> — Shows information about unknown numbers</li>
-<li><strong>Extra Protection</strong> — Advanced protection that blocks extended number patterns</li>
-<li><strong>Communication Reporting</strong> — Easily report suspicious numbers</li>
-</ul>
-
-<h2>Privacy Is Our Priority</h2>
-
-<p>Kalkan does not access your contacts or call history. All call protection happens locally on your device. Your data is never sold to third parties.</p>
-
-<h2>Download Now</h2>
-
-<p>Kalkan is currently available for free on the App Store. Download now and protect yourself and your loved ones from spam calls.</p>';
-
-        update_post_meta($post_id, '_kalkan_content_en', $content_en);
-        update_post_meta($post_id, '_kalkan_title_en', 'Kalkan Is Ready to Use');
-    }
+    update_option('kalkan_categories_created_v2', true);
 }
-add_action('after_switch_theme', 'kalkan_create_launch_post');
-add_action('init', 'kalkan_create_launch_post');
+add_action('init', 'kalkan_create_categories', 5);
+
+/**
+ * Set default OG image for SEOPress if none is set.
+ */
+add_filter('seopress_social_og_thumb', 'kalkan_default_og_image');
+function kalkan_default_og_image($og_image) {
+    if (empty($og_image)) {
+        return get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png';
+    }
+    return $og_image;
+}
+
+add_filter('seopress_social_twitter_card_thumb', 'kalkan_default_twitter_image');
+function kalkan_default_twitter_image($image) {
+    if (empty($image)) {
+        return get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png';
+    }
+    return $image;
+}
 
 /**
  * Get Polylang-aware URL for internal pages.
@@ -446,367 +382,395 @@ function kalkan_add_structured_data() {
 }
 
 /**
- * Update draft blog posts with SEO-optimized content and publish them.
+ * SEO-Optimized Blog Posts — Full Rewrite.
+ * Following strict SEOPress rules:
+ * - Target keyword in Title, H2, meta desc, slug
+ * - Internal links in every post (2-3 per post)
+ * - 1 category per post
+ * - Short slugs with keyword
+ * - Focus keyword set
  */
-function kalkan_publish_blog_posts() {
-    if (get_option('kalkan_blog_posts_published_v2')) return;
+function kalkan_seo_optimized_posts() {
+    if (get_option('kalkan_seo_posts_v3')) return;
+
+    $cat_spam = get_cat_ID('Spam Aramalar');
+    $cat_numara = get_cat_ID('Numara Sorgulama');
+    $cat_guvenlik = get_cat_ID('Güvenlik');
+    $cat_uygulama = get_cat_ID('Uygulama');
+
+    if (!$cat_spam) return;
+
+    $home = home_url('/');
 
     $posts_data = array(
+        // POST 1: Spam arama engelleme
         array(
-            'find_title' => 'Sürekli arayan numaralar nasıl engellenir',
-            'slug' => 'surekli-arayan-numaralar-nasil-engellenir',
-            'seo_title' => 'Sürekli Arayan Numaralar Nasıl Engellenir? [2026 Rehber]',
-            'seo_desc' => 'Sürekli arayan rahatsız edici numaraları iPhone\'da engellemenin en kolay yolları. Kalkan uygulaması ile otomatik spam engelleme.',
-            'en_title' => 'How to Block Numbers That Keep Calling You',
-            'content_tr' => '<p>Sürekli arayan numaralar günlük hayatınızı ciddi şekilde etkileyebilir. İster bir telefoncu olsun, ister dolandırıcı — tekrar tekrar arayan numaraları engellemek herkesin hakkıdır.</p>
+            'title' => 'iPhone\'da Spam Arama Nasıl Engellenir?',
+            'slug' => 'spam-arama-engelleme',
+            'category' => $cat_spam,
+            'focus_keyword' => 'spam arama engelleme',
+            'seo_title' => 'Spam Arama Engelleme – Kalkan',
+            'seo_desc' => 'iPhone\'da spam aramaları engellemenin en etkili yolları. Kalkan uygulaması ile otomatik spam engelleme ve arayan kimliği.',
+            'en_title' => 'How to Block Spam Calls on iPhone',
+            'content_tr' => '<p>Spam arama engelleme, günümüzde iPhone kullanıcılarının en çok ihtiyaç duyduğu özelliklerden biridir. Dolandırıcılık aramaları, istenmeyen satış telefonları ve rahatsız edici numaralar günlük hayatı olumsuz etkiler.</p>
 
-<h2>Sürekli Arayan Numarayı Engellemenin 3 Yolu</h2>
+<h2>iPhone\'da Spam Arama Engelleme Yöntemleri</h2>
 
-<h3>1. iPhone Ayarlarından Manuel Engelleme</h3>
-<p>Telefon uygulamasını açın, Son Aramalar listesinde rahatsız edici numaranın yanındaki (i) simgesine dokunun. En altta "Bu Arayanı Engelle" seçeneğini bulacaksınız. Bu yöntem tek tek numaralar için işe yarar, ancak farklı numaralardan gelen spam aramaları engelleyemez.</p>
+<p>iOS, spam aramaları engellemek için yerleşik özellikler sunar. Ancak en kapsamlı koruma için <a href="' . $home . '">Kalkan uygulamasını</a> kullanmanızı öneriyoruz.</p>
 
-<h3>2. Kalkan Uygulaması ile Otomatik Engelleme</h3>
-<p>Kalkan uygulaması, bilinen spam numaraların kapsamlı bir veritabanını cihazınıza yükler. Bu sayede daha önce hiç aramayan bir spam numara bile otomatik olarak engellenir veya işaretlenir. Veritabanı düzenli olarak güncellenir ve koruma internet bağlantısı gerektirmeden çalışır.</p>
+<h3>1. Kalkan ile Otomatik Spam Arama Engelleme</h3>
+<p>Kalkan, iOS\'un Arama Engelleme ve Kimliklendirme sistemi ile entegre çalışır. Binlerce bilinen spam numarayı içeren veritabanını cihazınıza yükler. Koruma tamamen çevrimdışı çalışır — internet gerekmez.</p>
 
-<h3>3. Rahatsız Etmeyin Modu</h3>
-<p>Ayarlar > Odaklanma > Rahatsız Etmeyin bölümünden sadece rehberinizdeki kişilerin sizi aramasına izin verebilirsiniz. Ancak bu yöntem tanımadığınız ama önemli olabilecek aramaları da engeller.</p>
+<p>Kurulum:</p>
+<ol>
+<li>App Store\'dan <a href="https://apple.co/4cYKmRG">Kalkan\'ı indirin</a></li>
+<li>Uygulamayı açın ve talimatları takip edin</li>
+<li>Ayarlar → Telefon → Arama Engelleme ve Kimliklendirme → Kalkan\'ı etkinleştirin</li>
+</ol>
 
-<h2>En Etkili Yöntem Hangisi?</h2>
-<p>Manuel engelleme tek tek numaralar için, Rahatsız Etmeyin modu geçici durumlar için uygundur. Ancak sürekli farklı numaralardan gelen spam aramalar için en etkili çözüm Kalkan gibi bir spam engelleyici uygulamadır. Kalkan, binlerce bilinen spam numarayı otomatik olarak tanır ve engeller.</p>
+<h3>2. iOS Bilinmeyen Arayanları Susturma</h3>
+<p>Ayarlar → Telefon → Bilinmeyen Arayanları Sustur seçeneği rehberinizde olmayan tüm numaraları sessize alır. Ancak önemli aramaları da kaçırabilirsiniz.</p>
+
+<h3>3. Manuel Numara Engelleme</h3>
+<p>Telefon uygulamasında numaranın yanındaki (i) simgesine dokunup "Bu Arayanı Engelle" seçeneğini kullanabilirsiniz.</p>
+
+<h2>Spam Arama Engelleme İçin En Etkili Yöntem</h2>
+
+<p>Manuel engelleme tek tek numaralar için çalışır ama sürekli farklı numaralardan gelen spam aramalar için yetersizdir. Kalkan gibi veritabanı tabanlı bir uygulama tüm bilinen spam numaraları otomatik olarak engeller.</p>
+
+<p>Özellikle <a href="' . $home . 'dolandirici-numara-tanima/">dolandırıcı numaraları tanımak</a> ve çocukları korumak için Kalkan idealdir.</p>
 
 <h2>Sıkça Sorulan Sorular</h2>
 
-<h3>Engellediğim numara beni tekrar arayabilir mi?</h3>
-<p>iPhone\'da engellediğiniz numara sizi arayamaz. Ancak aynı kişi farklı bir numaradan arayabilir. Bu nedenle Kalkan gibi veritabanı tabanlı bir uygulama daha kapsamlı koruma sağlar.</p>
+<h3>Spam arama engelleme ücretsiz mi?</h3>
+<p>Evet. Kalkan\'ın genel koruma ve arayan kimliği özellikleri tamamen ücretsizdir.</p>
 
-<h3>Kalkan uygulaması internet olmadan çalışır mı?</h3>
-<p>Evet. Kalkan spam numara veritabanını cihazınıza indirir ve tüm koruma işlemleri çevrimdışı olarak gerçekleşir.</p>
+<h3>Spam arama engelleme pil tüketir mi?</h3>
+<p>Hayır. Kalkan veritabanını cihaza indirdiği için arka planda sürekli çalışmaz.</p>
 
-<h3>Engelleme çocuklar için de çalışır mı?</h3>
-<p>Evet. Kalkan özellikle çocukları ve yaşlıları istenmeyen aramalardan korumak için idealdir. Kurulumu yapıldıktan sonra otomatik olarak çalışır.</p>',
-            'content_en' => '<p>Numbers that keep calling you can seriously disrupt your daily life. Whether it is a telemarketer or a scammer, you have every right to block numbers that call you repeatedly.</p>
+<h3>Engellenen numara mesaj gönderebilir mi?</h3>
+<p>Kalkan\'ın engelleme sistemi aramalar için çalışır. SMS filtreleme ayrı bir iOS özelliğidir. <a href="' . $home . 'bilinmeyen-numara-kimin/">Bilinmeyen numaraları sorgulama</a> hakkında daha fazla bilgi edinin.</p>',
+            'content_en' => '<p>Blocking spam calls is one of the most needed features for iPhone users today. Scam calls, unwanted sales calls, and harassing numbers negatively affect daily life.</p>
 
-<h2>3 Ways to Block Persistent Callers</h2>
+<h2>How to Block Spam Calls on iPhone</h2>
 
-<h3>1. Manual Blocking via iPhone Settings</h3>
-<p>Open the Phone app, tap the (i) icon next to the annoying number in Recent Calls. Scroll down to find "Block this Caller." This works for individual numbers but cannot stop spam calls coming from different numbers.</p>
+<p>iOS offers built-in features for spam call blocking. However, for the most comprehensive protection, we recommend using <a href="' . $home . '">Kalkan app</a>.</p>
 
-<h3>2. Automatic Blocking with Kalkan App</h3>
-<p>Kalkan loads a comprehensive database of known spam numbers to your device. This means even a spam number that has never called you before gets automatically blocked or flagged. The database is regularly updated and protection works without internet.</p>
+<h3>1. Automatic Spam Blocking with Kalkan</h3>
+<p>Kalkan integrates with iOS Call Blocking and Identification system. It loads a database of thousands of known spam numbers to your device. Protection works completely offline.</p>
 
-<h3>3. Do Not Disturb Mode</h3>
-<p>Go to Settings > Focus > Do Not Disturb to allow calls only from your contacts. However, this method also blocks unknown but potentially important calls.</p>
+<h3>2. Silence Unknown Callers</h3>
+<p>Settings → Phone → Silence Unknown Callers silences all numbers not in your contacts, but may cause you to miss important calls.</p>
 
-<h2>Which Method Works Best?</h2>
-<p>Manual blocking works for individual numbers, Do Not Disturb is good for temporary situations. But for persistent spam calls from different numbers, the most effective solution is a spam blocker app like Kalkan that automatically recognizes and blocks thousands of known spam numbers.</p>',
+<h3>3. Manual Blocking</h3>
+<p>Tap (i) next to a number in Phone app and select "Block this Caller."</p>
+
+<h2>Most Effective Spam Blocking Method</h2>
+<p>Manual blocking works for individual numbers but is insufficient for spam from constantly changing numbers. A database-based app like Kalkan automatically blocks all known spam numbers.</p>',
         ),
+
+        // POST 2: Numara sorgulama
         array(
-            'find_title' => 'Numara sorgulama ücretsiz yöntemler',
-            'slug' => 'numara-sorgulama-ucretsiz-yontemler',
-            'seo_title' => 'Numara Sorgulama Ücretsiz Yöntemler [2026]',
+            'title' => 'Numara Sorgulama – Ücretsiz Yöntemler',
+            'slug' => 'numara-sorgulama',
+            'category' => $cat_numara,
+            'focus_keyword' => 'numara sorgulama',
+            'seo_title' => 'Numara Sorgulama – Kalkan',
             'seo_desc' => 'Bilinmeyen numarayı ücretsiz sorgulama yöntemleri. Google, Kalkan uygulaması ve diğer araçlarla numara kime ait öğrenin.',
-            'en_title' => 'Free Number Lookup Methods',
-            'content_tr' => '<p>Telefonunuza gelen bilinmeyen bir numaranın kime ait olduğunu öğrenmek istiyorsanız, bunu ücretsiz olarak yapmanın birkaç yolu vardır.</p>
+            'en_title' => 'Number Lookup – Free Methods',
+            'content_tr' => '<p>Numara sorgulama, bilinmeyen bir numaranın kime ait olduğunu öğrenmenin en hızlı yoludur. Telefonunuza gelen tanımadığınız aramaları sorgulamak için birkaç ücretsiz yöntem bulunmaktadır.</p>
 
 <h2>Ücretsiz Numara Sorgulama Yöntemleri</h2>
 
-<h3>1. Google ile Arama</h3>
-<p>En basit yöntem numarayı Google\'a yazmaktır. Eğer numara bir işletmeye veya bilinen bir spam kaynağına aitse, genellikle sonuçlarda görüntülenir. Numarayı başına +90 ekleyerek veya boşluksuz yazarak arayın.</p>
+<h3>1. Kalkan ile Otomatik Numara Sorgulama</h3>
+<p><a href="' . $home . '">Kalkan uygulaması</a> gelen aramalarda otomatik olarak numara hakkında bilgi gösterir. Numara spam veritabanında varsa "Spam" olarak işaretlenir. Uygulama ücretsiz ve çevrimdışı çalışır.</p>
 
-<h3>2. Kalkan Uygulaması</h3>
-<p>Kalkan uygulaması gelen aramalarda bilinmeyen numaralar hakkında bilgi gösterir. Arayan kimliği özelliği sayesinde telefonu açmadan önce numaranın spam olup olmadığını görebilirsiniz. Uygulama ücretsizdir ve çevrimdışı çalışır.</p>
+<h3>2. Google ile Numara Sorgulama</h3>
+<p>Numarayı Google\'a yazın. İşletme numaraları genellikle sonuçlarda görünür. Tırnak içinde aratmak ("05XX XXX XX XX") daha kesin sonuçlar verir.</p>
 
 <h3>3. Şikayet Siteleri</h3>
-<p>sikayetvar.com gibi platformlarda numarayı aratarak başkalarının o numara hakkında yazdıklarını okuyabilirsiniz. Bu özellikle dolandırıcılık numaraları için faydalıdır.</p>
+<p>sikayetvar.com gibi platformlarda numarayı aratarak başkalarının deneyimlerini okuyabilirsiniz. Özellikle <a href="' . $home . 'dolandirici-numara-tanima/">dolandırıcı numaraları</a> tanımak için faydalıdır.</p>
 
-<h3>4. Sosyal Medya Arama</h3>
-<p>Numarayı Facebook veya Instagram arama çubuğuna yazarak numara sahibinin profilini bulabilirsiniz. Ancak bu yöntem sadece numarasını profiline eklemiş kişiler için çalışır.</p>
+<h2>Numara Sorgulama İçin En İyi Araç</h2>
 
-<h2>Hangi Yöntemi Kullanmalısınız?</h2>
-<p>Tek seferlik sorgular için Google yeterlidir. Ancak sürekli bilinmeyen numaralardan aranıyorsanız, Kalkan gibi bir uygulama otomatik olarak arayan kimliği gösterir ve sizi spam aramalardan korur.</p>
+<p>Tek seferlik sorgular için Google yeterlidir. Ancak sürekli bilinmeyen numaralardan aranıyorsanız, Kalkan arayan kimliği özelliği ile aramaları otomatik olarak tanımlar.</p>
 
 <h2>Sıkça Sorulan Sorular</h2>
 
 <h3>Numara sorgulama ücretsiz mi?</h3>
-<p>Evet. Google araması, şikayet siteleri ve Kalkan uygulamasının arayan kimliği özelliği tamamen ücretsizdir.</p>
+<p>Evet. Google araması ve Kalkan uygulamasının arayan kimliği özelliği tamamen ücretsizdir.</p>
 
 <h3>Gizli numarayı sorgulayabilir miyim?</h3>
-<p>Hayır. Gizli numara (numara gizleme) ile arayan kişinin numarası görünmediği için sorgulama yapılamaz.</p>',
-            'content_en' => '<p>If you want to find out who an unknown number belongs to, there are several free methods available.</p>
+<p>Hayır. Numarasını gizleyerek arayan kişinin numarası görünmediği için sorgulama yapılamaz. <a href="' . $home . 'spam-arama-engelleme/">Spam aramaları engelleme</a> yöntemlerini inceleyebilirsiniz.</p>',
+            'content_en' => '<p>Number lookup is the fastest way to find out who an unknown number belongs to. There are several free methods to look up unfamiliar calls.</p>
 
 <h2>Free Number Lookup Methods</h2>
 
-<h3>1. Google Search</h3>
-<p>The simplest method is typing the number into Google. If the number belongs to a business or known spam source, it usually appears in results.</p>
-
-<h3>2. Kalkan App</h3>
-<p>Kalkan shows information about unknown numbers on incoming calls. The caller identification feature lets you see if a number is spam before answering. The app is free and works offline.</p>
-
-<h3>3. Complaint Websites</h3>
-<p>Search the number on complaint platforms to read what others have reported about that number. This is especially useful for fraud numbers.</p>
-
-<h3>4. Social Media Search</h3>
-<p>Search the number on Facebook or Instagram to find the owner\'s profile. This only works if they have added their number to their profile.</p>',
-        ),
-        array(
-            'find_title' => 'Dolandırıcı numaralar nasıl anlaşılır',
-            'slug' => 'dolandirici-numaralar-nasil-anlasilir',
-            'seo_title' => 'Dolandırıcı Numaralar Nasıl Anlaşılır? Dikkat Edilmesi Gerekenler',
-            'seo_desc' => 'Telefon dolandırıcılığı numaralarını tanımanın yolları. Dolandırıcıların kullandığı yaygın yöntemler ve korunma ipuçları.',
-            'en_title' => 'How to Recognize Scam Phone Numbers',
-            'content_tr' => '<p>Telefon dolandırıcılığı Türkiye\'de giderek artan ciddi bir sorundur. Dolandırıcılar genellikle banka, kargo şirketi veya resmi kurum gibi davranarak kişisel bilgilerinizi ele geçirmeye çalışır.</p>
-
-<h2>Dolandırıcı Numaraların Belirtileri</h2>
-
-<h3>1. Aciliyet Yaratma</h3>
-<p>"Hesabınız kapatılacak", "Son 10 dakikanız var" gibi panik yaratan ifadeler dolandırıcılığın en yaygın işaretidir. Gerçek kurumlar sizi telefonla arayıp acil işlem yapmanızı istemez.</p>
-
-<h3>2. Kişisel Bilgi İsteme</h3>
-<p>TC kimlik numarası, banka kartı bilgileri, şifre veya SMS doğrulama kodu isteyen aramalar kesinlikle dolandırıcılıktır. Hiçbir banka veya resmi kurum bu bilgileri telefonla istemez.</p>
-
-<h3>3. Bilinmeyen veya Garip Numaralar</h3>
-<p>+1, +44 gibi yabancı alan kodları ile gelen aramalar, çok kısa süren ve geri aramanızı bekleyen aramalar (wangiri dolandırıcılığı) veya ardışık numaralardan gelen aramalar şüphelidir.</p>
-
-<h3>4. Ödül veya Kazanç Vaadi</h3>
-<p>"Çekilişimizi kazandınız", "Size kredi onaylandı" gibi beklemediğiniz teklifler genellikle dolandırıcılıktır.</p>
-
-<h2>Kendinizi Nasıl Korursunuz?</h2>
-
-<ul>
-<li><strong>Bilinmeyen numaralardan gelen aramalarda kişisel bilgi paylaşmayın</strong></li>
-<li><strong>Şüpheli numarayı Google\'da aratın</strong></li>
-<li><strong>Kalkan uygulamasını kullanın</strong> — bilinen dolandırıcı numaraları otomatik olarak işaretler</li>
-<li><strong>Geri aramayın</strong> — özellikle yabancı numaraları</li>
-<li><strong>Yaşlı aile üyelerinizi bilgilendirin</strong> — dolandırıcılar özellikle yaşlıları hedef alır</li>
-</ul>
-
-<h2>Sıkça Sorulan Sorular</h2>
-
-<h3>Dolandırıcı aramayı açarsam ne olur?</h3>
-<p>Aramayı açmak tek başına tehlikeli değildir. Tehlike, kişisel bilgilerinizi paylaşmanız veya yönlendirdikleri linklere tıklamanız durumunda başlar.</p>
-
-<h3>Dolandırıcı numarayı nereye şikayet edebilirim?</h3>
-<p>BTK (Bilgi Teknolojileri ve İletişim Kurumu) ihbar hattı 137\'yi arayabilir veya Kalkan uygulaması üzerinden numarayı bildirebilirsiniz.</p>',
-            'content_en' => '<p>Phone scams are a growing problem. Scammers typically pretend to be banks, delivery companies, or government agencies to steal your personal information.</p>
-
-<h2>Signs of a Scam Call</h2>
-
-<h3>1. Creating Urgency</h3>
-<p>Phrases like "Your account will be closed" or "You have 10 minutes" are the most common signs of fraud. Real institutions do not call you demanding urgent action.</p>
-
-<h3>2. Requesting Personal Information</h3>
-<p>Calls asking for ID numbers, bank card details, passwords, or SMS verification codes are always scams. No bank or official institution requests this information by phone.</p>
-
-<h3>3. Unknown or Strange Numbers</h3>
-<p>Calls from foreign area codes, very short calls expecting you to call back (wangiri fraud), or calls from sequential numbers are suspicious.</p>
-
-<h3>4. Prize or Profit Promises</h3>
-<p>Unexpected offers like "You won our raffle" or "A loan has been approved for you" are typically scams.</p>
-
-<h2>How to Protect Yourself</h2>
-<ul>
-<li>Never share personal information on calls from unknown numbers</li>
-<li>Search suspicious numbers on Google</li>
-<li>Use Kalkan app — it automatically flags known scam numbers</li>
-<li>Do not call back — especially foreign numbers</li>
-<li>Inform elderly family members — scammers especially target the elderly</li>
-</ul>',
-        ),
-        array(
-            'find_title' => 'Bu numara kime ait? Numara Sorgula',
-            'slug' => 'bu-numara-kime-ait-numara-sorgula',
-            'seo_title' => 'Bu Numara Kime Ait? Numara Sorgulama Rehberi [2026]',
-            'seo_desc' => 'Bilinmeyen numara kime ait öğrenmenin en kolay yolları. Ücretsiz numara sorgulama araçları ve Kalkan uygulaması ile arayan kimliği.',
-            'en_title' => 'Who Does This Number Belong To? Number Lookup Guide',
-            'content_tr' => '<p>"Bu numara kime ait?" sorusu Türkiye\'de en çok aranan sorulardan biridir. Cevapsız bir arama, bilinmeyen bir numara veya şüpheli bir mesaj aldığınızda numaranın sahibini öğrenmek istemeniz doğaldır.</p>
-
-<h2>Numara Kime Ait Nasıl Öğrenilir?</h2>
-
-<h3>1. Kalkan Uygulaması ile Arayan Kimliği</h3>
-<p>Kalkan uygulamasını iPhone\'unuza kurduğunuzda, gelen aramalarda otomatik olarak numara hakkında bilgi görürsünüz. Numara spam veritabanında varsa "Spam" veya "Dolandırıcı" olarak işaretlenir. Bu sayede telefonu açmadan kimin aradığını anlayabilirsiniz.</p>
-
-<h3>2. Google Araması</h3>
-<p>Numarayı olduğu gibi Google\'a yazın. İşletme numaralarının çoğu Google sonuçlarında görünür. Numarayı tırnak işareti içinde aratmak ("05XX XXX XX XX") daha kesin sonuçlar verir.</p>
-
-<h3>3. Şikayet ve Forum Siteleri</h3>
-<p>Türkiye\'de sikayetvar.com ve benzeri platformlarda numara aratarak başkalarının deneyimlerini okuyabilirsiniz. Özellikle spam ve dolandırıcılık numaraları hakkında detaylı bilgi bulabilirsiniz.</p>
-
-<h3>4. Operatör Müşteri Hizmetleri</h3>
-<p>Rahatsız edici aramalar alıyorsanız, kendi operatörünüzün müşteri hizmetlerini arayarak numara engelleme talebinde bulunabilirsiniz.</p>
-
-<h2>Sıkça Sorulan Sorular</h2>
-
-<h3>Kalkan numaranın kime ait olduğunu gösterir mi?</h3>
-<p>Kalkan, numaranın spam veya dolandırıcı olarak tanınıp tanınmadığını gösterir. Kişisel rehber bilgilerine erişmez — gizliliğinize saygı duyar.</p>
-
-<h3>+90 ile başlayan numara nereden arıyor?</h3>
-<p>+90 Türkiye\'nin ülke kodudur. Yurt içinden yapılan aramalar +90 ile başlar.</p>
-
-<h3>Bilinmeyen numarayı geri aramalı mıyım?</h3>
-<p>Tanımadığınız numaraları geri aramamanız önerilir. Özellikle yabancı alan kodlu numaraları geri aramak yüksek ücretlere neden olabilir.</p>',
-            'content_en' => '<p>"Who does this number belong to?" is one of the most commonly asked questions. When you receive a missed call or message from an unknown number, wanting to know who it belongs to is natural.</p>
-
-<h2>How to Find Out Who a Number Belongs To</h2>
-
-<h3>1. Kalkan App Caller ID</h3>
-<p>When you install Kalkan on your iPhone, incoming calls automatically show information about the number. If the number is in the spam database, it gets flagged. You can tell who is calling before answering.</p>
+<h3>1. Automatic Lookup with Kalkan</h3>
+<p><a href="' . $home . '">Kalkan app</a> automatically shows information about incoming calls. If the number is in the spam database, it gets flagged. Free and works offline.</p>
 
 <h3>2. Google Search</h3>
-<p>Type the number directly into Google. Most business numbers appear in search results.</p>
+<p>Type the number into Google. Business numbers usually appear in results.</p>
 
-<h3>3. Complaint and Forum Sites</h3>
-<p>Search the number on complaint platforms to read about others\' experiences, especially for spam and fraud numbers.</p>
+<h3>3. Complaint Websites</h3>
+<p>Search the number on complaint platforms to read others\' experiences.</p>
 
-<h3>4. Carrier Customer Service</h3>
-<p>If you receive harassing calls, contact your carrier\'s customer service to request number blocking.</p>',
+<h2>Best Tool for Number Lookup</h2>
+<p>For one-time lookups, Google works. For ongoing unknown calls, Kalkan automatically identifies them with its caller ID feature.</p>',
         ),
+
+        // POST 3: Dolandırıcı numara tanıma
         array(
-            'find_title' => 'Spam arama nasıl engellenir iPhone',
-            'slug' => 'spam-arama-nasil-engellenir-iphone',
-            'seo_title' => 'iPhone\'da Spam Arama Nasıl Engellenir? [Adım Adım Rehber]',
-            'seo_desc' => 'iPhone\'da spam aramaları engellemenin en etkili yolları. iOS arama engelleme ayarları ve Kalkan uygulaması ile tam koruma.',
-            'en_title' => 'How to Block Spam Calls on iPhone',
-            'content_tr' => '<p>iPhone\'da spam aramaları engellemek için birkaç farklı yöntem bulunmaktadır. iOS\'un yerleşik özellikleri temel koruma sağlarken, Kalkan gibi uygulamalar kapsamlı spam engelleme sunar.</p>
+            'title' => 'Dolandırıcı Numaraları Nasıl Tanırsınız?',
+            'slug' => 'dolandirici-numara-tanima',
+            'category' => $cat_guvenlik,
+            'focus_keyword' => 'dolandırıcı numara',
+            'seo_title' => 'Dolandırıcı Numara Tanıma – Kalkan',
+            'seo_desc' => 'Telefon dolandırıcılığı numaralarını tanımanın yolları. Dolandırıcıların yaygın yöntemleri ve Kalkan ile korunma ipuçları.',
+            'en_title' => 'How to Recognize Scam Phone Numbers',
+            'content_tr' => '<p>Dolandırıcı numara tanıma, kendinizi ve ailenizi telefon dolandırıcılığından korumanın ilk adımıdır. Türkiye\'de telefon dolandırıcılığı ciddi bir sorun haline gelmiştir.</p>
 
-<h2>iPhone\'da Spam Engelleme Yöntemleri</h2>
+<h2>Dolandırıcı Numara Belirtileri</h2>
 
-<h3>1. Kalkan Uygulamasını Kurun (Önerilen)</h3>
-<p>Kalkan, iOS\'un Arama Engelleme ve Kimliklendirme özelliği ile entegre çalışır. Kurulum adımları:</p>
-<ol>
-<li>App Store\'dan Kalkan\'ı indirin</li>
-<li>Uygulamayı açın ve kurulum adımlarını takip edin</li>
-<li>Ayarlar > Telefon > Arama Engelleme ve Kimliklendirme bölümünde Kalkan\'ı etkinleştirin</li>
-<li>Uygulama spam veritabanını otomatik olarak yükleyecektir</li>
-</ol>
-<p>Bu işlemden sonra bilinen spam numaralar otomatik olarak engellenir veya işaretlenir. İnternet bağlantısı gerekmez.</p>
+<h3>1. Aciliyet Yaratma</h3>
+<p>"Hesabınız kapatılacak", "Son dakika" gibi panik ifadeleri dolandırıcılığın en yaygın işaretidir. Gerçek kurumlar sizi telefonla arayıp acil işlem yapmanızı istemez.</p>
 
-<h3>2. iOS Sessiz Bilinmeyen Arayanlar Özelliği</h3>
-<p>Ayarlar > Telefon > Bilinmeyen Arayanları Sustur seçeneğini açın. Bu özellik rehberinizde olmayan tüm numaraları sessize alır. Ancak önemli aramaları da kaçırabilirsiniz.</p>
+<h3>2. Kişisel Bilgi İsteme</h3>
+<p>TC kimlik, banka kartı bilgileri veya SMS kodu isteyen aramalar kesinlikle dolandırıcılıktır. Hiçbir banka bu bilgileri telefonla istemez.</p>
 
-<h3>3. Manuel Numara Engelleme</h3>
-<p>Telefon uygulamasında Son Aramalar listesinden numaranın yanındaki (i) simgesine dokunun ve "Bu Arayanı Engelle" seçeneğini kullanın.</p>
+<h3>3. Yabancı veya Garip Numaralar</h3>
+<p>+1, +44 gibi yabancı kodlarla gelen aramalar, çok kısa süren aramalar (wangiri dolandırıcılığı) şüphelidir.</p>
 
-<h3>4. Operatör Spam Filtreleme</h3>
-<p>Bazı Türk operatörleri (Turkcell, Vodafone, Türk Telekom) spam filtreleme hizmetleri sunar. Operatörünüzün müşteri hizmetlerinden bu hizmeti aktif edebilirsiniz.</p>
-
-<h2>En Etkili Yöntem: Kalkan + iOS Özellikleri</h2>
-<p>En kapsamlı koruma için Kalkan uygulamasını kurup iOS\'un "Bilinmeyen Arayanları Sustur" özelliğini birlikte kullanmanızı öneriyoruz. Kalkan bilinen spam numaraları engellerken, iOS özelliği ek bir güvenlik katmanı sağlar.</p>
-
-<h2>Sıkça Sorulan Sorular</h2>
-
-<h3>Kalkan uygulaması ücretsiz mi?</h3>
-<p>Evet. Genel koruma ve arayan kimliği özellikleri tamamen ücretsizdir. Ekstra Koruma özelliği de şu anda ücretsiz olarak sunulmaktadır.</p>
-
-<h3>Spam engelleme pil tüketir mi?</h3>
-<p>Hayır. Kalkan spam veritabanını cihaza indirdiği için arka planda sürekli çalışmaz ve pil tüketimi yapmaz.</p>
-
-<h3>Engellenen numaralar mesaj gönderebilir mi?</h3>
-<p>Kalkan\'ın engelleme sistemi aramalar için çalışır. SMS filtreleme ayrı bir iOS özelliğidir.</p>',
-            'content_en' => '<p>There are several methods to block spam calls on iPhone. While iOS built-in features provide basic protection, apps like Kalkan offer comprehensive spam blocking.</p>
-
-<h2>Spam Blocking Methods for iPhone</h2>
-
-<h3>1. Install Kalkan App (Recommended)</h3>
-<p>Kalkan integrates with iOS Call Blocking and Identification. Setup steps: download from App Store, follow setup, enable in Settings > Phone > Call Blocking & Identification. Known spam numbers are automatically blocked or flagged. No internet required.</p>
-
-<h3>2. iOS Silence Unknown Callers</h3>
-<p>Enable Settings > Phone > Silence Unknown Callers. This silences all numbers not in your contacts, but may cause you to miss important calls.</p>
-
-<h3>3. Manual Number Blocking</h3>
-<p>In the Phone app, tap (i) next to a number in Recent Calls and select "Block this Caller."</p>
-
-<h3>4. Carrier Spam Filtering</h3>
-<p>Some carriers offer spam filtering services. Contact your carrier to activate this feature.</p>',
-        ),
-        array(
-            'find_title' => 'Bilinmeyen numara kimin nasıl öğrenilir',
-            'slug' => 'bilinmeyen-numara-kimin-nasil-ogrenilir',
-            'seo_title' => 'Bilinmeyen Numara Kimin Nasıl Öğrenilir? [2026 Rehber]',
-            'seo_desc' => 'Sizi arayan bilinmeyen numaranın kime ait olduğunu öğrenmenin ücretsiz yolları. Arayan kimliği ve numara sorgulama yöntemleri.',
-            'en_title' => 'How to Find Out Who an Unknown Number Belongs To',
-            'content_tr' => '<p>Telefonunuza bilinmeyen bir numaradan arama geldiğinde, arayanın kim olduğunu öğrenmek istemeniz çok doğal. İşte bunu yapmanın en pratik yolları.</p>
-
-<h2>Bilinmeyen Numarayı Tanımanın Yolları</h2>
-
-<h3>1. Kalkan Arayan Kimliği</h3>
-<p>Kalkan uygulaması, arama geldiği anda numaranın spam veya dolandırıcı olarak tanınıp tanınmadığını ekranda gösterir. Telefonu açmadan önce karar vermenizi sağlar. Ücretsizdir ve çevrimdışı çalışır.</p>
-
-<h3>2. Cevapsız Aramayı Google\'da Aratın</h3>
-<p>Cevapsız arama bırakan numarayı Google\'a yazın. İşletme numaralarının büyük çoğunluğu arama sonuçlarında çıkar. "05XX XXX XX XX spam" şeklinde aratmak daha spesifik sonuçlar verir.</p>
-
-<h3>3. WhatsApp ile Kontrol</h3>
-<p>Numarayı rehberinize ekleyin ve WhatsApp\'ta kontrol edin. Eğer kişi WhatsApp kullanıyorsa profil fotoğrafı ve durumu görünür. İşiniz bitince numarayı silebilirsiniz.</p>
-
-<h3>4. Geri Arama Riskleri</h3>
-<p>Bilinmeyen numarayı geri aramamanız önerilir. Özellikle yabancı alan kodlu (+1, +44, +992 gibi) numaralar yüksek ücretli hatlara yönlendirebilir. Önemli bir arama ise arayan tekrar arar veya mesaj bırakır.</p>
-
-<h2>Özellikle Dikkat Edilmesi Gerekenler</h2>
+<h2>Dolandırıcı Numaralardan Korunma Yolları</h2>
 
 <ul>
-<li><strong>Çocuklar ve yaşlılar</strong> bilinmeyen numaralardan gelen aramalara karşı daha savunmasızdır. Kalkan uygulamasını aile üyelerinin telefonlarına kurarak onları koruyabilirsiniz.</li>
-<li><strong>+90 ile başlayan numaralar</strong> Türkiye\'den arıyor demektir.</li>
-<li><strong>Çok kısa süren aramalar</strong> (1-2 çalıp kapanan) genellikle geri aramanızı bekleyen dolandırıcılardır.</li>
+<li>Bilinmeyen aramalarda kişisel bilgi paylaşmayın</li>
+<li><a href="' . $home . 'numara-sorgulama/">Şüpheli numarayı sorgulayın</a></li>
+<li><a href="' . $home . '">Kalkan uygulamasını</a> kullanın — dolandırıcı numaraları otomatik işaretler</li>
+<li>Yaşlı aile üyelerinizi bilgilendirin — dolandırıcılar özellikle yaşlıları hedef alır</li>
 </ul>
 
 <h2>Sıkça Sorulan Sorular</h2>
 
-<h3>Numara sorgulama yasal mı?</h3>
-<p>Evet. Sizi arayan bir numarayı sorgulamak tamamen yasaldır. Kalkan uygulaması da kişisel rehber bilgilerinize erişmeden çalışır.</p>
+<h3>Dolandırıcı numarayı nereye şikayet edebilirim?</h3>
+<p>BTK ihbar hattı 137\'yi arayabilir veya Kalkan üzerinden numarayı bildirebilirsiniz.</p>
+
+<h3>Dolandırıcı aramayı açarsam ne olur?</h3>
+<p>Açmak tek başına tehlikeli değildir. Tehlike kişisel bilgi paylaşımında başlar. <a href="' . $home . 'spam-arama-engelleme/">Spam aramaları engellemeyi</a> öğrenin.</p>',
+            'content_en' => '<p>Recognizing scam numbers is the first step to protecting yourself and your family from phone fraud.</p>
+
+<h2>Signs of a Scam Number</h2>
+
+<h3>1. Creating Urgency</h3>
+<p>Phrases like "Your account will be closed" are the most common sign. Real institutions never demand urgent phone action.</p>
+
+<h3>2. Requesting Personal Information</h3>
+<p>Calls asking for ID numbers, card details, or SMS codes are always scams.</p>
+
+<h3>3. Foreign or Strange Numbers</h3>
+<p>Calls from foreign area codes or very short calls (wangiri fraud) are suspicious.</p>
+
+<h2>How to Protect Against Scam Numbers</h2>
+<ul>
+<li>Never share personal information on unknown calls</li>
+<li><a href="' . $home . 'numara-sorgulama/">Look up suspicious numbers</a></li>
+<li>Use <a href="' . $home . '">Kalkan app</a> — it automatically flags scam numbers</li>
+<li>Inform elderly family members — scammers especially target them</li>
+</ul>',
+        ),
+
+        // POST 4: Bilinmeyen numara kimin
+        array(
+            'title' => 'Bilinmeyen Numara Kimin? Nasıl Öğrenilir',
+            'slug' => 'bilinmeyen-numara-kimin',
+            'category' => $cat_numara,
+            'focus_keyword' => 'bilinmeyen numara kimin',
+            'seo_title' => 'Bilinmeyen Numara Kimin – Kalkan',
+            'seo_desc' => 'Bilinmeyen bir numara mı aradı? Bu numaranın kime ait olduğunu öğrenin ve spam aramaları Kalkan ile engelleyin.',
+            'en_title' => 'Who Is This Unknown Number? How to Find Out',
+            'content_tr' => '<p>Bilinmeyen numara kimin diye merak etmek herkesin başına gelir. Cevapsız bir arama veya tanımadığınız bir numara gördüğünüzde arayanın kim olduğunu öğrenmek istemeniz doğaldır.</p>
+
+<h2>Bilinmeyen Numara Kimin — Öğrenme Yolları</h2>
+
+<h3>1. Kalkan Arayan Kimliği</h3>
+<p><a href="' . $home . '">Kalkan uygulaması</a> arama geldiği anda bilinmeyen numara hakkında bilgi gösterir. Numara spam veritabanında varsa otomatik olarak işaretlenir. Telefonu açmadan kimin aradığını anlayabilirsiniz.</p>
+
+<h3>2. Google\'da Aratın</h3>
+<p>Numarayı Google\'a yazın. "05XX XXX XX XX spam" şeklinde aratmak daha iyi sonuç verir.</p>
+
+<h3>3. WhatsApp Kontrolü</h3>
+<p>Numarayı rehberinize ekleyip WhatsApp\'ta profil fotoğrafını kontrol edebilirsiniz.</p>
+
+<h2>Bilinmeyen Numaralardan Korunma</h2>
+
+<p>Bilinmeyen numara kimin olduğunu öğrenmek yetmez — kendinizi de korumalısınız. <a href="' . $home . 'spam-arama-engelleme/">Spam arama engelleme rehberimizi</a> okuyarak sürekli koruma altına girebilirsiniz.</p>
+
+<p>Özellikle çocuklar ve yaşlılar bilinmeyen numaralardan gelen aramalara karşı savunmasızdır. Kalkan\'ı aile üyelerinin telefonlarına kurarak onları koruyabilirsiniz.</p>
+
+<h2>Sıkça Sorulan Sorular</h2>
+
+<h3>Bilinmeyen numara kimin olduğunu Kalkan gösterir mi?</h3>
+<p>Kalkan, numaranın spam veya dolandırıcı olarak tanınıp tanınmadığını gösterir. Kişisel rehber bilgilerine erişmez.</p>
 
 <h3>Gizli numarayı öğrenebilir miyim?</h3>
-<p>Numarasını gizleyerek arayan kişinin numarasını öğrenmek teknik olarak mümkün değildir. Ancak operatörünüze başvurarak rahatsız edici gizli aramalar hakkında işlem başlatabilirsiniz.</p>
+<p>Numara gizleme ile arayan kişinin numarasını öğrenmek mümkün değildir. <a href="' . $home . 'dolandirici-numara-tanima/">Dolandırıcı numaraları tanıma</a> rehberimize göz atın.</p>
 
-<h3>Kalkan tüm bilinmeyen numaraları engeller mi?</h3>
-<p>Kalkan, veritabanında bulunan bilinen spam ve dolandırıcı numaraları engeller. Her bilinmeyen numarayı engellemez — sadece zararlı olduğu bilinen numaraları. Bu sayede önemli aramaları kaçırmazsınız.</p>',
-            'content_en' => '<p>When you receive a call from an unknown number, wanting to find out who is calling is completely natural. Here are the most practical ways to do it.</p>
+<h3>+90 ile başlayan numara nereden arıyor?</h3>
+<p>+90 Türkiye ülke kodudur. Yurt içinden yapılan aramalar +90 ile başlar.</p>',
+            'content_en' => '<p>Wondering who an unknown number belongs to is something everyone experiences. When you see a missed call from an unfamiliar number, wanting to find out who called is natural.</p>
 
-<h2>Ways to Identify Unknown Numbers</h2>
+<h2>How to Find Out Who an Unknown Number Belongs To</h2>
 
 <h3>1. Kalkan Caller ID</h3>
-<p>Kalkan shows whether a number is recognized as spam or fraud right on your screen when a call comes in. It helps you decide before answering. Free and works offline.</p>
+<p><a href="' . $home . '">Kalkan app</a> shows information about unknown numbers when a call comes in. If the number is in the spam database, it gets automatically flagged.</p>
 
-<h3>2. Google the Missed Call</h3>
-<p>Type the missed call number into Google. Most business numbers appear in search results.</p>
+<h3>2. Google Search</h3>
+<p>Type the number into Google for quick results.</p>
 
-<h3>3. Check via WhatsApp</h3>
-<p>Add the number to your contacts and check WhatsApp. If the person uses WhatsApp, their profile photo will be visible.</p>
+<h3>3. WhatsApp Check</h3>
+<p>Add the number to your contacts and check their WhatsApp profile.</p>
 
-<h3>4. Risks of Calling Back</h3>
-<p>It is recommended not to call back unknown numbers, especially those with foreign area codes, as they may redirect to premium-rate lines.</p>',
+<h2>Protecting Against Unknown Numbers</h2>
+<p>Finding out who a number belongs to is not enough — you should also protect yourself. Read our <a href="' . $home . 'spam-arama-engelleme/">spam call blocking guide</a> for ongoing protection.</p>',
+        ),
+
+        // POST 5: Sürekli arayan numara engelleme
+        array(
+            'title' => 'Sürekli Arayan Numarayı Engelleme Yöntemleri',
+            'slug' => 'surekli-arayan-numara-engelleme',
+            'category' => $cat_spam,
+            'focus_keyword' => 'sürekli arayan numara engelleme',
+            'seo_title' => 'Sürekli Arayan Numara Engelleme – Kalkan',
+            'seo_desc' => 'Sürekli arayan rahatsız edici numaraları iPhone\'da engellemenin en kolay yolları. Kalkan ile otomatik koruma.',
+            'en_title' => 'How to Block Numbers That Keep Calling',
+            'content_tr' => '<p>Sürekli arayan numara engelleme, iPhone kullanıcılarının sık karşılaştığı bir ihtiyaçtır. Aynı numaradan veya benzer numaralardan tekrar tekrar gelen aramalar ciddi rahatsızlık verir.</p>
+
+<h2>Sürekli Arayan Numara Engelleme Yöntemleri</h2>
+
+<h3>1. Kalkan ile Otomatik Engelleme</h3>
+<p><a href="' . $home . '">Kalkan uygulaması</a> bilinen spam numaraların veritabanını cihazınıza yükler. Sürekli arayan spam numaralar otomatik olarak engellenir. Ekstra Koruma özelliği ile benzer numara kalıpları da engellenir.</p>
+
+<h3>2. iPhone Manuel Engelleme</h3>
+<p>Telefon uygulamasında numaranın yanındaki (i) → "Bu Arayanı Engelle" seçeneğini kullanın. Bu yöntem tek bir numara için çalışır.</p>
+
+<h3>3. Rahatsız Etmeyin Modu</h3>
+<p>Ayarlar → Odaklanma → Rahatsız Etmeyin ile sadece rehberinizdeki kişilerin aramasına izin verebilirsiniz.</p>
+
+<h2>Sürekli Arayan Numara Engelleme İçin En İyi Çözüm</h2>
+
+<p>Tek bir numarayı engellemek kolaydır ama spam arayanlar sürekli numara değiştirir. Bu yüzden Kalkan gibi veritabanı tabanlı bir uygulama en etkili çözümdür. <a href="' . $home . 'numara-sorgulama/">Numarayı sorgulayarak</a> kimin aradığını da öğrenebilirsiniz.</p>
+
+<h2>Sıkça Sorulan Sorular</h2>
+
+<h3>Engellediğim numara beni tekrar arayabilir mi?</h3>
+<p>iPhone\'da engellediğiniz numara sizi arayamaz. Ancak aynı kişi farklı numaradan arayabilir — bu yüzden <a href="' . $home . 'spam-arama-engelleme/">kapsamlı spam engelleme</a> gerekir.</p>
+
+<h3>Kalkan internet olmadan çalışır mı?</h3>
+<p>Evet. Tüm koruma çevrimdışı olarak gerçekleşir.</p>',
+            'content_en' => '<p>Blocking numbers that keep calling is a common need for iPhone users. Repeated calls from the same or similar numbers cause serious disturbance.</p>
+
+<h2>Methods to Block Persistent Callers</h2>
+
+<h3>1. Automatic Blocking with Kalkan</h3>
+<p><a href="' . $home . '">Kalkan app</a> loads a database of known spam numbers. Persistent spam callers are automatically blocked. Extra Protection also blocks similar number patterns.</p>
+
+<h3>2. iPhone Manual Blocking</h3>
+<p>Tap (i) next to the number → "Block this Caller." Works for individual numbers.</p>
+
+<h3>3. Do Not Disturb Mode</h3>
+<p>Settings → Focus → Do Not Disturb allows calls only from contacts.</p>
+
+<h2>Best Solution for Persistent Callers</h2>
+<p>Blocking one number is easy but spammers change numbers constantly. A database-based app like Kalkan is the most effective solution.</p>',
+        ),
+
+        // POST 6: Kalkan uygulaması yayında
+        array(
+            'title' => 'Kalkan Uygulaması Yayında – Spam Aramalara Son',
+            'slug' => 'kalkan-uygulamasi-yayinda',
+            'category' => $cat_uygulama,
+            'focus_keyword' => 'kalkan uygulaması',
+            'seo_title' => 'Kalkan Uygulaması Yayında – Kalkan',
+            'seo_desc' => 'Kalkan iOS uygulaması yayında. Spam aramaları engelleyin, bilinmeyen numaraları tanıyın. Çocuklar ve yaşlılar için ideal koruma.',
+            'en_title' => 'Kalkan App Is Live – Say Goodbye to Spam Calls',
+            'content_tr' => '<p>Kalkan uygulaması artık App Store\'da! iOS kullanıcıları için geliştirilen Kalkan, spam aramaları engelleyen ve bilinmeyen numaraları tanımlayan ücretsiz bir uygulamadır.</p>
+
+<h2>Kalkan Uygulaması Nedir?</h2>
+
+<p>Kalkan, bilinen spam numaraların kapsamlı veritabanını iPhone\'unuza yükleyerek istenmeyen aramaları otomatik olarak engeller. Tüm koruma cihaz üzerinde gerçekleşir — internet gerekmez, rehberinize erişmez.</p>
+
+<h2>Kalkan Uygulaması Kimin İçin?</h2>
+
+<p>Kalkan özellikle şu gruplar için geliştirilmiştir:</p>
+
+<ul>
+<li><strong>Çocuklar</strong> — Bilinmeyen ve şüpheli numaralardan gelen aramalara karşı koruma</li>
+<li><strong>Yaşlılar</strong> — <a href="' . $home . 'dolandirici-numara-tanima/">Dolandırıcılık aramalarını</a> tanımlayarak güvenli arama deneyimi</li>
+<li><strong>Herkes</strong> — <a href="' . $home . 'spam-arama-engelleme/">Spam aramaların</a> yarattığı rahatsızlığı minimize etme</li>
+</ul>
+
+<h2>Kalkan Uygulaması Özellikleri</h2>
+
+<ul>
+<li><strong>Spam Koruması</strong> — Bilinen spam numaralar otomatik engellenir</li>
+<li><strong>Arayan Kimliği</strong> — <a href="' . $home . 'bilinmeyen-numara-kimin/">Bilinmeyen numaralar</a> hakkında bilgi gösterir</li>
+<li><strong>Ekstra Koruma</strong> — Genişletilmiş numara kalıplarını engeller</li>
+<li><strong>İletişim Bildirimi</strong> — Şüpheli numaraları kolayca bildirin</li>
+</ul>
+
+<h2>Hemen İndirin</h2>
+
+<p>Kalkan şu anda App Store\'da ücretsiz. <a href="https://apple.co/4cYKmRG">Hemen indirerek</a> kendinizi ve sevdiklerinizi spam aramalardan koruyun.</p>',
+            'content_en' => '<p>Kalkan app is now available on the App Store! Developed for iOS users, Kalkan is a free app that blocks spam calls and identifies unknown numbers.</p>
+
+<h2>What Is Kalkan App?</h2>
+<p>Kalkan loads a comprehensive database of known spam numbers to your iPhone, automatically blocking unwanted calls. All protection happens on-device — no internet needed, no access to your contacts.</p>
+
+<h2>Who Is Kalkan For?</h2>
+<ul>
+<li><strong>Children</strong> — Protection against calls from unknown and suspicious numbers</li>
+<li><strong>Elderly</strong> — Identifies <a href="' . $home . 'dolandirici-numara-tanima/">fraud calls</a> for a safer calling experience</li>
+<li><strong>Everyone</strong> — Minimizes disturbance from <a href="' . $home . 'spam-arama-engelleme/">spam calls</a></li>
+</ul>
+
+<h2>Download Now</h2>
+<p>Kalkan is currently free on the App Store. <a href="https://apple.co/4cYKmRG">Download now</a> to protect yourself and your loved ones.</p>',
         ),
     );
 
+    // Delete ALL existing posts first (clean slate).
+    $existing = get_posts(array(
+        'post_type' => 'post',
+        'posts_per_page' => -1,
+        'post_status' => array('publish', 'draft', 'trash'),
+    ));
+    foreach ($existing as $p) {
+        wp_delete_post($p->ID, true);
+    }
+
+    // Create new posts.
     foreach ($posts_data as $post_data) {
-        $posts = get_posts(array(
+        $post_id = wp_insert_post(array(
+            'post_title' => $post_data['title'],
+            'post_content' => $post_data['content_tr'],
+            'post_name' => $post_data['slug'],
+            'post_status' => 'publish',
             'post_type' => 'post',
-            'post_status' => 'draft',
-            'title' => $post_data['find_title'],
-            'posts_per_page' => 1,
+            'post_category' => array($post_data['category']),
         ));
 
-        if (empty($posts)) {
-            $posts = get_posts(array(
-                'post_type' => 'post',
-                'post_status' => 'draft',
-                's' => $post_data['find_title'],
-                'posts_per_page' => 1,
-            ));
-        }
-
-        if (!empty($posts)) {
-            $post_id = $posts[0]->ID;
-
-            wp_update_post(array(
-                'ID' => $post_id,
-                'post_content' => $post_data['content_tr'],
-                'post_name' => $post_data['slug'],
-                'post_status' => 'publish',
-            ));
-
+        if ($post_id && !is_wp_error($post_id)) {
             update_post_meta($post_id, '_kalkan_content_en', $post_data['content_en']);
             update_post_meta($post_id, '_kalkan_title_en', $post_data['en_title']);
             update_post_meta($post_id, '_seopress_titles_title', $post_data['seo_title']);
             update_post_meta($post_id, '_seopress_titles_desc', $post_data['seo_desc']);
+            update_post_meta($post_id, '_seopress_analysis_target_kw', $post_data['focus_keyword']);
+            update_post_meta($post_id, '_seopress_social_fb_title', $post_data['seo_title']);
+            update_post_meta($post_id, '_seopress_social_fb_desc', $post_data['seo_desc']);
+            update_post_meta($post_id, '_seopress_social_fb_img', get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png');
+            update_post_meta($post_id, '_seopress_social_twitter_title', $post_data['seo_title']);
+            update_post_meta($post_id, '_seopress_social_twitter_desc', $post_data['seo_desc']);
+            update_post_meta($post_id, '_seopress_social_twitter_img', get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png');
 
             if (function_exists('pll_set_post_language')) {
                 pll_set_post_language($post_id, 'tr');
@@ -814,9 +778,31 @@ function kalkan_publish_blog_posts() {
         }
     }
 
-    update_option('kalkan_blog_posts_published_v2', true);
+    update_option('kalkan_seo_posts_v3', true);
 }
-add_action('init', 'kalkan_publish_blog_posts');
+add_action('init', 'kalkan_seo_optimized_posts', 20);
+
+/**
+ * Set homepage SEOPress meta.
+ */
+function kalkan_set_homepage_seo() {
+    if (get_option('kalkan_homepage_seo_set')) return;
+
+    $front_page_id = get_option('page_on_front');
+    if ($front_page_id) {
+        update_post_meta($front_page_id, '_seopress_titles_title', 'Kalkan – Spam Arama Engelleme ve Numara Sorgulama');
+        update_post_meta($front_page_id, '_seopress_titles_desc', 'Spam aramaları engelleyin, bilinmeyen numaraları tanıyın. Kalkan ile telefonunuzu güvene alın.');
+        update_post_meta($front_page_id, '_seopress_analysis_target_kw', 'spam arama engelleme');
+        update_post_meta($front_page_id, '_seopress_social_fb_title', 'Kalkan – Spam Aramalara Karşı Kalkanınız');
+        update_post_meta($front_page_id, '_seopress_social_fb_desc', 'iOS için spam arama engelleyici ve arayan kimliği uygulaması.');
+        update_post_meta($front_page_id, '_seopress_social_fb_img', get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png');
+        update_post_meta($front_page_id, '_seopress_social_twitter_title', 'Kalkan – Spam Aramalara Karşı Kalkanınız');
+        update_post_meta($front_page_id, '_seopress_social_twitter_desc', 'iOS için spam arama engelleyici ve arayan kimliği uygulaması.');
+        update_post_meta($front_page_id, '_seopress_social_twitter_img', get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png');
+    }
+    update_option('kalkan_homepage_seo_set', true);
+}
+add_action('init', 'kalkan_set_homepage_seo', 25);
 
 /**
  * Serve llms.txt at site root for AI platform crawlers.

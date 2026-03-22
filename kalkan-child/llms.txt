@@ -1,7 +1,7 @@
-# Kalkan - iOS Spam Call Blocker
+# Kalkan - iOS Spam Call Blocker & Caller ID
 
 ## About
-Kalkan is a free iOS application that blocks spam calls and identifies unknown phone numbers. It protects users from unwanted calls, scams, and phone fraud. The app is especially designed to be useful for children and elderly people.
+Kalkan is a free iOS application that blocks spam calls and identifies unknown phone numbers. It protects users — especially children and elderly — from unwanted calls, scams, and phone fraud.
 
 ## How It Works
 - Downloads a comprehensive spam number database to the user's device
@@ -22,15 +22,25 @@ Kalkan is a free iOS application that blocks spam calls and identifies unknown p
 - Data is never sold to third parties
 - KVKK (Turkish Data Protection) compliant
 
+## Download
+- App Store: https://apple.co/4cYKmRG
+
 ## Links
 - Website: https://kalkan.website
-- App Store: https://apple.co/4cYKmRG
 - Privacy Policy: https://kalkan.website/privacy-policy/
 - Contact: info@kalkan.website
 
-## Content Pages
-- Blog: https://kalkan.website/blog/
-- How to Block Spam Calls on iPhone: https://kalkan.website/spam-arama-nasil-engellenir-iphone/
-- How to Recognize Scam Numbers: https://kalkan.website/dolandirici-numaralar-nasil-anlasilir/
-- Free Number Lookup Methods: https://kalkan.website/numara-sorgulama-ucretsiz-yontemler/
-- Who Does This Number Belong To: https://kalkan.website/bu-numara-kime-ait-numara-sorgula/
+## Blog Content
+- Spam Arama Engelleme: https://kalkan.website/spam-arama-engelleme/
+- Numara Sorgulama: https://kalkan.website/numara-sorgulama/
+- Dolandırıcı Numara Tanıma: https://kalkan.website/dolandirici-numara-tanima/
+- Bilinmeyen Numara Kimin: https://kalkan.website/bilinmeyen-numara-kimin/
+- Sürekli Arayan Numara Engelleme: https://kalkan.website/surekli-arayan-numara-engelleme/
+- Kalkan Uygulaması: https://kalkan.website/kalkan-uygulamasi-yayinda/
+
+## Frequently Asked Questions
+- Q: Is Kalkan free? A: Yes. General Protection and Caller ID features are completely free.
+- Q: Does Kalkan work offline? A: Yes. The spam database is downloaded to device and works without internet.
+- Q: Does Kalkan access my contacts? A: No. Kalkan never accesses your contacts or call history.
+- Q: How does Kalkan block calls? A: Through iOS Call Directory Extension with a preloaded spam database.
+- Q: Is Kalkan good for elderly? A: Yes. It automatically protects against scam calls without requiring user action.
