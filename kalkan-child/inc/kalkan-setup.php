@@ -47,3 +47,6 @@ $contact_url  = esc_url( $contact_page ? get_permalink( $contact_page ) : home_u
 $appstore_link = 'https://apps.apple.com/tr/app/kalkan/id6759873828?itscg=30200&itsct=apps_box_badge&mttnsubad=6759873828';
 $badge_lang    = ( 'tr' === $lang ) ? 'tr-tr' : 'en-us';
 $badge_url     = "https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/white/{$badge_lang}?releaseDate=1773014400";
+
+/* ── App icon ──────────────────────────────────────────────────────────────── */
+$app_icon_url  = esc_url( get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png' );

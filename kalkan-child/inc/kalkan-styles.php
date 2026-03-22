@@ -175,8 +175,8 @@ h3 {
 
 /* ─── App Store badge ────────────────────────────────────────────────────────── */
 .kk-appstore-badge {
-  display: inline-block;
-  margin-top: 1rem;
+  display: inline-flex;
+  align-items: center;
 }
 .kk-appstore-badge img {
   height: 54px;
@@ -217,19 +217,14 @@ h3 {
   text-decoration: none;
   flex-shrink: 0;
 }
-.kk-brand__mark {
-  width: 2.1rem;
-  height: 2.1rem;
-  border-radius: 0.55rem;
-  background: linear-gradient(135deg, var(--kk-purple), var(--kk-purple-dark));
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--kk-white);
-  font-weight: 800;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 1.05rem;
+.kk-brand__icon {
+  border-radius: 22%;
   box-shadow: 0 2px 12px rgba(139,92,246,0.45);
+  display: block;
+}
+.kk-brand__icon--sm {
+  width: 32px;
+  height: 32px;
 }
 .kk-brand__name {
   font-family: 'Plus Jakarta Sans', sans-serif;

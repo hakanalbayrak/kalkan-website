@@ -21,7 +21,7 @@ $lang_suffix   = ( 'en' === $lang ) ? '?lang=en' : '';
 	<div class="kk-shell kk-header__inner">
 
 		<a class="kk-brand" href="<?php echo $home_url; ?>" aria-label="Kalkan">
-			<span class="kk-brand__mark">K</span>
+			<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png' ); ?>" alt="Kalkan" class="kk-brand__icon" width="40" height="40">
 			<span class="kk-brand__name">Kalkan</span>
 		</a>
 

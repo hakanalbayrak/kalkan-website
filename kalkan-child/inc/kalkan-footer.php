@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div class="kk-footer__brand">
 			<a class="kk-brand" href="<?php echo $home_url; ?>" aria-label="Kalkan">
-				<span class="kk-brand__mark">K</span>
+				<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png' ); ?>" alt="Kalkan" class="kk-brand__icon kk-brand__icon--sm" width="32" height="32">
 				<span class="kk-brand__name">Kalkan</span>
 			</a>
 			<p class="kk-footer__tagline">

@@ -265,17 +265,13 @@ $is_front_page = true;
 					</p>
 
 					<div class="kk-hero__actions kk-animate kk-animate-delay-3">
-						<a class="kk-btn kk-btn-primary" href="<?php echo esc_url( $appstore_link ); ?>">
-							<?php echo esc_html( $__( 'App Store\'dan İndir', 'Download on the App Store' ) ); ?>
+						<a href="<?php echo esc_url( $appstore_link ); ?>" class="kk-appstore-badge">
+							<img src="<?php echo esc_url( $badge_url ); ?>" alt="<?php echo esc_attr( $__( 'App Store\'dan İndir', 'Download on the App Store' ) ); ?>" loading="eager" decoding="async">
 						</a>
 						<a class="kk-btn kk-btn-ghost" href="#kk-how">
 							<?php echo esc_html( $__( 'Nasıl çalışır?', 'How it works?' ) ); ?>
 						</a>
 					</div>
-
-					<a href="<?php echo esc_url( $appstore_link ); ?>" class="kk-appstore-badge kk-animate kk-animate-delay-4">
-						<img src="<?php echo esc_url( $badge_url ); ?>" alt="<?php echo esc_attr( $__( 'App Store\'dan İndir', 'Download on the App Store' ) ); ?>" loading="eager" decoding="async">
-					</a>
 				</div>
 
 				<div class="kk-hero__visual kk-animate kk-animate-delay-2" aria-hidden="true">
@@ -380,12 +376,7 @@ $is_front_page = true;
 					<h2 id="kk-cta-title"><?php echo esc_html( $__( 'Kalkan ile Huzurlu Arama Deneyimi', 'Peaceful Calling Experience with Kalkan' ) ); ?></h2>
 					<p class="kk-lead"><?php echo esc_html( $__( 'Hemen indirin, spam aramalardan kurtulun.', 'Download now and get rid of spam calls.' ) ); ?></p>
 					<div class="kk-cta__actions">
-						<a class="kk-btn kk-btn-primary" href="<?php echo esc_url( $appstore_link ); ?>">
-							<?php echo esc_html( $__( 'App Store\'dan İndir', 'Download on the App Store' ) ); ?>
-						</a>
-					</div>
-					<div style="margin-top:1.5rem;">
-						<a href="<?php echo esc_url( $appstore_link ); ?>" class="kk-appstore-badge" style="display:inline-block;">
+						<a href="<?php echo esc_url( $appstore_link ); ?>" class="kk-appstore-badge">
 							<img src="<?php echo esc_url( $badge_url ); ?>" alt="<?php echo esc_attr( $__( 'App Store\'dan İndir', 'Download on the App Store' ) ); ?>" loading="lazy" decoding="async">
 						</a>
 					</div>

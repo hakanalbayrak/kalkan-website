@@ -259,3 +259,13 @@ function kalkan_subscribe_shortcode() {
         . '</div>';
 }
 add_shortcode('kalkan_subscribe', 'kalkan_subscribe_shortcode');
+
+/**
+ * Add favicon and apple-touch-icon using the Kalkan app icon.
+ */
+function kalkan_child_favicon() {
+    $icon_url = esc_url( get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png' );
+    echo '<link rel="icon" type="image/png" href="' . $icon_url . '">' . "\n";
+    echo '<link rel="apple-touch-icon" href="' . $icon_url . '">' . "\n";
+}
+add_action('wp_head', 'kalkan_child_favicon', 1);
