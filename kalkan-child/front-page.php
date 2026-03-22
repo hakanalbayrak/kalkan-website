@@ -103,31 +103,42 @@ $is_front_page = true;
   border-color: rgba(139,92,246,0.5); background: rgba(139,92,246,0.1); color: #f5f3ff;
 }
 .kk-hero__visual { display: flex; justify-content: center; align-items: center; }
-.kk-mockup-placeholder {
-  width: min(18rem, 78vw);
-  aspect-ratio: 9/19;
-  background: var(--kk-bg-card);
-  border: 2px dashed rgba(139,92,246,0.3);
-  border-radius: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(139,92,246,0.1);
-  color: var(--kk-text-muted);
-  font-size: 0.9rem;
-  font-weight: 600;
-  text-align: center;
-  padding: 1.5rem;
+.phone-frame {
   position: relative;
+  width: 280px;
+  height: 572px;
+  background: #000000;
+  border-radius: 44px;
+  border: 4px solid #2a2a3a;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 30px 80px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(139, 92, 246, 0.12),
+    inset 0 0 2px rgba(255, 255, 255, 0.05);
   overflow: hidden;
 }
-.kk-mockup-placeholder::before {
-  content: '';
+.phone-notch {
   position: absolute;
-  top: -40%; left: -20%;
-  width: 140%; height: 60%;
-  background: radial-gradient(ellipse, rgba(139,92,246,0.12) 0%, transparent 70%);
-  pointer-events: none;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 28px;
+  background: #000000;
+  border-radius: 20px;
+  z-index: 10;
+}
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 40px;
+}
+.phone-screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .kk-how { background: rgba(19,7,40,0.6); }
@@ -269,6 +280,11 @@ $is_front_page = true;
 
 /* ===== HERO BUTTONS — MOBILE ===== */
 @media (max-width: 768px) {
+  .phone-frame {
+    width: 240px; height: 490px; margin: 0 auto;
+  }
+  .phone-notch { width: 80px; height: 22px; top: 8px; }
+  .phone-screen { border-radius: 36px; }
   .hero-buttons {
     flex-direction: column; align-items: center; gap: 12px;
   }
@@ -282,6 +298,9 @@ $is_front_page = true;
 @media (min-width: 40rem) {
   .kk-steps { grid-template-columns: repeat(3, 1fr); }
   .kk-feature-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 769px) {
+  .phone-frame { width: 300px; height: 612px; }
 }
 @media (min-width: 64rem) {
   .kk-hero__layout { grid-template-columns: 1.1fr 0.9fr; align-items: center; gap: 4rem; }
@@ -322,8 +341,20 @@ $is_front_page = true;
 				</div>
 
 				<div class="kk-hero__visual kk-animate kk-animate-delay-2" aria-hidden="true">
-					<div class="kk-mockup-placeholder">
-						<span><?php echo esc_html( $__( 'iPhone Mockup — ekran görüntüsü yükleyin', 'iPhone Mockup — upload your screenshot' ) ); ?></span>
+					<?php
+					$hero_screenshot = ( 'tr' === $lang )
+						? get_stylesheet_directory_uri() . '/assets/images/Main-Screen-1-tr.png'
+						: get_stylesheet_directory_uri() . '/assets/images/Main-Screen-1-en.png';
+					?>
+					<div class="phone-frame">
+						<div class="phone-notch"></div>
+						<div class="phone-screen">
+							<img src="<?php echo esc_url( $hero_screenshot ); ?>"
+								alt="<?php echo esc_attr( $__( 'Kalkan Uygulama Ekranı', 'Kalkan App Screen' ) ); ?>"
+								width="280"
+								height="606"
+								loading="eager">
+						</div>
 					</div>
 				</div>
 
