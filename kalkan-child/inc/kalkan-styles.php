@@ -560,16 +560,39 @@ h3 {
   border: 1.5px solid var(--kk-border);
   border-radius: 14px;
   padding: 0.85rem 1rem;
-  color: #ffffff;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff;
   font-family: inherit;
   font-size: 1rem;
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
   width: 100%;
 }
+.kk-form-group input:focus,
+.kk-form-group input:active,
+.kk-form-group input:valid,
+.kk-form-group input:invalid,
+.kk-form-group textarea:focus,
+.kk-form-group textarea:active {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  opacity: 1 !important;
+}
+.kk-form-group input:-webkit-autofill,
+.kk-form-group input:-webkit-autofill:hover,
+.kk-form-group input:-webkit-autofill:focus,
+.kk-form-group input:-webkit-autofill:active,
+.kk-form-group textarea:-webkit-autofill {
+  -webkit-text-fill-color: #ffffff !important;
+  -webkit-box-shadow: 0 0 0 1000px rgba(30, 10, 60, 0.95) inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+  color: #ffffff !important;
+}
 .kk-form-group input::placeholder,
 .kk-form-group textarea::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.35) !important;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.35) !important;
 }
 .kk-form-group input:focus,
 .kk-form-group textarea:focus {

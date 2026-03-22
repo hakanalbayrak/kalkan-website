@@ -51,7 +51,7 @@ if ( ! $contact_page ) {
 $contact_url  = $_kk_lang_url( $contact_page ? get_permalink( $contact_page ) : home_url( '/contact/' ) );
 
 /* ── App Store badges (official Apple hosted) ──────────────────────────────── */
-$appstore_link = 'https://apps.apple.com/tr/app/kalkan/id6759873828?itscg=30200&itsct=apps_box_badge&mttnsubad=6759873828';
+$appstore_link = 'https://apple.co/4cYKmRG';
 $badge_lang    = ( 'tr' === $lang ) ? 'tr-tr' : 'en-us';
 $badge_url     = "https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/white/{$badge_lang}?releaseDate=1773014400";
 
