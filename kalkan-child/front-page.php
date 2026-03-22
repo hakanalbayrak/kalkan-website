@@ -259,7 +259,7 @@ $is_front_page = true;
   }
   .hero-appstore img { height: 44px; }
   .hero-secondary-btn {
-    height: 44px; width: 200px; text-align: center; font-size: 14px;
+    height: 44px; width: auto; padding: 0 32px; font-size: 14px;
   }
   .cta-appstore img { height: 44px; }
 }
