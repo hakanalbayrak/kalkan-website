@@ -3,7 +3,7 @@
  * Template Name: Privacy Policy
  * Template Post Type: page
  *
- * Bilingual privacy policy page (TR default / EN via ?lang=en).
+ * Bilingual privacy policy page (TR default / EN via Polylang).
  * Fully self-contained: no get_header()/get_footer() to avoid Blocksy conflicts.
  *
  * @package kalkan-child

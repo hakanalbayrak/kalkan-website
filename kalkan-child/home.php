@@ -54,8 +54,11 @@ $page_title    = 'en' === $lang ? 'Blog — Kalkan' : 'Blog — Kalkan';
 					<div class="kk-blog-grid">
 						<?php while ( have_posts() ) : the_post();
 						$post_link = get_the_permalink();
-						if ( 'en' === $lang ) {
-							$post_link = add_query_arg( 'lang', 'en', $post_link );
+						if ( 'en' === $lang && function_exists( 'pll_get_post' ) ) {
+							$pll_translated = pll_get_post( get_the_ID() );
+							if ( $pll_translated ) {
+								$post_link = get_permalink( $pll_translated );
+							}
 						}
 						$en_title   = get_post_meta( get_the_ID(), '_kalkan_title_en', true );
 						$en_content = get_post_meta( get_the_ID(), '_kalkan_content_en', true );

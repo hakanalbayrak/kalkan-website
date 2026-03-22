@@ -3,7 +3,7 @@
  * Template Name: KVKK Aydınlatma Metni
  * Template Post Type: page
  *
- * Bilingual KVKK compliance notice (TR default / EN via ?lang=en).
+ * Bilingual KVKK compliance notice (TR default / EN via Polylang).
  * Fully self-contained: no get_header()/get_footer() to avoid Blocksy conflicts.
  *
  * @package kalkan-child

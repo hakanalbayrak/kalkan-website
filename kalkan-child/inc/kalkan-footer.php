@@ -34,12 +34,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div class="kk-footer__meta">
 			<div class="kk-lang" aria-label="<?php echo esc_attr( $__( 'Dil seçimi', 'Language switcher' ) ); ?>">
-				<?php if ( 'tr' === $lang ) : ?>
+				<?php if ( function_exists( 'pll_the_languages' ) ) :
+					$pll_langs_f = pll_the_languages( array( 'raw' => 1, 'hide_if_no_translation' => 0 ) );
+					if ( $pll_langs_f ) :
+						foreach ( $pll_langs_f as $pll_lang_f ) :
+							if ( $pll_lang_f['current_lang'] ) : ?>
+								<span class="kk-lang--active"><?php echo strtoupper( esc_html( $pll_lang_f['slug'] ) ); ?></span>
+							<?php else : ?>
+								<a href="<?php echo esc_url( $pll_lang_f['url'] ); ?>" hreflang="<?php echo esc_attr( $pll_lang_f['slug'] ); ?>"><?php echo strtoupper( esc_html( $pll_lang_f['slug'] ) ); ?></a>
+							<?php endif;
+						endforeach;
+					endif;
+				else : ?>
 					<span class="kk-lang--active">TR</span>
-					<a href="<?php echo $lang_en_url; ?>">EN</a>
-				<?php else : ?>
-					<a href="<?php echo $lang_tr_url; ?>">TR</a>
-					<span class="kk-lang--active">EN</span>
+					<a href="/en/">EN</a>
 				<?php endif; ?>
 			</div>
 			<p class="kk-footer__copy">

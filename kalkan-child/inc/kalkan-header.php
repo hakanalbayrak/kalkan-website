@@ -13,8 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $is_front_page = isset( $is_front_page ) ? (bool) $is_front_page : false;
-$anchor_prefix = $is_front_page ? '' : esc_url( home_url( '/' ) );
-$lang_suffix   = ( 'en' === $lang ) ? '?lang=en' : '';
+$anchor_prefix = $is_front_page ? '' : $home_url;
 ?>
 <!-- ── HEADER ──────────────────────────────────────────────────────────── -->
 <header class="kk-header" id="kk-header">
@@ -27,9 +26,9 @@ $lang_suffix   = ( 'en' === $lang ) ? '?lang=en' : '';
 
 		<nav class="kk-nav" aria-label="<?php echo esc_attr( $__( 'Ana menü', 'Main menu' ) ); ?>">
 			<ul>
-				<li><a href="<?php echo $anchor_prefix . $lang_suffix; ?>#kk-features"><?php echo esc_html( $__( 'Özellikler', 'Features' ) ); ?></a></li>
-				<li><a href="<?php echo $anchor_prefix . $lang_suffix; ?>#kk-how"><?php echo esc_html( $__( 'Nasıl Çalışır', 'How It Works' ) ); ?></a></li>
-				<li><a href="<?php echo $anchor_prefix . $lang_suffix; ?>#kk-faq"><?php echo esc_html( $__( 'SSS', 'FAQ' ) ); ?></a></li>
+				<li><a href="<?php echo $anchor_prefix; ?>#kk-features"><?php echo esc_html( $__( 'Özellikler', 'Features' ) ); ?></a></li>
+				<li><a href="<?php echo $anchor_prefix; ?>#kk-how"><?php echo esc_html( $__( 'Nasıl Çalışır', 'How It Works' ) ); ?></a></li>
+				<li><a href="<?php echo $anchor_prefix; ?>#kk-faq"><?php echo esc_html( $__( 'SSS', 'FAQ' ) ); ?></a></li>
 				<li><a href="<?php echo $blog_url; ?>">Blog</a></li>
 				<li><a href="<?php echo $contact_url; ?>"><?php echo esc_html( $__( 'İletişim', 'Contact' ) ); ?></a></li>
 			</ul>
@@ -41,12 +40,20 @@ $lang_suffix   = ( 'en' === $lang ) ? '?lang=en' : '';
 			</a>
 
 			<div class="kk-lang" aria-label="<?php echo esc_attr( $__( 'Dil seçimi', 'Language switcher' ) ); ?>">
-				<?php if ( 'tr' === $lang ) : ?>
+				<?php if ( function_exists( 'pll_the_languages' ) ) :
+					$pll_langs = pll_the_languages( array( 'raw' => 1, 'hide_if_no_translation' => 0 ) );
+					if ( $pll_langs ) :
+						foreach ( $pll_langs as $pll_lang ) :
+							if ( $pll_lang['current_lang'] ) : ?>
+								<span class="kk-lang--active"><?php echo strtoupper( esc_html( $pll_lang['slug'] ) ); ?></span>
+							<?php else : ?>
+								<a href="<?php echo esc_url( $pll_lang['url'] ); ?>" hreflang="<?php echo esc_attr( $pll_lang['slug'] ); ?>"><?php echo strtoupper( esc_html( $pll_lang['slug'] ) ); ?></a>
+							<?php endif;
+						endforeach;
+					endif;
+				else : ?>
 					<span class="kk-lang--active">TR</span>
-					<a href="<?php echo $lang_en_url; ?>">EN</a>
-				<?php else : ?>
-					<a href="<?php echo $lang_tr_url; ?>">TR</a>
-					<span class="kk-lang--active">EN</span>
+					<a href="/en/">EN</a>
 				<?php endif; ?>
 			</div>
 
@@ -61,20 +68,28 @@ $lang_suffix   = ( 'en' === $lang ) ? '?lang=en' : '';
 	<!-- Mobile drawer -->
 	<nav class="kk-mobile-nav" id="kk-mobile-nav" aria-label="<?php echo esc_attr( $__( 'Mobil menü', 'Mobile menu' ) ); ?>">
 		<ul>
-			<li><a href="<?php echo $anchor_prefix . $lang_suffix; ?>#kk-features"><?php echo esc_html( $__( 'Özellikler', 'Features' ) ); ?></a></li>
-			<li><a href="<?php echo $anchor_prefix . $lang_suffix; ?>#kk-how"><?php echo esc_html( $__( 'Nasıl Çalışır', 'How It Works' ) ); ?></a></li>
-			<li><a href="<?php echo $anchor_prefix . $lang_suffix; ?>#kk-faq"><?php echo esc_html( $__( 'SSS', 'FAQ' ) ); ?></a></li>
+			<li><a href="<?php echo $anchor_prefix; ?>#kk-features"><?php echo esc_html( $__( 'Özellikler', 'Features' ) ); ?></a></li>
+			<li><a href="<?php echo $anchor_prefix; ?>#kk-how"><?php echo esc_html( $__( 'Nasıl Çalışır', 'How It Works' ) ); ?></a></li>
+			<li><a href="<?php echo $anchor_prefix; ?>#kk-faq"><?php echo esc_html( $__( 'SSS', 'FAQ' ) ); ?></a></li>
 			<li><a href="<?php echo $blog_url; ?>">Blog</a></li>
 			<li><a href="<?php echo $contact_url; ?>"><?php echo esc_html( $__( 'İletişim', 'Contact' ) ); ?></a></li>
 			<li><a href="<?php echo esc_url( $appstore_link ); ?>"><?php echo esc_html( $__( 'App Store\'dan İndir', 'Download on App Store' ) ); ?></a></li>
 		</ul>
 		<div class="kk-lang" style="margin-top:1rem;">
-			<?php if ( 'tr' === $lang ) : ?>
+			<?php if ( function_exists( 'pll_the_languages' ) ) :
+				$pll_langs_m = pll_the_languages( array( 'raw' => 1, 'hide_if_no_translation' => 0 ) );
+				if ( $pll_langs_m ) :
+					foreach ( $pll_langs_m as $pll_lang_m ) :
+						if ( $pll_lang_m['current_lang'] ) : ?>
+							<span class="kk-lang--active"><?php echo strtoupper( esc_html( $pll_lang_m['slug'] ) ); ?></span>
+						<?php else : ?>
+							<a href="<?php echo esc_url( $pll_lang_m['url'] ); ?>" hreflang="<?php echo esc_attr( $pll_lang_m['slug'] ); ?>"><?php echo strtoupper( esc_html( $pll_lang_m['slug'] ) ); ?></a>
+						<?php endif;
+					endforeach;
+				endif;
+			else : ?>
 				<span class="kk-lang--active">TR</span>
-				<a href="<?php echo $lang_en_url; ?>">EN</a>
-			<?php else : ?>
-				<a href="<?php echo $lang_tr_url; ?>">TR</a>
-				<span class="kk-lang--active">EN</span>
+				<a href="/en/">EN</a>
 			<?php endif; ?>
 		</div>
 	</nav>
