@@ -4,6 +4,7 @@
  * Template Post Type: page
  *
  * Bilingual privacy policy page (TR default / EN via ?lang=en).
+ * Fully self-contained: no get_header()/get_footer() to avoid Blocksy conflicts.
  *
  * @package kalkan-child
  */
@@ -12,45 +13,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/* ── Language detection ─────────────────────────────────────────────────────── */
-$lang = ( isset( $_GET['lang'] ) && 'en' === sanitize_key( $_GET['lang'] ) ) ? 'en' : 'tr'; // phpcs:ignore WordPress.Security.NonceVerification
+/* ── Shared setup ──────────────────────────────────────────────────────────── */
+include get_stylesheet_directory() . '/inc/kalkan-setup.php';
 
-$__ = static function ( string $tr, string $en ) use ( $lang ) : string {
-	return 'en' === $lang ? $en : $tr;
-};
-
-$lang_tr_url = esc_url( remove_query_arg( 'lang' ) );
-$lang_en_url = esc_url( add_query_arg( 'lang', 'en' ) );
-$home_url    = esc_url( home_url( '/' ) );
-
-get_header();
+$is_front_page = false;
+$page_title    = 'en' === $lang ? 'Privacy Policy — Kalkan' : 'Gizlilik Politikası — Kalkan';
 ?>
+<!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+<head>
+<meta charset="<?php bloginfo( 'charset' ); ?>">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><?php echo esc_html( $page_title ); ?></title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<?php wp_head(); ?>
+<?php include get_stylesheet_directory() . '/inc/kalkan-styles.php'; ?>
+</head>
+<body <?php body_class(); ?>>
 
 <div class="kk-page">
 
-	<!-- ── MINIMAL HEADER ────────────────────────────────────────────────────── -->
-	<header class="kk-header">
-		<div class="kk-shell kk-header__inner">
-			<a class="kk-brand" href="<?php echo $home_url; ?>" aria-label="Kalkan">
-				<span class="kk-brand__mark">K</span>
-				<span class="kk-brand__name">Kalkan</span>
-			</a>
-			<div class="kk-header__right">
-				<div class="kk-lang">
-					<?php if ( 'tr' === $lang ) : ?>
-						<span class="kk-lang--active">TR</span>
-						<a href="<?php echo $lang_en_url; ?>">EN</a>
-					<?php else : ?>
-						<a href="<?php echo $lang_tr_url; ?>">TR</a>
-						<span class="kk-lang--active">EN</span>
-					<?php endif; ?>
-				</div>
-				<a class="kk-btn kk-btn-ghost" href="<?php echo $home_url; ?>" style="font-size:0.88rem;padding:0.5rem 0.9rem;">
-					← <?php echo esc_html( $__( 'Ana Sayfa', 'Home' ) ); ?>
-				</a>
-			</div>
-		</div>
-	</header>
+	<?php include get_stylesheet_directory() . '/inc/kalkan-header.php'; ?>
 
 	<main class="kk-main">
 
@@ -126,15 +111,11 @@ get_header();
 
 	</main>
 
-	<footer class="kk-footer kk-page">
-		<div class="kk-shell" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
-			<p class="kk-footer__copy">© <?php echo esc_html( (string) gmdate( 'Y' ) ); ?> Kalkan. <?php echo esc_html( $__( 'Tüm hakları saklıdır.', 'All rights reserved.' ) ); ?></p>
-			<a href="<?php echo $home_url; ?>" class="kk-footer__contact" style="color:var(--kk-text-muted);font-size:0.88rem;text-decoration:none;font-weight:600;">
-				← <?php echo esc_html( $__( 'Ana Sayfaya Dön', 'Back to Home' ) ); ?>
-			</a>
-		</div>
-	</footer>
+	<?php include get_stylesheet_directory() . '/inc/kalkan-footer.php'; ?>
 
-</div><!-- /.kk-page -->
+</div>
 
-<?php get_footer(); ?>
+<?php include get_stylesheet_directory() . '/inc/kalkan-scripts.php'; ?>
+<?php wp_footer(); ?>
+</body>
+</html>
