@@ -36,6 +36,10 @@ $lang_suffix   = ( 'en' === $lang ) ? '?lang=en' : '';
 		</nav>
 
 		<div class="kk-header__right">
+			<a class="kk-header-appstore" href="<?php echo esc_url( $appstore_link ); ?>" aria-label="App Store">
+				<img src="<?php echo esc_url( $badge_url ); ?>" alt="App Store" loading="eager">
+			</a>
+
 			<div class="kk-lang" aria-label="<?php echo esc_attr( $__( 'Dil seçimi', 'Language switcher' ) ); ?>">
 				<?php if ( 'tr' === $lang ) : ?>
 					<span class="kk-lang--active">TR</span>
@@ -45,10 +49,6 @@ $lang_suffix   = ( 'en' === $lang ) ? '?lang=en' : '';
 					<span class="kk-lang--active">EN</span>
 				<?php endif; ?>
 			</div>
-
-			<a class="kk-header-appstore" href="<?php echo esc_url( $appstore_link ); ?>" aria-label="App Store">
-				<img src="<?php echo esc_url( $badge_url ); ?>" alt="App Store" loading="eager">
-			</a>
 
 			<button class="kk-menu-toggle" id="kk-menu-toggle" aria-expanded="false" aria-controls="kk-mobile-nav" aria-label="<?php echo esc_attr( $__( 'Menüyü aç', 'Open menu' ) ); ?>">
 				<span></span>

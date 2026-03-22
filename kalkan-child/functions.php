@@ -269,3 +269,116 @@ function kalkan_child_favicon() {
     echo '<link rel="apple-touch-icon" href="' . $icon_url . '">' . "\n";
 }
 add_action('wp_head', 'kalkan_child_favicon', 1);
+
+/**
+ * Create/update launch blog post on theme activation or first load.
+ */
+function kalkan_create_launch_post() {
+    $existing = get_posts(array(
+        'meta_key'       => '_kalkan_launch_post',
+        'meta_value'     => '1',
+        'post_type'      => 'post',
+        'posts_per_page' => 1,
+    ));
+
+    if (!empty($existing)) {
+        return;
+    }
+
+    // Delete Hello World post if it exists.
+    $hello = get_page_by_path('hello-world', OBJECT, 'post');
+    if ($hello) {
+        wp_delete_post($hello->ID, true);
+    }
+
+    $content_tr = '<p>Kalkan, iOS kullanıcıları için geliştirilmiş bir spam arama engelleyici ve arayan kimliği uygulamasıdır. Amacımız, sizi istenmeyen ve şüpheli aramalardan korumaktır.</p>
+
+<h2>Kalkan Neden Oluşturuldu?</h2>
+
+<p>Günümüzde spam aramalar ciddi bir sorun haline geldi. Dolandırıcılık girişimleri, istenmeyen satış aramaları ve rahatsız edici numaralar günlük hayatımızı olumsuz etkiliyor. Özellikle çocuklar ve yaşlılar bu tür aramalara karşı daha savunmasız durumdadır.</p>
+
+<p>Kalkan, bu soruna pratik ve güvenilir bir çözüm sunmak için geliştirildi.</p>
+
+<h2>Kalkan Ne İşe Yarar?</h2>
+
+<p>Kalkan, bilinen spam numaraları otomatik olarak engeller ve bilinmeyen numaralar hakkında bilgi gösterir. Böylece telefonu açmadan önce kimin aradığını görebilirsiniz.</p>
+
+<p>Uygulama özellikle şu gruplar için çok faydalıdır:</p>
+
+<ul>
+<li><strong>Çocuklar</strong> — Bilinmeyen veya şüpheli numaralardan gelen aramalara karşı koruma sağlar</li>
+<li><strong>Yaşlılar</strong> — Dolandırıcılık aramalarını tanımlayarak güvenli bir arama deneyimi sunar</li>
+<li><strong>Herkes</strong> — Spam aramaların yarattığı rahatsızlığı en aza indirir</li>
+</ul>
+
+<h2>Temel Özellikler</h2>
+
+<ul>
+<li><strong>Spam Koruması</strong> — Bilinen spam numaralar otomatik olarak engellenir</li>
+<li><strong>Arayan Kimliği</strong> — Bilinmeyen numaralar hakkında bilgi görüntüler</li>
+<li><strong>Ekstra Koruma</strong> — Genişletilmiş numara kalıplarını engelleyen gelişmiş koruma</li>
+<li><strong>İletişim Bildirimi</strong> — Şüpheli numaraları kolayca bildirin</li>
+</ul>
+
+<h2>Gizlilik Önceliğimizdir</h2>
+
+<p>Kalkan, rehberinize veya arama geçmişinize erişmez. Tüm arama koruma işlemleri cihazınızda yerel olarak gerçekleşir. Verileriniz üçüncü taraflara satılmaz.</p>
+
+<h2>Hemen İndirin</h2>
+
+<p>Kalkan şu anda App Store\'da ücretsiz olarak mevcuttur. Hemen indirerek kendinizi ve sevdiklerinizi spam aramalardan koruyun.</p>';
+
+    $post_id = wp_insert_post(array(
+        'post_title'   => 'Kalkan Uygulaması Yayında',
+        'post_content' => $content_tr,
+        'post_status'  => 'publish',
+        'post_type'    => 'post',
+        'post_name'    => 'kalkan-uygulamasi-yayinda',
+    ));
+
+    if ($post_id && !is_wp_error($post_id)) {
+        update_post_meta($post_id, '_kalkan_launch_post', '1');
+
+        $content_en = '<p>Kalkan is a spam call blocker and caller identification app developed for iOS users. Our goal is to protect you from unwanted and suspicious calls.</p>
+
+<h2>Why Was Kalkan Created?</h2>
+
+<p>Spam calls have become a serious problem today. Fraud attempts, unwanted sales calls, and harassing numbers negatively affect our daily lives. Children and elderly people are especially vulnerable to these types of calls.</p>
+
+<p>Kalkan was developed to provide a practical and reliable solution to this problem.</p>
+
+<h2>What Does Kalkan Do?</h2>
+
+<p>Kalkan automatically blocks known spam numbers and shows information about unknown numbers. This way, you can see who is calling before answering the phone.</p>
+
+<p>The app is especially useful for:</p>
+
+<ul>
+<li><strong>Children</strong> — Provides protection against calls from unknown or suspicious numbers</li>
+<li><strong>Elderly People</strong> — Identifies fraud calls and offers a safe calling experience</li>
+<li><strong>Everyone</strong> — Minimizes the disturbance caused by spam calls</li>
+</ul>
+
+<h2>Key Features</h2>
+
+<ul>
+<li><strong>Spam Protection</strong> — Known spam numbers are automatically blocked</li>
+<li><strong>Caller Identification</strong> — Shows information about unknown numbers</li>
+<li><strong>Extra Protection</strong> — Advanced protection that blocks extended number patterns</li>
+<li><strong>Communication Reporting</strong> — Easily report suspicious numbers</li>
+</ul>
+
+<h2>Privacy Is Our Priority</h2>
+
+<p>Kalkan does not access your contacts or call history. All call protection happens locally on your device. Your data is never sold to third parties.</p>
+
+<h2>Download Now</h2>
+
+<p>Kalkan is currently available for free on the App Store. Download now and protect yourself and your loved ones from spam calls.</p>';
+
+        update_post_meta($post_id, '_kalkan_content_en', $content_en);
+        update_post_meta($post_id, '_kalkan_title_en', 'Kalkan Is Ready to Use');
+    }
+}
+add_action('after_switch_theme', 'kalkan_create_launch_post');
+add_action('init', 'kalkan_create_launch_post');

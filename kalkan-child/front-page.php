@@ -15,11 +15,11 @@ include get_stylesheet_directory() . '/inc/kalkan-setup.php';
 
 /* ── Inline SVG icons (all 48×48 with proper stroke) ───────────────────────── */
 $icons = array(
-	'shield' => '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2L4 6v6c0 5 3.4 9.5 8 10 4.6-.5 8-5 8-10V6l-8-4z"/></svg>',
-	'phone'  => '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>',
-	'lock'   => '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l9 4v6c0 5.6-3.8 10.7-9 12-5.2-1.3-9-6.4-9-12V6l9-4z"/><path d="M12 8v4m-2 0h4v3H10v-3z"/></svg>',
+	'shield' => '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>',
+	'phone'  => '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="14" y1="4" x2="18" y2="4"/></svg>',
+	'lock'   => '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><rect x="9" y="10" width="6" height="5" rx="1"/><path d="M10 10V8a2 2 0 114 0v2"/></svg>',
 	'flag'   => '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>',
-	'trust'  => '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l8 3v6c0 5-3.4 9.5-8 11-4.6-1.5-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg>',
+	'trust'  => '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>',
 );
 
 $icon = static function ( string $name ) use ( $icons ) : string {
@@ -35,6 +35,21 @@ $is_front_page = true;
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title><?php echo esc_html( $page_title ); ?></title>
+<meta name="description" content="<?php echo esc_attr( $__( 'Kalkan - iOS için spam arama engelleyici ve arayan kimliği uygulaması. Bilinmeyen numaraları tanımlayın, spam aramaları engelleyin.', 'Kalkan - Spam call blocker and caller identification app for iOS. Identify unknown numbers and block spam calls.' ) ); ?>">
+<meta name="keywords" content="<?php echo esc_attr( $__( 'spam engelleme, arama engelleme, arayan kimliği, ios spam engelleyici, kalkan, istenmeyen arama, numara tanımlama', 'spam blocker, call blocker, caller id, ios spam blocker, kalkan, unwanted calls, number identification' ) ); ?>">
+<meta property="og:title" content="<?php echo esc_attr( $__( 'Kalkan - Spam Aramalara Karşı Kalkanınız', 'Kalkan - Your Shield Against Spam Calls' ) ); ?>">
+<meta property="og:description" content="<?php echo esc_attr( $__( 'iOS için spam arama engelleyici ve arayan kimliği uygulaması.', 'Spam call blocker and caller identification app for iOS.' ) ); ?>">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kalkan.website<?php echo ( 'en' === $lang ) ? '?lang=en' : ''; ?>">
+<meta property="og:image" content="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png' ); ?>">
+<meta property="og:locale" content="<?php echo ( 'tr' === $lang ) ? 'tr_TR' : 'en_US'; ?>">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="<?php echo esc_attr( $__( 'Kalkan - Spam Aramalara Karşı Kalkanınız', 'Kalkan - Your Shield Against Spam Calls' ) ); ?>">
+<meta name="twitter:description" content="<?php echo esc_attr( $__( 'iOS için spam arama engelleyici ve arayan kimliği uygulaması.', 'Spam call blocker and caller identification app for iOS.' ) ); ?>">
+<link rel="canonical" href="https://kalkan.website<?php echo ( 'en' === $lang ) ? '?lang=en' : ''; ?>">
+<link rel="alternate" hreflang="tr" href="https://kalkan.website">
+<link rel="alternate" hreflang="en" href="https://kalkan.website?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://kalkan.website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
@@ -395,7 +410,7 @@ $is_front_page = true;
 					</ul>
 					<div class="kk-trust__links">
 						<a href="<?php echo $privacy_url; ?>"><?php echo esc_html( $__( 'Gizlilik Politikası', 'Privacy Policy' ) ); ?></a>
-						<a href="<?php echo $kvkk_url; ?>"><?php echo esc_html( $__( 'KVKK Aydınlatma', 'KVKK Notice' ) ); ?></a>
+						<a href="<?php echo $kvkk_url; ?>"><?php echo esc_html( $__( 'KVKK Aydınlatma', 'Legal Notice' ) ); ?></a>
 					</div>
 				</div>
 			</div>

@@ -23,6 +23,11 @@ $page_title    = 'en' === $lang ? 'Blog — Kalkan' : 'Blog — Kalkan';
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title><?php echo esc_html( $page_title ); ?></title>
+<meta name="description" content="<?php echo esc_attr( $__( 'Kalkan hakkında güncellemeler, güvenlik ipuçları ve haberler.', 'Updates, security tips and news about Kalkan.' ) ); ?>">
+<meta property="og:title" content="<?php echo esc_attr( $page_title ); ?>">
+<meta property="og:description" content="<?php echo esc_attr( $__( 'Kalkan hakkında güncellemeler, güvenlik ipuçları ve haberler.', 'Updates, security tips and news about Kalkan.' ) ); ?>">
+<meta property="og:type" content="website">
+<meta property="og:image" content="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png' ); ?>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
@@ -53,7 +58,14 @@ $page_title    = 'en' === $lang ? 'Blog — Kalkan' : 'Blog — Kalkan';
 				<?php if ( have_posts() ) : ?>
 
 					<div class="kk-blog-grid">
-						<?php while ( have_posts() ) : the_post(); ?>
+						<?php while ( have_posts() ) : the_post();
+						$post_link = get_the_permalink();
+						if ( 'en' === $lang ) {
+							$post_link = add_query_arg( 'lang', 'en', $post_link );
+						}
+						$en_title   = get_post_meta( get_the_ID(), '_kalkan_title_en', true );
+						$en_content = get_post_meta( get_the_ID(), '_kalkan_content_en', true );
+					?>
 							<article class="kk-post-card kk-glass">
 								<div class="kk-post-card__date">
 									<time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>">
@@ -61,14 +73,20 @@ $page_title    = 'en' === $lang ? 'Blog — Kalkan' : 'Blog — Kalkan';
 									</time>
 								</div>
 								<h3>
-									<a href="<?php the_permalink(); ?>">
-										<?php the_title(); ?>
+									<a href="<?php echo esc_url( $post_link ); ?>">
+										<?php echo esc_html( ( 'en' === $lang && $en_title ) ? $en_title : get_the_title() ); ?>
 									</a>
 								</h3>
 								<div class="kk-post-card__excerpt">
-									<?php echo esc_html( wp_trim_words( get_the_excerpt(), 30 ) ); ?>
+									<?php
+									if ( 'en' === $lang && $en_content ) {
+										echo esc_html( wp_trim_words( wp_strip_all_tags( $en_content ), 30 ) );
+									} else {
+										echo esc_html( wp_trim_words( get_the_excerpt(), 30 ) );
+									}
+									?>
 								</div>
-								<a href="<?php the_permalink(); ?>" class="kk-post-card__more">
+								<a href="<?php echo esc_url( $post_link ); ?>" class="kk-post-card__more">
 									<?php echo esc_html( $__( 'Devamını Oku →', 'Read More →' ) ); ?>
 								</a>
 							</article>

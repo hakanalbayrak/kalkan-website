@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 include get_stylesheet_directory() . '/inc/kalkan-setup.php';
 
 $is_front_page = false;
-$page_title    = 'en' === $lang ? 'KVKK Disclosure — Kalkan' : 'KVKK Aydınlatma — Kalkan';
+$page_title    = 'en' === $lang ? 'Legal Notice — Kalkan' : 'KVKK Aydınlatma — Kalkan';
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -25,6 +25,11 @@ $page_title    = 'en' === $lang ? 'KVKK Disclosure — Kalkan' : 'KVKK Aydınlat
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title><?php echo esc_html( $page_title ); ?></title>
+<meta name="description" content="<?php echo esc_attr( $__( 'Kalkan KVKK aydınlatma metni. 6698 Sayılı Kanun kapsamında kişisel veri işleme bilgilendirmesi.', 'Kalkan legal notice. Personal data processing information under Law No. 6698.' ) ); ?>">
+<meta property="og:title" content="<?php echo esc_attr( $page_title ); ?>">
+<meta property="og:description" content="<?php echo esc_attr( $__( 'Kalkan KVKK aydınlatma metni.', 'Kalkan legal notice.' ) ); ?>">
+<meta property="og:type" content="website">
+<meta property="og:image" content="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png' ); ?>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
@@ -42,7 +47,7 @@ $page_title    = 'en' === $lang ? 'KVKK Disclosure — Kalkan' : 'KVKK Aydınlat
 		<div class="kk-page-header">
 			<div class="kk-shell">
 				<span class="kk-eyebrow"><?php echo esc_html( $__( 'Yasal', 'Legal' ) ); ?></span>
-				<h1><?php echo esc_html( $__( 'KVKK Aydınlatma Metni', 'KVKK Disclosure Notice' ) ); ?></h1>
+				<h1><?php echo esc_html( $__( 'KVKK Aydınlatma Metni', 'Legal Notice' ) ); ?></h1>
 				<p class="kk-lead" style="margin-top:0.6rem;">
 					<?php echo esc_html( $__( '6698 Sayılı Kişisel Verilerin Korunması Kanunu kapsamında hazırlanmıştır.', 'Prepared in accordance with the Law on Protection of Personal Data No. 6698.' ) ); ?>
 				</p>

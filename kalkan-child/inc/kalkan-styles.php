@@ -294,7 +294,7 @@ h3 {
 /* Header App Store button — hidden on mobile, shown on desktop via media query */
 .kk-header-appstore { display: none; }
 .kk-header-appstore img {
-  height: 30px;
+  height: 36px;
   width: auto;
   border-radius: 6px;
   transition: transform 0.2s ease;
@@ -560,21 +560,21 @@ h3 {
   border: 1.5px solid var(--kk-border);
   border-radius: 14px;
   padding: 0.85rem 1rem;
-  color: var(--kk-text);
+  color: #ffffff;
   font-family: inherit;
   font-size: 1rem;
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
   width: 100%;
 }
+.kk-form-group input::placeholder,
+.kk-form-group textarea::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
 .kk-form-group input:focus,
 .kk-form-group textarea:focus {
   border-color: var(--kk-purple);
   box-shadow: 0 0 0 3px rgba(139,92,246,0.2);
-}
-.kk-form-group input::placeholder,
-.kk-form-group textarea::placeholder {
-  color: var(--kk-text-dim);
 }
 .kk-form-group textarea {
   min-height: 10rem;
