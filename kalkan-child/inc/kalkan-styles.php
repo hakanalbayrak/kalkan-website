@@ -291,10 +291,10 @@ h3 {
   color: var(--kk-text);
 }
 
-/* Header App Store button */
+/* Header App Store button — hidden on mobile, shown on desktop via media query */
 .kk-header-appstore { display: none; }
 .kk-header-appstore img {
-  height: 36px;
+  height: 32px;
   width: auto;
   border-radius: 6px;
   transition: transform 0.2s ease;

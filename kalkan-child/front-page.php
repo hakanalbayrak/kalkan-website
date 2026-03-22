@@ -66,7 +66,15 @@ $is_front_page = true;
   max-width: 40rem;
   line-height: 1.65;
 }
-.kk-hero__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+.kk-hero__actions {
+  display: flex; flex-direction: row; align-items: center; gap: 16px;
+}
+.kk-hero__actions .kk-appstore-badge img {
+  height: 48px; width: auto;
+}
+.kk-hero__actions .kk-btn-ghost {
+  height: 48px; padding: 0 28px; font-size: 15px; border-radius: 12px;
+}
 .kk-hero__visual { display: flex; justify-content: center; align-items: center; }
 .kk-mockup-placeholder {
   width: min(18rem, 78vw);
@@ -193,8 +201,10 @@ $is_front_page = true;
 .kk-cta__card h2, .kk-cta__card .kk-lead, .kk-cta__actions { position: relative; }
 .kk-cta__card .kk-lead { margin-inline: auto; }
 .kk-cta__actions {
-  display: flex; flex-wrap: wrap; justify-content: center;
-  gap: 0.85rem; margin-top: 2rem;
+  display: flex; justify-content: center; margin-top: 2rem;
+}
+.kk-cta__actions .kk-appstore-badge img {
+  height: 48px; width: auto;
 }
 
 .kk-faq { background: rgba(19,7,40,0.6); }
@@ -202,34 +212,44 @@ $is_front_page = true;
   display: flex; flex-direction: column; gap: 0.75rem;
   max-width: 48rem; margin: 0 auto;
 }
-.kk-accordion details {
+.kk-faq-item {
   border: 1px solid var(--kk-border); border-radius: var(--kk-radius-sm);
   background: rgba(255,255,255,0.04); transition: border-color 0.2s; overflow: hidden;
 }
-.kk-accordion details[open] { border-color: rgba(139,92,246,0.35); }
-.kk-accordion summary {
+.kk-faq-item.active { border-color: rgba(139,92,246,0.35); }
+.kk-faq-question {
   display: flex; justify-content: space-between; align-items: center; gap: 1rem;
-  padding: 1.15rem 1.35rem; cursor: pointer; list-style: none;
+  padding: 1.15rem 1.35rem; cursor: pointer; width: 100%; border: none;
+  background: transparent; text-align: left;
   font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 1rem;
   color: var(--kk-text); user-select: none; min-height: 44px;
 }
-.kk-accordion summary::-webkit-details-marker { display: none; }
-.kk-accordion summary::after {
-  content: ''; flex-shrink: 0; width: 1.5rem; height: 1.5rem; border-radius: 50%;
-  border: 1px solid var(--kk-border); display: inline-flex;
-  align-items: center; justify-content: center;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none' stroke='%23c084fc' stroke-width='2'%3E%3Cpath d='M6 2v8M2 6h8'/%3E%3C/svg%3E");
-  background-repeat: no-repeat; background-position: center;
-  transition: transform 0.3s, background-color 0.2s;
+.kk-faq-toggle {
+  font-size: 28px; font-weight: 300; color: var(--kk-purple);
+  flex-shrink: 0; line-height: 1;
+  font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+  user-select: none;
 }
-.kk-accordion details[open] summary::after {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none' stroke='%23c084fc' stroke-width='2'%3E%3Cpath d='M2 6h8'/%3E%3C/svg%3E");
-  background-color: rgba(139,92,246,0.15); border-color: rgba(139,92,246,0.35);
-  transform: rotate(180deg);
+.kk-faq-answer {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.3s ease;
 }
-.kk-accordion__body {
+.kk-faq-answer p {
   padding: 0 1.35rem 1.35rem; color: var(--kk-text-dim);
   line-height: 1.7; font-size: 0.97rem;
+}
+
+/* Mobile: hero buttons stack, smaller badges */
+@media (max-width: 48rem) {
+  .kk-hero__actions {
+    flex-direction: column; align-items: center; gap: 12px;
+  }
+  .kk-hero__actions .kk-appstore-badge img { height: 44px; }
+  .kk-hero__actions .kk-btn-ghost {
+    width: 100%; max-width: 280px; height: 44px; font-size: 14px;
+    justify-content: center;
+  }
+  .kk-cta__actions .kk-appstore-badge img { height: 44px; }
 }
 
 @media (min-width: 40rem) {
@@ -393,26 +413,57 @@ $is_front_page = true;
 				</div>
 
 				<div class="kk-accordion kk-animate kk-animate-delay-1">
-					<details>
-						<summary><?php echo esc_html( $__( 'Kalkan nasıl çalışır?', 'How does Kalkan work?' ) ); ?></summary>
-						<div class="kk-accordion__body"><?php echo esc_html( $__( 'Kalkan, bilinen spam numaraların veritabanını cihazınıza yükler. iOS\'un arama dizini sistemi ile entegre çalışarak gelen aramaları engeller veya işaretler. İnternet bağlantısı gerektirmez.', 'Kalkan loads a database of known spam numbers to your device. It works with iOS\'s call directory system to block or flag incoming calls. No internet connection required.' ) ); ?></div>
-					</details>
-					<details>
-						<summary><?php echo esc_html( $__( 'Kalkan gerçek zamanlı arama analizi yapıyor mu?', 'Does Kalkan do real-time call analysis?' ) ); ?></summary>
-						<div class="kk-accordion__body"><?php echo esc_html( $__( 'Hayır. iOS platformu gerçek zamanlı arama analizine izin vermez. Kalkan, önceden yüklenmiş veritabanı ile çalışır. Bu Apple\'ın güvenlik kısıtlamalarından kaynaklanmaktadır.', 'No. iOS does not allow real-time call analysis. Kalkan works with a preloaded database. This is due to Apple\'s security restrictions.' ) ); ?></div>
-					</details>
-					<details>
-						<summary><?php echo esc_html( $__( 'Ekstra Koruma nedir?', 'What is Extra Protection?' ) ); ?></summary>
-						<div class="kk-accordion__body"><?php echo esc_html( $__( 'Ekstra Koruma, standart spam listesinin ötesinde genişletilmiş numara kalıplarını engelleyen gelişmiş bir koruma katmanıdır. Şu anda ücretsizdir.', 'Extra Protection is an advanced layer that blocks extended number patterns beyond the standard spam list. It\'s currently free.' ) ); ?></div>
-					</details>
-					<details>
-						<summary><?php echo esc_html( $__( 'Verilerim güvende mi?', 'Is my data safe?' ) ); ?></summary>
-						<div class="kk-accordion__body"><?php echo esc_html( $__( 'Evet. Kalkan rehberinize veya arama geçmişinize erişmez. Tüm arama koruma işlemleri cihazınızda yerel olarak gerçekleşir.', 'Yes. Kalkan doesn\'t access your contacts or call history. All call protection happens locally on your device.' ) ); ?></div>
-					</details>
-					<details>
-						<summary><?php echo esc_html( $__( 'Kalkan ücretsiz mi?', 'Is Kalkan free?' ) ); ?></summary>
-						<div class="kk-accordion__body"><?php echo esc_html( $__( 'Genel Koruma ve İletişim Bildirimi özellikleri tamamen ücretsizdir. Ekstra Koruma şu anda ücretsiz olarak sunulmaktadır.', 'General Protection and Communication Reporting features are completely free. Extra Protection is currently offered for free.' ) ); ?></div>
-					</details>
+
+					<div class="kk-faq-item">
+						<button class="kk-faq-question" type="button">
+							<span><?php echo esc_html( $__( 'Kalkan nasıl çalışır?', 'How does Kalkan work?' ) ); ?></span>
+							<span class="kk-faq-toggle">+</span>
+						</button>
+						<div class="kk-faq-answer">
+							<p><?php echo esc_html( $__( 'Kalkan, bilinen spam numaraların veritabanını cihazınıza yükler. iOS\'un arama dizini sistemi ile entegre çalışarak gelen aramaları engeller veya işaretler. İnternet bağlantısı gerektirmez.', 'Kalkan loads a database of known spam numbers to your device. It works with iOS\'s call directory system to block or flag incoming calls. No internet connection required.' ) ); ?></p>
+						</div>
+					</div>
+
+					<div class="kk-faq-item">
+						<button class="kk-faq-question" type="button">
+							<span><?php echo esc_html( $__( 'Kalkan gerçek zamanlı arama analizi yapıyor mu?', 'Does Kalkan do real-time call analysis?' ) ); ?></span>
+							<span class="kk-faq-toggle">+</span>
+						</button>
+						<div class="kk-faq-answer">
+							<p><?php echo esc_html( $__( 'Hayır. iOS platformu gerçek zamanlı arama analizine izin vermez. Kalkan, önceden yüklenmiş veritabanı ile çalışır. Bu Apple\'ın güvenlik kısıtlamalarından kaynaklanmaktadır.', 'No. iOS does not allow real-time call analysis. Kalkan works with a preloaded database. This is due to Apple\'s security restrictions.' ) ); ?></p>
+						</div>
+					</div>
+
+					<div class="kk-faq-item">
+						<button class="kk-faq-question" type="button">
+							<span><?php echo esc_html( $__( 'Ekstra Koruma nedir?', 'What is Extra Protection?' ) ); ?></span>
+							<span class="kk-faq-toggle">+</span>
+						</button>
+						<div class="kk-faq-answer">
+							<p><?php echo esc_html( $__( 'Ekstra Koruma, standart spam listesinin ötesinde genişletilmiş numara kalıplarını engelleyen gelişmiş bir koruma katmanıdır. Şu anda ücretsizdir.', 'Extra Protection is an advanced layer that blocks extended number patterns beyond the standard spam list. It\'s currently free.' ) ); ?></p>
+						</div>
+					</div>
+
+					<div class="kk-faq-item">
+						<button class="kk-faq-question" type="button">
+							<span><?php echo esc_html( $__( 'Verilerim güvende mi?', 'Is my data safe?' ) ); ?></span>
+							<span class="kk-faq-toggle">+</span>
+						</button>
+						<div class="kk-faq-answer">
+							<p><?php echo esc_html( $__( 'Evet. Kalkan rehberinize veya arama geçmişinize erişmez. Tüm arama koruma işlemleri cihazınızda yerel olarak gerçekleşir.', 'Yes. Kalkan doesn\'t access your contacts or call history. All call protection happens locally on your device.' ) ); ?></p>
+						</div>
+					</div>
+
+					<div class="kk-faq-item">
+						<button class="kk-faq-question" type="button">
+							<span><?php echo esc_html( $__( 'Kalkan ücretsiz mi?', 'Is Kalkan free?' ) ); ?></span>
+							<span class="kk-faq-toggle">+</span>
+						</button>
+						<div class="kk-faq-answer">
+							<p><?php echo esc_html( $__( 'Genel Koruma ve İletişim Bildirimi özellikleri tamamen ücretsizdir. Ekstra Koruma şu anda ücretsiz olarak sunulmaktadır.', 'General Protection and Communication Reporting features are completely free. Extra Protection is currently offered for free.' ) ); ?></p>
+						</div>
+					</div>
+
 				</div>
 			</div>
 		</section>

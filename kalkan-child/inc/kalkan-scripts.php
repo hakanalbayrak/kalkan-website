@@ -40,6 +40,34 @@
 		});
 	}
 
+	/* ── FAQ accordion toggle ── */
+	document.querySelectorAll('.kk-faq-question').forEach(function (btn) {
+		btn.addEventListener('click', function () {
+			var item = this.closest('.kk-faq-item');
+			var answer = item.querySelector('.kk-faq-answer');
+			var toggleEl = this.querySelector('.kk-faq-toggle');
+			var isOpen = item.classList.contains('active');
+
+			document.querySelectorAll('.kk-faq-item.active').forEach(function (other) {
+				if (other !== item) {
+					other.classList.remove('active');
+					other.querySelector('.kk-faq-answer').style.maxHeight = null;
+					other.querySelector('.kk-faq-toggle').textContent = '+';
+				}
+			});
+
+			if (isOpen) {
+				item.classList.remove('active');
+				answer.style.maxHeight = null;
+				toggleEl.textContent = '+';
+			} else {
+				item.classList.add('active');
+				answer.style.maxHeight = answer.scrollHeight + 'px';
+				toggleEl.textContent = '\u2212';
+			}
+		});
+	});
+
 	/* ── Smooth scroll for anchor links ── */
 	document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
 		anchor.addEventListener('click', function (e) {
