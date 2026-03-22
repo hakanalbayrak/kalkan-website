@@ -382,3 +382,180 @@ function kalkan_create_launch_post() {
 }
 add_action('after_switch_theme', 'kalkan_create_launch_post');
 add_action('init', 'kalkan_create_launch_post');
+
+/**
+ * Bilingual SEO: Override SEOPress title for English version.
+ */
+add_filter('seopress_titles_title', 'kalkan_bilingual_seo_title');
+function kalkan_bilingual_seo_title($title) {
+    if (!isset($_GET['lang']) || $_GET['lang'] !== 'en') {
+        return $title;
+    }
+
+    if (is_front_page()) {
+        return 'Kalkan - Your Shield Against Spam Calls | iOS Spam Blocker';
+    }
+
+    if (is_home()) {
+        return 'Blog - Kalkan | Spam Call Blocking News';
+    }
+
+    if (is_singular('post')) {
+        $en_title = get_post_meta(get_the_ID(), '_kalkan_title_en', true);
+        if ($en_title) {
+            return $en_title . ' - Kalkan';
+        }
+    }
+
+    if (is_page()) {
+        $template = get_page_template_slug();
+        if ($template === 'page-privacy.php') {
+            return 'Privacy Policy - Kalkan';
+        }
+        if ($template === 'page-kvkk.php') {
+            return 'Legal Notice - Kalkan';
+        }
+        if ($template === 'page-contact.php') {
+            return 'Contact - Kalkan';
+        }
+    }
+
+    return $title;
+}
+
+/**
+ * Bilingual SEO: Override SEOPress meta description for English version.
+ */
+add_filter('seopress_titles_desc', 'kalkan_bilingual_seo_desc');
+function kalkan_bilingual_seo_desc($desc) {
+    if (!isset($_GET['lang']) || $_GET['lang'] !== 'en') {
+        return $desc;
+    }
+
+    if (is_front_page()) {
+        return 'Kalkan blocks spam calls and identifies unknown numbers on your iPhone. Free app with offline protection. Ideal for children and elderly.';
+    }
+
+    if (is_home()) {
+        return 'Updates, tips, and ways to protect yourself from spam calls with Kalkan app.';
+    }
+
+    if (is_singular('post')) {
+        $en_content = get_post_meta(get_the_ID(), '_kalkan_content_en', true);
+        if ($en_content) {
+            return wp_trim_words(wp_strip_all_tags($en_content), 25, '...');
+        }
+    }
+
+    if (is_page()) {
+        $template = get_page_template_slug();
+        if ($template === 'page-privacy.php') {
+            return 'Kalkan app privacy policy. Learn how your data is protected.';
+        }
+        if ($template === 'page-kvkk.php') {
+            return 'Kalkan app legal notice regarding personal data protection.';
+        }
+        if ($template === 'page-contact.php') {
+            return 'Contact us about Kalkan app with your questions or suggestions.';
+        }
+    }
+
+    return $desc;
+}
+
+/**
+ * Bilingual SEO: Override Open Graph title for English version.
+ */
+add_filter('seopress_social_og_title', 'kalkan_bilingual_og_title');
+function kalkan_bilingual_og_title($title) {
+    if (!isset($_GET['lang']) || $_GET['lang'] !== 'en') {
+        return $title;
+    }
+
+    if (is_front_page()) {
+        return 'Kalkan - Your Shield Against Spam Calls';
+    }
+
+    if (is_home()) {
+        return 'Kalkan Blog';
+    }
+
+    if (is_singular('post')) {
+        $en_title = get_post_meta(get_the_ID(), '_kalkan_title_en', true);
+        if ($en_title) {
+            return $en_title;
+        }
+    }
+
+    return $title;
+}
+
+/**
+ * Bilingual SEO: Override Open Graph description for English version.
+ */
+add_filter('seopress_social_og_desc', 'kalkan_bilingual_og_desc');
+function kalkan_bilingual_og_desc($desc) {
+    if (!isset($_GET['lang']) || $_GET['lang'] !== 'en') {
+        return $desc;
+    }
+
+    return kalkan_bilingual_seo_desc($desc);
+}
+
+/**
+ * Add hreflang tags via wp_head for multilingual SEO.
+ */
+add_action('wp_head', 'kalkan_add_hreflang_tags', 1);
+function kalkan_add_hreflang_tags() {
+    $current_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http')
+                    . '://' . $_SERVER['HTTP_HOST']
+                    . strtok($_SERVER['REQUEST_URI'], '?');
+    $current_url = rtrim($current_url, '/');
+
+    $tr_url = $current_url;
+    $en_url = $current_url . '?lang=en';
+
+    echo '<link rel="alternate" hreflang="tr" href="' . esc_url($tr_url) . '" />' . "\n";
+    echo '<link rel="alternate" hreflang="en" href="' . esc_url($en_url) . '" />' . "\n";
+    echo '<link rel="alternate" hreflang="x-default" href="' . esc_url($tr_url) . '" />' . "\n";
+}
+
+/**
+ * Add JSON-LD structured data for homepage.
+ */
+add_action('wp_head', 'kalkan_add_structured_data', 99);
+function kalkan_add_structured_data() {
+    if (!is_front_page()) {
+        return;
+    }
+
+    $lang = (isset($_GET['lang']) && $_GET['lang'] === 'en') ? 'en' : 'tr';
+    $desc = ($lang === 'tr')
+        ? 'Kalkan, iOS cihazınızda spam aramaları engelleyen ve bilinmeyen numaraları tanımlayan ücretsiz bir uygulamadır.'
+        : 'Kalkan blocks spam calls and identifies unknown numbers on your iPhone. Free app with offline protection.';
+
+    echo '<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "Kalkan",
+  "operatingSystem": "iOS",
+  "applicationCategory": "UtilitiesApplication",
+  "description": "' . esc_js($desc) . '",
+  "url": "https://kalkan.website",
+  "downloadUrl": "https://apple.co/4cYKmRG",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "TRY"
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "Kalkan",
+    "url": "https://kalkan.website",
+    "email": "info@kalkan.website"
+  },
+  "inLanguage": ["tr", "en"]
+}
+</script>' . "\n";
+}

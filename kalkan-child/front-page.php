@@ -34,22 +34,6 @@ $is_front_page = true;
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?php echo esc_html( $page_title ); ?></title>
-<meta name="description" content="<?php echo esc_attr( $__( 'Kalkan - iOS için spam arama engelleyici ve arayan kimliği uygulaması. Bilinmeyen numaraları tanımlayın, spam aramaları engelleyin.', 'Kalkan - Spam call blocker and caller identification app for iOS. Identify unknown numbers and block spam calls.' ) ); ?>">
-<meta name="keywords" content="<?php echo esc_attr( $__( 'spam engelleme, arama engelleme, arayan kimliği, ios spam engelleyici, kalkan, istenmeyen arama, numara tanımlama', 'spam blocker, call blocker, caller id, ios spam blocker, kalkan, unwanted calls, number identification' ) ); ?>">
-<meta property="og:title" content="<?php echo esc_attr( $__( 'Kalkan - Spam Aramalara Karşı Kalkanınız', 'Kalkan - Your Shield Against Spam Calls' ) ); ?>">
-<meta property="og:description" content="<?php echo esc_attr( $__( 'iOS için spam arama engelleyici ve arayan kimliği uygulaması.', 'Spam call blocker and caller identification app for iOS.' ) ); ?>">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://kalkan.website<?php echo ( 'en' === $lang ) ? '?lang=en' : ''; ?>">
-<meta property="og:image" content="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png' ); ?>">
-<meta property="og:locale" content="<?php echo ( 'tr' === $lang ) ? 'tr_TR' : 'en_US'; ?>">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="<?php echo esc_attr( $__( 'Kalkan - Spam Aramalara Karşı Kalkanınız', 'Kalkan - Your Shield Against Spam Calls' ) ); ?>">
-<meta name="twitter:description" content="<?php echo esc_attr( $__( 'iOS için spam arama engelleyici ve arayan kimliği uygulaması.', 'Spam call blocker and caller identification app for iOS.' ) ); ?>">
-<link rel="canonical" href="https://kalkan.website<?php echo ( 'en' === $lang ) ? '?lang=en' : ''; ?>">
-<link rel="alternate" hreflang="tr" href="https://kalkan.website">
-<link rel="alternate" hreflang="en" href="https://kalkan.website?lang=en">
-<link rel="alternate" hreflang="x-default" href="https://kalkan.website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">

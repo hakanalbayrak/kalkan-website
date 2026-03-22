@@ -82,12 +82,6 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['kk_contact_nonce'] 
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?php echo esc_html( $page_title ); ?></title>
-<meta name="description" content="<?php echo esc_attr( $__( 'Kalkan ile iletişime geçin. Sorularınız veya önerileriniz için bize yazın.', 'Get in touch with Kalkan. Write to us with your questions or suggestions.' ) ); ?>">
-<meta property="og:title" content="<?php echo esc_attr( $page_title ); ?>">
-<meta property="og:description" content="<?php echo esc_attr( $__( 'Kalkan ile iletişime geçin.', 'Get in touch with Kalkan.' ) ); ?>">
-<meta property="og:type" content="website">
-<meta property="og:image" content="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png' ); ?>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
