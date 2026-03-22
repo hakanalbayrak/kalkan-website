@@ -66,14 +66,26 @@ $is_front_page = true;
   max-width: 40rem;
   line-height: 1.65;
 }
-.kk-hero__actions {
-  display: flex; flex-direction: row; align-items: center; gap: 16px;
+/* ===== HERO BUTTONS — DESKTOP ===== */
+.hero-buttons {
+  display: flex; flex-direction: row; align-items: center; gap: 16px; margin-top: 32px;
 }
-.kk-hero__actions .kk-appstore-badge img {
-  height: 48px; width: auto;
+.hero-appstore {
+  display: inline-flex; align-items: center; text-decoration: none; flex-shrink: 0;
 }
-.kk-hero__actions .kk-btn-ghost {
-  height: 48px; padding: 0 28px; font-size: 15px; border-radius: 12px;
+.hero-appstore img {
+  height: 44px; width: auto; display: block;
+}
+.hero-secondary-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 44px; padding: 0 24px; font-size: 15px; font-weight: 600;
+  font-family: inherit; color: rgba(245,243,255,0.9);
+  border: 1px solid rgba(255,255,255,0.2); border-radius: 10px;
+  background: transparent; text-decoration: none; white-space: nowrap;
+  transition: border-color 0.2s ease, background 0.2s ease; box-sizing: border-box;
+}
+.hero-secondary-btn:hover {
+  border-color: rgba(139,92,246,0.5); background: rgba(139,92,246,0.1); color: #f5f3ff;
 }
 .kk-hero__visual { display: flex; justify-content: center; align-items: center; }
 .kk-mockup-placeholder {
@@ -198,13 +210,14 @@ $is_front_page = true;
   background: radial-gradient(ellipse, rgba(139,92,246,0.2) 0%, transparent 60%);
   pointer-events: none;
 }
-.kk-cta__card h2, .kk-cta__card .kk-lead, .kk-cta__actions { position: relative; }
+.kk-cta__card h2, .kk-cta__card .kk-lead, .cta-appstore { position: relative; }
 .kk-cta__card .kk-lead { margin-inline: auto; }
-.kk-cta__actions {
-  display: flex; justify-content: center; margin-top: 2rem;
+/* ===== CTA BADGE ===== */
+.cta-appstore {
+  display: flex; justify-content: center; margin-top: 28px;
 }
-.kk-cta__actions .kk-appstore-badge img {
-  height: 48px; width: auto;
+.cta-appstore img {
+  height: 44px; width: auto;
 }
 
 .kk-faq { background: rgba(19,7,40,0.6); }
@@ -239,17 +252,16 @@ $is_front_page = true;
   line-height: 1.7; font-size: 0.97rem;
 }
 
-/* Mobile: hero buttons stack, smaller badges */
-@media (max-width: 48rem) {
-  .kk-hero__actions {
+/* ===== HERO BUTTONS — MOBILE ===== */
+@media (max-width: 768px) {
+  .hero-buttons {
     flex-direction: column; align-items: center; gap: 12px;
   }
-  .kk-hero__actions .kk-appstore-badge img { height: 44px; }
-  .kk-hero__actions .kk-btn-ghost {
-    width: 100%; max-width: 280px; height: 44px; font-size: 14px;
-    justify-content: center;
+  .hero-appstore img { height: 44px; }
+  .hero-secondary-btn {
+    height: 44px; width: 200px; text-align: center; font-size: 14px;
   }
-  .kk-cta__actions .kk-appstore-badge img { height: 44px; }
+  .cta-appstore img { height: 44px; }
 }
 
 @media (min-width: 40rem) {
@@ -284,11 +296,11 @@ $is_front_page = true;
 						<?php echo esc_html( $__( 'Kalkan, iOS cihazınızda istenmeyen aramaları engeller ve bilinmeyen numaraları tanımlar.', 'Kalkan blocks unwanted calls and identifies unknown numbers on your iPhone.' ) ); ?>
 					</p>
 
-					<div class="kk-hero__actions kk-animate kk-animate-delay-3">
-						<a href="<?php echo esc_url( $appstore_link ); ?>" class="kk-appstore-badge">
+					<div class="hero-buttons kk-animate kk-animate-delay-3">
+						<a href="<?php echo esc_url( $appstore_link ); ?>" class="hero-appstore">
 							<img src="<?php echo esc_url( $badge_url ); ?>" alt="<?php echo esc_attr( $__( 'App Store\'dan İndir', 'Download on the App Store' ) ); ?>" loading="eager" decoding="async">
 						</a>
-						<a class="kk-btn kk-btn-ghost" href="#kk-how">
+						<a class="hero-secondary-btn" href="#kk-how">
 							<?php echo esc_html( $__( 'Nasıl çalışır?', 'How it works?' ) ); ?>
 						</a>
 					</div>
@@ -395,8 +407,8 @@ $is_front_page = true;
 				<div class="kk-cta__card kk-animate">
 					<h2 id="kk-cta-title"><?php echo esc_html( $__( 'Kalkan ile Huzurlu Arama Deneyimi', 'Peaceful Calling Experience with Kalkan' ) ); ?></h2>
 					<p class="kk-lead"><?php echo esc_html( $__( 'Hemen indirin, spam aramalardan kurtulun.', 'Download now and get rid of spam calls.' ) ); ?></p>
-					<div class="kk-cta__actions">
-						<a href="<?php echo esc_url( $appstore_link ); ?>" class="kk-appstore-badge">
+					<div class="cta-appstore">
+						<a href="<?php echo esc_url( $appstore_link ); ?>">
 							<img src="<?php echo esc_url( $badge_url ); ?>" alt="<?php echo esc_attr( $__( 'App Store\'dan İndir', 'Download on the App Store' ) ); ?>" loading="lazy" decoding="async">
 						</a>
 					</div>

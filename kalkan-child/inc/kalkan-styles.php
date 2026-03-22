@@ -179,7 +179,7 @@ h3 {
   align-items: center;
 }
 .kk-appstore-badge img {
-  height: 54px;
+  height: 44px;
   width: auto;
   display: block;
   border-radius: 0.5rem;
@@ -294,7 +294,7 @@ h3 {
 /* Header App Store button — hidden on mobile, shown on desktop via media query */
 .kk-header-appstore { display: none; }
 .kk-header-appstore img {
-  height: 32px;
+  height: 30px;
   width: auto;
   border-radius: 6px;
   transition: transform 0.2s ease;
