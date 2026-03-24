@@ -69,11 +69,11 @@ $page_title    = 'en' === $lang ? 'Blog — Kalkan' : 'Blog — Kalkan';
 										<?php echo esc_html( get_the_date() ); ?>
 									</time>
 								</div>
-								<h3>
+								<h2 class="kk-post-card__title">
 									<a href="<?php echo esc_url( $post_link ); ?>">
 										<?php echo esc_html( ( 'en' === $lang && $en_title ) ? $en_title : get_the_title() ); ?>
 									</a>
-								</h3>
+								</h2>
 								<div class="kk-post-card__excerpt">
 									<?php
 									if ( 'en' === $lang && $en_content ) {

@@ -339,46 +339,267 @@ function kalkan_page_url($slug_tr, $slug_en = null) {
 }
 
 /**
- * Add JSON-LD structured data for homepage.
+ * Organization schema — output on every page for consistent brand signals.
+ */
+add_action('wp_head', 'kalkan_organization_schema', 98);
+function kalkan_organization_schema() {
+    static $done = false;
+    if ($done) return;
+    $done = true;
+
+    $schema = array(
+        '@context'  => 'https://schema.org',
+        '@type'     => 'Organization',
+        'name'      => 'Kalkan',
+        'url'       => 'https://kalkan.website',
+        'logo'      => get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png',
+        'email'     => 'info@kalkan.website',
+        'sameAs'    => array('https://apps.apple.com/app/kalkan/id6746268015'),
+    );
+    echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</script>\n";
+}
+
+/**
+ * WebSite schema with SearchAction — homepage only.
+ */
+add_action('wp_head', 'kalkan_website_schema', 98);
+function kalkan_website_schema() {
+    if (!is_front_page()) return;
+
+    $schema = array(
+        '@context'        => 'https://schema.org',
+        '@type'           => 'WebSite',
+        'name'            => 'Kalkan',
+        'url'             => 'https://kalkan.website',
+        'inLanguage'      => array('tr', 'en'),
+        'description'     => 'Kalkan - iOS spam arama engelleyici ve arayan kimliği uygulaması.',
+        'potentialAction' => array(
+            '@type'       => 'SearchAction',
+            'target'      => 'https://kalkan.website/?s={search_term_string}',
+            'query-input' => 'required name=search_term_string',
+        ),
+    );
+    echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</script>\n";
+}
+
+/**
+ * MobileApplication schema — homepage only.
  */
 add_action('wp_head', 'kalkan_add_structured_data', 99);
 function kalkan_add_structured_data() {
-    if (!is_front_page()) {
-        return;
-    }
+    if (!is_front_page()) return;
 
     $lang = function_exists('pll_current_language') ? pll_current_language('slug') : 'tr';
-    if (!$lang) {
-        $lang = 'tr';
-    }
+    if (!$lang) $lang = 'tr';
+
     $desc = ($lang === 'tr')
         ? 'Kalkan, iOS cihazınızda spam aramaları engelleyen ve bilinmeyen numaraları tanımlayan ücretsiz bir uygulamadır.'
         : 'Kalkan blocks spam calls and identifies unknown numbers on your iPhone. Free app with offline protection.';
 
-    echo '<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "MobileApplication",
-  "name": "Kalkan",
-  "operatingSystem": "iOS",
-  "applicationCategory": "UtilitiesApplication",
-  "description": "' . esc_js($desc) . '",
-  "url": "https://kalkan.website",
-  "downloadUrl": "https://apple.co/4cYKmRG",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "TRY"
-  },
-  "author": {
-    "@type": "Organization",
-    "name": "Kalkan",
-    "url": "https://kalkan.website",
-    "email": "info@kalkan.website"
-  },
-  "inLanguage": ["tr", "en"]
+    $schema = array(
+        '@context'            => 'https://schema.org',
+        '@type'               => 'MobileApplication',
+        'name'                => 'Kalkan',
+        'operatingSystem'     => 'iOS',
+        'applicationCategory' => 'UtilitiesApplication',
+        'description'         => $desc,
+        'url'                 => 'https://kalkan.website',
+        'downloadUrl'         => 'https://apple.co/4cYKmRG',
+        'offers'              => array(
+            '@type'         => 'Offer',
+            'price'         => '0',
+            'priceCurrency' => 'TRY',
+        ),
+        'author'              => array(
+            '@type' => 'Organization',
+            'name'  => 'Kalkan',
+            'url'   => 'https://kalkan.website',
+            'email' => 'info@kalkan.website',
+        ),
+        'inLanguage'          => array('tr', 'en'),
+    );
+    echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</script>\n";
 }
-</script>' . "\n";
+
+/**
+ * FAQPage schema for homepage FAQ section.
+ */
+add_action('wp_head', 'kalkan_homepage_faq_schema', 99);
+function kalkan_homepage_faq_schema() {
+    if (!is_front_page()) return;
+
+    $lang = function_exists('pll_current_language') ? pll_current_language('slug') : 'tr';
+    if (!$lang) $lang = 'tr';
+
+    $faqs_tr = array(
+        array('Kalkan nasıl çalışır?', 'Kalkan, bilinen spam numaraların veritabanını cihazınıza yükler. iOS\'un arama dizini sistemi ile entegre çalışarak gelen aramaları engeller veya işaretler. İnternet bağlantısı gerektirmez.'),
+        array('Kalkan gerçek zamanlı arama analizi yapıyor mu?', 'Hayır. iOS platformu gerçek zamanlı arama analizine izin vermez. Kalkan, önceden yüklenmiş veritabanı ile çalışır. Bu Apple\'ın güvenlik kısıtlamalarından kaynaklanmaktadır.'),
+        array('Ekstra Koruma nedir?', 'Ekstra Koruma, standart spam listesinin ötesinde genişletilmiş numara kalıplarını engelleyen gelişmiş bir koruma katmanıdır. Şu anda ücretsizdir.'),
+        array('Verilerim güvende mi?', 'Evet. Kalkan rehberinize veya arama geçmişinize erişmez. Tüm arama koruma işlemleri cihazınızda yerel olarak gerçekleşir.'),
+        array('Kalkan ücretsiz mi?', 'Genel Koruma ve İletişim Bildirimi özellikleri tamamen ücretsizdir. Ekstra Koruma şu anda ücretsiz olarak sunulmaktadır.'),
+    );
+    $faqs_en = array(
+        array('How does Kalkan work?', 'Kalkan loads a database of known spam numbers to your device. It works with iOS\'s call directory system to block or flag incoming calls. No internet connection required.'),
+        array('Does Kalkan do real-time call analysis?', 'No. iOS does not allow real-time call analysis. Kalkan works with a preloaded database. This is due to Apple\'s security restrictions.'),
+        array('What is Extra Protection?', 'Extra Protection is an advanced layer that blocks extended number patterns beyond the standard spam list. It\'s currently free.'),
+        array('Is my data safe?', 'Yes. Kalkan doesn\'t access your contacts or call history. All call protection happens locally on your device.'),
+        array('Is Kalkan free?', 'General Protection and Communication Reporting features are completely free. Extra Protection is currently offered for free.'),
+    );
+
+    $faqs = ($lang === 'en') ? $faqs_en : $faqs_tr;
+    $items = array();
+    foreach ($faqs as $faq) {
+        $items[] = array(
+            '@type' => 'Question',
+            'name'  => $faq[0],
+            'acceptedAnswer' => array(
+                '@type' => 'Answer',
+                'text'  => $faq[1],
+            ),
+        );
+    }
+
+    $schema = array(
+        '@context'   => 'https://schema.org',
+        '@type'      => 'FAQPage',
+        'mainEntity' => $items,
+    );
+    echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</script>\n";
+}
+
+/**
+ * BreadcrumbList schema for interior pages and posts.
+ */
+add_action('wp_head', 'kalkan_breadcrumb_schema', 99);
+function kalkan_breadcrumb_schema() {
+    if (is_front_page()) return;
+
+    $items = array();
+    $items[] = array(
+        '@type'    => 'ListItem',
+        'position' => 1,
+        'name'     => 'Kalkan',
+        'item'     => 'https://kalkan.website',
+    );
+
+    $pos = 2;
+    if (is_singular('post')) {
+        $items[] = array(
+            '@type'    => 'ListItem',
+            'position' => $pos++,
+            'name'     => 'Blog',
+            'item'     => 'https://kalkan.website/blog/',
+        );
+        $items[] = array(
+            '@type'    => 'ListItem',
+            'position' => $pos,
+            'name'     => get_the_title(),
+            'item'     => get_permalink(),
+        );
+    } elseif (is_home()) {
+        $items[] = array(
+            '@type'    => 'ListItem',
+            'position' => $pos,
+            'name'     => 'Blog',
+            'item'     => get_permalink(get_option('page_for_posts')),
+        );
+    } elseif (is_singular('page')) {
+        $items[] = array(
+            '@type'    => 'ListItem',
+            'position' => $pos,
+            'name'     => get_the_title(),
+            'item'     => get_permalink(),
+        );
+    }
+
+    if (count($items) < 2) return;
+
+    $schema = array(
+        '@context'        => 'https://schema.org',
+        '@type'           => 'BreadcrumbList',
+        'itemListElement' => $items,
+    );
+    echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</script>\n";
+}
+
+/**
+ * BlogPosting schema for single blog posts.
+ */
+add_action('wp_head', 'kalkan_blogposting_schema', 99);
+function kalkan_blogposting_schema() {
+    if (!is_singular('post')) return;
+
+    $schema = array(
+        '@context'      => 'https://schema.org',
+        '@type'         => 'BlogPosting',
+        'headline'      => get_the_title(),
+        'description'   => get_post_meta(get_the_ID(), '_seopress_titles_desc', true) ?: wp_trim_words(get_the_excerpt(), 25),
+        'datePublished' => get_the_date('c'),
+        'dateModified'  => get_the_modified_date('c'),
+        'url'           => get_permalink(),
+        'inLanguage'    => 'tr',
+        'author'        => array(
+            '@type' => 'Organization',
+            'name'  => 'Kalkan',
+            'url'   => 'https://kalkan.website',
+        ),
+        'publisher'     => array(
+            '@type' => 'Organization',
+            'name'  => 'Kalkan',
+            'logo'  => array(
+                '@type' => 'ImageObject',
+                'url'   => get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png',
+            ),
+        ),
+        'mainEntityOfPage' => array(
+            '@type' => 'WebPage',
+            '@id'   => get_permalink(),
+        ),
+    );
+    echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</script>\n";
+}
+
+/**
+ * HowTo schema for info pages (Nasıl Çalışır, Nasıl Kullanılır).
+ */
+add_action('wp_head', 'kalkan_howto_schema', 99);
+function kalkan_howto_schema() {
+    if (!is_singular('page')) return;
+
+    $slug = get_post_field('post_name', get_the_ID());
+
+    if ('kalkan-nasil-calisir' === $slug) {
+        $schema = array(
+            '@context'    => 'https://schema.org',
+            '@type'       => 'HowTo',
+            'name'        => 'Kalkan Nasıl Çalışır?',
+            'description' => 'Kalkan uygulamasının iOS cihazlarda spam aramaları nasıl engellediğinin teknik açıklaması.',
+            'step'        => array(
+                array('@type' => 'HowToStep', 'name' => 'Veritabanı İndirilir', 'text' => 'Kalkan, bilinen spam numaraların veritabanını cihazınıza indirir.'),
+                array('@type' => 'HowToStep', 'name' => 'iOS Entegrasyonu', 'text' => 'Veriler iOS Call Directory Extension ile sisteme yüklenir.'),
+                array('@type' => 'HowToStep', 'name' => 'Arama Kontrolü', 'text' => 'Gelen arama sırasında iOS, numarayı yüklenen veritabanında kontrol eder.'),
+                array('@type' => 'HowToStep', 'name' => 'Kullanıcı Bildirimi', 'text' => 'Şüpheli numaraları Communication Reporting ile bildirebilirsiniz.'),
+            ),
+        );
+        echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</script>\n";
+    }
+
+    if ('kalkan-nasil-kullanilir' === $slug) {
+        $schema = array(
+            '@context'    => 'https://schema.org',
+            '@type'       => 'HowTo',
+            'name'        => 'Kalkan Nasıl Kullanılır?',
+            'description' => 'Kalkan uygulamasını iPhone\'a kurma ve kullanma rehberi.',
+            'step'        => array(
+                array('@type' => 'HowToStep', 'name' => 'App Store\'dan İndirin', 'text' => 'App Store\'da "Kalkan" aratın veya doğrudan bağlantıdan indirin.'),
+                array('@type' => 'HowToStep', 'name' => 'Uygulamayı Açın', 'text' => 'Kalkan\'ı açın ve karşılama ekranındaki talimatları takip edin.'),
+                array('@type' => 'HowToStep', 'name' => 'Arama Engellemeyi Etkinleştirin', 'text' => 'Ayarlar → Telefon → Arama Engelleme ve Kimliklendirme → Kalkan\'ı etkinleştirin.'),
+                array('@type' => 'HowToStep', 'name' => 'Veritabanını Güncelleyin', 'text' => 'Uygulama içinden veritabanını güncelleyerek en son spam numaraları alın.'),
+                array('@type' => 'HowToStep', 'name' => 'Şüpheli Numaraları Bildirin', 'text' => 'Telefon uygulamasından veya Kalkan içinden şüpheli numaraları bildirebilirsiniz.'),
+            ),
+        );
+        echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</script>\n";
+    }
 }
 
 /**
@@ -391,7 +612,7 @@ function kalkan_add_structured_data() {
  * - Focus keyword set
  */
 function kalkan_seo_optimized_posts() {
-    if (get_option('kalkan_seo_posts_v3')) return;
+    if (get_option('kalkan_seo_posts_v4')) return;
 
     $cat_spam = get_cat_ID('Spam Aramalar');
     $cat_numara = get_cat_ID('Numara Sorgulama');
@@ -429,7 +650,7 @@ function kalkan_seo_optimized_posts() {
 </ol>
 
 <h3>2. iOS Bilinmeyen Arayanları Susturma</h3>
-<p>Ayarlar → Telefon → Bilinmeyen Arayanları Sustur seçeneği rehberinizde olmayan tüm numaraları sessize alır. Ancak önemli aramaları da kaçırabilirsiniz.</p>
+<p>Ayarlar → Telefon → Bilinmeyen Arayanları Sustur seçeneği rehberinizde olmayan tüm numaraları sessize alır. Ancak önemli aramaları da kaçırabilirsiniz. Apple\'ın <a href="https://support.apple.com/tr-tr/guide/iphone/iphe4b3f7823/ios" target="_blank" rel="noopener">iPhone\'da aramaları engelleme rehberine</a> göz atabilirsiniz.</p>
 
 <h3>3. Manuel Numara Engelleme</h3>
 <p>Telefon uygulamasında numaranın yanındaki (i) simgesine dokunup "Bu Arayanı Engelle" seçeneğini kullanabilirsiniz.</p>
@@ -486,7 +707,7 @@ function kalkan_seo_optimized_posts() {
 <p><a href="' . $home . '">Kalkan uygulaması</a> gelen aramalarda otomatik olarak numara hakkında bilgi gösterir. Numara spam veritabanında varsa "Spam" olarak işaretlenir. Uygulama ücretsiz ve çevrimdışı çalışır.</p>
 
 <h3>2. Google ile Numara Sorgulama</h3>
-<p>Numarayı Google\'a yazın. İşletme numaraları genellikle sonuçlarda görünür. Tırnak içinde aratmak ("05XX XXX XX XX") daha kesin sonuçlar verir.</p>
+<p>Numarayı <a href="https://www.google.com" target="_blank" rel="noopener">Google</a>\'a yazın. İşletme numaraları genellikle sonuçlarda görünür. Tırnak içinde aratmak ("05XX XXX XX XX") daha kesin sonuçlar verir.</p>
 
 <h3>3. Şikayet Siteleri</h3>
 <p>sikayetvar.com gibi platformlarda numarayı aratarak başkalarının deneyimlerini okuyabilirsiniz. Özellikle <a href="' . $home . 'dolandirici-numara-tanima/">dolandırıcı numaraları</a> tanımak için faydalıdır.</p>
@@ -533,7 +754,7 @@ function kalkan_seo_optimized_posts() {
 <h2>Dolandırıcı Numara Belirtileri</h2>
 
 <h3>1. Aciliyet Yaratma</h3>
-<p>"Hesabınız kapatılacak", "Son dakika" gibi panik ifadeleri dolandırıcılığın en yaygın işaretidir. Gerçek kurumlar sizi telefonla arayıp acil işlem yapmanızı istemez.</p>
+<p>"Hesabınız kapatılacak", "Son dakika" gibi panik ifadeleri dolandırıcılığın en yaygın işaretidir. Gerçek kurumlar sizi telefonla arayıp acil işlem yapmanızı istemez. <a href="https://www.btk.gov.tr/ihbar-merkezi" target="_blank" rel="noopener">BTK İhbar Merkezi</a> üzerinden şüpheli numaraları bildirebilirsiniz.</p>
 
 <h3>2. Kişisel Bilgi İsteme</h3>
 <p>TC kimlik, banka kartı bilgileri veya SMS kodu isteyen aramalar kesinlikle dolandırıcılıktır. Hiçbir banka bu bilgileri telefonla istemez.</p>
@@ -596,7 +817,7 @@ function kalkan_seo_optimized_posts() {
 <p><a href="' . $home . '">Kalkan uygulaması</a> arama geldiği anda bilinmeyen numara hakkında bilgi gösterir. Numara spam veritabanında varsa otomatik olarak işaretlenir. Telefonu açmadan kimin aradığını anlayabilirsiniz.</p>
 
 <h3>2. Google\'da Aratın</h3>
-<p>Numarayı Google\'a yazın. "05XX XXX XX XX spam" şeklinde aratmak daha iyi sonuç verir.</p>
+<p>Numarayı Google\'a yazın. "05XX XXX XX XX spam" şeklinde aratmak daha iyi sonuç verir. Apple\'ın <a href="https://support.apple.com/tr-tr/guide/iphone/iphe4b3f7823/ios" target="_blank" rel="noopener">arama engelleme rehberi</a> de faydalı bilgiler içerir.</p>
 
 <h3>3. WhatsApp Kontrolü</h3>
 <p>Numarayı rehberinize ekleyip WhatsApp\'ta profil fotoğrafını kontrol edebilirsiniz.</p>
@@ -654,7 +875,7 @@ function kalkan_seo_optimized_posts() {
 <p>Telefon uygulamasında numaranın yanındaki (i) → "Bu Arayanı Engelle" seçeneğini kullanın. Bu yöntem tek bir numara için çalışır.</p>
 
 <h3>3. Rahatsız Etmeyin Modu</h3>
-<p>Ayarlar → Odaklanma → Rahatsız Etmeyin ile sadece rehberinizdeki kişilerin aramasına izin verebilirsiniz.</p>
+<p>Ayarlar → Odaklanma → Rahatsız Etmeyin ile sadece rehberinizdeki kişilerin aramasına izin verebilirsiniz. Apple\'ın <a href="https://support.apple.com/tr-tr/guide/iphone/iphd6288a67e/ios" target="_blank" rel="noopener">Odaklanma modu rehberine</a> göz atın.</p>
 
 <h2>Sürekli Arayan Numara Engelleme İçin En İyi Çözüm</h2>
 
@@ -697,7 +918,7 @@ function kalkan_seo_optimized_posts() {
 
 <h2>Kalkan Uygulaması Nedir?</h2>
 
-<p>Kalkan, bilinen spam numaraların kapsamlı veritabanını iPhone\'unuza yükleyerek istenmeyen aramaları otomatik olarak engeller. Tüm koruma cihaz üzerinde gerçekleşir — internet gerekmez, rehberinize erişmez.</p>
+<p>Kalkan, bilinen spam numaraların kapsamlı veritabanını iPhone\'unuza yükleyerek istenmeyen aramaları otomatik olarak engeller. Tüm koruma cihaz üzerinde gerçekleşir — internet gerekmez, rehberinize erişmez. Apple\'ın <a href="https://developer.apple.com/documentation/callkit/cxcalldirectoryextensioncontext" target="_blank" rel="noopener">Call Directory Extension</a> teknolojisini kullanır.</p>
 
 <h2>Kalkan Uygulaması Kimin İçin?</h2>
 
@@ -778,7 +999,7 @@ function kalkan_seo_optimized_posts() {
         }
     }
 
-    update_option('kalkan_seo_posts_v3', true);
+    update_option('kalkan_seo_posts_v4', true);
 }
 add_action('init', 'kalkan_seo_optimized_posts', 20);
 
@@ -809,8 +1030,11 @@ add_action('init', 'kalkan_set_homepage_seo', 25);
  */
 add_action('init', 'kalkan_serve_llms_txt');
 function kalkan_serve_llms_txt() {
-    if (isset($_SERVER['REQUEST_URI']) && trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/') === 'llms.txt') {
-        $file = get_stylesheet_directory() . '/llms.txt';
+    if (!isset($_SERVER['REQUEST_URI'])) return;
+    $path = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+
+    if ($path === 'llms.txt' || $path === 'llms-full.txt') {
+        $file = get_stylesheet_directory() . '/' . $path;
         if (file_exists($file)) {
             header('Content-Type: text/plain; charset=utf-8');
             header('Cache-Control: public, max-age=86400');
@@ -881,11 +1105,15 @@ function kalkan_custom_robots_txt($output, $public) {
     $custom .= "Allow: /wp-admin/admin-ajax.php\n\n";
 
     $custom .= "User-agent: GPTBot\nAllow: /\n\n";
+    $custom .= "User-agent: OAI-SearchBot\nAllow: /\n\n";
     $custom .= "User-agent: ChatGPT-User\nAllow: /\n\n";
     $custom .= "User-agent: Google-Extended\nAllow: /\n\n";
     $custom .= "User-agent: PerplexityBot\nAllow: /\n\n";
     $custom .= "User-agent: ClaudeBot\nAllow: /\n\n";
+    $custom .= "User-agent: anthropic-ai\nAllow: /\n\n";
     $custom .= "User-agent: Amazonbot\nAllow: /\n\n";
+    $custom .= "User-agent: Bytespider\nAllow: /\n\n";
+    $custom .= "User-agent: Applebot\nAllow: /\n\n";
 
     $custom .= "Sitemap: " . home_url('/sitemap.xml') . "\n";
 

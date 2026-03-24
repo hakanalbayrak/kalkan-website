@@ -468,14 +468,19 @@ h3 {
   letter-spacing: 0.06em;
   margin-bottom: 0.5rem;
 }
+.kk-post-card h2.kk-post-card__title,
 .kk-post-card h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
   margin-bottom: 0.6rem;
 }
+.kk-post-card h2.kk-post-card__title a,
 .kk-post-card h3 a {
   color: var(--kk-text);
   text-decoration: none;
   transition: color 0.15s;
 }
+.kk-post-card h2.kk-post-card__title a:hover,
 .kk-post-card h3 a:hover {
   color: var(--kk-purple-light);
 }
