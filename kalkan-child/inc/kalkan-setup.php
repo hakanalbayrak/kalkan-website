@@ -62,6 +62,22 @@ $contact_url = $contact_page
 	? $_kk_pll_url( $contact_page->ID )
 	: esc_url( kalkan_page_url( 'iletisim', 'contact' ) );
 
+/* ── Info page URLs ───────────────────────────────────────────────────────── */
+$what_is_page = get_page_by_path( 'kalkan-nedir' );
+$what_is_url  = $what_is_page
+	? $_kk_pll_url( $what_is_page->ID )
+	: esc_url( kalkan_page_url( 'kalkan-nedir', 'what-is-kalkan' ) );
+
+$how_works_page = get_page_by_path( 'kalkan-nasil-calisir' );
+$how_works_url  = $how_works_page
+	? $_kk_pll_url( $how_works_page->ID )
+	: esc_url( kalkan_page_url( 'kalkan-nasil-calisir', 'how-kalkan-works' ) );
+
+$how_to_use_page = get_page_by_path( 'kalkan-nasil-kullanilir' );
+$how_to_use_url  = $how_to_use_page
+	? $_kk_pll_url( $how_to_use_page->ID )
+	: esc_url( kalkan_page_url( 'kalkan-nasil-kullanilir', 'how-to-use-kalkan' ) );
+
 /* ── App Store badges (official Apple hosted) ──────────────────────────────── */
 $appstore_link = 'https://apple.co/4cYKmRG';
 $badge_lang    = ( 'tr' === $lang ) ? 'tr-tr' : 'en-us';
