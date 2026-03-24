@@ -26,9 +26,9 @@ $anchor_prefix = $is_front_page ? '' : $home_url;
 
 		<nav class="kk-nav" aria-label="<?php echo esc_attr( $__( 'Ana menü', 'Main menu' ) ); ?>">
 			<ul>
-				<li><a href="<?php echo $anchor_prefix; ?>#kk-features"><?php echo esc_html( $__( 'Özellikler', 'Features' ) ); ?></a></li>
-				<li><a href="<?php echo $anchor_prefix; ?>#kk-how"><?php echo esc_html( $__( 'Nasıl Çalışır', 'How It Works' ) ); ?></a></li>
-				<li><a href="<?php echo $anchor_prefix; ?>#kk-faq"><?php echo esc_html( $__( 'SSS', 'FAQ' ) ); ?></a></li>
+				<li><a href="<?php echo $what_is_url; ?>"><?php echo esc_html( $__( 'Kalkan Nedir?', 'What is Kalkan?' ) ); ?></a></li>
+				<li><a href="<?php echo $how_works_url; ?>"><?php echo esc_html( $__( 'Nasıl Çalışır?', 'How It Works?' ) ); ?></a></li>
+				<li><a href="<?php echo $how_to_use_url; ?>"><?php echo esc_html( $__( 'Nasıl Kullanılır?', 'How to Use?' ) ); ?></a></li>
 				<li><a href="<?php echo $blog_url; ?>">Blog</a></li>
 				<li><a href="<?php echo $contact_url; ?>"><?php echo esc_html( $__( 'İletişim', 'Contact' ) ); ?></a></li>
 			</ul>
@@ -68,9 +68,9 @@ $anchor_prefix = $is_front_page ? '' : $home_url;
 	<!-- Mobile drawer -->
 	<nav class="kk-mobile-nav" id="kk-mobile-nav" aria-label="<?php echo esc_attr( $__( 'Mobil menü', 'Mobile menu' ) ); ?>">
 		<ul>
-			<li><a href="<?php echo $anchor_prefix; ?>#kk-features"><?php echo esc_html( $__( 'Özellikler', 'Features' ) ); ?></a></li>
-			<li><a href="<?php echo $anchor_prefix; ?>#kk-how"><?php echo esc_html( $__( 'Nasıl Çalışır', 'How It Works' ) ); ?></a></li>
-			<li><a href="<?php echo $anchor_prefix; ?>#kk-faq"><?php echo esc_html( $__( 'SSS', 'FAQ' ) ); ?></a></li>
+			<li><a href="<?php echo $what_is_url; ?>"><?php echo esc_html( $__( 'Kalkan Nedir?', 'What is Kalkan?' ) ); ?></a></li>
+			<li><a href="<?php echo $how_works_url; ?>"><?php echo esc_html( $__( 'Nasıl Çalışır?', 'How It Works?' ) ); ?></a></li>
+			<li><a href="<?php echo $how_to_use_url; ?>"><?php echo esc_html( $__( 'Nasıl Kullanılır?', 'How to Use?' ) ); ?></a></li>
 			<li><a href="<?php echo $blog_url; ?>">Blog</a></li>
 			<li><a href="<?php echo $contact_url; ?>"><?php echo esc_html( $__( 'İletişim', 'Contact' ) ); ?></a></li>
 			<li><a href="<?php echo esc_url( $appstore_link ); ?>"><?php echo esc_html( $__( 'App Store\'dan İndir', 'Download on App Store' ) ); ?></a></li>
