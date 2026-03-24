@@ -990,3 +990,48 @@ function kalkan_seopress_fixes() {
     update_option('kalkan_seopress_fixes_v1', true);
 }
 add_action('init', 'kalkan_seopress_fixes', 30);
+
+/**
+ * Anti-spam: disable comments site-wide.
+ * Kalkan is a marketing site — no need for comments on any post/page.
+ */
+
+// Remove comment support from all post types.
+add_action('init', function () {
+    remove_post_type_support('post', 'comments');
+    remove_post_type_support('post', 'trackbacks');
+    remove_post_type_support('page', 'comments');
+    remove_post_type_support('page', 'trackbacks');
+}, 100);
+
+// Close comments on the front-end.
+add_filter('comments_open', '__return_false', 20, 2);
+add_filter('pings_open', '__return_false', 20, 2);
+
+// Hide existing comments.
+add_filter('comments_array', '__return_empty_array', 10, 2);
+
+// Remove comments from admin menu and admin bar.
+add_action('admin_menu', function () {
+    remove_menu_page('edit-comments.php');
+});
+add_action('admin_bar_menu', function ($wp_admin_bar) {
+    $wp_admin_bar->remove_node('comments');
+}, 999);
+
+// Disable comments feed.
+add_action('template_redirect', function () {
+    if (is_comment_feed()) {
+        wp_safe_redirect(home_url('/'), 301);
+        exit;
+    }
+});
+
+// Remove X-Pingback header.
+add_filter('wp_headers', function ($headers) {
+    unset($headers['X-Pingback']);
+    return $headers;
+});
+
+// Disable XML-RPC (common spam vector).
+add_filter('xmlrpc_enabled', '__return_false');
