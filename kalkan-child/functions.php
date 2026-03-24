@@ -961,3 +961,32 @@ function kalkan_create_info_pages() {
     update_option('kalkan_info_pages_created_v1', true);
 }
 add_action('init', 'kalkan_create_info_pages', 15);
+
+/**
+ * SEOPress fixes — taxonomy meta, RSS excerpt, posts per page.
+ */
+function kalkan_seopress_fixes() {
+    if (get_option('kalkan_seopress_fixes_v1')) return;
+
+    // 1. Set global meta title & description for "language" taxonomy (Polylang).
+    $seopress_titles = get_option('seopress_titles_option_name', array());
+
+    if (!isset($seopress_titles['seopress_titles_tax_titles'])) {
+        $seopress_titles['seopress_titles_tax_titles'] = array();
+    }
+    $seopress_titles['seopress_titles_tax_titles']['language'] = array(
+        'title' => 'Kalkan – %%term_title%% %%sep%% %%sitetitle%%',
+        'description' => 'Kalkan uygulaması içerikleri: %%term_title%%.',
+    );
+
+    update_option('seopress_titles_option_name', $seopress_titles);
+
+    // 2. RSS feed: show summary instead of full text.
+    update_option('rss_use_excerpt', 1);
+
+    // 3. Show more posts per page (default 10 → 20).
+    update_option('posts_per_page', 20);
+
+    update_option('kalkan_seopress_fixes_v1', true);
+}
+add_action('init', 'kalkan_seopress_fixes', 30);
