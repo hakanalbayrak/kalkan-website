@@ -902,7 +902,7 @@ function kalkan_create_info_pages() {
         array(
             'title'    => 'Kalkan Nedir?',
             'slug'     => 'kalkan-nedir',
-            'template' => 'page-kalkan-nedir.php',
+            'template' => 'kalkan-nedir.php',
             'seo_title' => 'Kalkan Nedir? | Spam Arama Engelleme ve Numara Tanıma Uygulaması',
             'seo_desc'  => 'Kalkan, iPhone kullanıcıları için geliştirilmiş spam arama engelleme ve numara tanıma uygulamasıdır. Ücretsiz, çevrimdışı koruma.',
             'en_title'  => 'What is Kalkan? | Spam Call Blocking and Caller ID App',
@@ -910,7 +910,7 @@ function kalkan_create_info_pages() {
         array(
             'title'    => 'Kalkan Nasıl Çalışır?',
             'slug'     => 'kalkan-nasil-calisir',
-            'template' => 'page-kalkan-nasil-calisir.php',
+            'template' => 'kalkan-nasil-calisir.php',
             'seo_title' => 'Kalkan Nasıl Çalışır? | iOS Arama Engelleme Sistemi',
             'seo_desc'  => 'Kalkan uygulamasının teknik çalışma prensibi. Call Directory ve Communication Reporting entegrasyonu.',
             'en_title'  => 'How Does Kalkan Work? | iOS Call Blocking System',
@@ -918,7 +918,7 @@ function kalkan_create_info_pages() {
         array(
             'title'    => 'Kalkan Nasıl Kullanılır?',
             'slug'     => 'kalkan-nasil-kullanilir',
-            'template' => 'page-kalkan-nasil-kullanilir.php',
+            'template' => 'kalkan-nasil-kullanilir.php',
             'seo_title' => 'Kalkan Nasıl Kullanılır? | Adım Adım Kurulum Rehberi',
             'seo_desc'  => 'Kalkan uygulamasını iPhone\'a kurmak ve kullanmak için adım adım rehber. Arama engelleme ve bildirme.',
             'en_title'  => 'How to Use Kalkan? | Step-by-Step Setup Guide',
