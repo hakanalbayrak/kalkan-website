@@ -3,7 +3,7 @@
  * Template Name: Kalkan Nasıl Çalışır
  * Template Post Type: page
  *
- * How Kalkan works page (TR default / EN via Polylang).
+ * Bilingual "How Kalkan Works" page.
  * Fully self-contained: no get_header()/get_footer() to avoid Blocksy conflicts.
  *
  * @package kalkan-child
@@ -13,13 +13,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/* ── Shared setup ──────────────────────────────────────────────────────────── */
 include get_stylesheet_directory() . '/inc/kalkan-setup.php';
 
 $is_front_page = false;
-$page_title    = 'en' === $lang
-	? 'How Does Kalkan Work? — Kalkan'
-	: 'Kalkan Nasıl Çalışır? — Kalkan';
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -45,7 +41,7 @@ $page_title    = 'en' === $lang
 				<span class="kk-eyebrow"><?php echo esc_html( $__( 'Teknik', 'Technical' ) ); ?></span>
 				<h1><?php echo esc_html( $__( 'Kalkan Nasıl Çalışır?', 'How Does Kalkan Work?' ) ); ?></h1>
 				<p class="kk-lead" style="margin-top:0.6rem;">
-					<?php echo esc_html( $__( 'Kalkan, iPhone\'un Call Directory ve Communication Reporting özelliklerini kullanır.', 'Kalkan uses Apple\'s Call Directory and Communication Reporting features.' ) ); ?>
+					<?php echo esc_html( $__( 'iPhone\'un sistem özelliklerini kullanarak spam aramaları engeller.', 'Blocks spam calls using iPhone\'s system-level features.' ) ); ?>
 				</p>
 			</div>
 		</div>
@@ -54,6 +50,8 @@ $page_title    = 'en' === $lang
 			<div class="kk-shell" style="max-width:52rem;">
 
 				<?php if ( 'tr' === $lang ) : ?>
+
+					<p>Kalkan, iPhone'un Call Directory ve Communication Reporting özelliklerini kullanır.</p>
 
 					<h2>1. Veri indirimi</h2>
 					<p>Uygulama, spam olduğu bilinen numaraların bulunduğu bir veri listesini indirir.</p>
@@ -78,12 +76,9 @@ $page_title    = 'en' === $lang
 					<h2>Önemli bilgi</h2>
 					<p>Kalkan gerçek zamanlı analiz yapmaz. Tüm işlemler önceden hazırlanmış veriler üzerinden gerçekleşir.</p>
 
-					<p style="margin-top:2rem;">
-						<a href="<?php echo esc_url( kalkan_page_url( 'kalkan-nedir', 'what-is-kalkan' ) ); ?>">Kalkan nedir?</a> &middot;
-						<a href="<?php echo esc_url( kalkan_page_url( 'kalkan-nasil-kullanilir', 'how-to-use-kalkan' ) ); ?>">Kalkan nasıl kullanılır?</a>
-					</p>
-
 				<?php else : ?>
+
+					<p>Kalkan uses Apple's Call Directory and Communication Reporting features.</p>
 
 					<h2>1. Data download</h2>
 					<p>The app downloads a dataset of known spam numbers.</p>
@@ -107,11 +102,6 @@ $page_title    = 'en' === $lang
 
 					<h2>Important note</h2>
 					<p>Kalkan does not perform real-time analysis. All actions are based on preloaded data.</p>
-
-					<p style="margin-top:2rem;">
-						<a href="<?php echo esc_url( kalkan_page_url( 'kalkan-nedir', 'what-is-kalkan' ) ); ?>">What is Kalkan?</a> &middot;
-						<a href="<?php echo esc_url( kalkan_page_url( 'kalkan-nasil-kullanilir', 'how-to-use-kalkan' ) ); ?>">How to use Kalkan</a>
-					</p>
 
 				<?php endif; ?>
 

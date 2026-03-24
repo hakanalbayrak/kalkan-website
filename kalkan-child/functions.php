@@ -891,3 +891,73 @@ function kalkan_custom_robots_txt($output, $public) {
 
     return $custom;
 }
+
+/**
+ * Create info pages (Kalkan Nedir, Nasıl Çalışır, Nasıl Kullanılır) with correct slugs and templates.
+ */
+function kalkan_create_info_pages() {
+    if (get_option('kalkan_info_pages_created_v1')) return;
+
+    $pages = array(
+        array(
+            'title'    => 'Kalkan Nedir?',
+            'slug'     => 'kalkan-nedir',
+            'template' => 'page-kalkan-nedir.php',
+            'seo_title' => 'Kalkan Nedir? | Spam Arama Engelleme ve Numara Tanıma Uygulaması',
+            'seo_desc'  => 'Kalkan, iPhone kullanıcıları için geliştirilmiş spam arama engelleme ve numara tanıma uygulamasıdır. Ücretsiz, çevrimdışı koruma.',
+            'en_title'  => 'What is Kalkan? | Spam Call Blocking and Caller ID App',
+        ),
+        array(
+            'title'    => 'Kalkan Nasıl Çalışır?',
+            'slug'     => 'kalkan-nasil-calisir',
+            'template' => 'page-kalkan-nasil-calisir.php',
+            'seo_title' => 'Kalkan Nasıl Çalışır? | iOS Arama Engelleme Sistemi',
+            'seo_desc'  => 'Kalkan uygulamasının teknik çalışma prensibi. Call Directory ve Communication Reporting entegrasyonu.',
+            'en_title'  => 'How Does Kalkan Work? | iOS Call Blocking System',
+        ),
+        array(
+            'title'    => 'Kalkan Nasıl Kullanılır?',
+            'slug'     => 'kalkan-nasil-kullanilir',
+            'template' => 'page-kalkan-nasil-kullanilir.php',
+            'seo_title' => 'Kalkan Nasıl Kullanılır? | Adım Adım Kurulum Rehberi',
+            'seo_desc'  => 'Kalkan uygulamasını iPhone\'a kurmak ve kullanmak için adım adım rehber. Arama engelleme ve bildirme.',
+            'en_title'  => 'How to Use Kalkan? | Step-by-Step Setup Guide',
+        ),
+    );
+
+    foreach ($pages as $page_data) {
+        // Check if page already exists.
+        $existing = get_page_by_path($page_data['slug']);
+        if ($existing) continue;
+
+        $page_id = wp_insert_post(array(
+            'post_title'  => $page_data['title'],
+            'post_name'   => $page_data['slug'],
+            'post_status' => 'publish',
+            'post_type'   => 'page',
+            'post_content' => '',
+        ));
+
+        if ($page_id && !is_wp_error($page_id)) {
+            update_post_meta($page_id, '_wp_page_template', $page_data['template']);
+
+            // SEOPress meta.
+            update_post_meta($page_id, '_seopress_titles_title', $page_data['seo_title']);
+            update_post_meta($page_id, '_seopress_titles_desc', $page_data['seo_desc']);
+            update_post_meta($page_id, '_seopress_social_fb_title', $page_data['seo_title']);
+            update_post_meta($page_id, '_seopress_social_fb_desc', $page_data['seo_desc']);
+            update_post_meta($page_id, '_seopress_social_fb_img', get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png');
+
+            // English title for bilingual display.
+            update_post_meta($page_id, '_kalkan_title_en', $page_data['en_title']);
+
+            // Set Polylang language.
+            if (function_exists('pll_set_post_language')) {
+                pll_set_post_language($page_id, 'tr');
+            }
+        }
+    }
+
+    update_option('kalkan_info_pages_created_v1', true);
+}
+add_action('init', 'kalkan_create_info_pages', 15);

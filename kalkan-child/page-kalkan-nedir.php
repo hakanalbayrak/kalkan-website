@@ -3,7 +3,7 @@
  * Template Name: Kalkan Nedir
  * Template Post Type: page
  *
- * What is Kalkan? page (TR default / EN via Polylang).
+ * Bilingual "What is Kalkan?" page.
  * Fully self-contained: no get_header()/get_footer() to avoid Blocksy conflicts.
  *
  * @package kalkan-child
@@ -13,13 +13,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/* ── Shared setup ──────────────────────────────────────────────────────────── */
 include get_stylesheet_directory() . '/inc/kalkan-setup.php';
 
 $is_front_page = false;
-$page_title    = 'en' === $lang
-	? 'What is Kalkan? | Spam Call Blocking and Caller ID App'
-	: 'Kalkan Nedir? | Spam Arama Engelleme ve Numara Tanıma Uygulaması';
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -45,7 +41,7 @@ $page_title    = 'en' === $lang
 				<span class="kk-eyebrow"><?php echo esc_html( $__( 'Hakkında', 'About' ) ); ?></span>
 				<h1><?php echo esc_html( $__( 'Kalkan Nedir?', 'What is Kalkan?' ) ); ?></h1>
 				<p class="kk-lead" style="margin-top:0.6rem;">
-					<?php echo esc_html( $__( 'Kalkan, iPhone kullanıcıları için geliştirilmiş bir spam arama engelleme ve numara tanıma uygulamasıdır.', 'Kalkan is a spam call blocking and caller identification app for iPhone users.' ) ); ?>
+					<?php echo esc_html( $__( 'Spam arama engelleme ve numara tanıma uygulaması.', 'Spam call blocking and caller identification app.' ) ); ?>
 				</p>
 			</div>
 		</div>
@@ -55,7 +51,9 @@ $page_title    = 'en' === $lang
 
 				<?php if ( 'tr' === $lang ) : ?>
 
-					<h2><?php echo esc_html( 'Kalkan ne yapar?' ); ?></h2>
+					<p>Kalkan, iPhone kullanıcıları için geliştirilmiş bir spam arama engelleme ve numara tanıma uygulamasıdır.</p>
+
+					<h2>Kalkan ne yapar?</h2>
 					<p>Kalkan, bilinmeyen numaraları tanımanıza yardımcı olur ve spam aramaları azaltır. Telefonunuza gelen aramalar, önceden hazırlanmış bir veri listesine göre kontrol edilir. Bu uygulama sayesinde:</p>
 					<ul>
 						<li>Spam aramaları engelleyebilirsiniz</li>
@@ -70,14 +68,14 @@ $page_title    = 'en' === $lang
 						<li>Telefon performansını etkilemez</li>
 					</ul>
 
-					<h2><?php echo esc_html( 'Kalkan kimler için uygundur?' ); ?></h2>
+					<h2>Kalkan kimler için uygundur?</h2>
 					<ul>
 						<li>Sık spam arama alan kullanıcılar</li>
 						<li>Bilinmeyen numaralardan rahatsız olanlar</li>
 						<li>Aile üyelerini korumak isteyen kişiler</li>
 					</ul>
 
-					<h2><?php echo esc_html( 'Sık Sorulan Sorular' ); ?></h2>
+					<h2>Sık Sorulan Sorular</h2>
 
 					<h3>Kalkan ücretsiz mi?</h3>
 					<p>Evet, temel koruma ve arama bildirme özellikleri ücretsizdir.</p>
@@ -88,12 +86,9 @@ $page_title    = 'en' === $lang
 					<h3>Kalkan internet olmadan çalışır mı?</h3>
 					<p>Evet, indirilen veriler sayesinde temel koruma çevrimdışı çalışır.</p>
 
-					<p style="margin-top:2rem;">
-						<a href="<?php echo esc_url( kalkan_page_url( 'kalkan-nasil-calisir', 'how-kalkan-works' ) ); ?>">Kalkan nasıl çalışır?</a> &middot;
-						<a href="<?php echo esc_url( kalkan_page_url( 'kalkan-nasil-kullanilir', 'how-to-use-kalkan' ) ); ?>">Kalkan nasıl kullanılır?</a>
-					</p>
-
 				<?php else : ?>
+
+					<p>Kalkan is a spam call blocking and caller identification app for iPhone users.</p>
 
 					<h2>What does Kalkan do?</h2>
 					<p>Kalkan helps you identify unknown callers and reduce unwanted spam calls. Incoming calls are checked against a preloaded dataset on your device. With Kalkan, you can:</p>
@@ -127,11 +122,6 @@ $page_title    = 'en' === $lang
 
 					<h3>Does Kalkan work offline?</h3>
 					<p>Yes, core protection works offline after the data is downloaded.</p>
-
-					<p style="margin-top:2rem;">
-						<a href="<?php echo esc_url( kalkan_page_url( 'kalkan-nasil-calisir', 'how-kalkan-works' ) ); ?>">How does Kalkan work?</a> &middot;
-						<a href="<?php echo esc_url( kalkan_page_url( 'kalkan-nasil-kullanilir', 'how-to-use-kalkan' ) ); ?>">How to use Kalkan</a>
-					</p>
 
 				<?php endif; ?>
 

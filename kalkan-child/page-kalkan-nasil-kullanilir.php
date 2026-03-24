@@ -3,7 +3,7 @@
  * Template Name: Kalkan Nasıl Kullanılır
  * Template Post Type: page
  *
- * How to use Kalkan page (TR default / EN via Polylang).
+ * Bilingual "How to Use Kalkan" page.
  * Fully self-contained: no get_header()/get_footer() to avoid Blocksy conflicts.
  *
  * @package kalkan-child
@@ -13,13 +13,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/* ── Shared setup ──────────────────────────────────────────────────────────── */
 include get_stylesheet_directory() . '/inc/kalkan-setup.php';
 
 $is_front_page = false;
-$page_title    = 'en' === $lang
-	? 'How to Use Kalkan — Kalkan'
-	: 'Kalkan Nasıl Kullanılır? — Kalkan';
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -43,9 +39,9 @@ $page_title    = 'en' === $lang
 		<div class="kk-page-header">
 			<div class="kk-shell">
 				<span class="kk-eyebrow"><?php echo esc_html( $__( 'Rehber', 'Guide' ) ); ?></span>
-				<h1><?php echo esc_html( $__( 'Kalkan Nasıl Kullanılır?', 'How to Use Kalkan' ) ); ?></h1>
+				<h1><?php echo esc_html( $__( 'Kalkan Nasıl Kullanılır?', 'How to Use Kalkan?' ) ); ?></h1>
 				<p class="kk-lead" style="margin-top:0.6rem;">
-					<?php echo esc_html( $__( 'Kalkan\'ı kullanmak oldukça basittir.', 'Using Kalkan is simple.' ) ); ?>
+					<?php echo esc_html( $__( 'Adım adım kurulum ve kullanım rehberi.', 'Step-by-step setup and usage guide.' ) ); ?>
 				</p>
 			</div>
 		</div>
@@ -55,11 +51,13 @@ $page_title    = 'en' === $lang
 
 				<?php if ( 'tr' === $lang ) : ?>
 
+					<p>Kalkan'ı kullanmak oldukça basittir.</p>
+
 					<h2>1. Uygulamayı indirin</h2>
-					<p>App Store üzerinden Kalkan uygulamasını indirin.</p>
+					<p>App Store üzerinden <a href="https://apple.co/4cYKmRG">Kalkan uygulamasını indirin</a>.</p>
 
 					<h2>2. Koruma ayarlarını açın</h2>
-					<p>iPhone Ayarlar &gt; Telefon &gt; Arama Engelleme ve Kimlik Tanımlama bölümüne gidin ve Kalkan'ı aktif edin.</p>
+					<p>iPhone Ayarlar → Telefon → Arama Engelleme ve Kimlik Tanımlama bölümüne gidin ve Kalkan'ı aktif edin.</p>
 
 					<h2>3. Koruma hazır</h2>
 					<p>Artık spam aramalar engellenir veya tanımlanır.</p>
@@ -75,18 +73,15 @@ $page_title    = 'en' === $lang
 					<h2>5. Kategori seçin ve gönderin</h2>
 					<p>Aramanın türünü seçin ve gönderin. Bu işlem diğer kullanıcıların da korunmasına yardımcı olur.</p>
 
-					<p style="margin-top:2rem;">
-						<a href="<?php echo esc_url( kalkan_page_url( 'kalkan-nedir', 'what-is-kalkan' ) ); ?>">Kalkan nedir?</a> &middot;
-						<a href="<?php echo esc_url( kalkan_page_url( 'kalkan-nasil-calisir', 'how-kalkan-works' ) ); ?>">Kalkan nasıl çalışır?</a>
-					</p>
-
 				<?php else : ?>
 
+					<p>Using Kalkan is simple.</p>
+
 					<h2>1. Download the app</h2>
-					<p>Install Kalkan from the App Store.</p>
+					<p>Install <a href="https://apple.co/4cYKmRG">Kalkan from the App Store</a>.</p>
 
 					<h2>2. Enable protection</h2>
-					<p>Go to iPhone Settings &gt; Phone &gt; Call Blocking &amp; Identification and enable Kalkan.</p>
+					<p>Go to iPhone Settings → Phone → Call Blocking &amp; Identification and enable Kalkan.</p>
 
 					<h2>3. Protection is active</h2>
 					<p>Spam calls will now be blocked or identified.</p>
@@ -101,11 +96,6 @@ $page_title    = 'en' === $lang
 
 					<h2>5. Select category and send</h2>
 					<p>Choose the correct category and submit. This helps improve protection for all users.</p>
-
-					<p style="margin-top:2rem;">
-						<a href="<?php echo esc_url( kalkan_page_url( 'kalkan-nedir', 'what-is-kalkan' ) ); ?>">What is Kalkan?</a> &middot;
-						<a href="<?php echo esc_url( kalkan_page_url( 'kalkan-nasil-calisir', 'how-kalkan-works' ) ); ?>">How does Kalkan work?</a>
-					</p>
 
 				<?php endif; ?>
 
