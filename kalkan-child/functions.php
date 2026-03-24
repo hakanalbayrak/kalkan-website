@@ -963,6 +963,29 @@ function kalkan_create_info_pages() {
 add_action('init', 'kalkan_create_info_pages', 15);
 
 /**
+ * Ensure info pages have correct template assigned (repair after rename).
+ */
+function kalkan_fix_info_page_templates() {
+    if (get_option('kalkan_info_templates_fixed_v1')) return;
+
+    $map = array(
+        'kalkan-nedir'            => 'kalkan-nedir.php',
+        'kalkan-nasil-calisir'    => 'kalkan-nasil-calisir.php',
+        'kalkan-nasil-kullanilir' => 'kalkan-nasil-kullanilir.php',
+    );
+
+    foreach ($map as $slug => $template) {
+        $page = get_page_by_path($slug);
+        if ($page) {
+            update_post_meta($page->ID, '_wp_page_template', $template);
+        }
+    }
+
+    update_option('kalkan_info_templates_fixed_v1', true);
+}
+add_action('init', 'kalkan_fix_info_page_templates', 16);
+
+/**
  * SEOPress fixes — taxonomy meta, RSS excerpt, posts per page.
  */
 function kalkan_seopress_fixes() {
