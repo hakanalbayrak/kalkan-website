@@ -354,7 +354,10 @@ function kalkan_organization_schema() {
         'url'       => 'https://kalkan.website',
         'logo'      => get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png',
         'email'     => 'info@kalkan.website',
-        'sameAs'    => array('https://apps.apple.com/app/kalkan/id6746268015'),
+        'sameAs'    => array(
+            'https://apps.apple.com/app/kalkan/id6746268015',
+            'https://x.com/Kalkan_App',
+        ),
     );
     echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</script>\n";
 }

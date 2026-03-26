@@ -32,6 +32,7 @@ Kalkan is a free iOS application that blocks spam calls and identifies unknown p
 - How to Use Kalkan: https://kalkan.website/kalkan-nasil-kullanilir/
 - Privacy Policy: https://kalkan.website/privacy-policy/
 - KVKK Notice: https://kalkan.website/kvkk/
+- X (Twitter): https://x.com/Kalkan_App
 - Contact: info@kalkan.website
 - Full Details: https://kalkan.website/llms-full.txt
 

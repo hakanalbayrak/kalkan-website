@@ -401,6 +401,28 @@ h3 {
   flex-direction: column;
   gap: 0.65rem;
 }
+.kk-footer__social {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+.kk-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid var(--kk-border);
+  color: var(--kk-text-muted);
+  transition: all 0.2s;
+}
+.kk-social-link:hover {
+  background: rgba(139,92,246,0.2);
+  border-color: var(--kk-border-hover);
+  color: var(--kk-text);
+}
 .kk-footer__copy {
   font-size: 0.88rem;
   color: rgba(245,243,255,0.45);
