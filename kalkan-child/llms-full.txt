@@ -83,7 +83,7 @@ https://kalkan.website/spam-arama-engelleme/
 Guide on blocking spam calls on iPhone using Kalkan and built-in iOS features. Covers automatic blocking, Silence Unknown Callers, and manual blocking.
 
 ### Numara Sorgulama (Number Lookup)
-https://kalkan.website/numara-sorgulama/
+https://kalkan.website/numara-sorgulama-rehberi/
 Free methods to look up unknown phone numbers including Kalkan caller ID, Google search, and complaint websites.
 
 ### Dolandırıcı Numara Tanıma (Scam Number Recognition)

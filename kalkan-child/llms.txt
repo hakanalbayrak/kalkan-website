@@ -37,7 +37,7 @@ Kalkan is a free iOS application that blocks spam calls and identifies unknown p
 
 ## Blog Content
 - Spam Arama Engelleme: https://kalkan.website/spam-arama-engelleme/
-- Numara Sorgulama: https://kalkan.website/numara-sorgulama/
+- Numara Sorgulama: https://kalkan.website/numara-sorgulama-rehberi/
 - Dolandırıcı Numara Tanıma: https://kalkan.website/dolandirici-numara-tanima/
 - Bilinmeyen Numara Kimin: https://kalkan.website/bilinmeyen-numara-kimin/
 - Sürekli Arayan Numara Engelleme: https://kalkan.website/surekli-arayan-numara-engelleme/

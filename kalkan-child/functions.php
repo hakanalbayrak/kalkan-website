@@ -693,7 +693,7 @@ function kalkan_seo_optimized_posts() {
         // POST 2: Numara sorgulama
         array(
             'title' => 'Numara Sorgulama – Ücretsiz Yöntemler',
-            'slug' => 'numara-sorgulama',
+            'slug' => 'numara-sorgulama-rehberi',
             'category' => $cat_numara,
             'focus_keyword' => 'numara sorgulama',
             'seo_title' => 'Numara Sorgulama – Kalkan',
@@ -766,7 +766,7 @@ function kalkan_seo_optimized_posts() {
 
 <ul>
 <li>Bilinmeyen aramalarda kişisel bilgi paylaşmayın</li>
-<li><a href="' . $home . 'numara-sorgulama/">Şüpheli numarayı sorgulayın</a></li>
+<li><a href="' . $home . 'numara-sorgulama-rehberi/">Şüpheli numarayı sorgulayın</a></li>
 <li><a href="' . $home . '">Kalkan uygulamasını</a> kullanın — dolandırıcı numaraları otomatik işaretler</li>
 <li>Yaşlı aile üyelerinizi bilgilendirin — dolandırıcılar özellikle yaşlıları hedef alır</li>
 </ul>
@@ -794,7 +794,7 @@ function kalkan_seo_optimized_posts() {
 <h2>How to Protect Against Scam Numbers</h2>
 <ul>
 <li>Never share personal information on unknown calls</li>
-<li><a href="' . $home . 'numara-sorgulama/">Look up suspicious numbers</a></li>
+<li><a href="' . $home . 'numara-sorgulama-rehberi/">Look up suspicious numbers</a></li>
 <li>Use <a href="' . $home . '">Kalkan app</a> — it automatically flags scam numbers</li>
 <li>Inform elderly family members — scammers especially target them</li>
 </ul>',
@@ -879,7 +879,7 @@ function kalkan_seo_optimized_posts() {
 
 <h2>Sürekli Arayan Numara Engelleme İçin En İyi Çözüm</h2>
 
-<p>Tek bir numarayı engellemek kolaydır ama spam arayanlar sürekli numara değiştirir. Bu yüzden Kalkan gibi veritabanı tabanlı bir uygulama en etkili çözümdür. <a href="' . $home . 'numara-sorgulama/">Numarayı sorgulayarak</a> kimin aradığını da öğrenebilirsiniz.</p>
+<p>Tek bir numarayı engellemek kolaydır ama spam arayanlar sürekli numara değiştirir. Bu yüzden Kalkan gibi veritabanı tabanlı bir uygulama en etkili çözümdür. <a href="' . $home . 'numara-sorgulama-rehberi/">Numarayı sorgulayarak</a> kimin aradığını da öğrenebilirsiniz.</p>
 
 <h2>Sıkça Sorulan Sorular</h2>
 
