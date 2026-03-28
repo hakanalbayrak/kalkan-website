@@ -272,12 +272,14 @@ function kalkan_subscribe_shortcode() {
         <input type="hidden" name="kk_nonce" value="<?php echo esc_attr( $nonce ); ?>">
         <div class="kk-subscribe-row">
             <input type="email" name="kk_email" class="kk-subscribe-input" placeholder="<?php echo esc_attr( $placeholder ); ?>" required autocomplete="email">
-            <button type="submit" class="kk-subscribe-btn"><?php echo esc_html( $btn_text ); ?></button>
         </div>
         <label class="kk-subscribe-consent">
             <input type="checkbox" name="kk_consent" required>
             <span><?php echo wp_kses( $consent, array( 'a' => array( 'href' => array(), 'target' => array() ) ) ); ?></span>
         </label>
+        <div class="kk-subscribe-btn-wrap">
+            <button type="submit" class="kk-subscribe-btn"><?php echo esc_html( $btn_text ); ?></button>
+        </div>
         <div class="kk-subscribe-msg" aria-live="polite"
             data-success="<?php echo esc_attr( $success_msg ); ?>"
             data-error="<?php echo esc_attr( $error_msg ); ?>"

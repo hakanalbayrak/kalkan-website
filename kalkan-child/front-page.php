@@ -278,11 +278,12 @@ $is_front_page = true;
   color: var(--kk-text); font-family: inherit; font-size: 0.95rem;
 }
 .kk-subscribe-input::placeholder { color: var(--kk-text-dim); }
+.kk-subscribe-btn-wrap { display: flex; justify-content: center; margin-top: 1rem; }
 .kk-subscribe-btn {
   display: inline-flex; align-items: center; justify-content: center;
-  padding: 0 1.25rem; flex-shrink: 0; border: none; cursor: pointer;
+  padding: 0.7rem 2rem; border: none; cursor: pointer; border-radius: 10px;
   background: linear-gradient(135deg, var(--kk-purple), var(--kk-purple-dark));
-  color: #fff; font-family: inherit; font-size: 0.9rem; font-weight: 600;
+  color: #fff; font-family: inherit; font-size: 0.95rem; font-weight: 600;
   white-space: nowrap; transition: opacity 0.2s;
 }
 .kk-subscribe-btn:hover { opacity: 0.85; }
@@ -302,8 +303,9 @@ $is_front_page = true;
 }
 .kk-subscribe-msg.success { color: var(--kk-green); }
 .kk-subscribe-msg.error { color: #f87171; }
-.kk-subscribe-form.submitted .kk-subscribe-row { opacity: 0.5; pointer-events: none; }
-.kk-subscribe-form.submitted .kk-subscribe-consent { opacity: 0.5; pointer-events: none; }
+.kk-subscribe-form.submitted .kk-subscribe-row,
+.kk-subscribe-form.submitted .kk-subscribe-consent,
+.kk-subscribe-form.submitted .kk-subscribe-btn-wrap { opacity: 0.5; pointer-events: none; }
 
 /* ===== HERO BUTTONS — MOBILE ===== */
 @media (max-width: 768px) {
