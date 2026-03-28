@@ -257,13 +257,14 @@ function kalkan_subscribe_shortcode() {
     $nonce = wp_create_nonce( 'kalkan_subscribe' );
     $lang  = function_exists( 'pll_current_language' ) ? pll_current_language( 'slug' ) : 'tr';
 
-    $placeholder = 'en' === $lang ? 'Enter your email' : 'E-posta adresinizi girin';
-    $btn_text    = 'en' === $lang ? 'Subscribe' : 'Abone Ol';
-    $consent     = 'en' === $lang
-        ? 'I agree to receive updates and accept the <a href="/privacy-policy/" target="_blank">Privacy Policy</a>.'
-        : 'Güncellemeler almayı ve <a href="/gizlilik-politikasi/" target="_blank">Gizlilik Politikası</a>\'nı kabul ediyorum.';
-    $success_msg = 'en' === $lang ? 'You\'re subscribed!' : 'Abone oldunuz!';
-    $error_msg   = 'en' === $lang ? 'Something went wrong. Please try again.' : 'Bir hata oluştu. Lütfen tekrar deneyin.';
+    $placeholder   = 'en' === $lang ? 'Enter your email' : 'E-posta adresinizi girin';
+    $btn_text      = 'en' === $lang ? 'Subscribe' : 'Abone Ol';
+    $consent       = 'en' === $lang
+        ? '<a href="/privacy-policy/" target="_blank">KVKK</a> ve <a href="/privacy-policy/" target="_blank">Privacy Policy</a> accept.'
+        : '<a href="/kvkk/" target="_blank">KVKK</a> ve <a href="/gizlilik-politikasi/" target="_blank">Gizlilik Politikası</a>\'nı kabul ediyorum.';
+    $success_msg   = 'en' === $lang ? 'You\'re subscribed!' : 'Abone oldunuz!';
+    $error_msg     = 'en' === $lang ? 'Something went wrong. Please try again.' : 'Bir hata oluştu. Lütfen tekrar deneyin.';
+    $consent_warn  = 'en' === $lang ? 'Please accept the privacy policy.' : 'Lütfen gizlilik politikasını kabul edin.';
 
     ob_start();
     ?>
@@ -271,15 +272,16 @@ function kalkan_subscribe_shortcode() {
         <input type="hidden" name="kk_nonce" value="<?php echo esc_attr( $nonce ); ?>">
         <div class="kk-subscribe-row">
             <input type="email" name="kk_email" class="kk-subscribe-input" placeholder="<?php echo esc_attr( $placeholder ); ?>" required autocomplete="email">
-            <button type="submit" class="kk-subscribe-btn" aria-label="<?php echo esc_attr( $btn_text ); ?>">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            </button>
+            <button type="submit" class="kk-subscribe-btn"><?php echo esc_html( $btn_text ); ?></button>
         </div>
         <label class="kk-subscribe-consent">
             <input type="checkbox" name="kk_consent" required>
             <span><?php echo wp_kses( $consent, array( 'a' => array( 'href' => array(), 'target' => array() ) ) ); ?></span>
         </label>
-        <div class="kk-subscribe-msg" aria-live="polite" data-success="<?php echo esc_attr( $success_msg ); ?>" data-error="<?php echo esc_attr( $error_msg ); ?>"></div>
+        <div class="kk-subscribe-msg" aria-live="polite"
+            data-success="<?php echo esc_attr( $success_msg ); ?>"
+            data-error="<?php echo esc_attr( $error_msg ); ?>"
+            data-consent="<?php echo esc_attr( $consent_warn ); ?>"></div>
     </form>
     <?php
     return ob_get_clean();

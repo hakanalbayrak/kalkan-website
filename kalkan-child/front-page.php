@@ -280,9 +280,10 @@ $is_front_page = true;
 .kk-subscribe-input::placeholder { color: var(--kk-text-dim); }
 .kk-subscribe-btn {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 52px; flex-shrink: 0; border: none; cursor: pointer;
+  padding: 0 1.25rem; flex-shrink: 0; border: none; cursor: pointer;
   background: linear-gradient(135deg, var(--kk-purple), var(--kk-purple-dark));
-  color: #fff; transition: opacity 0.2s;
+  color: #fff; font-family: inherit; font-size: 0.9rem; font-weight: 600;
+  white-space: nowrap; transition: opacity 0.2s;
 }
 .kk-subscribe-btn:hover { opacity: 0.85; }
 .kk-subscribe-btn:disabled { opacity: 0.5; cursor: not-allowed; }
@@ -495,9 +496,9 @@ $is_front_page = true;
 		<section class="kk-subscribe kk-section" id="kk-subscribe" aria-labelledby="kk-subscribe-title">
 			<div class="kk-shell" style="max-width:36rem;">
 				<div class="kk-section-header kk-animate" style="text-align:center;">
-					<span class="kk-eyebrow"><?php echo esc_html( $__( 'Bülten', 'Newsletter' ) ); ?></span>
-					<h2 id="kk-subscribe-title"><?php echo esc_html( $__( 'Güncel Kalın', 'Stay Updated' ) ); ?></h2>
-					<p class="kk-lead"><?php echo esc_html( $__( 'Yeni özellikler ve güvenlik ipuçları için bültenimize abone olun.', 'Subscribe to our newsletter for new features and security tips.' ) ); ?></p>
+					<span class="kk-eyebrow"><?php echo esc_html( $__( 'Bülten aboneliği', 'Newsletter' ) ); ?></span>
+					<h2 id="kk-subscribe-title"><?php echo esc_html( $__( 'E-posta listemize kaydolun', 'Join Our Mailing List' ) ); ?></h2>
+					<p class="kk-lead"><?php echo esc_html( $__( 'Yeni özellikler ve güncellemelerden haberdar olmak için bültenimize abone olun.', 'Subscribe to our newsletter for new features and updates.' ) ); ?></p>
 				</div>
 				<?php echo do_shortcode( '[kalkan_subscribe]' ); ?>
 			</div>
@@ -586,7 +587,7 @@ $is_front_page = true;
     msg.textContent = '';
     msg.className = 'kk-subscribe-msg';
     if (!consent.checked) {
-      msg.textContent = consent.closest('label').querySelector('span').textContent;
+      msg.textContent = msg.getAttribute('data-consent');
       msg.classList.add('error');
       return;
     }
