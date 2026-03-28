@@ -262,6 +262,48 @@ $is_front_page = true;
   line-height: 1.7; font-size: 0.97rem;
 }
 
+/* ===== SUBSCRIBE FORM ===== */
+.kk-subscribe { background: rgba(19,7,40,0.4); }
+.kk-subscribe-form { margin-top: 1.5rem; }
+.kk-subscribe-row {
+  display: flex; gap: 0; border-radius: 12px; overflow: hidden;
+  border: 1px solid var(--kk-border);
+  background: rgba(255,255,255,0.04);
+  transition: border-color 0.2s;
+}
+.kk-subscribe-row:focus-within { border-color: rgba(139,92,246,0.5); }
+.kk-subscribe-input {
+  flex: 1; min-width: 0; padding: 0.85rem 1rem;
+  background: transparent; border: none; outline: none;
+  color: var(--kk-text); font-family: inherit; font-size: 0.95rem;
+}
+.kk-subscribe-input::placeholder { color: var(--kk-text-dim); }
+.kk-subscribe-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 52px; flex-shrink: 0; border: none; cursor: pointer;
+  background: linear-gradient(135deg, var(--kk-purple), var(--kk-purple-dark));
+  color: #fff; transition: opacity 0.2s;
+}
+.kk-subscribe-btn:hover { opacity: 0.85; }
+.kk-subscribe-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.kk-subscribe-consent {
+  display: flex; align-items: flex-start; gap: 0.5rem;
+  margin-top: 0.75rem; font-size: 0.82rem; color: var(--kk-text-dim);
+  cursor: pointer; line-height: 1.45;
+}
+.kk-subscribe-consent input[type="checkbox"] {
+  width: 16px; height: 16px; margin-top: 1px; flex-shrink: 0;
+  accent-color: var(--kk-purple);
+}
+.kk-subscribe-consent a { color: var(--kk-purple-light); text-decoration: underline; }
+.kk-subscribe-msg {
+  margin-top: 0.6rem; font-size: 0.88rem; min-height: 1.4em;
+}
+.kk-subscribe-msg.success { color: var(--kk-green); }
+.kk-subscribe-msg.error { color: #f87171; }
+.kk-subscribe-form.submitted .kk-subscribe-row { opacity: 0.5; pointer-events: none; }
+.kk-subscribe-form.submitted .kk-subscribe-consent { opacity: 0.5; pointer-events: none; }
+
 /* ===== HERO BUTTONS — MOBILE ===== */
 @media (max-width: 768px) {
   .phone-frame {
@@ -449,6 +491,18 @@ $is_front_page = true;
 			</div>
 		</section>
 
+		<!-- ── SUBSCRIBE ────────────────────────────────────────────────────── -->
+		<section class="kk-subscribe kk-section" id="kk-subscribe" aria-labelledby="kk-subscribe-title">
+			<div class="kk-shell" style="max-width:36rem;">
+				<div class="kk-section-header kk-animate" style="text-align:center;">
+					<span class="kk-eyebrow"><?php echo esc_html( $__( 'Bülten', 'Newsletter' ) ); ?></span>
+					<h2 id="kk-subscribe-title"><?php echo esc_html( $__( 'Güncel Kalın', 'Stay Updated' ) ); ?></h2>
+					<p class="kk-lead"><?php echo esc_html( $__( 'Yeni özellikler ve güvenlik ipuçları için bültenimize abone olun.', 'Subscribe to our newsletter for new features and security tips.' ) ); ?></p>
+				</div>
+				<?php echo do_shortcode( '[kalkan_subscribe]' ); ?>
+			</div>
+		</section>
+
 		<!-- ── FAQ ───────────────────────────────────────────────────────────── -->
 		<section class="kk-faq kk-section" id="kk-faq" aria-labelledby="kk-faq-title">
 			<div class="kk-shell">
@@ -520,6 +574,48 @@ $is_front_page = true;
 </div>
 
 <?php include get_stylesheet_directory() . '/inc/kalkan-scripts.php'; ?>
+<script>
+(function(){
+  var form = document.getElementById('kk-subscribe-form');
+  if (!form) return;
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var msg = form.querySelector('.kk-subscribe-msg');
+    var email = form.querySelector('[name="kk_email"]').value.trim();
+    var consent = form.querySelector('[name="kk_consent"]');
+    msg.textContent = '';
+    msg.className = 'kk-subscribe-msg';
+    if (!consent.checked) {
+      msg.textContent = consent.closest('label').querySelector('span').textContent;
+      msg.classList.add('error');
+      return;
+    }
+    var btn = form.querySelector('.kk-subscribe-btn');
+    btn.disabled = true;
+    var body = new FormData();
+    body.append('action', 'kalkan_subscribe');
+    body.append('kk_nonce', form.querySelector('[name="kk_nonce"]').value);
+    body.append('kk_email', email);
+    fetch('<?php echo esc_url( admin_url( "admin-ajax.php" ) ); ?>', {
+      method: 'POST', body: body
+    }).then(function(r){ return r.json(); }).then(function(data){
+      if (data.success) {
+        msg.textContent = msg.getAttribute('data-success');
+        msg.classList.add('success');
+        form.classList.add('submitted');
+      } else {
+        msg.textContent = (data.data && data.data.message) || msg.getAttribute('data-error');
+        msg.classList.add('error');
+        btn.disabled = false;
+      }
+    }).catch(function(){
+      msg.textContent = msg.getAttribute('data-error');
+      msg.classList.add('error');
+      btn.disabled = false;
+    });
+  });
+})();
+</script>
 <?php wp_footer(); ?>
 </body>
 </html>

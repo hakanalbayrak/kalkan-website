@@ -248,16 +248,103 @@ function kalkan_child_enqueue_google_fonts() {
 add_action('wp_enqueue_scripts', 'kalkan_child_enqueue_google_fonts', 5);
 
 /**
- * Shortcode: [kalkan_subscribe] — placeholder for FluentCRM form.
+ * Shortcode: [kalkan_subscribe] — FluentCRM email subscribe form.
+ * Inline form with checkbox consent, AJAX submission, no popup.
  *
  * @return string HTML output.
  */
 function kalkan_subscribe_shortcode() {
-    return '<div class="kalkan-subscribe-placeholder" style="padding:1.5rem;border:1px dashed rgba(139,92,246,0.35);border-radius:0.75rem;text-align:center;color:#c4b5fd;font-size:0.95rem;">'
-        . esc_html__('Email subscription form — connect FluentCRM here.', 'kalkan-child')
-        . '</div>';
+    $nonce = wp_create_nonce( 'kalkan_subscribe' );
+    $lang  = function_exists( 'pll_current_language' ) ? pll_current_language( 'slug' ) : 'tr';
+
+    $placeholder = 'en' === $lang ? 'Enter your email' : 'E-posta adresinizi girin';
+    $btn_text    = 'en' === $lang ? 'Subscribe' : 'Abone Ol';
+    $consent     = 'en' === $lang
+        ? 'I agree to receive updates and accept the <a href="/privacy-policy/" target="_blank">Privacy Policy</a>.'
+        : 'Güncellemeler almayı ve <a href="/gizlilik-politikasi/" target="_blank">Gizlilik Politikası</a>\'nı kabul ediyorum.';
+    $success_msg = 'en' === $lang ? 'You\'re subscribed!' : 'Abone oldunuz!';
+    $error_msg   = 'en' === $lang ? 'Something went wrong. Please try again.' : 'Bir hata oluştu. Lütfen tekrar deneyin.';
+
+    ob_start();
+    ?>
+    <form class="kk-subscribe-form" id="kk-subscribe-form" novalidate>
+        <input type="hidden" name="kk_nonce" value="<?php echo esc_attr( $nonce ); ?>">
+        <div class="kk-subscribe-row">
+            <input type="email" name="kk_email" class="kk-subscribe-input" placeholder="<?php echo esc_attr( $placeholder ); ?>" required autocomplete="email">
+            <button type="submit" class="kk-subscribe-btn" aria-label="<?php echo esc_attr( $btn_text ); ?>">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+        </div>
+        <label class="kk-subscribe-consent">
+            <input type="checkbox" name="kk_consent" required>
+            <span><?php echo wp_kses( $consent, array( 'a' => array( 'href' => array(), 'target' => array() ) ) ); ?></span>
+        </label>
+        <div class="kk-subscribe-msg" aria-live="polite" data-success="<?php echo esc_attr( $success_msg ); ?>" data-error="<?php echo esc_attr( $error_msg ); ?>"></div>
+    </form>
+    <?php
+    return ob_get_clean();
 }
 add_shortcode('kalkan_subscribe', 'kalkan_subscribe_shortcode');
+
+/**
+ * AJAX handler: subscribe email via FluentCRM.
+ */
+function kalkan_subscribe_ajax() {
+    check_ajax_referer( 'kalkan_subscribe', 'kk_nonce' );
+
+    $email = isset( $_POST['kk_email'] ) ? sanitize_email( $_POST['kk_email'] ) : '';
+    if ( ! is_email( $email ) ) {
+        wp_send_json_error( array( 'message' => 'Invalid email address.' ), 400 );
+    }
+
+    // FluentCRM API — add or update contact.
+    if ( ! function_exists( 'FluentCrmApi' ) ) {
+        wp_send_json_error( array( 'message' => 'Newsletter service unavailable.' ), 500 );
+    }
+
+    $contact_api = FluentCrmApi( 'contacts' );
+    $contact = $contact_api->createOrUpdate( array(
+        'email'  => $email,
+        'status' => 'subscribed',
+    ) );
+
+    if ( is_wp_error( $contact ) ) {
+        wp_send_json_error( array( 'message' => 'Subscription failed.' ), 500 );
+    }
+
+    wp_send_json_success( array( 'message' => 'Subscribed.' ) );
+}
+add_action( 'wp_ajax_kalkan_subscribe', 'kalkan_subscribe_ajax' );
+add_action( 'wp_ajax_nopriv_kalkan_subscribe', 'kalkan_subscribe_ajax' );
+
+/**
+ * AJAX handler: unsubscribe email via FluentCRM.
+ */
+function kalkan_unsubscribe_ajax() {
+    check_ajax_referer( 'kalkan_unsubscribe', 'kk_nonce' );
+
+    $email = isset( $_POST['kk_email'] ) ? sanitize_email( $_POST['kk_email'] ) : '';
+    if ( ! is_email( $email ) ) {
+        wp_send_json_error( array( 'message' => 'Invalid email address.' ), 400 );
+    }
+
+    if ( ! function_exists( 'FluentCrmApi' ) ) {
+        wp_send_json_error( array( 'message' => 'Newsletter service unavailable.' ), 500 );
+    }
+
+    $contact_api = FluentCrmApi( 'contacts' );
+    $contact = $contact_api->getContactByUserRef( $email );
+
+    if ( $contact ) {
+        $contact->status = 'unsubscribed';
+        $contact->save();
+        wp_send_json_success( array( 'message' => 'Unsubscribed.' ) );
+    }
+
+    wp_send_json_error( array( 'message' => 'Email not found.' ), 404 );
+}
+add_action( 'wp_ajax_kalkan_unsubscribe', 'kalkan_unsubscribe_ajax' );
+add_action( 'wp_ajax_nopriv_kalkan_unsubscribe', 'kalkan_unsubscribe_ajax' );
 
 /**
  * Add favicon and apple-touch-icon using the Kalkan app icon.
