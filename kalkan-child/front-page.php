@@ -41,10 +41,14 @@ $is_front_page = true;
 <?php include get_stylesheet_directory() . '/inc/kalkan-styles.php'; ?>
 <style>
 /* ─── Homepage-specific styles ───────────────────────────────────────────────── */
+
+/* Compact vertical rhythm — reduce section padding on homepage */
+.kk-main > .kk-section { padding-block: clamp(2.5rem, 6vw, 3.5rem); }
+.kk-main > .kk-section .kk-section-header { margin-bottom: 1.5rem; }
 .kk-hero {
   position: relative;
   overflow: hidden;
-  padding-block: clamp(4rem, 12vw, 8rem) clamp(3rem, 8vw, 6rem);
+  padding-block: clamp(3rem, 8vw, 5rem) clamp(2rem, 5vw, 3.5rem);
   background:
     radial-gradient(ellipse 80% 60% at 80% 0%, rgba(139,92,246,0.18) 0%, transparent 65%),
     radial-gradient(ellipse 50% 40% at 10% 100%, rgba(109,40,217,0.12) 0%, transparent 60%);
@@ -127,7 +131,7 @@ $is_front_page = true;
 
 .kk-how { background: rgba(19,7,40,0.6); }
 .kk-steps { display: grid; gap: 1.5rem; }
-.kk-step { padding: clamp(1.5rem, 4vw, 2rem); position: relative; }
+.kk-step { padding: clamp(1.25rem, 3vw, 1.5rem); position: relative; }
 .kk-step__num {
   display: inline-flex; align-items: center; justify-content: center;
   width: 3.5rem; height: 3.5rem; border-radius: 50%;
@@ -141,7 +145,7 @@ $is_front_page = true;
 
 .kk-feature-grid { display: grid; gap: 1.5rem; }
 .kk-feature-card {
-  padding: clamp(1.5rem, 4vw, 2rem); position: relative;
+  padding: clamp(1.25rem, 3vw, 1.5rem); position: relative;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 .kk-feature-card:hover {
@@ -172,7 +176,7 @@ $is_front_page = true;
   width: 600px; height: 1px;
   background: linear-gradient(90deg, transparent, var(--kk-purple), transparent);
 }
-.kk-trust__layout { display: grid; gap: 2.5rem; }
+.kk-trust__layout { display: grid; gap: 1.5rem; }
 .kk-trust__shield { display: flex; justify-content: center; align-items: center; }
 .kk-shield-icon {
   width: min(9rem, 44vw); aspect-ratio: 1; border-radius: 50%;
@@ -209,7 +213,7 @@ $is_front_page = true;
 }
 
 .kk-cta__card {
-  padding: clamp(2.5rem, 6vw, 4rem); text-align: center;
+  padding: clamp(1.75rem, 4vw, 2.5rem); text-align: center;
   background: linear-gradient(135deg, rgba(109,40,217,0.35) 0%, rgba(139,92,246,0.18) 50%, rgba(15,5,32,0.8) 100%);
   border: 1px solid rgba(139,92,246,0.3); border-radius: var(--kk-radius);
   position: relative; overflow: hidden;
@@ -264,7 +268,7 @@ $is_front_page = true;
 
 /* ===== SUBSCRIBE FORM ===== */
 .kk-subscribe { background: rgba(19,7,40,0.4); }
-.kk-subscribe-form { margin-top: 1.5rem; }
+.kk-subscribe-form { margin-top: 1rem; }
 .kk-subscribe-row {
   display: flex; gap: 0; border-radius: 12px; overflow: hidden;
   border: 1px solid var(--kk-border);
