@@ -278,7 +278,6 @@ $is_front_page = true;
   color: var(--kk-text); font-family: inherit; font-size: 0.95rem;
 }
 .kk-subscribe-input::placeholder { color: var(--kk-text-dim); }
-.kk-subscribe-btn-wrap { display: flex; justify-content: center; margin-top: 1rem; }
 .kk-subscribe-btn {
   display: inline-flex; align-items: center; justify-content: center;
   padding: 0.7rem 2rem; border: none; cursor: pointer; border-radius: 10px;
@@ -290,6 +289,7 @@ $is_front_page = true;
 .kk-subscribe-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .kk-subscribe-consent {
   display: flex; align-items: flex-start; gap: 0.5rem;
+  justify-content: center;
   margin-top: 0.75rem; font-size: 0.82rem; color: var(--kk-text-dim);
   cursor: pointer; line-height: 1.45;
 }
@@ -298,8 +298,11 @@ $is_front_page = true;
   accent-color: var(--kk-purple);
 }
 .kk-subscribe-consent a { color: var(--kk-purple-light); text-decoration: underline; }
+.kk-subscribe-btn-wrap {
+  display: flex; justify-content: center; margin-top: 1rem;
+}
 .kk-subscribe-msg {
-  margin-top: 0.6rem; font-size: 0.88rem; min-height: 1.4em;
+  margin-top: 0.6rem; font-size: 0.88rem; min-height: 1.4em; text-align: center;
 }
 .kk-subscribe-msg.success { color: var(--kk-green); }
 .kk-subscribe-msg.error { color: #f87171; }
