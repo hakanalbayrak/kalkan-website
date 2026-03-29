@@ -1372,6 +1372,29 @@ add_action('template_redirect', function () {
     }
 });
 
+/**
+ * 301 redirect /en/home-english/ to /en/ to fix duplicate content.
+ * Google crawled this page but won't index it because it duplicates the front page.
+ */
+add_action('template_redirect', function () {
+    if (is_page('home-english')) {
+        $en_home = function_exists('pll_home_url') ? pll_home_url('en') : home_url('/en/');
+        wp_redirect($en_home, 301);
+        exit;
+    }
+});
+
+/**
+ * 301 redirect old slug /en/how-to-use-kalkan-app/ to correct /en/how-to-use-kalkan/.
+ */
+add_action('template_redirect', function () {
+    if (is_page('how-to-use-kalkan-app')) {
+        $correct_url = home_url('/en/how-to-use-kalkan/');
+        wp_redirect($correct_url, 301);
+        exit;
+    }
+});
+
 // Remove X-Pingback header.
 add_filter('wp_headers', function ($headers) {
     unset($headers['X-Pingback']);
