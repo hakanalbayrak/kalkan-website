@@ -9,6 +9,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// One-time SEO fix — remove this line after running.
+require_once get_stylesheet_directory() . '/kalkan-fix-seo-meta.php';
+
 /**
  * Enqueue child stylesheet.
  *
