@@ -30,10 +30,10 @@ add_action('init', function () {
     // ── PAGE SEO DATA ──────────────────────────────────────────────────────
     // Format: slug => [ title, description, focus_keyword ]
     $pages_tr = array(
-        'blog' => array(
-            'Kalkan Blog – Spam Arama ve Telefon Güvenliği Rehberi',
-            'Spam aramalar, dolandırıcı numaralar ve telefon güvenliği hakkında güncel bilgiler. Kalkan blog ile kendinizi koruyun.',
-            'spam arama blog',
+        'duyurular' => array(
+            'Duyurular – Kalkan Spam Arama ve Telefon Güvenliği',
+            'Spam aramalar, dolandırıcı numaralar ve telefon güvenliği hakkında güncel bilgiler. Kalkan duyuruları ile kendinizi koruyun.',
+            'kalkan duyurular',
         ),
         'iletisim' => array(
             'İletişim – Kalkan Destek',
@@ -118,7 +118,7 @@ add_action('init', function () {
             'Unsubscribe from the Kalkan email newsletter.',
             'kalkan unsubscribe',
         ),
-        'en-blog' => array(
+        'blog' => array(
             'Kalkan Blog – Spam Calls & Phone Security Guide',
             'Stay informed about spam calls, scam numbers, and phone security. Protect yourself with the Kalkan blog.',
             'spam call blog',
