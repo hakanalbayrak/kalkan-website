@@ -1395,6 +1395,24 @@ add_action('template_redirect', function () {
     }
 });
 
+/**
+ * 301 redirects for English pages with wrong (Turkish) slugs.
+ * After fixing slugs in WP Admin, these catch any old/cached URLs.
+ */
+add_action('template_redirect', function () {
+    $redirects = array(
+        'gizlilik-politikasi' => '/en/privacy-policy/',
+        'iletisim'            => '/en/contact/',
+        'blog-2'              => '/en/blog/',
+    );
+    foreach ($redirects as $old_slug => $new_path) {
+        if (is_page($old_slug)) {
+            wp_redirect(home_url($new_path), 301);
+            exit;
+        }
+    }
+});
+
 // Remove X-Pingback header.
 add_filter('wp_headers', function ($headers) {
     unset($headers['X-Pingback']);
