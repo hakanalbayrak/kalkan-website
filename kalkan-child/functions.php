@@ -248,65 +248,6 @@ function kalkan_child_enqueue_google_fonts() {
 add_action('wp_enqueue_scripts', 'kalkan_child_enqueue_google_fonts', 5);
 
 /**
- * Performance: dequeue unused Blocksy CSS/JS on self-contained pages.
- * Our page templates (front-page, contact, privacy, etc.) don't use Blocksy frontend.
- */
-function kalkan_dequeue_unused_assets() {
-    // Dequeue Blocksy styles not needed on custom templates.
-    wp_dequeue_style('blocksy-fonts-media-query');
-    wp_deregister_style('blocksy-fonts-media-query');
-
-    // Dequeue WordPress block styles (not using Gutenberg blocks on frontend).
-    wp_dequeue_style('wp-block-library');
-    wp_deregister_style('wp-block-library');
-    wp_dequeue_style('wp-block-library-theme');
-    wp_deregister_style('wp-block-library-theme');
-
-    // Dequeue global styles (Gutenberg theme.json).
-    wp_dequeue_style('global-styles');
-    wp_deregister_style('global-styles');
-
-    // Dequeue classic theme styles.
-    wp_dequeue_style('classic-theme-styles');
-    wp_deregister_style('classic-theme-styles');
-
-    // Dequeue WordPress emoji script.
-    remove_action('wp_head', 'print_emoji_detection_script', 7);
-    remove_action('wp_print_styles', 'print_emoji_styles');
-}
-add_action('wp_enqueue_scripts', 'kalkan_dequeue_unused_assets', 100);
-
-/**
- * Performance: add defer to non-critical scripts.
- */
-function kalkan_defer_scripts($tag, $handle, $src) {
-    $defer_handles = array('blocksy-scripts-helpers', 'blocksy-scripts');
-    if (in_array($handle, $defer_handles)) {
-        return str_replace(' src', ' defer src', $tag);
-    }
-    return $tag;
-}
-add_filter('script_loader_tag', 'kalkan_defer_scripts', 10, 3);
-
-/**
- * Performance: preconnect to Google Fonts and Google Analytics.
- */
-function kalkan_resource_hints($urls, $relation_type) {
-    if ($relation_type === 'preconnect') {
-        $urls[] = array('href' => 'https://fonts.googleapis.com', 'crossorigin' => true);
-        $urls[] = array('href' => 'https://fonts.gstatic.com', 'crossorigin' => true);
-    }
-    return $urls;
-}
-add_filter('wp_resource_hints', 'kalkan_resource_hints', 10, 2);
-
-/**
- * Performance: disable WP emoji loading.
- */
-remove_action('wp_head', 'print_emoji_detection_script', 7);
-remove_action('wp_print_styles', 'print_emoji_styles');
-
-/**
  * Shortcode: [kalkan_subscribe] — FluentCRM email subscribe form.
  * Inline form with checkbox consent, AJAX submission, no popup.
  *
