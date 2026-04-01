@@ -30,6 +30,49 @@
 - [ ] Monitor iCloud spam delivery — ask contacts to mark "Not Junk" to build reputation
 - [ ] Plan: migrate from Brevo to Amazon SES for full 54K list (Android launch)
 
+## X/Twitter Marketing Plan (April 2026)
+
+### Strategy: X Ads App Install Campaign + Organic Content
+
+**Why not full automation:** X bans automated engagement (likes/replies/follows). Account suspension risk is high. Instead: use X Ads for paid reach, manual engagement for organic growth.
+
+### Step 1 — Profile Setup (Today, 30 min, free)
+- [ ] Set @KalkanApp profile picture: app logo
+- [ ] Create header banner: app screenshots + "Spam aramaları engelle" + App Store badge
+- [ ] Bio: "Kalkan — iPhone'unuzu spam aramalardan korur. Ücretsiz indir 👇" + App Store link
+- [ ] Pin one strong tweet: app demo/screenshots + download link
+
+### Step 2 — X Ads App Install Campaign (Tomorrow, $5/day)
+- [ ] Go to ads.x.com → Create campaign → "App Installs"
+- [ ] Target: Turkey, iOS users, Turkish language, age 25-55
+- [ ] Budget: $5/day to start
+- [ ] Creative: best tweet with app video/screenshots
+- [ ] Track: cost per install, click-through rate
+
+### Step 3 — Daily Organic Routine (20 min/day, free)
+- [ ] Post 1 tweet/day (batch-create weekly content in advance)
+- [ ] 15 min genuine replies in Turkish tech/telecom conversations
+- [ ] 80/20 rule: 80% value content, 20% app promotion
+- [ ] Use X's built-in scheduler to queue posts
+
+### Content Ideas (first week)
+- Thread: "Türkiye'de spam arama sorunu ve çözümü"
+- Tip: "iPhone'unuzda bilinmeyen aramaları nasıl engellersiniz?"
+- Stats: "Türkiye'de günde X spam arama yapılıyor"
+- User story: "Kalkan kullanıcıları ne diyor?"
+- Behind the scenes: app development story
+
+### Growth Milestones
+- Week 1-2: Profile setup + ads running, ~10-50 organic followers
+- Month 1: 100-300 followers with daily effort
+- 500+ followers: organic posts start getting natural reach
+- Then consider: Grok Premium, influencer collabs, increased ad budget
+
+### Budget
+- Start: $5/day X Ads = ~$150/month
+- Scale when CPI (cost per install) data proves ROI
+- Future: consider Amazon SES for email + X Ads combo
+
 ## Email campaign notes
 - Sending via Brevo free tier (300/day limit)
 - Warm-up schedule: 50 → 150 → 300/day to build domain reputation
