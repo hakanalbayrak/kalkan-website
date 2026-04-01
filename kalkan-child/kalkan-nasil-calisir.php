@@ -54,27 +54,28 @@ $is_front_page = false;
 					<p>Kalkan, iPhone'un Call Directory ve Communication Reporting özelliklerini kullanır.</p>
 
 					<h2>1. Veri indirimi</h2>
-					<p>Uygulama, spam olduğu bilinen numaraların bulunduğu bir veri listesini indirir.</p>
+					<p>Kalkan uygulaması, spam olduğu bilinen numaraların bulunduğu bir veri listesini telefona indirir.</p>
 
 					<h2>2. Sistem entegrasyonu</h2>
 					<p>Bu liste, iPhone'un arama sistemine eklenir.</p>
 
 					<h2>3. Arama kontrolü</h2>
-					<p>Bir arama geldiğinde, telefon bu listeyi kontrol eder. Eğer numara listede varsa:</p>
+					<p>Bu veri listesi sayesinde bir arama geldiğinde, telefon aranan numaranın bu listede mevcut olup olmadığını kontrol eder. Eğer numara listede varsa:</p>
 					<ul>
 						<li>Engellenir veya</li>
 						<li>Tanımlanır</li>
 					</ul>
 
 					<h2>4. Kullanıcı bildirimi</h2>
-					<p>Kullanıcılar şüpheli aramaları bildirebilir. Bu bildirimler:</p>
+					<p>Kullanıcılar şüpheli olduğunu düşündükleri veya yanıtladıkları çağrı ile edindikleri tecrübe doğrultusunda bu tarz arama yapan telefon numaralarını Kalkan uygulaması içerisinden ilgili numaranın da engellenmesini talep etmek için bildirimde bulunabilir.</p>
+					<p>Bu bildirimler:</p>
 					<ul>
-						<li>Sistemin gelişmesine yardımcı olur</li>
-						<li>Veri tabanını güçlendirir</li>
+						<li>Kalkanın reklam ve dolandırıcılık amaçlı çağrıları engelleme sisteminin gelişmesine yardımcı olur</li>
+						<li>Veri tabanını güçlendirir ve diğer kullanıcıların da bu sayede bu numaralardan alacakları izinsiz çağrıların önüne geçmiş olur.</li>
 					</ul>
 
 					<h2>Önemli bilgi</h2>
-					<p>Kalkan gerçek zamanlı analiz yapmaz. Tüm işlemler önceden hazırlanmış veriler üzerinden gerçekleşir.</p>
+					<p>Kalkan gerçek zamanlı analiz yapmaz, yani telefonunuzu arayan numarayı Kalkan uygulaması değil cihazınızın kendisi engelli listesinde olup olmadığını kontrol ederek gerekli aksiyonu alır. Tüm işlemler kurulum ile telefonunuzda aktif edilen koruma sayesinde gerçekleşir.</p>
 
 				<?php else : ?>
 
