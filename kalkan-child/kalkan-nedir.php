@@ -51,7 +51,7 @@ $is_front_page = false;
 
 				<?php if ( 'tr' === $lang ) : ?>
 
-					<p>Kalkan, iPhone kullanıcıları için geliştirilmiş bir spam arama engelleme ve numara tanıma uygulamasıdır.</p>
+					<p>Kalkan, istenmeyen aramaları azaltmanıza ve bilinen numaraları etiketleyerek hangi kurum veya kurumların sizi aradığını görmenize yardımcı olan bir arama engelleme ve arayanı bildirme uygulamasıdır.</p>
 
 					<h2>Kalkan ne yapar?</h2>
 					<p>Kalkan, bilinmeyen numaraları tanımanıza yardımcı olur ve spam aramaları azaltır. Telefonunuza gelen aramalar, önceden hazırlanmış bir veri listesine göre kontrol edilir. Bu uygulama sayesinde:</p>
@@ -61,12 +61,17 @@ $is_front_page = false;
 						<li>Şüpheli aramaları kolayca bildirebilirsiniz</li>
 					</ul>
 
+					<p>Koruma, düzenli olarak güncellenen veritabanı ve kullanıcılar bildirdiği numaralar da gerekli incelemeler sonucu listeye eklenerek güncel koruma sağlanır.</p>
+
 					<p>Kalkan gerçek zamanlı çalışan bir uygulama değildir. Uygulama, iPhone'un sistem özelliklerini kullanarak daha önceden hazırlanmış veriler ile çalışır. Bu sayede:</p>
 					<ul>
 						<li>Daha hızlı çalışır</li>
 						<li>İnternete bağlı olmadan da koruma sağlar</li>
 						<li>Telefon performansını etkilemez</li>
 					</ul>
+
+					<h2>Gizliliğiniz</h2>
+					<p>Kalkan arama içeriğinize erişmez. Uygulama, numaraları cihaz üzerinde engellemek ve etiketlemek için CallKit Arama Dizini özelliklerini kullanır.</p>
 
 					<h2>Kalkan kimler için uygundur?</h2>
 					<ul>
@@ -88,7 +93,7 @@ $is_front_page = false;
 
 				<?php else : ?>
 
-					<p>Kalkan is a spam call blocking and caller identification app for iPhone users.</p>
+					<p>Kalkan is a call protection app that helps you reduce unwanted calls and see identification labels for known numbers.</p>
 
 					<h2>What does Kalkan do?</h2>
 					<p>Kalkan helps you identify unknown callers and reduce unwanted spam calls. Incoming calls are checked against a preloaded dataset on your device. With Kalkan, you can:</p>
@@ -98,12 +103,17 @@ $is_front_page = false;
 						<li>Report suspicious calls easily</li>
 					</ul>
 
+					<p>Protection is powered by regularly updated datasets and community reports reviewed in our moderation dashboard.</p>
+
 					<p>Kalkan does not work in real time. It uses Apple's system-level features and preloaded data to provide protection. This means:</p>
 					<ul>
 						<li>Fast performance</li>
 						<li>Works even without internet connection</li>
 						<li>Does not slow down your phone</li>
 					</ul>
+
+					<h2>Your Privacy</h2>
+					<p>Your call content is not accessed by Kalkan. The app uses CallKit Call Directory features to block and label numbers on-device.</p>
 
 					<h2>Who is Kalkan for?</h2>
 					<ul>

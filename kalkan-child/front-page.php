@@ -573,6 +573,46 @@ $is_front_page = true;
 						</div>
 					</div>
 
+					<div class="kk-faq-item">
+						<button class="kk-faq-question" type="button">
+							<span><?php echo esc_html( $__( 'Kalkan %100 koruma sağlar mı?', 'Does Kalkan provide 100% protection?' ) ); ?></span>
+							<span class="kk-faq-toggle">+</span>
+						</button>
+						<div class="kk-faq-answer">
+							<p><?php echo esc_html( $__( 'Kalkan; spam, robot arama, dolandırıcılık ve izinsiz reklam aramalarını veritabanımız ve topluluk bildirimlerine göre engelleyip tanımlayarak azaltmaya yardımcı olur. Kötüye kullanılan yeni numaralar her zaman ortaya çıkabilir, bu nedenle hiçbir arama engelleme uygulaması %100 koruma garanti edemez. Kalkan bilinen numaraların size ulaşmasını engeller; sizin eylemlerinizi kontrol etmez. Lütfen dikkatli olun ve bilinmeyen arayanları doğrulayın.', 'Kalkan app helps reduce spam, robocalls, scams, and phishing by blocking and identifying numbers based on our database and community reports. New abusive numbers can appear at any time, so no call-blocking app can guarantee 100% protection. Kalkan blocks known numbers from reaching you — it does not control your actions. Please stay cautious and verify unknown callers.' ) ); ?></p>
+						</div>
+					</div>
+
+					<div class="kk-faq-item">
+						<button class="kk-faq-question" type="button">
+							<span><?php echo esc_html( $__( 'Neden Ayarlar\'da Arama Engelleme ve Numara Tanıma\'yı etkinleştirmem gerekiyor?', 'Why do I need to enable Call Blocking & Identification in Settings?' ) ); ?></span>
+							<span class="kk-faq-toggle">+</span>
+						</button>
+						<div class="kk-faq-answer">
+							<p><?php echo esc_html( $__( 'iOS, Kalkan\'ı Ayarlar > Uygulamalar > Telefon > Arama Engelleme ve Numara Tanıma altında etkinleştirmenizi gerektirir. Etkinleştirmezseniz iOS, Kalkan\'ın aramaları engellemesine veya arayan kimliği etiketlerini göstermesine izin vermez.', 'iOS requires you to enable Kalkan under Settings > Apps > Phone > Call Blocking & Identification. Without enabling it, iOS won\'t let Kalkan block calls or show caller identification labels.' ) ); ?></p>
+						</div>
+					</div>
+
+					<div class="kk-faq-item">
+						<button class="kk-faq-question" type="button">
+							<span><?php echo esc_html( $__( 'Veritabanını ne sıklıkla güncellemeliyim?', 'How often should I update the database?' ) ); ?></span>
+							<span class="kk-faq-toggle">+</span>
+						</button>
+						<div class="kk-faq-answer">
+							<p><?php echo esc_html( $__( 'En güncel koruma listelerini almak için düzenli olarak güncellemenizi öneririz. Uygulama içinden istediğiniz zaman güncelleyebilirsiniz.', 'We recommend updating regularly to receive the latest protection lists. You can update anytime from the app.' ) ); ?></p>
+						</div>
+					</div>
+
+					<div class="kk-faq-item">
+						<button class="kk-faq-question" type="button">
+							<span><?php echo esc_html( $__( 'İade politikası (Apple App Store)', 'Refund policy (Apple App Store)' ) ); ?></span>
+							<span class="kk-faq-toggle">+</span>
+						</button>
+						<div class="kk-faq-answer">
+							<p><?php echo esc_html( $__( 'Satın alma ve iadeler Apple tarafından yönetilir. Kalkan uygulaması doğrudan iade yapamaz. İadeye uygun olduğunuzu düşünüyorsanız, App Store işlemleri için Apple\'ın satın alma destek ve iade sürecinden talep oluşturun.', 'Purchases and refunds are handled by Apple. Kalkan cannot issue refunds directly. If you believe you\'re eligible for a refund, request it through Apple\'s purchase support and refund flow for App Store transactions.' ) ); ?></p>
+						</div>
+					</div>
+
 				</div>
 			</div>
 		</section>
