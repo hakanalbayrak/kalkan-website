@@ -93,6 +93,49 @@ $terms_url = $terms_page
 	? $_kk_pll_url( $terms_page->ID )
 	: esc_url( kalkan_page_url( 'kullanim-kosullari', 'terms-of-use' ) );
 
+/* ── SEO: canonical + hreflang helper ─────────────────────────────────────── */
+$_kk_seo_tags = static function () use ( $lang ) : string {
+	$post_id = get_the_ID();
+	if ( ! $post_id ) {
+		return '';
+	}
+
+	$tags = '';
+
+	/* Canonical — always point to the current page's permalink */
+	$canonical = get_permalink( $post_id );
+	if ( is_front_page() && function_exists( 'pll_home_url' ) ) {
+		$canonical = pll_home_url( $lang );
+	}
+	$tags .= '<link rel="canonical" href="' . esc_url( $canonical ) . '" />' . "\n";
+
+	/* Hreflang — link TR ↔ EN translations */
+	if ( function_exists( 'pll_get_post' ) && function_exists( 'pll_home_url' ) ) {
+		if ( is_front_page() ) {
+			$tr_url = esc_url( pll_home_url( 'tr' ) );
+			$en_url = esc_url( pll_home_url( 'en' ) );
+		} else {
+			$tr_id  = pll_get_post( $post_id, 'tr' );
+			$en_id  = pll_get_post( $post_id, 'en' );
+			$tr_url = $tr_id ? esc_url( get_permalink( $tr_id ) ) : '';
+			$en_url = $en_id ? esc_url( get_permalink( $en_id ) ) : '';
+		}
+
+		if ( $tr_url ) {
+			$tags .= '<link rel="alternate" hreflang="tr" href="' . $tr_url . '" />' . "\n";
+		}
+		if ( $en_url ) {
+			$tags .= '<link rel="alternate" hreflang="en" href="' . $en_url . '" />' . "\n";
+		}
+		/* x-default points to Turkish (primary language) */
+		if ( $tr_url ) {
+			$tags .= '<link rel="alternate" hreflang="x-default" href="' . $tr_url . '" />' . "\n";
+		}
+	}
+
+	return $tags;
+};
+
 /* ── App Store badges (official Apple hosted) ──────────────────────────────── */
 $appstore_link = 'https://apple.co/4cYKmRG';
 $badge_lang    = ( 'tr' === $lang ) ? 'tr-tr' : 'en-us';

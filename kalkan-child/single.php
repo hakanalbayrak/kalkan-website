@@ -37,6 +37,7 @@ $page_title    = $display_title . ' — Kalkan';
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 <?php wp_head(); ?>
+<?php echo $_kk_seo_tags(); ?>
 <?php include get_stylesheet_directory() . '/inc/kalkan-styles.php'; ?>
 <style>
 /* ── Single post styles ───────────────────────────────────────────────────── */
