@@ -1209,7 +1209,7 @@ function kalkan_custom_robots_txt($output, $public) {
     $custom .= "User-agent: Bytespider\nAllow: /\n\n";
     $custom .= "User-agent: Applebot\nAllow: /\n\n";
 
-    $custom .= "Sitemap: " . home_url('/sitemap.xml') . "\n";
+    $custom .= "Sitemap: " . home_url('/sitemaps.xml') . "\n";
 
     return $custom;
 }
