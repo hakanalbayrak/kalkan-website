@@ -1404,6 +1404,7 @@ add_action('template_redirect', function () {
         'gizlilik-politikasi' => '/en/privacy-policy/',
         'iletisim'            => '/en/contact/',
         'blog-2'              => '/en/blog/',
+        'en-blog'             => '/en/blog/',
     );
     foreach ($redirects as $old_slug => $new_path) {
         if (is_page($old_slug)) {
