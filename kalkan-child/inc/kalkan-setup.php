@@ -44,10 +44,17 @@ $blog_url = $blog_page_id > 0
 	? $_kk_pll_url( $blog_page_id )
 	: esc_url( kalkan_page_url( 'blog', 'blog' ) );
 
-$privacy_page_id = (int) get_option( 'wp_page_for_privacy_policy' );
-$privacy_url     = $privacy_page_id > 0
-	? $_kk_pll_url( $privacy_page_id )
-	: esc_url( kalkan_page_url( 'privacy-policy', 'privacy-policy' ) );
+$privacy_page = get_page_by_path( 'gizlilik-politikasi' );
+if ( ! $privacy_page ) {
+	$privacy_page = get_page_by_path( 'privacy-policy' );
+}
+if ( ! $privacy_page ) {
+	$privacy_page_id = (int) get_option( 'wp_page_for_privacy_policy' );
+	$privacy_page    = $privacy_page_id > 0 ? get_post( $privacy_page_id ) : null;
+}
+$privacy_url = $privacy_page
+	? $_kk_pll_url( $privacy_page->ID )
+	: esc_url( kalkan_page_url( 'gizlilik-politikasi', 'privacy-policy' ) );
 
 $kvkk_page = get_page_by_path( 'kvkk' );
 $kvkk_url  = $kvkk_page
@@ -77,6 +84,14 @@ $how_to_use_page = get_page_by_path( 'kalkan-nasil-kullanilir' );
 $how_to_use_url  = $how_to_use_page
 	? $_kk_pll_url( $how_to_use_page->ID )
 	: esc_url( kalkan_page_url( 'kalkan-nasil-kullanilir', 'how-to-use-kalkan' ) );
+
+$terms_page = get_page_by_path( 'kullanim-kosullari' );
+if ( ! $terms_page ) {
+	$terms_page = get_page_by_path( 'terms-of-use' );
+}
+$terms_url = $terms_page
+	? $_kk_pll_url( $terms_page->ID )
+	: esc_url( kalkan_page_url( 'kullanim-kosullari', 'terms-of-use' ) );
 
 /* ── App Store badges (official Apple hosted) ──────────────────────────────── */
 $appstore_link = 'https://apple.co/4cYKmRG';
