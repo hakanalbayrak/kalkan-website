@@ -31,6 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<a href="<?php echo $how_to_use_url; ?>"><?php echo esc_html( $__( 'Nasıl Kullanılır?', 'How to Use?' ) ); ?></a>
 			<a href="<?php echo $privacy_url; ?>"><?php echo esc_html( $__( 'Gizlilik Politikası', 'Privacy Policy' ) ); ?></a>
 			<a href="<?php echo $kvkk_url; ?>"><?php echo esc_html( $__( 'KVKK Aydınlatma', 'Legal Notice' ) ); ?></a>
+			<a href="<?php echo $terms_url; ?>"><?php echo esc_html( $__( 'Kullanım Koşulları', 'Terms of Use' ) ); ?></a>
 			<a href="<?php echo $blog_url; ?>">Blog</a>
 			<a href="<?php echo $contact_url; ?>"><?php echo esc_html( $__( 'İletişim', 'Contact' ) ); ?></a>
 		</nav>
