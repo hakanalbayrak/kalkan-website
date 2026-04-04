@@ -27,6 +27,9 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['kk_contact_nonce'] 
 	if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['kk_contact_nonce'] ) ), 'kk_contact_form' ) ) {
 		$form_status  = 'error';
 		$form_message = $__( 'Güvenlik doğrulaması başarısız. Lütfen tekrar deneyin.', 'Security verification failed. Please try again.' );
+	} elseif ( kalkan_antispam_check() ) {
+		$form_status  = 'error';
+		$form_message = $__( 'Gönderim reddedildi.', 'Submission rejected.' );
 	} else {
 		$name    = isset( $_POST['kk_name'] ) ? sanitize_text_field( wp_unslash( $_POST['kk_name'] ) ) : '';
 		$email   = isset( $_POST['kk_email'] ) ? sanitize_email( wp_unslash( $_POST['kk_email'] ) ) : '';
@@ -119,6 +122,7 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['kk_contact_nonce'] 
 				<?php if ( 'success' !== $form_status ) : ?>
 					<form class="kk-contact-form" method="post" action="">
 						<?php wp_nonce_field( 'kk_contact_form', 'kk_contact_nonce' ); ?>
+						<?php echo kalkan_antispam_fields(); ?>
 
 						<div class="kk-form-group">
 							<label for="kk_name"><?php echo esc_html( $__( 'Adınız', 'Your Name' ) ); ?></label>

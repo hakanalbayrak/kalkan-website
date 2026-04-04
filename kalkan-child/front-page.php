@@ -647,6 +647,8 @@ $is_front_page = true;
     body.append('action', 'kalkan_subscribe');
     body.append('kk_nonce', form.querySelector('[name="kk_nonce"]').value);
     body.append('kk_email', email);
+    body.append('kk_website_url', form.querySelector('[name="kk_website_url"]') ? form.querySelector('[name="kk_website_url"]').value : '');
+    body.append('kk_ts', form.querySelector('[name="kk_ts"]') ? form.querySelector('[name="kk_ts"]').value : '');
     fetch('<?php echo esc_url( admin_url( "admin-ajax.php" ) ); ?>', {
       method: 'POST', body: body
     }).then(function(r){ return r.json(); }).then(function(data){

@@ -9,6 +9,37 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+/* ── Anti-spam: honeypot + time-check helpers ─────────────────────────────── */
+
+/**
+ * Output honeypot + timestamp hidden fields for any form.
+ * The honeypot field is invisible; bots fill it, humans don't.
+ * The timestamp rejects submissions faster than 2 seconds.
+ */
+function kalkan_antispam_fields() {
+    $ts = time();
+    return '<div style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">'
+         . '<input type="text" name="kk_website_url" value="" tabindex="-1" autocomplete="off">'
+         . '</div>'
+         . '<input type="hidden" name="kk_ts" value="' . esc_attr( (string) $ts ) . '">';
+}
+
+/**
+ * Validate honeypot + timestamp. Returns error message or empty string if OK.
+ */
+function kalkan_antispam_check() {
+    // Honeypot: must be empty
+    if ( ! empty( $_POST['kk_website_url'] ) ) {
+        return 'spam';
+    }
+    // Time check: must be at least 2 seconds since form loaded
+    $ts = isset( $_POST['kk_ts'] ) ? (int) $_POST['kk_ts'] : 0;
+    if ( $ts > 0 && ( time() - $ts ) < 2 ) {
+        return 'spam';
+    }
+    return '';
+}
+
 /**
  * Enqueue child stylesheet.
  *
@@ -270,6 +301,7 @@ function kalkan_subscribe_shortcode() {
     ?>
     <form class="kk-subscribe-form" id="kk-subscribe-form" novalidate>
         <input type="hidden" name="kk_nonce" value="<?php echo esc_attr( $nonce ); ?>">
+        <?php echo kalkan_antispam_fields(); ?>
         <div class="kk-subscribe-row">
             <input type="email" name="kk_email" class="kk-subscribe-input" placeholder="<?php echo esc_attr( $placeholder ); ?>" required autocomplete="email">
         </div>
@@ -295,6 +327,10 @@ add_shortcode('kalkan_subscribe', 'kalkan_subscribe_shortcode');
  */
 function kalkan_subscribe_ajax() {
     check_ajax_referer( 'kalkan_subscribe', 'kk_nonce' );
+
+    if ( kalkan_antispam_check() ) {
+        wp_send_json_error( array( 'message' => 'Submission rejected.' ), 403 );
+    }
 
     $email = isset( $_POST['kk_email'] ) ? sanitize_email( $_POST['kk_email'] ) : '';
     if ( ! is_email( $email ) ) {
@@ -326,6 +362,10 @@ add_action( 'wp_ajax_nopriv_kalkan_subscribe', 'kalkan_subscribe_ajax' );
  */
 function kalkan_unsubscribe_ajax() {
     check_ajax_referer( 'kalkan_unsubscribe', 'kk_nonce' );
+
+    if ( kalkan_antispam_check() ) {
+        wp_send_json_error( array( 'message' => 'Submission rejected.' ), 403 );
+    }
 
     $email = isset( $_POST['kk_email'] ) ? sanitize_email( $_POST['kk_email'] ) : '';
     if ( ! is_email( $email ) ) {
