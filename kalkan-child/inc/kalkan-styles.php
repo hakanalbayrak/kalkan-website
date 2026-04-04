@@ -16,7 +16,7 @@ html { scroll-behavior: smooth; }
   --kk-green:         #34d399;
   --kk-text:          #f5f3ff;
   --kk-text-muted:    #c4b5fd;
-  --kk-text-dim:      rgba(245,243,255,0.62);
+  --kk-text-dim:      rgba(245,243,255,0.75);
   --kk-white:         #ffffff;
   --kk-shell:         76rem;
   --kk-radius:        1.25rem;
