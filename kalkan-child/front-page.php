@@ -369,7 +369,7 @@ $is_front_page = true;
 
 					<div class="hero-buttons kk-animate kk-animate-delay-3">
 						<a href="<?php echo esc_url( $appstore_link ); ?>" class="hero-appstore">
-							<img src="<?php echo esc_url( $badge_url ); ?>" alt="<?php echo esc_attr( $__( 'App Store\'dan İndir', 'Download on the App Store' ) ); ?>" loading="eager" decoding="async">
+							<img src="<?php echo esc_url( $badge_url ); ?>" alt="<?php echo esc_attr( $__( 'App Store\'dan İndir', 'Download on the App Store' ) ); ?>" loading="eager" decoding="async" width="120" height="40">
 						</a>
 						<a class="hero-secondary-btn" href="#kk-how">
 							<?php echo esc_html( $__( 'Nasıl çalışır?', 'How it works?' ) ); ?>
@@ -495,7 +495,7 @@ $is_front_page = true;
 					<p class="kk-lead"><?php echo esc_html( $__( 'Hemen indirin, spam aramalardan kurtulun.', 'Download now and get rid of spam calls.' ) ); ?></p>
 					<div class="cta-appstore">
 						<a href="<?php echo esc_url( $appstore_link ); ?>">
-							<img src="<?php echo esc_url( $badge_url ); ?>" alt="<?php echo esc_attr( $__( 'App Store\'dan İndir', 'Download on the App Store' ) ); ?>" loading="lazy" decoding="async">
+							<img src="<?php echo esc_url( $badge_url ); ?>" alt="<?php echo esc_attr( $__( 'App Store\'dan İndir', 'Download on the App Store' ) ); ?>" loading="lazy" decoding="async" width="120" height="40">
 						</a>
 					</div>
 				</div>
