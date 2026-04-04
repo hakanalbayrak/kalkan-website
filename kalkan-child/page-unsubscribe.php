@@ -92,6 +92,7 @@ $not_found   = 'en' === $lang ? 'Email not found in our list.' : 'E-posta listem
 				<div class="kk-unsub-form" id="kk-unsub-form-wrap">
 					<form id="kk-unsub-form" novalidate>
 						<input type="hidden" name="kk_nonce" value="<?php echo esc_attr( $nonce ); ?>">
+						<?php echo kalkan_antispam_fields(); ?>
 						<div class="kk-unsub-row">
 							<input type="email" name="kk_email" class="kk-unsub-input" placeholder="<?php echo esc_attr( $placeholder ); ?>" required autocomplete="email">
 							<button type="submit" class="kk-unsub-btn"><?php echo esc_html( $btn_text ); ?></button>
@@ -127,6 +128,8 @@ $not_found   = 'en' === $lang ? 'Email not found in our list.' : 'E-posta listem
     body.append('action', 'kalkan_unsubscribe');
     body.append('kk_nonce', form.querySelector('[name="kk_nonce"]').value);
     body.append('kk_email', form.querySelector('[name="kk_email"]').value.trim());
+    body.append('kk_website_url', form.querySelector('[name="kk_website_url"]') ? form.querySelector('[name="kk_website_url"]').value : '');
+    body.append('kk_ts', form.querySelector('[name="kk_ts"]') ? form.querySelector('[name="kk_ts"]').value : '');
     fetch('<?php echo esc_url( admin_url( "admin-ajax.php" ) ); ?>', {
       method: 'POST', body: body
     }).then(function(r){ return r.json(); }).then(function(data){
