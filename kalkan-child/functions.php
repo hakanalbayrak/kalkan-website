@@ -1396,15 +1396,14 @@ add_action('template_redirect', function () {
 });
 
 /**
- * 301 redirects for English pages with wrong (Turkish) slugs.
- * After fixing slugs in WP Admin, these catch any old/cached URLs.
+ * 301 redirects for old/wrong slugs.
+ * Only redirect blog-2 and en-blog which are genuinely obsolete slugs.
+ * gizlilik-politikasi and iletisim are valid Turkish pages — do NOT redirect.
  */
 add_action('template_redirect', function () {
     $redirects = array(
-        'gizlilik-politikasi' => '/en/privacy-policy/',
-        'iletisim'            => '/en/contact/',
-        'blog-2'              => '/en/blog/',
-        'en-blog'             => '/en/blog/',
+        'blog-2'   => '/en/blog/',
+        'en-blog'  => '/en/blog/',
     );
     foreach ($redirects as $old_slug => $new_path) {
         if (is_page($old_slug)) {
