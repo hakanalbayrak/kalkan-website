@@ -1415,9 +1415,10 @@ add_action('template_redirect', function () {
 /**
  * 301 redirect /en/home-english/ to /en/ to fix duplicate content.
  * Google crawled this page but won't index it because it duplicates the front page.
+ * Only redirect when accessed via the direct slug, NOT when Polylang serves it as front page.
  */
 add_action('template_redirect', function () {
-    if (is_page('home-english')) {
+    if ( is_page('home-english') && ! is_front_page() ) {
         $en_home = function_exists('pll_home_url') ? pll_home_url('en') : home_url('/en/');
         wp_redirect($en_home, 301);
         exit;
