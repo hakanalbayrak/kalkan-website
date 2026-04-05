@@ -30,9 +30,9 @@ $__ = static function ( string $tr, string $en ) use ( $lang ) : string {
 $home_url = function_exists( 'pll_home_url' ) ? esc_url( pll_home_url() ) : esc_url( home_url( '/' ) );
 
 $blog_page_id = (int) get_option( 'page_for_posts' );
-$_kk_pll_url  = static function ( int $post_id ) : string {
+$_kk_pll_url  = static function ( int $post_id ) use ( $lang ) : string {
 	if ( $post_id > 0 && function_exists( 'pll_get_post' ) ) {
-		$translated_id = pll_get_post( $post_id );
+		$translated_id = pll_get_post( $post_id, $lang );
 		if ( $translated_id ) {
 			return esc_url( get_permalink( $translated_id ) );
 		}
