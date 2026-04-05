@@ -450,6 +450,37 @@ function kalkan_default_twitter_image($image) {
     return $image;
 }
 
+// Force large Twitter card for better link previews on X.
+add_filter('seopress_social_twitter_card', function ($card_type) {
+    return 'summary_large_image';
+});
+
+/**
+ * One-time: set featured image on all posts that don't have one.
+ * Uses the KalkanAppIcon from media library (ID 50).
+ */
+function kalkan_set_default_featured_images() {
+    if ( get_option( 'kalkan_featured_images_set_v1' ) ) {
+        return;
+    }
+    $posts = get_posts( array(
+        'post_type'      => 'post',
+        'posts_per_page' => -1,
+        'meta_query'     => array(
+            array(
+                'key'     => '_thumbnail_id',
+                'compare' => 'NOT EXISTS',
+            ),
+        ),
+    ) );
+    $icon_id = 50; // kalkan-2.png (1024x1024 app icon)
+    foreach ( $posts as $post ) {
+        set_post_thumbnail( $post->ID, $icon_id );
+    }
+    update_option( 'kalkan_featured_images_set_v1', true );
+}
+add_action( 'init', 'kalkan_set_default_featured_images' );
+
 /**
  * Get Polylang-aware URL for internal pages.
  *
