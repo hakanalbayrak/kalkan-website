@@ -9,6 +9,14 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// Redirect /sitemap.xml to SEOPress /sitemaps.xml
+add_action('template_redirect', function () {
+    if (isset($_SERVER['REQUEST_URI']) && preg_match('#^/sitemap\.xml(\?.*)?$#', $_SERVER['REQUEST_URI'])) {
+        wp_redirect(home_url('/sitemaps.xml'), 301);
+        exit;
+    }
+});
+
 /* ── Anti-spam: honeypot + time-check helpers ─────────────────────────────── */
 
 /**
@@ -1280,7 +1288,7 @@ function kalkan_custom_robots_txt($output, $public) {
     $custom .= "User-agent: Bytespider\nAllow: /\n\n";
     $custom .= "User-agent: Applebot\nAllow: /\n\n";
 
-    $custom .= "Sitemap: " . home_url('/sitemaps.xml') . "\n";
+    $custom .= "Sitemap: " . home_url('/sitemap.xml') . "\n";
 
     return $custom;
 }
