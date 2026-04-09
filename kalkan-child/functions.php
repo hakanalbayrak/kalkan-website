@@ -9,6 +9,45 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+/**
+ * TEMPORARY: Diagnostic to find physical sitemap files on server.
+ * Access via: kalkan.website/?kalkan_find_sitemaps=1
+ * DELETE THIS BLOCK AFTER USE.
+ */
+add_action('init', function () {
+    if (empty($_GET['kalkan_find_sitemaps'])) return;
+    header('Content-Type: text/plain');
+    $doc_root = $_SERVER['DOCUMENT_ROOT'];
+    echo "DOCUMENT_ROOT: $doc_root\n";
+    echo "ABSPATH: " . ABSPATH . "\n\n";
+
+    $targets = ['index.php','sitemap.xml','sitemaps.xml','wp-sitemap.xml','post-sitemap.xml','post-sitemap1.xml','page-sitemap.xml','page-sitemap1.xml','category-sitemap1.xml'];
+    foreach ($targets as $f) {
+        $path = $doc_root . '/' . $f;
+        if (file_exists($path)) {
+            echo "FOUND: $path  (size: " . filesize($path) . " bytes, modified: " . date('Y-m-d H:i:s', filemtime($path)) . ")\n";
+        } else {
+            echo "NOT FOUND: $path\n";
+        }
+        // Also check ABSPATH
+        $path2 = ABSPATH . $f;
+        if ($path2 !== $path && file_exists($path2)) {
+            echo "FOUND (ABSPATH): $path2  (size: " . filesize($path2) . " bytes)\n";
+        }
+    }
+    echo "\n--- All .xml files in doc root ---\n";
+    foreach (glob($doc_root . '/*.xml') as $xml) {
+        echo "XML: $xml  (size: " . filesize($xml) . ", modified: " . date('Y-m-d H:i:s', filemtime($xml)) . ")\n";
+    }
+    echo "\n--- All .xml files in ABSPATH ---\n";
+    if (ABSPATH !== $doc_root . '/') {
+        foreach (glob(ABSPATH . '*.xml') as $xml) {
+            echo "XML: $xml  (size: " . filesize($xml) . ", modified: " . date('Y-m-d H:i:s', filemtime($xml)) . ")\n";
+        }
+    }
+    exit;
+});
+
 /* ── Anti-spam: honeypot + time-check helpers ─────────────────────────────── */
 
 /**
