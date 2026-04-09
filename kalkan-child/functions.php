@@ -45,6 +45,61 @@ add_action('init', function () {
             echo "XML: $xml  (size: " . filesize($xml) . ", modified: " . date('Y-m-d H:i:s', filemtime($xml)) . ")\n";
         }
     }
+
+    echo "\n\n=== .htaccess CONTENT ===\n";
+    $htaccess = $doc_root . '/.htaccess';
+    if (file_exists($htaccess)) {
+        echo file_get_contents($htaccess);
+    } else {
+        echo "NO .htaccess FOUND\n";
+    }
+
+    echo "\n\n=== LITESPEED CACHE CONFIG ===\n";
+    $lscache_options = get_option('litespeed.conf._sitemap');
+    echo "LSCache sitemap: " . var_export($lscache_options, true) . "\n";
+    $lscache_cache = get_option('litespeed.conf.cache');
+    echo "LSCache cache enabled: " . var_export($lscache_cache, true) . "\n";
+    $lscache_object = get_option('litespeed.conf.object');
+    echo "LSCache object cache: " . var_export($lscache_object, true) . "\n";
+
+    echo "\n=== LITESPEED ADVANCED CACHE ===\n";
+    $adv_cache = $doc_root . '/wp-content/advanced-cache.php';
+    if (file_exists($adv_cache)) {
+        echo "advanced-cache.php EXISTS (size: " . filesize($adv_cache) . ")\n";
+        // Check if it's LiteSpeed's
+        $content = file_get_contents($adv_cache);
+        if (strpos($content, 'LiteSpeed') !== false) {
+            echo "It's LiteSpeed Cache advanced-cache.php\n";
+        }
+    } else {
+        echo "NO advanced-cache.php\n";
+    }
+
+    echo "\n=== LITESPEED .htaccess CACHE DIR ===\n";
+    $cache_dir = $doc_root . '/wp-content/litespeed/';
+    if (is_dir($cache_dir)) {
+        echo "LiteSpeed cache dir exists\n";
+        // Check for cached sitemap files
+        $cmd = "find " . escapeshellarg($cache_dir) . " -name '*sitemap*' -type f 2>/dev/null | head -20";
+        echo shell_exec($cmd);
+    }
+
+    echo "\n=== SEOPRESS SITEMAP STATUS ===\n";
+    $seopress_toggle = get_option('seopress_toggle');
+    echo "SEOPress toggles: " . var_export($seopress_toggle, true) . "\n";
+    $seopress_xml = get_option('seopress_xml_sitemap_option_name');
+    echo "SEOPress XML sitemap options: " . var_export($seopress_xml, true) . "\n";
+
+    echo "\n=== REWRITE RULES (WordPress) ===\n";
+    $rules = get_option('rewrite_rules');
+    if ($rules) {
+        foreach ($rules as $pattern => $query) {
+            if (stripos($pattern, 'sitemap') !== false || stripos($query, 'sitemap') !== false) {
+                echo "$pattern => $query\n";
+            }
+        }
+    }
+
     exit;
 });
 
