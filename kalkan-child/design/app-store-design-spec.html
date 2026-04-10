@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalkan — App Store Design Specification</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --kk-purple: #8b5cf6;
+    --kk-purple-light: #c084fc;
+    --kk-purple-dark: #6d28d9;
+    --kk-green: #34d399;
+    --kk-bg: #0f0520;
+    --kk-bg-2: #130728;
+    --kk-bg-3: #1a0533;
+    --kk-text: #f5f3ff;
+    --kk-text-muted: #c4b5fd;
+    --kk-border: rgba(255,255,255,0.10);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(135deg, #0a0118 0%, #1a0533 30%, #2d1b69 60%, #1a0533 100%);
+    color: var(--kk-text);
+    font-family: 'Inter', -apple-system, sans-serif;
+    min-height: 100vh;
+    padding: 3rem 2rem;
+  }
+  h1 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 2.4rem; letter-spacing: -0.03em; margin-bottom: 0.5rem; }
+  h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 1.6rem; letter-spacing: -0.02em; margin-bottom: 1rem; color: var(--kk-text); }
+  h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--kk-purple-light); }
+  .eyebrow { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--kk-purple-light); margin-bottom: 0.5rem; }
+  .subtitle { color: var(--kk-text-muted); font-size: 1rem; line-height: 1.65; max-width: 600px; margin-bottom: 3rem; }
+  .shell { max-width: 1200px; margin: 0 auto; }
+  .section { margin-bottom: 5rem; }
+
+  /* Color Swatches */
+  .swatches { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+  .swatch { width: 80px; text-align: center; }
+  .swatch-color { width: 80px; height: 80px; border-radius: 16px; border: 1px solid var(--kk-border); margin-bottom: 0.4rem; }
+  .swatch-label { font-size: 0.7rem; color: var(--kk-text-muted); }
+  .swatch-hex { font-size: 0.75rem; font-weight: 600; font-family: 'SF Mono', monospace; }
+
+  /* Screenshot Frames */
+  .frames-row { display: flex; gap: 1.5rem; overflow-x: auto; padding-bottom: 1rem; }
+
+  /* iOS Frame */
+  .ios-frame {
+    width: 270px;
+    min-width: 270px;
+    height: 585px;
+    border-radius: 28px;
+    background: linear-gradient(180deg, #0a0118 0%, #1a0533 40%, #2d1b69 100%);
+    border: 1px solid var(--kk-border);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+  .ios-frame::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse 80% 50% at 50% 30%, rgba(139,92,246,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* Zone overlays */
+  .zone { position: relative; z-index: 1; }
+  .zone-text {
+    padding: 40px 24px 16px;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .zone-text .eyebrow { font-size: 0.6rem; margin-bottom: 0.3rem; }
+  .zone-text h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.2rem; font-weight: 800; color: #fff; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 0.3rem; }
+  .zone-text .desc { font-size: 0.65rem; color: var(--kk-text-muted); line-height: 1.5; }
+  .zone-device {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 0 20px;
+    position: relative;
+  }
+  .device-placeholder {
+    width: 180px;
+    height: 360px;
+    border-radius: 24px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.12);
+    position: relative;
+    overflow: hidden;
+    transform: translateY(20px);
+    box-shadow: 0 -10px 40px rgba(139,92,246,0.15), 0 20px 60px rgba(0,0,0,0.4);
+  }
+  .device-placeholder::before {
+    content: '';
+    position: absolute;
+    top: 8px; left: 50%; transform: translateX(-50%);
+    width: 70px; height: 20px;
+    background: rgba(0,0,0,0.6);
+    border-radius: 10px;
+  }
+  .device-placeholder .screen-label {
+    position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    font-size: 0.6rem;
+    color: rgba(255,255,255,0.3);
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .device-placeholder.pixel {
+    border-radius: 18px;
+  }
+  .device-placeholder.pixel::before {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    top: 12px;
+  }
+
+  /* Frame label */
+  .frame-label {
+    text-align: center;
+    margin-top: 0.75rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--kk-text-muted);
+  }
+  .frame-number {
+    display: inline-block;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--kk-purple);
+    color: #fff;
+    font-size: 0.6rem;
+    font-weight: 700;
+    line-height: 20px;
+    text-align: center;
+    margin-right: 0.3rem;
+  }
+
+  /* Android Feature Graphic */
+  .feature-graphic {
+    width: 100%;
+    max-width: 720px;
+    aspect-ratio: 1024 / 500;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #0a0118 0%, #1a0533 35%, #2d1b69 65%, #1a0533 100%);
+    border: 1px solid var(--kk-border);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding: 0 3rem;
+    margin-bottom: 2rem;
+  }
+  .feature-graphic::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse 60% 80% at 30% 50%, rgba(139,92,246,0.2) 0%, transparent 60%),
+                radial-gradient(ellipse 40% 60% at 80% 60%, rgba(109,40,217,0.12) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .fg-left {
+    position: relative; z-index: 1;
+    flex: 1;
+  }
+  .fg-right {
+    position: relative; z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .fg-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 22%;
+    background: linear-gradient(135deg, #a78bfa, #7c3aed);
+    box-shadow: 0 8px 32px rgba(139,92,246,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .fg-icon .shield-svg { width: 50px; height: 50px; }
+  .fg-left h2 { font-size: 1.4rem; margin-bottom: 0.3rem; }
+  .fg-left .desc { font-size: 0.8rem; color: var(--kk-text-muted); }
+
+  /* Grid Spec */
+  .grid-spec {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--kk-border);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+  }
+  .grid-spec table { width: 100%; border-collapse: collapse; }
+  .grid-spec th { text-align: left; padding: 0.5rem 1rem; font-size: 0.75rem; color: var(--kk-purple-light); text-transform: uppercase; letter-spacing: 0.08em; border-bottom: 1px solid var(--kk-border); }
+  .grid-spec td { padding: 0.5rem 1rem; font-size: 0.85rem; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .grid-spec td:first-child { font-weight: 600; }
+  .grid-spec code { background: rgba(139,92,246,0.15); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.8rem; color: var(--kk-purple-light); }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--kk-purple), transparent);
+    margin: 4rem 0;
+  }
+
+  /* Prompt Box */
+  .prompt-box {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(139,92,246,0.3);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--kk-text);
+    position: relative;
+  }
+  .prompt-box::before {
+    content: 'DALL-E PROMPT';
+    position: absolute;
+    top: -10px; left: 16px;
+    background: var(--kk-purple);
+    color: #fff;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .step-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--kk-border);
+    border-radius: 12px;
+    padding: 1.25rem;
+  }
+  .step-card .step-num {
+    display: inline-block;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--kk-purple), var(--kk-purple-dark));
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 28px;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  .step-card h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.9rem; margin-bottom: 0.3rem; }
+  .step-card p { font-size: 0.78rem; color: var(--kk-text-muted); line-height: 1.5; }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- HEADER -->
+  <div class="section">
+    <div class="eyebrow">Kalkan Design System</div>
+    <h1>App Store Visual Specification</h1>
+    <p class="subtitle">Institutional design framework for iOS App Store and Google Play Store listing graphics. One cohesive visual language, two platform executions.</p>
+  </div>
+
+  <!-- COLOR REFERENCE -->
+  <div class="section">
+    <h2>Brand Palette</h2>
+    <div class="swatches">
+      <div class="swatch">
+        <div class="swatch-color" style="background:#0f0520;"></div>
+        <div class="swatch-hex">#0f0520</div>
+        <div class="swatch-label">Base</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#1a0533;"></div>
+        <div class="swatch-hex">#1a0533</div>
+        <div class="swatch-label">Surface</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#2d1b69;"></div>
+        <div class="swatch-hex">#2d1b69</div>
+        <div class="swatch-label">Elevation</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#8b5cf6;"></div>
+        <div class="swatch-hex">#8b5cf6</div>
+        <div class="swatch-label">Primary</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#c084fc;"></div>
+        <div class="swatch-hex">#c084fc</div>
+        <div class="swatch-label">Accent</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#6d28d9;"></div>
+        <div class="swatch-hex">#6d28d9</div>
+        <div class="swatch-label">Deep</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#34d399;"></div>
+        <div class="swatch-hex">#34d399</div>
+        <div class="swatch-label">Trust</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#f5f3ff;"></div>
+        <div class="swatch-hex">#f5f3ff</div>
+        <div class="swatch-label">Text</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ==================== iOS ==================== -->
+  <div class="section">
+    <div class="eyebrow">Platform 1</div>
+    <h2>iOS App Store — Screenshots</h2>
+    <p style="color:var(--kk-text-muted); margin-bottom:2rem; font-size:0.9rem;">6.7-inch display: 1290 × 2796 px &nbsp;·&nbsp; 5 frames &nbsp;·&nbsp; sRGB PNG</p>
+
+    <!-- Grid Spec -->
+    <div class="grid-spec">
+      <h3>Layout Grid</h3>
+      <table>
+        <tr><th>Zone</th><th>Y Range</th><th>Height</th><th>Content</th></tr>
+        <tr><td>Safe Top</td><td>0 – 100</td><td><code>100px</code></td><td>Status bar clearance (blank)</td></tr>
+        <tr><td>Text Block</td><td>100 – 750</td><td><code>650px</code></td><td>Eyebrow + Headline + Subline</td></tr>
+        <tr><td>Device Zone</td><td>650 – 2650</td><td><code>2000px</code></td><td>iPhone mockup with screenshot (overlaps text zone slightly)</td></tr>
+        <tr><td>Glow Base</td><td>2500 – 2796</td><td><code>296px</code></td><td>Gradient fade-out, subtle brand glow</td></tr>
+      </table>
+      <table style="margin-top:1rem;">
+        <tr><th>Property</th><th>Value</th></tr>
+        <tr><td>Background</td><td><code>linear-gradient(180deg, #0a0118 0%, #1a0533 40%, #2d1b69 85%, #1a0533 100%)</code></td></tr>
+        <tr><td>Radial Glow</td><td><code>radial-gradient(ellipse 70% 40% at 50% 55%, rgba(139,92,246,0.18), transparent)</code></td></tr>
+        <tr><td>Headline Font</td><td><code>Plus Jakarta Sans, 800, 84px, -0.03em tracking</code></td></tr>
+        <tr><td>Subline Font</td><td><code>Inter, 500, 42px, #c4b5fd</code></td></tr>
+        <tr><td>Eyebrow Font</td><td><code>Inter, 700, 32px, 0.12em tracking, uppercase, #c084fc</code></td></tr>
+        <tr><td>Horizontal Padding</td><td><code>80px</code> left/right</td></tr>
+        <tr><td>Device Width</td><td><code>620px</code> (centered, with glow shadow)</td></tr>
+        <tr><td>Device Shadow</td><td><code>0 0 80px rgba(139,92,246,0.25), 0 40px 100px rgba(0,0,0,0.5)</code></td></tr>
+        <tr><td>Device Corner Radius</td><td><code>56px</code> (iPhone 15 Pro frame)</td></tr>
+      </table>
+    </div>
+
+    <!-- Frame Mockups -->
+    <h3>Frame Sequence</h3>
+    <div class="frames-row">
+      <!-- Frame 1 -->
+      <div>
+        <div class="ios-frame">
+          <div class="zone zone-text">
+            <div class="eyebrow">Spam Koruması</div>
+            <h3>Spam Aramaları<br>Anında Engelle</h3>
+            <p class="desc">Güçlü veritabanı ile korunun</p>
+          </div>
+          <div class="zone zone-device">
+            <div class="device-placeholder">
+              <span class="screen-label">Ana Ekran<br>Screenshot</span>
+            </div>
+          </div>
+        </div>
+        <div class="frame-label"><span class="frame-number">1</span>Hero — Main Screen</div>
+      </div>
+
+      <!-- Frame 2 -->
+      <div>
+        <div class="ios-frame">
+          <div class="zone zone-text">
+            <div class="eyebrow">Topluluk Gücü</div>
+            <h3>Binlerce Kullanıcı<br>Birlikte Korunuyor</h3>
+            <p class="desc">Topluluk raporları ile güncel kalın</p>
+          </div>
+          <div class="zone zone-device">
+            <div class="device-placeholder">
+              <span class="screen-label">Bilgi Ekranı<br>Screenshot</span>
+            </div>
+          </div>
+        </div>
+        <div class="frame-label"><span class="frame-number">2</span>Community Reports</div>
+      </div>
+
+      <!-- Frame 3 -->
+      <div>
+        <div class="ios-frame">
+          <div class="zone zone-text">
+            <div class="eyebrow">Numara Sorgula</div>
+            <h3>Arayan Kim?<br>Hemen Öğren</h3>
+            <p class="desc">Bilinmeyen numaraları sorgula</p>
+          </div>
+          <div class="zone zone-device">
+            <div class="device-placeholder">
+              <span class="screen-label">Sorgulama<br>Screenshot</span>
+            </div>
+          </div>
+        </div>
+        <div class="frame-label"><span class="frame-number">3</span>Number Lookup</div>
+      </div>
+
+      <!-- Frame 4 -->
+      <div>
+        <div class="ios-frame">
+          <div class="zone zone-text">
+            <div class="eyebrow">Kolay Kurulum</div>
+            <h3>3 Adımda<br>Korumayı Başlat</h3>
+            <p class="desc">Ayarla ve unut</p>
+          </div>
+          <div class="zone zone-device">
+            <div class="device-placeholder">
+              <span class="screen-label">Ayarlar<br>Screenshot</span>
+            </div>
+          </div>
+        </div>
+        <div class="frame-label"><span class="frame-number">4</span>Easy Setup</div>
+      </div>
+
+      <!-- Frame 5 -->
+      <div>
+        <div class="ios-frame" style="background: linear-gradient(180deg, #0a0118 0%, #130728 50%, #0f0520 100%);">
+          <div class="zone zone-text" style="min-height:280px; justify-content: flex-end;">
+            <div class="eyebrow" style="color:#34d399;">Gizliliğiniz</div>
+            <h3>Verileriniz Asla<br>Paylaşılmaz</h3>
+            <p class="desc">CallKit ile cihaz üzerinde işlenir</p>
+          </div>
+          <div class="zone zone-device" style="align-items:center; justify-content:center;">
+            <div style="width:120px; height:120px; border-radius:50%; background:radial-gradient(circle at 35% 35%, rgba(52,211,153,0.3), rgba(139,92,246,0.15)); border:1px solid rgba(52,211,153,0.25); display:flex; align-items:center; justify-content:center;">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="frame-label"><span class="frame-number">5</span>Privacy & Trust</div>
+      </div>
+    </div>
+
+    <!-- iOS DALL-E Prompt -->
+    <div class="prompt-box">
+      Create a set of 5 iPhone app store screenshots at 1290x2796 pixels each, arranged side by side in a single wide image. Dark gradient background transitioning from #0a0118 through #1a0533 to #2d1b69. Each frame features an iPhone 15 Pro mockup in the lower 65% of the frame with a purple radial glow (rgba 139,92,246 at 0.2 opacity) emanating from behind the device. The phone has a realistic titanium frame, 56px corner radius, and thin bezel. Upper 35% of each frame is reserved for headline text area (leave blank/empty for text overlay). Background has a subtle dot grid pattern (32px spacing, purple dots at 0.06 opacity). A soft directional light from top-center creates depth. Frame 5 uses green accent (#34d399) instead of purple, featuring a shield with checkmark icon instead of phone. Minimal, premium, institutional design. Purple/violet accent colors matching #8b5cf6 brand. Absolutely no text, no words, no letters, no characters, no typography anywhere in the image.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ==================== ANDROID ==================== -->
+  <div class="section">
+    <div class="eyebrow">Platform 2</div>
+    <h2>Google Play Store — Feature Graphic + Screenshots</h2>
+    <p style="color:var(--kk-text-muted); margin-bottom:2rem; font-size:0.9rem;">Feature Graphic: 1024 × 500 px &nbsp;·&nbsp; Screenshots: 1080 × 1920 px &nbsp;·&nbsp; 5 frames &nbsp;·&nbsp; sRGB PNG</p>
+
+    <!-- Feature Graphic Mockup -->
+    <h3>Feature Graphic (1024 × 500)</h3>
+    <div class="feature-graphic">
+      <div class="fg-left">
+        <div class="eyebrow" style="font-size:0.55rem;">Spam Call Blocker</div>
+        <h2 style="font-size:1.3rem;">Kalkan</h2>
+        <p class="desc" style="font-size:0.75rem;">Spam aramalardan korunmanın<br>en kolay yolu</p>
+      </div>
+      <div class="fg-right">
+        <div class="fg-icon">
+          <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid Spec -->
+    <div class="grid-spec">
+      <h3>Feature Graphic Layout</h3>
+      <table>
+        <tr><th>Zone</th><th>X Range</th><th>Content</th></tr>
+        <tr><td>Left 55%</td><td>0 – 560px</td><td>App name + tagline (text overlay area)</td></tr>
+        <tr><td>Right 45%</td><td>560 – 1024px</td><td>App icon with shield glow + device silhouette</td></tr>
+      </table>
+      <table style="margin-top:1rem;">
+        <tr><th>Property</th><th>Value</th></tr>
+        <tr><td>Background</td><td><code>linear-gradient(135deg, #0a0118 0%, #1a0533 35%, #2d1b69 65%, #1a0533 100%)</code></td></tr>
+        <tr><td>Left Glow</td><td><code>radial-gradient(ellipse 60% 80% at 25% 50%, rgba(139,92,246,0.2), transparent)</code></td></tr>
+        <tr><td>Right Glow</td><td><code>radial-gradient(ellipse 50% 70% at 75% 50%, rgba(109,40,217,0.15), transparent)</code></td></tr>
+        <tr><td>Icon Size</td><td><code>200×200px</code>, border-radius 22%, purple gradient shadow</td></tr>
+      </table>
+    </div>
+
+    <!-- Android Screenshot Spec -->
+    <div class="grid-spec">
+      <h3>Screenshot Layout (1080 × 1920)</h3>
+      <table>
+        <tr><th>Zone</th><th>Y Range</th><th>Height</th><th>Content</th></tr>
+        <tr><td>Safe Top</td><td>0 – 80</td><td><code>80px</code></td><td>Status bar clearance</td></tr>
+        <tr><td>Text Block</td><td>80 – 600</td><td><code>520px</code></td><td>Eyebrow + Headline + Subline</td></tr>
+        <tr><td>Device Zone</td><td>500 – 1800</td><td><code>1300px</code></td><td>Pixel device mockup with screenshot</td></tr>
+        <tr><td>Glow Base</td><td>1750 – 1920</td><td><code>170px</code></td><td>Gradient fade, brand glow</td></tr>
+      </table>
+      <table style="margin-top:1rem;">
+        <tr><th>Property</th><th>Value</th></tr>
+        <tr><td>Headline Font</td><td><code>Plus Jakarta Sans, 800, 68px, -0.03em</code></td></tr>
+        <tr><td>Subline Font</td><td><code>Inter, 500, 34px, #c4b5fd</code></td></tr>
+        <tr><td>Horizontal Padding</td><td><code>64px</code></td></tr>
+        <tr><td>Device Width</td><td><code>520px</code> (Pixel frame, centered)</td></tr>
+        <tr><td>Device Corner Radius</td><td><code>36px</code> (Pixel 8 style)</td></tr>
+        <tr><td>Device Shadow</td><td><code>0 0 60px rgba(139,92,246,0.2), 0 30px 80px rgba(0,0,0,0.45)</code></td></tr>
+      </table>
+    </div>
+
+    <!-- Frame Mockups Android -->
+    <h3>Screenshot Sequence</h3>
+    <div class="frames-row">
+      <!-- Frame 1 -->
+      <div>
+        <div class="ios-frame" style="border-radius:20px;">
+          <div class="zone zone-text">
+            <div class="eyebrow">Spam Koruması</div>
+            <h3>Spam Aramaları<br>Anında Engelle</h3>
+            <p class="desc">Güçlü veritabanı koruması</p>
+          </div>
+          <div class="zone zone-device">
+            <div class="device-placeholder pixel">
+              <span class="screen-label">Ana Ekran<br>Screenshot</span>
+            </div>
+          </div>
+        </div>
+        <div class="frame-label"><span class="frame-number">1</span>Hero — Main</div>
+      </div>
+
+      <div>
+        <div class="ios-frame" style="border-radius:20px;">
+          <div class="zone zone-text">
+            <div class="eyebrow">Topluluk Gücü</div>
+            <h3>Birlikte<br>Korunuyoruz</h3>
+            <p class="desc">Topluluk raporları</p>
+          </div>
+          <div class="zone zone-device">
+            <div class="device-placeholder pixel">
+              <span class="screen-label">Topluluk<br>Screenshot</span>
+            </div>
+          </div>
+        </div>
+        <div class="frame-label"><span class="frame-number">2</span>Community</div>
+      </div>
+
+      <div>
+        <div class="ios-frame" style="border-radius:20px;">
+          <div class="zone zone-text">
+            <div class="eyebrow">Numara Sorgula</div>
+            <h3>Arayan Kim?<br>Hemen Öğren</h3>
+            <p class="desc">Bilinmeyen numaralar</p>
+          </div>
+          <div class="zone zone-device">
+            <div class="device-placeholder pixel">
+              <span class="screen-label">Sorgulama<br>Screenshot</span>
+            </div>
+          </div>
+        </div>
+        <div class="frame-label"><span class="frame-number">3</span>Lookup</div>
+      </div>
+
+      <div>
+        <div class="ios-frame" style="border-radius:20px;">
+          <div class="zone zone-text">
+            <div class="eyebrow">Kolay Kurulum</div>
+            <h3>Dakikalar İçinde<br>Korumaya Başla</h3>
+            <p class="desc">Basit ve hızlı</p>
+          </div>
+          <div class="zone zone-device">
+            <div class="device-placeholder pixel">
+              <span class="screen-label">Ayarlar<br>Screenshot</span>
+            </div>
+          </div>
+        </div>
+        <div class="frame-label"><span class="frame-number">4</span>Setup</div>
+      </div>
+
+      <div>
+        <div class="ios-frame" style="border-radius:20px; background: linear-gradient(180deg, #0a0118 0%, #130728 50%, #0f0520 100%);">
+          <div class="zone zone-text" style="min-height:280px; justify-content:flex-end;">
+            <div class="eyebrow" style="color:#34d399;">Gizliliğiniz</div>
+            <h3>Verileriniz<br>Güvende</h3>
+            <p class="desc">Cihaz üzerinde işlenir</p>
+          </div>
+          <div class="zone zone-device" style="align-items:center; justify-content:center;">
+            <div style="width:100px; height:100px; border-radius:50%; background:radial-gradient(circle, rgba(52,211,153,0.3), rgba(139,92,246,0.15)); border:1px solid rgba(52,211,153,0.25); display:flex; align-items:center; justify-content:center;">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="frame-label"><span class="frame-number">5</span>Privacy</div>
+      </div>
+    </div>
+
+    <!-- Android DALL-E Prompt -->
+    <div class="prompt-box">
+      Create a Google Play Store promotional image set: first, a wide landscape feature graphic at 1024x500 pixels showing a dark gradient background from #0a0118 through #1a0533 to #2d1b69 at 135 degrees. On the right side, a glowing app icon in shield shape (200x200px, rounded square with 22% corner radius) with a purple gradient from #a78bfa to #7c3aed, radiating a soft purple glow. On the left side, empty space reserved for text overlay. A subtle dot grid pattern across the background. Then, next to it, show 5 Android phone screenshots at 1080x1920 pixels each with the same dark purple gradient background. Each features a Google Pixel 8 style phone mockup (rounded rectangle, thin bezels, centered camera dot) in the lower 65% with a purple radial glow behind it. Upper 35% is blank for text overlay. Frame 5 uses green accent (#34d399) with a shield-checkmark icon instead of a phone. Premium, minimal, institutional feel. Purple/violet matching #8b5cf6. Absolutely no text, no words, no letters, no characters, no typography anywhere.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ==================== EXECUTION ==================== -->
+  <div class="section">
+    <div class="eyebrow">Execution</div>
+    <h2>How to Build the Final Assets</h2>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h4>Generate Backgrounds</h4>
+        <p>Paste each DALL-E prompt into ChatGPT Plus. Download all generated images.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h4>Take App Screenshots</h4>
+        <p>Capture 5 screens from Kalkan app on iPhone (1290×2796) and Android device (1080×1920).</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h4>Composite in Photoshop</h4>
+        <p>Place DALL-E backgrounds → Add device mockup frame → Insert actual app screenshot inside → Add text overlays using Plus Jakarta Sans 800.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <h4>Export & Upload</h4>
+        <p>Export as sRGB PNG. Upload to App Store Connect and Google Play Console.</p>
+      </div>
+    </div>
+
+    <div class="grid-spec" style="margin-top:2rem;">
+      <h3>Text Overlay Per Frame (Copy These)</h3>
+      <table>
+        <tr><th>Frame</th><th>Eyebrow</th><th>Headline (TR)</th><th>Headline (EN)</th></tr>
+        <tr><td>1 — Hero</td><td>SPAM KORUMASI</td><td>Spam Aramaları Anında Engelle</td><td>Block Spam Calls Instantly</td></tr>
+        <tr><td>2 — Community</td><td>TOPLULUK GÜCÜ</td><td>Binlerce Kullanıcı Birlikte Korunuyor</td><td>Thousands of Users Protected Together</td></tr>
+        <tr><td>3 — Lookup</td><td>NUMARA SORGULA</td><td>Arayan Kim? Hemen Öğren</td><td>Who's Calling? Find Out Now</td></tr>
+        <tr><td>4 — Setup</td><td>KOLAY KURULUM</td><td>3 Adımda Korumayı Başlat</td><td>Start Protection in 3 Steps</td></tr>
+        <tr><td>5 — Privacy</td><td>GİZLİLİĞİNİZ</td><td>Verileriniz Asla Paylaşılmaz</td><td>Your Data Is Never Shared</td></tr>
+      </table>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
