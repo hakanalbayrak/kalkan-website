@@ -9,11 +9,13 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// Redirect /sitemap.xml to SEOPress /sitemaps.xml
-add_action('template_redirect', function () {
+// Serve SEOPress sitemap index at /sitemap.xml (no redirect).
+// Maps the request to the same handler SEOPress uses for /sitemaps.xml.
+add_action('parse_request', function ($wp) {
     if (isset($_SERVER['REQUEST_URI']) && preg_match('#^/sitemap\.xml(\?.*)?$#', $_SERVER['REQUEST_URI'])) {
-        wp_redirect(home_url('/sitemaps.xml'), 301);
-        exit;
+        $wp->query_vars['seopress_sitemap'] = 1;
+        $wp->matched_rule = '^sitemaps.xml$';
+        $wp->matched_query = 'seopress_sitemap=1';
     }
 });
 
