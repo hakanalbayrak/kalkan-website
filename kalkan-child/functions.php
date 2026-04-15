@@ -10,14 +10,19 @@ if (!defined('ABSPATH')) {
 }
 
 // Serve SEOPress sitemap index at /sitemap.xml (no redirect).
-// Maps the request to the same handler SEOPress uses for /sitemaps.xml.
-add_action('parse_request', function ($wp) {
-    if (isset($_SERVER['REQUEST_URI']) && preg_match('#^/sitemap\.xml(\?.*)?$#', $_SERVER['REQUEST_URI'])) {
-        $wp->query_vars['seopress_sitemap'] = 1;
-        $wp->matched_rule = '^sitemaps.xml$';
-        $wp->matched_query = 'seopress_sitemap=1';
-    }
-});
+// Rewrite REQUEST_URI early so WordPress & SEOPress see /sitemaps.xml internally,
+// but the public URL remains /sitemap.xml.
+if (isset($_SERVER['REQUEST_URI']) && preg_match('#^/sitemap\.xml(\?.*)?$#', $_SERVER['REQUEST_URI'])) {
+    $_SERVER['REQUEST_URI'] = '/sitemaps.xml' . (isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING'] !== '' ? '?' . $_SERVER['QUERY_STRING'] : '');
+    // Prevent canonical redirect from sending users to /sitemaps.xml.
+    add_filter('redirect_canonical', '__return_false');
+    add_filter('wp_redirect', function ($location) {
+        if (strpos($location, '/sitemaps.xml') !== false) {
+            return false;
+        }
+        return $location;
+    }, 1);
+}
 
 /* ── Anti-spam: honeypot + time-check helpers ─────────────────────────────── */
 
