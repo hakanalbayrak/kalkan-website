@@ -24,6 +24,15 @@ if (isset($_SERVER['REQUEST_URI']) && preg_match('#^/sitemap\.xml(\?.*)?$#', $_S
     }, 1);
 }
 
+// Remove X-Robots-Tag: noindex from sitemap responses.
+// SEOPress sets noindex on sitemaps to prevent the XML from being indexed as a
+// web page, but GSC treats noindex as "couldn't fetch" for sitemap submissions.
+add_action('template_redirect', function () {
+    if ( get_query_var('seopress_sitemap') || get_query_var('seopress_cpt') || get_query_var('seopress_paged') ) {
+        header_remove('X-Robots-Tag');
+    }
+}, 999);
+
 /* ── Anti-spam: honeypot + time-check helpers ─────────────────────────────── */
 
 /**
