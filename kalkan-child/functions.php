@@ -24,11 +24,28 @@ if (isset($_SERVER['REQUEST_URI']) && preg_match('#^/sitemap\.xml(\?.*)?$#', $_S
     }, 1);
 }
 
-// One-time: write app-ads.txt to public_html root.
+// One-time: write app-ads.txt to public_html root and minefinder subdomain.
 add_action('init', function () {
-    $file = ABSPATH . 'app-ads.txt';
-    if ( ! file_exists($file) ) {
-        file_put_contents($file, "google.com, pub-2459893282569161, DIRECT, f08c47fec0942fa0\n");
+    $content = "google.com, pub-2459893282569161, DIRECT, f08c47fec0942fa0\n";
+
+    // Main domain
+    $main = ABSPATH . 'app-ads.txt';
+    if ( ! file_exists($main) ) {
+        file_put_contents($main, $content);
+    }
+
+    // Minefinder subdomain — try common cPanel subdomain paths
+    $base = dirname(ABSPATH); // /home/matur124
+    $candidates = [
+        $base . '/minefinder.kalkan.website/app-ads.txt',
+        $base . '/public_html/minefinder/app-ads.txt',
+        $base . '/minefinder/app-ads.txt',
+    ];
+    foreach ($candidates as $path) {
+        $dir = dirname($path);
+        if ( is_dir($dir) && ! file_exists($path) ) {
+            file_put_contents($path, $content);
+        }
     }
 });
 
