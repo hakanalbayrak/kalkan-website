@@ -24,6 +24,14 @@ if (isset($_SERVER['REQUEST_URI']) && preg_match('#^/sitemap\.xml(\?.*)?$#', $_S
     }, 1);
 }
 
+// One-time: write app-ads.txt to public_html root.
+add_action('init', function () {
+    $file = ABSPATH . 'app-ads.txt';
+    if ( ! file_exists($file) ) {
+        file_put_contents($file, "google.com, pub-2459893282569161, DIRECT, f08c47fec0942fa0\n");
+    }
+});
+
 // Remove X-Robots-Tag: noindex from sitemap responses.
 // SEOPress sets noindex on sitemaps to prevent the XML from being indexed as a
 // web page, but GSC treats noindex as "couldn't fetch" for sitemap submissions.
