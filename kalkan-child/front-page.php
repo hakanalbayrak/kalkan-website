@@ -70,6 +70,12 @@ $is_front_page = true;
   max-width: 40rem;
   line-height: 1.65;
 }
+.kk-hero__proof {
+  display: flex; flex-wrap: wrap; gap: 0.65rem 1rem;
+  margin: 1.25rem 0 0; padding: 0; list-style: none;
+  color: var(--kk-text-muted); font-size: 0.9rem;
+}
+.kk-hero__proof li::before { content: '✓'; color: var(--kk-green); font-weight: 800; margin-right: 0.4rem; }
 /* ===== HERO BUTTONS — DESKTOP ===== */
 .hero-buttons {
   display: flex; flex-direction: row; align-items: center; gap: 16px; margin-top: 32px;
@@ -212,6 +218,14 @@ $is_front_page = true;
   border-color: var(--kk-border-hover); color: var(--kk-text);
   background: rgba(139,92,246,0.08);
 }
+.kk-screens { background: rgba(19,7,40,0.6); }
+.kk-screen-grid { display: grid; gap: 1rem; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.kk-screen {
+  margin: 0; padding: 0.65rem; border-radius: var(--kk-radius);
+  background: rgba(255,255,255,0.035); border: 1px solid var(--kk-border);
+}
+.kk-screen img { display: block; width: 100%; height: auto; border-radius: calc(var(--kk-radius) - 0.4rem); }
+.kk-screen figcaption { padding: 0.75rem 0.25rem 0.15rem; text-align: center; color: var(--kk-text-muted); font-size: 0.88rem; }
 
 .kk-cta__card {
   padding: clamp(1.75rem, 4vw, 2.5rem); text-align: center;
@@ -336,6 +350,10 @@ $is_front_page = true;
   .kk-steps { grid-template-columns: repeat(3, 1fr); }
   .kk-feature-grid { grid-template-columns: repeat(2, 1fr); }
 }
+@media (max-width: 39.99rem) {
+  .kk-screen-grid { grid-template-columns: 1fr; }
+  .kk-screen { max-width: 19rem; margin-inline: auto; }
+}
 @media (min-width: 769px) {
   .phone-frame { width: 300px; height: 612px; }
 }
@@ -366,6 +384,11 @@ $is_front_page = true;
 					<p class="kk-hero__subtitle kk-animate kk-animate-delay-2">
 						<?php echo esc_html( $__( 'Kalkan, iOS cihazınızda istenmeyen aramaları engeller ve bilinmeyen numaraları tanımlar.', 'Kalkan blocks unwanted calls and identifies unknown numbers on your iPhone.' ) ); ?>
 					</p>
+					<ul class="kk-hero__proof kk-animate kk-animate-delay-2">
+						<li><?php echo esc_html( $__( 'Genel Koruma ücretsiz', 'General Protection is free' ) ); ?></li>
+						<li><?php echo esc_html( $__( 'Rehber ve arama geçmişi yüklenmez', 'No contacts or call history uploaded' ) ); ?></li>
+						<li><?php echo esc_html( $__( 'Koruma cihazınızda çalışır', 'Protection works on-device' ) ); ?></li>
+					</ul>
 
 					<div class="hero-buttons kk-animate kk-animate-delay-3">
 						<a href="<?php echo esc_url( $appstore_link ); ?>" class="hero-appstore">
@@ -451,13 +474,38 @@ $is_front_page = true;
 						<div class="kk-feature-card__icon" aria-hidden="true"><?php echo $icon( 'lock' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
 						<h3><?php echo esc_html( $__( 'Ekstra Koruma', 'Extra Protection' ) ); ?></h3>
 						<p><?php echo esc_html( $__( 'Genişletilmiş koruma ile daha fazla spam numara engellenir. Sürekli güncellenen veritabanı ile kapsamlı güvenlik.', 'Extended protection blocks even more spam numbers. Comprehensive security with continuously updated database.' ) ); ?></p>
-						<span class="kk-badge-free"><?php echo esc_html( $__( 'Şimdilik Ücretsiz', 'Free for Now' ) ); ?></span>
+						<span class="kk-badge-free"><?php echo esc_html( $__( 'Kalkan Premium', 'Kalkan Premium' ) ); ?></span>
 					</div>
 					<div class="kk-feature-card kk-glass kk-animate kk-animate-delay-4">
 						<div class="kk-feature-card__icon" aria-hidden="true"><?php echo $icon( 'flag' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
 						<h3><?php echo esc_html( $__( 'İletişim Bildirimi', 'Communication Reporting' ) ); ?></h3>
 						<p><?php echo esc_html( $__( 'Şüpheli numaraları doğrudan Telefon uygulamasından veya Kalkan içinden kolayca bildirin.', 'Easily report suspicious numbers directly from the Phone app or from within Kalkan.' ) ); ?></p>
 					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ── APP SCREENS ─────────────────────────────────────────────────── -->
+		<section class="kk-screens kk-section" aria-labelledby="kk-screens-title">
+			<div class="kk-shell">
+				<div class="kk-section-header kk-animate">
+					<span class="kk-eyebrow"><?php echo esc_html( $__( 'Uygulama', 'The App' ) ); ?></span>
+					<h2 id="kk-screens-title"><?php echo esc_html( $__( 'Korumanızı Kolayca Yönetin', 'Manage Your Protection Easily' ) ); ?></h2>
+					<p class="kk-lead"><?php echo esc_html( $__( 'Koruma durumunu görün, iPhone ayarlarını tamamlayın ve şüpheli aramalar hakkında bilgi alın.', 'Check protection status, complete iPhone setup, and learn about suspicious calls.' ) ); ?></p>
+				</div>
+				<div class="kk-screen-grid">
+					<figure class="kk-screen kk-animate kk-animate-delay-1">
+						<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/Main-Screen-1-' . ( 'en' === $lang ? 'en' : 'tr' ) . '.png' ); ?>" alt="<?php echo esc_attr( $__( 'Kalkan ana ekranı ve koruma durumu', 'Kalkan home screen and protection status' ) ); ?>" loading="lazy" decoding="async">
+						<figcaption><?php echo esc_html( $__( 'Koruma durumunuzu görün', 'See your protection status' ) ); ?></figcaption>
+					</figure>
+					<figure class="kk-screen kk-animate kk-animate-delay-2">
+						<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/Settings-Screen-1-' . ( 'en' === $lang ? 'en' : 'tr' ) . '.png' ); ?>" alt="<?php echo esc_attr( $__( 'Kalkan iPhone ayarları ekranı', 'Kalkan iPhone settings screen' ) ); ?>" loading="lazy" decoding="async">
+						<figcaption><?php echo esc_html( $__( 'iPhone korumasını etkinleştirin', 'Enable iPhone protection' ) ); ?></figcaption>
+					</figure>
+					<figure class="kk-screen kk-animate kk-animate-delay-3">
+						<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/Information-Screen-1-' . ( 'en' === $lang ? 'en' : 'tr' ) . '.png' ); ?>" alt="<?php echo esc_attr( $__( 'Kalkan bilgilendirme ekranı', 'Kalkan information screen' ) ); ?>" loading="lazy" decoding="async">
+						<figcaption><?php echo esc_html( $__( 'Nasıl korunduğunuzu öğrenin', 'Understand how you are protected' ) ); ?></figcaption>
+					</figure>
 				</div>
 			</div>
 		</section>
@@ -550,7 +598,7 @@ $is_front_page = true;
 							<span class="kk-faq-toggle">+</span>
 						</button>
 						<div class="kk-faq-answer">
-							<p><?php echo esc_html( $__( 'Ekstra Koruma, standart spam listesinin ötesinde genişletilmiş numara kalıplarını engelleyen gelişmiş bir koruma katmanıdır. Şu anda ücretsizdir.', 'Extra Protection is an advanced layer that blocks extended number patterns beyond the standard spam list. It\'s currently free.' ) ); ?></p>
+							<p><?php echo esc_html( $__( 'Ekstra Koruma, standart spam listesinin ötesindeki genişletilmiş numara kalıplarını engelleyen Premium katmandır. Kalkan Premium şu anda yalnızca Türkiye\'de sunulur.', 'Extra Protection is the Premium layer that blocks extended number patterns beyond the standard spam list. Kalkan Premium is currently available only in Türkiye.' ) ); ?></p>
 						</div>
 					</div>
 
@@ -570,7 +618,7 @@ $is_front_page = true;
 							<span class="kk-faq-toggle">+</span>
 						</button>
 						<div class="kk-faq-answer">
-							<p><?php echo esc_html( $__( 'Genel Koruma ve İletişim Bildirimi özellikleri tamamen ücretsizdir. Ekstra Koruma şu anda ücretsiz olarak sunulmaktadır.', 'General Protection and Communication Reporting features are completely free. Extra Protection is currently offered for free.' ) ); ?></p>
+							<p><?php echo esc_html( $__( 'Genel Koruma ve İletişim Bildirimi tamamen ücretsizdir. Yalnızca Ekstra Koruma, Kalkan Premium gerektirir. Uygun yeni aboneliklerde üç aylık ücretsiz deneme App Store\'da gösterilir.', 'General Protection and Communication Reporting are completely free. Only Extra Protection requires Kalkan Premium. A three-month free trial for eligible new subscriptions is shown on the App Store.' ) ); ?></p>
 						</div>
 					</div>
 

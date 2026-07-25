@@ -607,8 +607,8 @@ function kalkan_add_structured_data() {
     if (!$lang) $lang = 'tr';
 
     $desc = ($lang === 'tr')
-        ? 'Kalkan, iOS cihazınızda spam aramaları engelleyen ve bilinmeyen numaraları tanımlayan ücretsiz bir uygulamadır.'
-        : 'Kalkan blocks spam calls and identifies unknown numbers on your iPhone. Free app with offline protection.';
+        ? 'Kalkan, iOS cihazınızda spam aramaları engeller ve bilinmeyen numaraları tanımlar. Genel Koruma ücretsizdir; Ekstra Koruma Kalkan Premium gerektirir.'
+        : 'Kalkan blocks spam calls and identifies unknown numbers on your iPhone. General Protection is free; Extra Protection requires Kalkan Premium.';
 
     $schema = array(
         '@context'            => 'https://schema.org',
@@ -618,7 +618,7 @@ function kalkan_add_structured_data() {
         'applicationCategory' => 'UtilitiesApplication',
         'description'         => $desc,
         'url'                 => 'https://kalkan.website',
-        'downloadUrl'         => 'https://apple.co/4cYKmRG',
+        'downloadUrl'         => apply_filters('kalkan_app_store_url', 'https://apple.co/4cYKmRG'),
         'offers'              => array(
             '@type'         => 'Offer',
             'price'         => '0',
@@ -648,16 +648,16 @@ function kalkan_homepage_faq_schema() {
     $faqs_tr = array(
         array('Kalkan nasıl çalışır?', 'Kalkan, bilinen spam numaraların veritabanını cihazınıza yükler. iOS\'un arama dizini sistemi ile entegre çalışarak gelen aramaları engeller veya işaretler. İnternet bağlantısı gerektirmez.'),
         array('Kalkan gerçek zamanlı arama analizi yapıyor mu?', 'Hayır. iOS platformu gerçek zamanlı arama analizine izin vermez. Kalkan, önceden yüklenmiş veritabanı ile çalışır. Bu Apple\'ın güvenlik kısıtlamalarından kaynaklanmaktadır.'),
-        array('Ekstra Koruma nedir?', 'Ekstra Koruma, standart spam listesinin ötesinde genişletilmiş numara kalıplarını engelleyen gelişmiş bir koruma katmanıdır. Şu anda ücretsizdir.'),
+        array('Ekstra Koruma nedir?', 'Ekstra Koruma, standart spam listesinin ötesindeki genişletilmiş numara kalıplarını engelleyen Premium katmandır. Kalkan Premium şu anda yalnızca Türkiye\'de sunulur.'),
         array('Verilerim güvende mi?', 'Evet. Kalkan rehberinize veya arama geçmişinize erişmez. Tüm arama koruma işlemleri cihazınızda yerel olarak gerçekleşir.'),
-        array('Kalkan ücretsiz mi?', 'Genel Koruma ve İletişim Bildirimi özellikleri tamamen ücretsizdir. Ekstra Koruma şu anda ücretsiz olarak sunulmaktadır.'),
+        array('Kalkan ücretsiz mi?', 'Genel Koruma ve İletişim Bildirimi tamamen ücretsizdir. Yalnızca Ekstra Koruma Kalkan Premium gerektirir. Uygun yeni aboneliklerde üç aylık ücretsiz deneme App Store\'da gösterilir.'),
     );
     $faqs_en = array(
         array('How does Kalkan work?', 'Kalkan loads a database of known spam numbers to your device. It works with iOS\'s call directory system to block or flag incoming calls. No internet connection required.'),
         array('Does Kalkan do real-time call analysis?', 'No. iOS does not allow real-time call analysis. Kalkan works with a preloaded database. This is due to Apple\'s security restrictions.'),
-        array('What is Extra Protection?', 'Extra Protection is an advanced layer that blocks extended number patterns beyond the standard spam list. It\'s currently free.'),
+        array('What is Extra Protection?', 'Extra Protection is the Premium layer that blocks extended number patterns beyond the standard spam list. Kalkan Premium is currently available only in Türkiye.'),
         array('Is my data safe?', 'Yes. Kalkan doesn\'t access your contacts or call history. All call protection happens locally on your device.'),
-        array('Is Kalkan free?', 'General Protection and Communication Reporting features are completely free. Extra Protection is currently offered for free.'),
+        array('Is Kalkan free?', 'General Protection and Communication Reporting are completely free. Only Extra Protection requires Kalkan Premium. A three-month free trial for eligible new subscriptions is shown on the App Store.'),
     );
 
     $faqs = ($lang === 'en') ? $faqs_en : $faqs_tr;
@@ -1128,7 +1128,7 @@ function kalkan_seo_optimized_posts() {
             'seo_title' => 'Kalkan Uygulaması Yayında – Kalkan',
             'seo_desc' => 'Kalkan iOS uygulaması yayında. Spam aramaları engelleyin, bilinmeyen numaraları tanıyın. Çocuklar ve yaşlılar için ideal koruma.',
             'en_title' => 'Kalkan App Is Live – Say Goodbye to Spam Calls',
-            'content_tr' => '<p>Kalkan uygulaması artık App Store\'da! iOS kullanıcıları için geliştirilen Kalkan, spam aramaları engelleyen ve bilinmeyen numaraları tanımlayan ücretsiz bir uygulamadır.</p>
+            'content_tr' => '<p>Kalkan uygulaması artık App Store\'da! iOS için geliştirilen Kalkan, bilinen spam aramaları engeller ve bilinmeyen numaraları tanımlar. Genel Koruma ücretsizdir; Ekstra Koruma Kalkan Premium gerektirir.</p>
 
 <h2>Kalkan Uygulaması Nedir?</h2>
 
@@ -1155,8 +1155,8 @@ function kalkan_seo_optimized_posts() {
 
 <h2>Hemen İndirin</h2>
 
-<p>Kalkan şu anda App Store\'da ücretsiz. <a href="https://apple.co/4cYKmRG">Hemen indirerek</a> kendinizi ve sevdiklerinizi spam aramalardan koruyun.</p>',
-            'content_en' => '<p>Kalkan app is now available on the App Store! Developed for iOS users, Kalkan is a free app that blocks spam calls and identifies unknown numbers.</p>
+<p><a href="https://apple.co/4cYKmRG">Kalkan\'ı indirin</a> ve ücretsiz Genel Koruma ile başlayın. Ekstra Koruma, Türkiye\'de sunulan Kalkan Premium kapsamındadır.</p>',
+            'content_en' => '<p>Kalkan is now available on the App Store! Built for iOS, Kalkan blocks known spam calls and identifies unknown numbers. General Protection is free; Extra Protection requires Kalkan Premium.</p>
 
 <h2>What Is Kalkan App?</h2>
 <p>Kalkan loads a comprehensive database of known spam numbers to your iPhone, automatically blocking unwanted calls. All protection happens on-device — no internet needed, no access to your contacts.</p>
@@ -1169,7 +1169,7 @@ function kalkan_seo_optimized_posts() {
 </ul>
 
 <h2>Download Now</h2>
-<p>Kalkan is currently free on the App Store. <a href="https://apple.co/4cYKmRG">Download now</a> to protect yourself and your loved ones.</p>',
+<p><a href="https://apple.co/4cYKmRG">Download Kalkan</a> and start with free General Protection. Extra Protection is included with Kalkan Premium, currently available in Türkiye.</p>',
         ),
     );
 
@@ -1216,6 +1216,151 @@ function kalkan_seo_optimized_posts() {
     update_option('kalkan_seo_posts_v4', true);
 }
 add_action('init', 'kalkan_seo_optimized_posts', 20);
+
+/**
+ * Expand the primary acquisition article without recreating or touching other posts.
+ */
+function kalkan_update_primary_growth_article() {
+    if (get_option('kalkan_primary_growth_article_v1')) return;
+
+    $post = get_page_by_path('spam-arama-engelleme', OBJECT, 'post');
+    if (!$post) return;
+
+    $home = home_url('/');
+    $appstore = apply_filters('kalkan_app_store_url', 'https://apple.co/4cYKmRG');
+
+    $content_tr = '<p>Spam aramalar; istenmeyen satış aramalarından kendisini banka, kamu kurumu veya kargo şirketi gibi tanıtan dolandırıcılara kadar farklı biçimlerde karşınıza çıkabilir. iPhone\'da bu aramaları azaltmak için yerleşik iOS seçeneklerini ve Kalkan\'ın cihaz üzerinde çalışan korumasını birlikte kullanabilirsiniz.</p>
+
+<h2>iPhone\'da Spam Arama Engelleme Yöntemleri</h2>
+
+<h3>1. Kalkan ile bilinen spam numaraları engelleyin</h3>
+<p><a href="' . esc_url($home) . '">Kalkan</a>, bilinen spam numaraları iPhone\'unuza yükler ve iOS Arama Engelleme ve Numara Tanıma sistemiyle çalışır. Rehberiniz veya arama geçmişiniz sunucuya yüklenmez. Genel Koruma ve arayan kimliği ücretsizdir; genişletilmiş numara kalıplarını engelleyen Ekstra Koruma ise Kalkan Premium kapsamındadır.</p>
+
+<ol>
+<li><a href="' . esc_url($appstore) . '">Kalkan\'ı App Store\'dan indirin</a>.</li>
+<li>Uygulamayı açın ve Genel Koruma veritabanını yükleyin.</li>
+<li>Ayarlar → Uygulamalar → Telefon → Arama Engelleme ve Numara Tanıma bölümünü açın.</li>
+<li>Kalkan\'ı etkinleştirin ve uygulamaya dönerek koruma durumunu kontrol edin.</li>
+</ol>
+
+<h3>2. Bilinmeyen Arayanları Sessize Al seçeneğini değerlendirin</h3>
+<p>iOS, rehberinizde bulunmayan numaraları sessize alabilir. Bu seçenek spam aramaları azaltır ancak doktor, kurye veya iş görüşmesi gibi önemli aramaları da sessize alabilir. Ayrıntılar için Apple\'ın <a href="https://support.apple.com/tr-tr/guide/iphone/iphe4b3f7823/ios" target="_blank" rel="noopener">bilinmeyen arayanları yönetme rehberini</a> inceleyin.</p>
+
+<h3>3. Tek bir numarayı manuel olarak engelleyin</h3>
+<p>Telefon uygulamasında Son Aramalar\'ı açın, numaranın yanındaki bilgi düğmesine dokunun ve “Bu Arayanı Engelle” seçeneğini kullanın. Bu yöntem tek bir numara için etkilidir; sürekli değişen spam numaraları için veritabanı tabanlı koruma daha pratiktir.</p>
+
+<h2>Arayan Kimliği ile Engelleme Arasındaki Fark</h2>
+<p>Arayan kimliği, bilinen bir numaranın etiketini arama ekranında gösterir. Engelleme ise eşleşen aramanın size ulaşmasını önler. Kalkan\'ın Genel Koruma katmanı ücretsiz temel korumayı sağlar. Ekstra Koruma, daha geniş numara kalıpları için Türkiye\'de sunulan Kalkan Premium aboneliğini gerektirir.</p>
+
+<h2>Kalkan Çalışmıyorsa Kontrol Edin</h2>
+<ul>
+<li>iPhone ayarlarında Kalkan uzantısının etkin olduğundan emin olun.</li>
+<li>Kalkan\'ı açıp koruma veritabanını yeniden güncelleyin.</li>
+<li>iOS veya Kalkan güncellemesi varsa yükleyin.</li>
+<li>Yeni kötüye kullanılan numaraların henüz veritabanında bulunmayabileceğini unutmayın.</li>
+</ul>
+
+<p>Şüpheli bir arama aldıysanız numarayı Kalkan içinden veya iPhone\'un desteklediği İletişim Bildirimi akışıyla bildirebilirsiniz. Ayrıca <a href="' . esc_url($home) . 'dolandirici-numara-tanima/">dolandırıcı aramaların belirtilerini</a> ve <a href="' . esc_url($home) . 'bilinmeyen-numara-kimin/">bilinmeyen numaraları değerlendirmenin güvenli yollarını</a> inceleyebilirsiniz.</p>
+
+<h2>Sıkça Sorulan Sorular</h2>
+
+<h3>Spam arama engelleme ücretsiz mi?</h3>
+<p>Kalkan\'ın Genel Koruma, arayan kimliği ve İletişim Bildirimi özellikleri ücretsizdir. Yalnızca Ekstra Koruma, Kalkan Premium gerektirir.</p>
+
+<h3>Kalkan arama geçmişimi veya rehberimi yükler mi?</h3>
+<p>Hayır. Arama koruması iOS\'un sistem entegrasyonu ve cihazınıza yüklenen verilerle çalışır; rehberiniz ve arama geçmişiniz Kalkan\'a yüklenmez.</p>
+
+<h3>Kalkan bütün spam aramaları engeller mi?</h3>
+<p>Hiçbir arama engelleme uygulaması yüzde yüz koruma garanti edemez. Yeni veya henüz bildirilmemiş numaralar zaman zaman size ulaşabilir.</p>';
+
+    $content_en = '<p>Spam calls can range from unwanted sales calls to scammers pretending to represent a bank, government agency, or delivery company. On iPhone, you can reduce these calls by combining built-in iOS options with Kalkan\'s on-device protection.</p>
+
+<h2>How to Block Spam Calls on iPhone</h2>
+
+<h3>1. Block known spam numbers with Kalkan</h3>
+<p><a href="' . esc_url($home) . '">Kalkan</a> loads known spam numbers onto your iPhone and works with iOS Call Blocking &amp; Identification. Your contacts and call history are not uploaded. General Protection and caller identification are free; Extra Protection for extended number patterns requires Kalkan Premium.</p>
+
+<ol>
+<li><a href="' . esc_url($appstore) . '">Download Kalkan from the App Store</a>.</li>
+<li>Open the app and load the General Protection database.</li>
+<li>Open Settings → Apps → Phone → Call Blocking &amp; Identification.</li>
+<li>Enable Kalkan, return to the app, and check the protection status.</li>
+</ol>
+
+<h3>2. Consider Silence Unknown Callers</h3>
+<p>iOS can silence numbers that are not in your contacts. This reduces interruptions, but it may also silence important calls from a doctor, courier, or employer. Review Apple\'s <a href="https://support.apple.com/guide/iphone/manage-unknown-callers-iph3c9947bf/ios" target="_blank" rel="noopener">unknown caller guidance</a> before enabling it.</p>
+
+<h3>3. Manually block one number</h3>
+<p>In the Phone app, open Recents, tap the information button next to the number, and choose “Block Caller.” This works well for one number; database-based protection is more practical when spam callers keep changing numbers.</p>
+
+<h2>Caller Identification vs. Blocking</h2>
+<p>Caller identification displays a known label on the incoming-call screen. Blocking prevents a matched call from reaching you. Kalkan\'s General Protection provides the free core layer. Extra Protection requires the Kalkan Premium subscription currently available in Türkiye.</p>
+
+<h2>If Protection Does Not Appear</h2>
+<ul>
+<li>Confirm that the Kalkan extension is enabled in iPhone Settings.</li>
+<li>Open Kalkan and update the protection database again.</li>
+<li>Install available iOS and Kalkan updates.</li>
+<li>Remember that a newly abused number may not be in the database yet.</li>
+</ul>
+
+<p>You can report a suspicious call from Kalkan or through the iPhone Communication Reporting flow. You can also learn how to <a href="' . esc_url($home) . 'dolandirici-numara-tanima/">recognize scam calls</a> and assess an <a href="' . esc_url($home) . 'bilinmeyen-numara-kimin/">unknown number safely</a>.</p>
+
+<h2>Frequently Asked Questions</h2>
+
+<h3>Is spam call blocking free?</h3>
+<p>Kalkan\'s General Protection, caller identification, and Communication Reporting are free. Only Extra Protection requires Kalkan Premium.</p>
+
+<h3>Does Kalkan upload my contacts or call history?</h3>
+<p>No. Call protection uses the iOS system integration and data loaded onto your device; your contacts and call history are not uploaded to Kalkan.</p>
+
+<h3>Does Kalkan block every spam call?</h3>
+<p>No call-blocking app can guarantee complete protection. New or not-yet-reported numbers may occasionally reach you.</p>';
+
+    $updated = wp_update_post(array(
+        'ID'           => $post->ID,
+        'post_content' => $content_tr,
+    ), true);
+
+    if (is_wp_error($updated)) return;
+
+    update_post_meta($post->ID, '_kalkan_content_en', $content_en);
+    update_post_meta($post->ID, '_seopress_titles_title', 'Spam Arama Engelleme – iPhone\'da Nasıl Yapılır?');
+    update_post_meta($post->ID, '_seopress_titles_desc', 'iPhone\'da spam aramaları engelleme, arayan kimliği, Kalkan kurulumu ve sorun giderme adımlarını öğrenin.');
+
+    $launch_post = get_page_by_path('kalkan-uygulamasi-yayinda', OBJECT, 'post');
+    if ($launch_post) {
+        $launch_tr = str_replace(
+            array(
+                'Kalkan uygulaması artık App Store\'da! iOS kullanıcıları için geliştirilen Kalkan, spam aramaları engelleyen ve bilinmeyen numaraları tanımlayan ücretsiz bir uygulamadır.',
+                '<p>Kalkan şu anda App Store\'da ücretsiz. <a href="https://apple.co/4cYKmRG">Hemen indirerek</a> kendinizi ve sevdiklerinizi spam aramalardan koruyun.</p>',
+            ),
+            array(
+                'Kalkan uygulaması artık App Store\'da! iOS için geliştirilen Kalkan, bilinen spam aramaları engeller ve bilinmeyen numaraları tanımlar. Genel Koruma ücretsizdir; Ekstra Koruma Kalkan Premium gerektirir.',
+                '<p><a href="' . esc_url($appstore) . '">Kalkan\'ı indirin</a> ve ücretsiz Genel Koruma ile başlayın. Ekstra Koruma, Türkiye\'de sunulan Kalkan Premium kapsamındadır.</p>',
+            ),
+            $launch_post->post_content
+        );
+        wp_update_post(array('ID' => $launch_post->ID, 'post_content' => $launch_tr));
+
+        $launch_en = get_post_meta($launch_post->ID, '_kalkan_content_en', true);
+        $launch_en = str_replace(
+            array(
+                'Kalkan app is now available on the App Store! Developed for iOS users, Kalkan is a free app that blocks spam calls and identifies unknown numbers.',
+                '<p>Kalkan is currently free on the App Store. <a href="https://apple.co/4cYKmRG">Download now</a> to protect yourself and your loved ones.</p>',
+            ),
+            array(
+                'Kalkan is now available on the App Store! Built for iOS, Kalkan blocks known spam calls and identifies unknown numbers. General Protection is free; Extra Protection requires Kalkan Premium.',
+                '<p><a href="' . esc_url($appstore) . '">Download Kalkan</a> and start with free General Protection. Extra Protection is included with Kalkan Premium, currently available in Türkiye.</p>',
+            ),
+            $launch_en
+        );
+        update_post_meta($launch_post->ID, '_kalkan_content_en', $launch_en);
+    }
+
+    update_option('kalkan_primary_growth_article_v1', true);
+}
+add_action('init', 'kalkan_update_primary_growth_article', 21);
 
 /**
  * Set homepage SEOPress meta.

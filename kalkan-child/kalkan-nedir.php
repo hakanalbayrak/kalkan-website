@@ -84,7 +84,7 @@ $is_front_page = false;
 					<h2>Sık Sorulan Sorular</h2>
 
 					<h3>Kalkan ücretsiz mi?</h3>
-					<p>Evet, temel koruma ve arama bildirme özellikleri ücretsizdir.</p>
+					<p>Genel Koruma ve İletişim Bildirimi ücretsizdir. Yalnızca Ekstra Koruma, Türkiye'de sunulan Kalkan Premium yıllık aboneliğini gerektirir.</p>
 
 					<h3>Kalkan tüm aramaları engeller mi?</h3>
 					<p>Hayır. Sadece veri listesinde bulunan numaralar engellenir veya tanınır.</p>
@@ -126,7 +126,7 @@ $is_front_page = false;
 					<h2>Frequently Asked Questions</h2>
 
 					<h3>Is Kalkan free?</h3>
-					<p>Yes, basic protection and reporting features are free.</p>
+					<p>General Protection and Communication Reporting are free. Only Extra Protection requires the annual Kalkan Premium subscription, currently available in Türkiye.</p>
 
 					<h3>Does Kalkan block all calls?</h3>
 					<p>No. It only blocks or identifies numbers that exist in its dataset.</p>

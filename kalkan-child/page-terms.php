@@ -54,7 +54,7 @@ $page_title    = 'en' === $lang ? 'Terms of Use — Kalkan' : 'Kullanım Koşull
 
 				<?php if ( 'tr' === $lang ) : ?>
 
-					<p class="kk-effective">Son güncelleme: 28.02.2026</p>
+					<p class="kk-effective">Son güncelleme: 25.07.2026</p>
 
 					<h2>1. Uygulamanın sunduğu özellik</h2>
 					<p>Kalkan, mevcut veri kümelerine göre arama engelleme ve numara tanıma sağlar; sonuçlar değişebilir.</p>
@@ -69,11 +69,13 @@ $page_title    = 'en' === $lang ? 'Terms of Use — Kalkan' : 'Kullanım Koşull
 					<p>Uygulama, yasal olarak izin verilen en geniş kapsamda "olduğu gibi" sunulur.</p>
 
 					<h2>5. Apple faturalandırma</h2>
-					<p>Abonelikler ve satın almalar Apple tarafından yönetilir. İade talepleri Apple tarafından ele alınır.</p>
+					<p>Genel Koruma ve İletişim Bildirimi ücretsizdir. Ekstra Koruma, yalnızca Türkiye'de sunulan yıllık Kalkan Premium aboneliğini gerektirir.</p>
+					<p>Uygun yeni aboneliklerde üç aylık ücretsiz deneme sunulabilir. Güncel fiyat, deneme uygunluğu ve satın alma koşulları ödeme onayından önce App Store tarafından gösterilir. Deneme veya abonelik, mevcut dönemin bitiminden en az 24 saat önce iptal edilmezse Apple tarafından otomatik olarak yenilenebilir.</p>
+					<p>Ödeme, yenileme, abonelik yönetimi ve iptal işlemleri Apple Kimliği üzerinden Apple tarafından yürütülür. İade talepleri Apple'ın iade süreci üzerinden değerlendirilir.</p>
 
 				<?php else : ?>
 
-					<p class="kk-effective">Last update: February 28, 2026</p>
+					<p class="kk-effective">Last update: July 25, 2026</p>
 
 					<h2>1. Service description</h2>
 					<p>Kalkan provides call blocking and identification based on available datasets; results may vary.</p>
@@ -88,7 +90,9 @@ $page_title    = 'en' === $lang ? 'Terms of Use — Kalkan' : 'Kullanım Koşull
 					<p>The app is provided "as is" to the maximum extent permitted by law.</p>
 
 					<h2>5. Apple billing</h2>
-					<p>Subscriptions and purchases are managed by Apple. Refund requests are handled by Apple.</p>
+					<p>General Protection and Communication Reporting are free. Extra Protection requires the annual Kalkan Premium subscription, currently available only in Türkiye.</p>
+					<p>Eligible new subscriptions may include a three-month free trial. The current price, trial eligibility, and purchase terms are displayed by the App Store before confirmation. A trial or subscription may renew automatically through Apple unless cancelled at least 24 hours before the end of the current period.</p>
+					<p>Apple handles payment, renewal, subscription management, and cancellation through the user's Apple Account. Refund requests are reviewed through Apple's refund process.</p>
 
 				<?php endif; ?>
 

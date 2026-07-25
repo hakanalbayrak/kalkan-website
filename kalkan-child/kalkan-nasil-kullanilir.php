@@ -55,7 +55,7 @@ $is_front_page = false;
 					<p>Kalkan'ı kullanmak oldukça basittir.</p>
 
 					<h2>1. Uygulamayı indirin</h2>
-					<p>App Store üzerinden <a href="https://apple.co/4cYKmRG">Kalkan uygulamasını indirin</a>.</p>
+					<p>App Store üzerinden <a href="<?php echo esc_url( $appstore_link ); ?>">Kalkan uygulamasını indirin</a>.</p>
 
 					<h2>2. Koruma ayarlarını açın</h2>
 					<p>iPhone Ayarlar → Telefon → Arama Engelleme ve Kimlik Tanımlama bölümüne gidin ve Kalkan'ı aktif edin.</p>
@@ -79,7 +79,7 @@ $is_front_page = false;
 					<p>Using Kalkan is simple.</p>
 
 					<h2>1. Download the app</h2>
-					<p>Install <a href="https://apple.co/4cYKmRG">Kalkan from the App Store</a>.</p>
+					<p>Install <a href="<?php echo esc_url( $appstore_link ); ?>">Kalkan from the App Store</a>.</p>
 
 					<h2>2. Enable protection</h2>
 					<p>Go to iPhone Settings → Phone → Call Blocking &amp; Identification and enable Kalkan.</p>

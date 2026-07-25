@@ -137,7 +137,7 @@ $_kk_seo_tags = static function () use ( $lang ) : string {
 };
 
 /* ── App Store badges (official Apple hosted) ──────────────────────────────── */
-$appstore_link = 'https://apple.co/4cYKmRG';
+$appstore_link = apply_filters( 'kalkan_app_store_url', 'https://apple.co/4cYKmRG' );
 $badge_lang    = ( 'tr' === $lang ) ? 'tr-tr' : 'en-us';
 $badge_url     = "https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/white/{$badge_lang}?releaseDate=1773014400";
 
