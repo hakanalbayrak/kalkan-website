@@ -1827,3 +1827,121 @@ add_filter('wp_headers', function ($headers) {
 
 // Disable XML-RPC (common spam vector).
 add_filter('xmlrpc_enabled', '__return_false');
+
+/**
+ * Publish the product owner's approved Kalkan protection guide once.
+ * The option and slug guards make WP Pusher retries idempotent.
+ */
+function kalkan_publish_protection_guide_v1() {
+    if (get_option('kalkan_protection_guide_published_v1')) {
+        return;
+    }
+
+    $slug = 'kalkan-sizi-nasil-korur';
+    if (get_page_by_path($slug, OBJECT, 'post')) {
+        update_option('kalkan_protection_guide_published_v1', true);
+        return;
+    }
+
+    $category = get_category_by_slug('uygulama');
+    if (!$category) {
+        return;
+    }
+
+    $app_store = 'https://apple.co/4cYKmRG';
+    $guide_url = home_url('/kalkan-nasil-kullanilir/');
+    $logo_url = get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png';
+
+    $content_tr = '
+<p><img src="' . esc_url($logo_url) . '" alt="Kalkan uygulama logosu" width="220" height="220" style="display:block;width:160px;height:160px;margin:0 auto 2rem;border-radius:36px" /></p>
+<p>Kalkan, bilinen istenmeyen numaraları engellemeye ve kurumsal numaraları arama ekranında tanımlamaya yardımcı olur. Böylece çalışırken, dinlenirken veya ailenizle vakit geçirirken gereksiz aramalar sizi daha az böler.</p>
+
+<h2>Kalkan arama gelmeden önce nasıl çalışır?</h2>
+<p>Kalkan’ın koruma verileri iPhone’un Arama Engelleme ve Numara Tanıma özelliğine yüklenir. Bilinen istenmeyen numaralar engelleme listesine, doğrulanmış kurum numaraları ise arayan kimliği listesine aktarılır.</p>
+<ul>
+<li><strong>Daha az bölünme:</strong> Bilinen istenmeyen aramalar telefonunuzu çaldırmadan engellenebilir; önemli işinize odaklanmanız kolaylaşır.</li>
+<li><strong>Arayanı daha kolay tanıma:</strong> Kalkan veritabanında bulunan bir kurum aradığında, numara yerine açıklayıcı kurum etiketi görebilirsiniz.</li>
+<li><strong>Kontrol sizde kalır:</strong> Genel Koruma ücretsizdir. İzin verilen numaraları yönetebilir, verileri yenileyebilir ve şüpheli aramaları bildirebilirsiniz.</li>
+</ul>
+
+<h2>Kalkan nasıl etkinleştirilir?</h2>
+<ol>
+<li>Kalkan’ı açın ve Genel Koruma verilerini indirin.</li>
+<li><strong>Ayarlar → Uygulamalar → Telefon → Arama Engelleme ve Numara Tanıma</strong> bölümünü açın.</li>
+<li>Kalkan uzantılarını etkinleştirin ve uygulamaya dönün.</li>
+<li>Ana ekrandaki durum kartının korumanın aktif olduğunu gösterdiğini doğrulayın.</li>
+</ol>
+<p><strong>Önemli:</strong> iOS, bu izni sizin açmanızı gerektirir. Kalkan etkinleştirilmezse aramaları engelleyemez ve arayan kimliği etiketlerini gösteremez.</p>
+
+<h2>Genel Koruma ve Extra Koruma arasındaki fark</h2>
+<p><strong>Genel Koruma</strong>, bilinen kesin numaralar için ücretsiz engelleme ve arayan kimliği sağlar. <strong>Extra Koruma</strong> ise Kalkan Premium ile şüpheli numara kalıplarına karşı daha geniş, kural tabanlı engelleme ekler. Extra Koruma kullanmasanız da Genel Koruma çalışmaya devam eder.</p>
+
+<h2>Koruma verilerini güncel tutun</h2>
+<p>Yeni istenmeyen numaralar ortaya çıkabildiği için ana ekrandaki Güncelle düğmesini düzenli aralıklarla kullanın. Güncelleme tamamlandığında Kalkan yeni arayan kimliği ve engelleme verilerini iPhone’a uygular. Ayrıntılı adımlar için <a href="' . esc_url($guide_url) . '">Kalkan kullanım rehberini</a> inceleyebilirsiniz.</p>
+
+<h2>Şüpheli bir arama size ulaştığında</h2>
+<p>Numarayı Kalkan içinden bildirebilir veya Telefon uygulamasındaki desteklenen hızlı bildirim akışını kullanabilirsiniz. Gönderilen bildirimler incelenir; uygun bulunan numaralar sonraki veri güncellemelerine eklenebilir.</p>
+
+<p><strong>Güvenlik hatırlatması:</strong> Hiçbir arama uygulaması yüzde 100 koruma garantisi veremez. Ekranda kurum adı görünse bile şifre, SMS kodu veya banka bilgisi paylaşmayın. Hassas işlemleri kurumun resmî numarasını kendiniz arayarak doğrulayın.</p>
+<p><a href="' . esc_url($app_store) . '"><strong>Kalkan’ı açın veya App Store’dan indirin ve koruma durumunuzu kontrol edin.</strong></a></p>';
+
+    $content_en = '
+<p><img src="' . esc_url($logo_url) . '" alt="Kalkan app logo" width="220" height="220" style="display:block;width:160px;height:160px;margin:0 auto 2rem;border-radius:36px" /></p>
+<p>Kalkan helps block known unwanted numbers and identify verified institutional lines on the incoming-call screen. Fewer unnecessary calls interrupt your work, rest, and time with family.</p>
+<h2>How does Kalkan work before you answer?</h2>
+<p>Kalkan loads protection data into iPhone’s Call Blocking &amp; Identification system. Known unwanted numbers can be added to the blocking list, while verified institutional numbers can receive a useful caller identification label.</p>
+<ul>
+<li><strong>Fewer interruptions:</strong> Known unwanted calls can be stopped before your phone rings.</li>
+<li><strong>More useful caller context:</strong> When a listed organization calls, Kalkan can display a descriptive organization label.</li>
+<li><strong>You stay in control:</strong> General Protection is free. You can update data, manage allowed numbers, and report suspicious calls.</li>
+</ul>
+<h2>How to activate Kalkan</h2>
+<ol>
+<li>Open Kalkan and download General Protection data.</li>
+<li>Open <strong>Settings → Apps → Phone → Call Blocking &amp; Identification</strong>.</li>
+<li>Enable the Kalkan extensions and return to the app.</li>
+<li>Confirm that the Home status card shows protection as active.</li>
+</ol>
+<p><strong>Important:</strong> iOS requires you to enable this permission. Without it, Kalkan cannot block calls or display caller identification labels.</p>
+<h2>General and Extra Protection</h2>
+<p><strong>General Protection</strong> provides free exact-number blocking and identification. <strong>Extra Protection</strong>, available with Kalkan Premium, adds broader rule-based blocking for suspicious number patterns. General Protection remains available separately.</p>
+<h2>Keep protection data current</h2>
+<p>Because new unwanted numbers appear over time, use the Update button on Home regularly. Kalkan applies refreshed caller identification and blocking data when the update completes.</p>
+<h2>When a suspicious call gets through</h2>
+<p>Report it inside Kalkan or through the supported quick-reporting flow in the Phone app. Reports are reviewed, and suitable numbers may be included in a future data update.</p>
+<p><strong>Security reminder:</strong> No call-protection app can guarantee complete protection. Even when an organization label appears, never share passwords, SMS codes, or banking details. Independently call the organization’s official number for sensitive requests.</p>
+<p><a href="' . esc_url($app_store) . '"><strong>Open Kalkan or download it from the App Store and check your protection status.</strong></a></p>';
+
+    $post_id = wp_insert_post(array(
+        'post_title'    => 'Kalkan Sizi Nasıl Korur ve Günlük Hayatınıza Ne Kazandırır?',
+        'post_name'     => $slug,
+        'post_content'  => $content_tr,
+        'post_status'   => 'publish',
+        'post_type'     => 'post',
+        'post_category' => array((int) $category->term_id),
+    ), true);
+
+    if (is_wp_error($post_id)) {
+        return;
+    }
+
+    update_post_meta($post_id, '_kalkan_title_en', 'How Kalkan Protects You and Improves Your Day');
+    update_post_meta($post_id, '_kalkan_content_en', $content_en);
+    update_post_meta($post_id, '_seopress_titles_title', 'Kalkan Sizi Nasıl Korur? | Arama Koruma Rehberi');
+    update_post_meta($post_id, '_seopress_titles_desc', 'Kalkan ile istenmeyen aramaları azaltın, arayan kurumları tanıyın ve iPhone arama korumasını birkaç adımda etkinleştirin.');
+    update_post_meta($post_id, '_seopress_analysis_target_kw', 'Kalkan nasıl korur');
+    update_post_meta($post_id, '_seopress_social_fb_title', 'Kalkan Sizi Nasıl Korur?');
+    update_post_meta($post_id, '_seopress_social_fb_desc', 'Daha az gereksiz arama, daha anlaşılır arayan kimliği ve kontrolü sizde bırakan koruma.');
+    update_post_meta($post_id, '_seopress_social_fb_img', get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png');
+    update_post_meta($post_id, '_seopress_social_twitter_title', 'Kalkan Sizi Nasıl Korur?');
+    update_post_meta($post_id, '_seopress_social_twitter_desc', 'Daha az gereksiz arama, daha anlaşılır arayan kimliği ve kontrolü sizde bırakan koruma.');
+    update_post_meta($post_id, '_seopress_social_twitter_img', get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png');
+    set_post_thumbnail($post_id, 50);
+
+    if (function_exists('pll_set_post_language')) {
+        pll_set_post_language($post_id, 'tr');
+    }
+
+    update_option('kalkan_protection_guide_published_v1', true);
+}
+add_action('init', 'kalkan_publish_protection_guide_v1', 40);
