@@ -481,6 +481,146 @@ function kalkan_create_categories() {
 add_action('init', 'kalkan_create_categories', 5);
 
 /**
+ * Ensure the two public categories consumed by the Kalkan iOS announcements
+ * screen exist independently from the original one-time SEO category setup.
+ */
+function kalkan_create_announcement_categories() {
+    $categories = array(
+        array(
+            'name' => 'Duyurular',
+            'slug' => 'duyurular',
+            'desc' => 'Kalkan hakkında genel bilgiler, güvenlik içerikleri ve duyurular',
+        ),
+        array(
+            'name' => 'Güncellemeler',
+            'slug' => 'guncellemeler',
+            'desc' => 'Kalkan sürüm notları, yeni özellikler ve uygulama güncellemeleri',
+        ),
+    );
+
+    foreach ($categories as $category) {
+        if (!term_exists($category['slug'], 'category')) {
+            wp_insert_term(
+                $category['name'],
+                'category',
+                array(
+                    'slug'        => $category['slug'],
+                    'description' => $category['desc'],
+                )
+            );
+        }
+    }
+}
+add_action('init', 'kalkan_create_announcement_categories', 6);
+
+/**
+ * Public, read-only feed for the native iOS announcements screen.
+ *
+ * GET /wp-json/kalkan/v1/announcements?type=general|updates&lang=tr|en
+ */
+function kalkan_register_announcements_endpoint() {
+    register_rest_route(
+        'kalkan/v1',
+        '/announcements',
+        array(
+            'methods'             => WP_REST_Server::READABLE,
+            'callback'            => 'kalkan_get_announcements',
+            'permission_callback' => '__return_true',
+            'args'                => array(
+                'type' => array(
+                    'default'           => 'general',
+                    'sanitize_callback' => 'sanitize_key',
+                    'validate_callback' => static function ($value) {
+                        return in_array($value, array('general', 'updates'), true);
+                    },
+                ),
+                'lang' => array(
+                    'default'           => 'tr',
+                    'sanitize_callback' => 'sanitize_key',
+                    'validate_callback' => static function ($value) {
+                        return in_array($value, array('tr', 'en'), true);
+                    },
+                ),
+                'page' => array(
+                    'default'           => 1,
+                    'sanitize_callback' => 'absint',
+                    'validate_callback' => static function ($value) {
+                        return (int) $value >= 1;
+                    },
+                ),
+            ),
+        )
+    );
+}
+add_action('rest_api_init', 'kalkan_register_announcements_endpoint');
+
+function kalkan_get_announcements(WP_REST_Request $request) {
+    $type          = $request->get_param('type');
+    $lang          = $request->get_param('lang');
+    $page          = max(1, (int) $request->get_param('page'));
+    $category_slug = 'updates' === $type ? 'guncellemeler' : 'duyurular';
+
+    $query = new WP_Query(
+        array(
+            'post_type'           => 'post',
+            'post_status'         => 'publish',
+            'category_name'       => $category_slug,
+            'posts_per_page'      => 20,
+            'paged'               => $page,
+            'ignore_sticky_posts' => false,
+            'no_found_rows'       => false,
+        )
+    );
+
+    $items = array();
+    foreach ($query->posts as $post) {
+        $title   = get_the_title($post);
+        $content = apply_filters('the_content', $post->post_content);
+
+        if ('en' === $lang) {
+            $english_title   = get_post_meta($post->ID, '_kalkan_title_en', true);
+            $english_content = get_post_meta($post->ID, '_kalkan_content_en', true);
+
+            if (is_string($english_title) && '' !== trim($english_title)) {
+                $title = $english_title;
+            }
+            if (is_string($english_content) && '' !== trim($english_content)) {
+                $content = apply_filters('the_content', $english_content);
+            }
+        }
+
+        $items[] = array(
+            'id'             => (int) $post->ID,
+            'type'           => $type,
+            'title'          => wp_strip_all_tags($title),
+            'summary'        => wp_trim_words(wp_strip_all_tags($content), 34),
+            'content_html'   => wp_kses_post($content),
+            'published_at'   => get_post_time(DATE_ATOM, true, $post),
+            'updated_at'     => get_post_modified_time(DATE_ATOM, true, $post),
+            'url'            => get_permalink($post),
+            'image_url'      => get_the_post_thumbnail_url($post, 'large') ?: null,
+            'app_version'    => sanitize_text_field((string) get_post_meta($post->ID, '_kalkan_app_version', true)),
+            'source_name'    => sanitize_text_field((string) get_post_meta($post->ID, '_kalkan_source_name', true)),
+            'source_url'     => esc_url_raw((string) get_post_meta($post->ID, '_kalkan_source_url', true)),
+        );
+    }
+
+    $response = rest_ensure_response(
+        array(
+            'schema_version' => 1,
+            'type'           => $type,
+            'language'       => $lang,
+            'page'           => $page,
+            'total_pages'    => (int) $query->max_num_pages,
+            'items'          => $items,
+        )
+    );
+    $response->header('Cache-Control', 'public, max-age=300');
+
+    return $response;
+}
+
+/**
  * Set default OG image for SEOPress if none is set.
  */
 add_filter('seopress_social_og_thumb', 'kalkan_default_og_image');
