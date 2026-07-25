@@ -403,8 +403,8 @@ $is_front_page = true;
 				<div class="kk-hero__visual kk-animate kk-animate-delay-2" aria-hidden="true">
 					<?php
 					$hero_screenshot = ( 'tr' === $lang )
-						? get_stylesheet_directory_uri() . '/assets/images/Main-Screen-1-tr.png'
-						: get_stylesheet_directory_uri() . '/assets/images/Main-Screen-1-en.png';
+						? get_stylesheet_directory_uri() . '/assets/images/Main-Screen-1-tr.jpg'
+						: get_stylesheet_directory_uri() . '/assets/images/Main-Screen-1-en.jpg';
 					?>
 					<div class="phone-frame">
 						<div class="phone-notch"></div>
@@ -495,16 +495,16 @@ $is_front_page = true;
 				</div>
 				<div class="kk-screen-grid">
 					<figure class="kk-screen kk-animate kk-animate-delay-1">
-						<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/Main-Screen-1-' . ( 'en' === $lang ? 'en' : 'tr' ) . '.png' ); ?>" alt="<?php echo esc_attr( $__( 'Kalkan ana ekranı ve koruma durumu', 'Kalkan home screen and protection status' ) ); ?>" loading="lazy" decoding="async">
-						<figcaption><?php echo esc_html( $__( 'Koruma durumunuzu görün', 'See your protection status' ) ); ?></figcaption>
+						<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/Main-Screen-1-' . ( 'en' === $lang ? 'en' : 'tr' ) . '.jpg' ); ?>" alt="<?php echo esc_attr( $__( 'Kalkan ana ekranı ve koruma durumu', 'Kalkan home screen and protection status' ) ); ?>" loading="lazy" decoding="async">
+						<figcaption><?php echo esc_html( $__( 'Ana ekrandan koruma durumunu yönetin', 'Manage protection from the home screen' ) ); ?></figcaption>
 					</figure>
 					<figure class="kk-screen kk-animate kk-animate-delay-2">
-						<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/Settings-Screen-1-' . ( 'en' === $lang ? 'en' : 'tr' ) . '.png' ); ?>" alt="<?php echo esc_attr( $__( 'Kalkan iPhone ayarları ekranı', 'Kalkan iPhone settings screen' ) ); ?>" loading="lazy" decoding="async">
-						<figcaption><?php echo esc_html( $__( 'iPhone korumasını etkinleştirin', 'Enable iPhone protection' ) ); ?></figcaption>
+						<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/Settings-Screen-1-' . ( 'en' === $lang ? 'en' : 'tr' ) . '.jpg' ); ?>" alt="<?php echo esc_attr( $__( 'Kalkan iPhone ayarları ekranı', 'Kalkan iPhone settings screen' ) ); ?>" loading="lazy" decoding="async">
+						<figcaption><?php echo esc_html( $__( 'Ayarları ve Premium durumunu inceleyin', 'Review settings and Premium status' ) ); ?></figcaption>
 					</figure>
 					<figure class="kk-screen kk-animate kk-animate-delay-3">
-						<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/Information-Screen-1-' . ( 'en' === $lang ? 'en' : 'tr' ) . '.png' ); ?>" alt="<?php echo esc_attr( $__( 'Kalkan bilgilendirme ekranı', 'Kalkan information screen' ) ); ?>" loading="lazy" decoding="async">
-						<figcaption><?php echo esc_html( $__( 'Nasıl korunduğunuzu öğrenin', 'Understand how you are protected' ) ); ?></figcaption>
+						<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/Information-Screen-1-' . ( 'en' === $lang ? 'en' : 'tr' ) . '.jpg' ); ?>" alt="<?php echo esc_attr( $__( 'Kalkan bilgilendirme ekranı', 'Kalkan information screen' ) ); ?>" loading="lazy" decoding="async">
+						<figcaption><?php echo esc_html( $__( 'Birkaç adımda korumayı başlatın', 'Start protection in a few steps' ) ); ?></figcaption>
 					</figure>
 				</div>
 			</div>
