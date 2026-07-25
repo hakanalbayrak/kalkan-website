@@ -1850,10 +1850,8 @@ function kalkan_publish_protection_guide_v1() {
 
     $app_store = 'https://apple.co/4cYKmRG';
     $guide_url = home_url('/kalkan-nasil-kullanilir/');
-    $logo_url = get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png';
 
     $content_tr = '
-<p><img src="' . esc_url($logo_url) . '" alt="Kalkan uygulama logosu" width="220" height="220" style="display:block;width:160px;height:160px;margin:0 auto 2rem;border-radius:36px" /></p>
 <p>Kalkan, bilinen istenmeyen numaraları engellemeye ve kurumsal numaraları arama ekranında tanımlamaya yardımcı olur. Böylece çalışırken, dinlenirken veya ailenizle vakit geçirirken gereksiz aramalar sizi daha az böler.</p>
 
 <h2>Kalkan arama gelmeden önce nasıl çalışır?</h2>
@@ -1886,7 +1884,6 @@ function kalkan_publish_protection_guide_v1() {
 <p><a href="' . esc_url($app_store) . '"><strong>Kalkan’ı açın veya App Store’dan indirin ve koruma durumunuzu kontrol edin.</strong></a></p>';
 
     $content_en = '
-<p><img src="' . esc_url($logo_url) . '" alt="Kalkan app logo" width="220" height="220" style="display:block;width:160px;height:160px;margin:0 auto 2rem;border-radius:36px" /></p>
 <p>Kalkan helps block known unwanted numbers and identify verified institutional lines on the incoming-call screen. Fewer unnecessary calls interrupt your work, rest, and time with family.</p>
 <h2>How does Kalkan work before you answer?</h2>
 <p>Kalkan loads protection data into iPhone’s Call Blocking &amp; Identification system. Known unwanted numbers can be added to the blocking list, while verified institutional numbers can receive a useful caller identification label.</p>
@@ -1945,3 +1942,38 @@ function kalkan_publish_protection_guide_v1() {
     update_option('kalkan_protection_guide_published_v1', true);
 }
 add_action('init', 'kalkan_publish_protection_guide_v1', 40);
+
+/**
+ * One-time cleanup requested after publication: remove the visible logo from
+ * the protection guide body while retaining its social sharing image.
+ */
+function kalkan_remove_protection_guide_body_logo_v1() {
+    if (get_option('kalkan_protection_guide_body_logo_removed_v1')) {
+        return;
+    }
+
+    $post = get_page_by_path('kalkan-sizi-nasil-korur', OBJECT, 'post');
+    if (!$post instanceof WP_Post) {
+        return;
+    }
+
+    $content_tr = preg_replace(
+        '#^\s*<p><img[^>]+alt="Kalkan uygulama logosu"[^>]*/></p>\s*#u',
+        '',
+        $post->post_content
+    );
+    $content_en = get_post_meta($post->ID, '_kalkan_content_en', true);
+    $content_en = preg_replace(
+        '#^\s*<p><img[^>]+alt="Kalkan app logo"[^>]*/></p>\s*#u',
+        '',
+        $content_en
+    );
+
+    wp_update_post(array(
+        'ID'           => $post->ID,
+        'post_content' => $content_tr,
+    ));
+    update_post_meta($post->ID, '_kalkan_content_en', $content_en);
+    update_option('kalkan_protection_guide_body_logo_removed_v1', true);
+}
+add_action('init', 'kalkan_remove_protection_guide_body_logo_v1', 41);
