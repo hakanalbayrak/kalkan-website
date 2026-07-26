@@ -101,7 +101,7 @@ $is_front_page = true;
 .phone-frame {
   position: relative;
   width: 280px;
-  height: 572px;
+  aspect-ratio: 1179 / 2556;
   background: #000000;
   border-radius: 44px;
   border: 4px solid #2a2a3a;
@@ -112,28 +112,34 @@ $is_front_page = true;
     inset 0 0 2px rgba(255, 255, 255, 0.05);
   overflow: hidden;
 }
-.phone-notch {
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 28px;
-  background: #000000;
-  border-radius: 20px;
-  z-index: 10;
-}
 .phone-screen {
+  position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
   border-radius: 40px;
 }
 .phone-screen img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  opacity: 0;
+  animation: kk-phone-screen-cycle 20s infinite;
+}
+.phone-screen img:nth-child(1) { animation-delay: 0s; }
+.phone-screen img:nth-child(2) { animation-delay: 5s; }
+.phone-screen img:nth-child(3) { animation-delay: 10s; }
+.phone-screen img:nth-child(4) { animation-delay: 15s; }
+@keyframes kk-phone-screen-cycle {
+  0%, 20% { opacity: 1; }
+  25%, 100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .phone-screen img { animation: none; opacity: 0; }
+  .phone-screen img:first-child { opacity: 1; }
 }
 
 .kk-how { background: rgba(19,7,40,0.6); }
@@ -332,9 +338,8 @@ $is_front_page = true;
 /* ===== HERO BUTTONS — MOBILE ===== */
 @media (max-width: 768px) {
   .phone-frame {
-    width: 240px; height: 490px; margin: 0 auto;
+    width: 240px; margin: 0 auto;
   }
-  .phone-notch { width: 80px; height: 22px; top: 8px; }
   .phone-screen { border-radius: 36px; }
   .hero-buttons {
     flex-direction: column; align-items: center; gap: 12px;
@@ -355,7 +360,7 @@ $is_front_page = true;
   .kk-screen { max-width: 19rem; margin-inline: auto; }
 }
 @media (min-width: 769px) {
-  .phone-frame { width: 300px; height: 612px; }
+  .phone-frame { width: 300px; }
 }
 @media (min-width: 64rem) {
   .kk-hero__layout { grid-template-columns: 1.1fr 0.9fr; align-items: center; gap: 4rem; }
@@ -402,18 +407,20 @@ $is_front_page = true;
 
 				<div class="kk-hero__visual kk-animate kk-animate-delay-2" aria-hidden="true">
 					<?php
-					$hero_screenshot = ( 'tr' === $lang )
-						? get_stylesheet_directory_uri() . '/assets/images/Main-Screen-1-tr.jpg'
-						: get_stylesheet_directory_uri() . '/assets/images/Main-Screen-1-en.jpg';
+					$hero_screen_names = ( 'tr' === $lang )
+						? array( 'home-tr.jpg', 'news-tr.jpg', 'settings-tr.jpg', 'premium-tr.jpg' )
+						: array( 'home-en.jpg', 'onboarding-en.jpg', 'settings-en.jpg', 'premium-en.jpg' );
 					?>
 					<div class="phone-frame">
-						<div class="phone-notch"></div>
 						<div class="phone-screen">
-							<img src="<?php echo esc_url( $hero_screenshot ); ?>"
-								alt="<?php echo esc_attr( $__( 'Kalkan Uygulama Ekranı', 'Kalkan App Screen' ) ); ?>"
-								width="280"
-								height="606"
-								loading="eager">
+							<?php foreach ( $hero_screen_names as $index => $hero_screen_name ) : ?>
+								<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/hero/' . $hero_screen_name ); ?>"
+									alt=""
+									width="1179"
+									height="2556"
+									loading="<?php echo 0 === $index ? 'eager' : 'lazy'; ?>"
+									decoding="async">
+							<?php endforeach; ?>
 						</div>
 					</div>
 				</div>
