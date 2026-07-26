@@ -49,48 +49,6 @@ add_action('init', function () {
     }
 });
 
-/**
- * Detect public SEOPress sitemap requests, including /sitemap.xml after the
- * internal rewrite above changes it to /sitemaps.xml.
- */
-function kalkan_is_sitemap_request() {
-    $path = isset($_SERVER['REQUEST_URI'])
-        ? (string) parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
-        : '';
-
-    return (bool) preg_match(
-        '#/(?:sitemaps|sitemap|[a-z0-9_-]+-sitemap[0-9]*)\.xml$#i',
-        $path
-    );
-}
-
-// Search Console must be able to fetch sitemap XML without a noindex response
-// header. Run after sitemap plugins have prepared their response.
-add_action('template_redirect', function () {
-    if (kalkan_is_sitemap_request()) {
-        header_remove('X-Robots-Tag');
-    }
-}, PHP_INT_MAX);
-
-add_filter('wp_headers', function ($headers) {
-    if (kalkan_is_sitemap_request()) {
-        foreach (array_keys($headers) as $name) {
-            if (strtolower($name) === 'x-robots-tag') {
-                unset($headers[$name]);
-            }
-        }
-    }
-    return $headers;
-}, PHP_INT_MAX);
-
-// Some sitemap plugins add the header after wp_headers/template_redirect.
-// Removing it at send_headers is the final safe point before response output.
-add_action('send_headers', function () {
-    if (kalkan_is_sitemap_request()) {
-        header_remove('X-Robots-Tag');
-    }
-}, PHP_INT_MAX);
-
 /* ── Anti-spam: honeypot + time-check helpers ─────────────────────────────── */
 
 /**
