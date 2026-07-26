@@ -554,6 +554,18 @@ function kalkan_register_announcements_endpoint() {
 }
 add_action('rest_api_init', 'kalkan_register_announcements_endpoint');
 
+function kalkan_decode_native_text($value) {
+    $decoded = (string) $value;
+    for ($pass = 0; $pass < 2; $pass++) {
+        $next = html_entity_decode($decoded, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        if ($next === $decoded) {
+            break;
+        }
+        $decoded = $next;
+    }
+    return $decoded;
+}
+
 function kalkan_get_announcements(WP_REST_Request $request) {
     if (has_action('litespeed_control_set_nocache')) {
         do_action('litespeed_control_set_nocache', 'Kalkan native announcements feed');
@@ -605,13 +617,13 @@ function kalkan_get_announcements(WP_REST_Request $request) {
         $items[] = array(
             'id'             => (int) $post->ID,
             'type'           => $type,
-            'title'          => html_entity_decode(wp_strip_all_tags($title), ENT_QUOTES | ENT_HTML5, 'UTF-8'),
+            'title'          => kalkan_decode_native_text(wp_strip_all_tags($title)),
             'summary'        => wp_trim_words(
-                html_entity_decode(wp_strip_all_tags($content), ENT_QUOTES | ENT_HTML5, 'UTF-8'),
+                kalkan_decode_native_text(wp_strip_all_tags($content)),
                 34
             ),
             'content_html'   => wp_kses_post(
-                html_entity_decode($content, ENT_QUOTES | ENT_HTML5, 'UTF-8')
+                kalkan_decode_native_text($content)
             ),
             'published_at'   => get_post_time(DATE_ATOM, true, $post),
             'updated_at'     => get_post_modified_time(DATE_ATOM, true, $post),
