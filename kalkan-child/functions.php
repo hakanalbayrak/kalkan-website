@@ -49,14 +49,39 @@ add_action('init', function () {
     }
 });
 
-// Remove X-Robots-Tag: noindex from sitemap responses.
-// SEOPress sets noindex on sitemaps to prevent the XML from being indexed as a
-// web page, but GSC treats noindex as "couldn't fetch" for sitemap submissions.
+/**
+ * Detect public SEOPress sitemap requests, including /sitemap.xml after the
+ * internal rewrite above changes it to /sitemaps.xml.
+ */
+function kalkan_is_sitemap_request() {
+    $path = isset($_SERVER['REQUEST_URI'])
+        ? (string) parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
+        : '';
+
+    return (bool) preg_match(
+        '#/(?:sitemaps|sitemap|[a-z0-9_-]+-sitemap[0-9]*)\.xml$#i',
+        $path
+    );
+}
+
+// Search Console must be able to fetch sitemap XML without a noindex response
+// header. Run after sitemap plugins have prepared their response.
 add_action('template_redirect', function () {
-    if ( get_query_var('seopress_sitemap') || get_query_var('seopress_cpt') || get_query_var('seopress_paged') ) {
+    if (kalkan_is_sitemap_request()) {
         header_remove('X-Robots-Tag');
     }
-}, 999);
+}, PHP_INT_MAX);
+
+add_filter('wp_headers', function ($headers) {
+    if (kalkan_is_sitemap_request()) {
+        foreach (array_keys($headers) as $name) {
+            if (strtolower($name) === 'x-robots-tag') {
+                unset($headers[$name]);
+            }
+        }
+    }
+    return $headers;
+}, PHP_INT_MAX);
 
 /* ── Anti-spam: honeypot + time-check helpers ─────────────────────────────── */
 
@@ -747,7 +772,10 @@ function kalkan_organization_schema() {
 }
 
 /**
- * WebSite schema with SearchAction — homepage only.
+ * WebSite schema — homepage only.
+ *
+ * Do not advertise SearchAction: this site has no search product, and the
+ * placeholder target causes Google to crawl synthetic search_term_string URLs.
  */
 add_action('wp_head', 'kalkan_website_schema', 98);
 function kalkan_website_schema() {
@@ -760,11 +788,6 @@ function kalkan_website_schema() {
         'url'             => 'https://kalkan.website',
         'inLanguage'      => array('tr', 'en'),
         'description'     => 'Kalkan - iOS spam arama engelleyici ve arayan kimliği uygulaması.',
-        'potentialAction' => array(
-            '@type'       => 'SearchAction',
-            'target'      => 'https://kalkan.website/?s={search_term_string}',
-            'query-input' => 'required name=search_term_string',
-        ),
     );
     echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</script>\n";
 }

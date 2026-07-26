@@ -102,12 +102,10 @@ $_kk_seo_tags = static function () use ( $lang ) : string {
 
 	$tags = '';
 
-	/* Canonical — always point to the current page's permalink */
-	$canonical = get_permalink( $post_id );
-	if ( is_front_page() && function_exists( 'pll_home_url' ) ) {
-		$canonical = pll_home_url( $lang );
-	}
-	$tags .= '<link rel="canonical" href="' . esc_url( $canonical ) . '" />' . "\n";
+	/*
+	 * Canonical is owned by SEOPress. Emitting another canonical here creates
+	 * duplicate tags on every custom template and can delay indexing.
+	 */
 
 	/* Hreflang — link TR ↔ EN translations */
 	if ( function_exists( 'pll_get_post' ) && function_exists( 'pll_home_url' ) ) {
