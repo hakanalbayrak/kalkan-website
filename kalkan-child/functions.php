@@ -83,6 +83,14 @@ add_filter('wp_headers', function ($headers) {
     return $headers;
 }, PHP_INT_MAX);
 
+// Some sitemap plugins add the header after wp_headers/template_redirect.
+// Removing it at send_headers is the final safe point before response output.
+add_action('send_headers', function () {
+    if (kalkan_is_sitemap_request()) {
+        header_remove('X-Robots-Tag');
+    }
+}, PHP_INT_MAX);
+
 /* ── Anti-spam: honeypot + time-check helpers ─────────────────────────────── */
 
 /**
