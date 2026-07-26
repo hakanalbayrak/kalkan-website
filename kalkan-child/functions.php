@@ -555,6 +555,10 @@ function kalkan_register_announcements_endpoint() {
 add_action('rest_api_init', 'kalkan_register_announcements_endpoint');
 
 function kalkan_get_announcements(WP_REST_Request $request) {
+    if (has_action('litespeed_control_set_nocache')) {
+        do_action('litespeed_control_set_nocache', 'Kalkan native announcements feed');
+    }
+
     $type          = $request->get_param('type');
     $lang          = $request->get_param('lang');
     $page          = max(1, (int) $request->get_param('page'));
