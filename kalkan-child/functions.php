@@ -481,8 +481,8 @@ function kalkan_create_categories() {
 add_action('init', 'kalkan_create_categories', 5);
 
 /**
- * Ensure the two public categories consumed by the Kalkan iOS announcements
- * screen exist independently from the original one-time SEO category setup.
+ * Ensure the public Updates category consumed by native Kalkan clients exists
+ * independently from the original one-time SEO category setup.
  */
 function kalkan_create_announcement_categories() {
     $categories = array(
@@ -514,7 +514,7 @@ function kalkan_create_announcement_categories() {
 add_action('init', 'kalkan_create_announcement_categories', 6);
 
 /**
- * Public, read-only feed for the native iOS announcements screen.
+ * Public, read-only feed for native Kalkan clients.
  *
  * GET /wp-json/kalkan/v1/announcements?type=general|updates&lang=tr|en
  */
@@ -558,19 +558,28 @@ function kalkan_get_announcements(WP_REST_Request $request) {
     $type          = $request->get_param('type');
     $lang          = $request->get_param('lang');
     $page          = max(1, (int) $request->get_param('page'));
-    $category_slug = 'updates' === $type ? 'guncellemeler' : 'duyurular';
-
-    $query = new WP_Query(
-        array(
-            'post_type'           => 'post',
-            'post_status'         => 'publish',
-            'category_name'       => $category_slug,
-            'posts_per_page'      => 20,
-            'paged'               => $page,
-            'ignore_sticky_posts' => false,
-            'no_found_rows'       => false,
-        )
+    $query_args = array(
+        'post_type'           => 'post',
+        'post_status'         => 'publish',
+        'posts_per_page'      => 20,
+        'paged'               => $page,
+        'ignore_sticky_posts' => false,
+        'no_found_rows'       => false,
     );
+
+    if ('updates' === $type) {
+        $query_args['category_name'] = 'guncellemeler';
+    } else {
+        // Every normal published article belongs in the General native feed.
+        // Updates stay in their dedicated segment even when they also carry
+        // another editorial/SEO category.
+        $updates_category = get_category_by_slug('guncellemeler');
+        if ($updates_category instanceof WP_Term) {
+            $query_args['category__not_in'] = array((int) $updates_category->term_id);
+        }
+    }
+
+    $query = new WP_Query($query_args);
 
     $items = array();
     foreach ($query->posts as $post) {
@@ -615,7 +624,10 @@ function kalkan_get_announcements(WP_REST_Request $request) {
             'items'          => $items,
         )
     );
-    $response->header('Cache-Control', 'public, max-age=300');
+    // Native clients keep their own offline cache. Avoid serving a stale
+    // WordPress/LiteSpeed response after an editor publishes an article.
+    $response->header('Cache-Control', 'no-cache, no-store, must-revalidate');
+    $response->header('X-LiteSpeed-Cache-Control', 'no-cache');
 
     return $response;
 }
