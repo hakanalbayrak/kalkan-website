@@ -649,6 +649,9 @@ function kalkan_get_announcements(WP_REST_Request $request) {
  */
 add_filter('seopress_social_og_thumb', 'kalkan_default_og_image');
 function kalkan_default_og_image($og_image) {
+    if (is_singular('post')) {
+        return $og_image;
+    }
     if (empty($og_image)) {
         return get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png';
     }
@@ -657,6 +660,9 @@ function kalkan_default_og_image($og_image) {
 
 add_filter('seopress_social_twitter_card_thumb', 'kalkan_default_twitter_image');
 function kalkan_default_twitter_image($image) {
+    if (is_singular('post')) {
+        return $image;
+    }
     if (empty($image)) {
         return get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png';
     }
@@ -665,34 +671,30 @@ function kalkan_default_twitter_image($image) {
 
 // Force large Twitter card for better link previews on X.
 add_filter('seopress_social_twitter_card', function ($card_type) {
+    if (is_singular('post')) {
+        return 'summary';
+    }
     return 'summary_large_image';
 });
 
 /**
- * One-time: set featured image on all posts that don't have one.
- * Uses the KalkanAppIcon from media library (ID 50).
+ * The public Duyurular route is the website's all-articles archive. Posts keep
+ * their editorial categories for the app feeds and SEO, while this page lists
+ * every published article.
  */
-function kalkan_set_default_featured_images() {
-    if ( get_option( 'kalkan_featured_images_set_v1' ) ) {
+function kalkan_duyurular_archive_all_posts($query) {
+    if (is_admin() || ! $query->is_main_query() || ! $query->is_category('duyurular')) {
         return;
     }
-    $posts = get_posts( array(
-        'post_type'      => 'post',
-        'posts_per_page' => -1,
-        'meta_query'     => array(
-            array(
-                'key'     => '_thumbnail_id',
-                'compare' => 'NOT EXISTS',
-            ),
-        ),
-    ) );
-    $icon_id = 50; // kalkan-2.png (1024x1024 app icon)
-    foreach ( $posts as $post ) {
-        set_post_thumbnail( $post->ID, $icon_id );
-    }
-    update_option( 'kalkan_featured_images_set_v1', true );
+
+    $query->set('cat', '');
+    $query->set('category_name', '');
+    $query->set('category__in', array());
+    $query->set('tax_query', array());
+    $query->set('post_type', 'post');
+    $query->set('post_status', 'publish');
 }
-add_action( 'init', 'kalkan_set_default_featured_images' );
+add_action('pre_get_posts', 'kalkan_duyurular_archive_all_posts');
 
 /**
  * Get Polylang-aware URL for internal pages.
@@ -1364,10 +1366,8 @@ function kalkan_seo_optimized_posts() {
             update_post_meta($post_id, '_seopress_analysis_target_kw', $post_data['focus_keyword']);
             update_post_meta($post_id, '_seopress_social_fb_title', $post_data['seo_title']);
             update_post_meta($post_id, '_seopress_social_fb_desc', $post_data['seo_desc']);
-            update_post_meta($post_id, '_seopress_social_fb_img', get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png');
             update_post_meta($post_id, '_seopress_social_twitter_title', $post_data['seo_title']);
             update_post_meta($post_id, '_seopress_social_twitter_desc', $post_data['seo_desc']);
-            update_post_meta($post_id, '_seopress_social_twitter_img', get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png');
 
             if (function_exists('pll_set_post_language')) {
                 pll_set_post_language($post_id, 'tr');
