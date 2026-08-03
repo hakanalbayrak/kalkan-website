@@ -60,6 +60,21 @@ $page_title    = $display_title . ' — Kalkan';
   margin-bottom: 2rem;
   color: #f5f3ff;
 }
+.kk-post__featured {
+  margin: -0.5rem 0 2rem;
+  padding: clamp(1rem, 4vw, 2rem);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.5rem;
+  background: radial-gradient(circle at top, rgba(16, 185, 129, 0.16), transparent 58%), rgba(255, 255, 255, 0.035);
+  overflow: hidden;
+}
+.kk-post__featured img {
+  display: block;
+  width: min(100%, 420px);
+  height: auto;
+  margin: 0 auto;
+  border-radius: 1.25rem;
+}
 .kk-post__body {
   color: rgba(245, 243, 255, 0.85);
   font-size: 1.06rem;
@@ -130,6 +145,12 @@ $page_title    = $display_title . ' — Kalkan';
 				<h1 class="kk-post__title">
 					<?php echo esc_html( ( 'en' === $lang && $en_title ) ? $en_title : get_the_title() ); ?>
 				</h1>
+
+				<?php if ( has_post_thumbnail() ) : ?>
+					<figure class="kk-post__featured">
+						<?php the_post_thumbnail( 'large', array( 'loading' => 'eager' ) ); ?>
+					</figure>
+				<?php endif; ?>
 
 				<div class="kk-post__body">
 					<?php
