@@ -644,31 +644,6 @@ function kalkan_get_announcements(WP_REST_Request $request) {
     return $response;
 }
 
-/**
- * Set default OG image for SEOPress if none is set.
- */
-add_filter('seopress_social_og_thumb', 'kalkan_default_og_image');
-function kalkan_default_og_image($og_image) {
-    if (is_singular('post')) {
-        return $og_image;
-    }
-    if (empty($og_image)) {
-        return get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png';
-    }
-    return $og_image;
-}
-
-add_filter('seopress_social_twitter_card_thumb', 'kalkan_default_twitter_image');
-function kalkan_default_twitter_image($image) {
-    if (is_singular('post')) {
-        return $image;
-    }
-    if (empty($image)) {
-        return get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png';
-    }
-    return $image;
-}
-
 // Force large Twitter card for better link previews on X.
 add_filter('seopress_social_twitter_card', function ($card_type) {
     if (is_singular('post')) {
