@@ -15,7 +15,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 include get_stylesheet_directory() . '/inc/kalkan-setup.php';
 
 $is_front_page = false;
-$page_title    = 'en' === $lang ? 'Blog — Kalkan' : 'Blog — Kalkan';
+$is_category_archive = is_category();
+$archive_title = $is_category_archive ? single_cat_title( '', false ) : 'Blog';
+$archive_lead  = $is_category_archive ? wp_strip_all_tags( category_description() ) : '';
+
+if ( '' === trim( $archive_lead ) ) {
+	$archive_lead = $__(
+		'Kalkan hakkında güncellemeler, güvenlik ipuçları ve haberler.',
+		'Updates, security tips and news about Kalkan.'
+	);
+}
+
+$page_title = $archive_title . ' — Kalkan';
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -39,10 +50,10 @@ $page_title    = 'en' === $lang ? 'Blog — Kalkan' : 'Blog — Kalkan';
 
 		<div class="kk-page-header">
 			<div class="kk-shell">
-				<span class="kk-eyebrow">Blog</span>
-				<h1><?php echo esc_html( $__( 'Blog', 'Blog' ) ); ?></h1>
+				<span class="kk-eyebrow"><?php echo esc_html( $is_category_archive ? $__( 'Duyurular', 'Announcements' ) : 'Blog' ); ?></span>
+				<h1><?php echo esc_html( $archive_title ); ?></h1>
 				<p class="kk-lead" style="margin-top:0.6rem;">
-					<?php echo esc_html( $__( 'Kalkan hakkında güncellemeler, güvenlik ipuçları ve haberler.', 'Updates, security tips and news about Kalkan.' ) ); ?>
+					<?php echo esc_html( $archive_lead ); ?>
 				</p>
 			</div>
 		</div>
