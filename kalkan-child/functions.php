@@ -49,6 +49,63 @@ add_action('init', function () {
     }
 });
 
+/* ── Search discovery: IndexNow ─────────────────────────────────────────── */
+
+/**
+ * Public IndexNow verification key. IndexNow requires this value to be
+ * reachable from the site root; it is not a secret credential.
+ */
+define('KALKAN_INDEXNOW_KEY', 'b7f24d92a16d44b98409f03241071d62');
+
+/**
+ * Keep the IndexNow key file available at the public site root.
+ */
+function kalkan_indexnow_ensure_key_file() {
+    $path    = ABSPATH . KALKAN_INDEXNOW_KEY . '.txt';
+    $content = KALKAN_INDEXNOW_KEY . "\n";
+
+    if (!file_exists($path) || file_get_contents($path) !== $content) {
+        file_put_contents($path, $content, LOCK_EX);
+    }
+}
+add_action('init', 'kalkan_indexnow_ensure_key_file');
+
+/**
+ * Submit one public canonical URL to IndexNow after a real publish/update.
+ */
+function kalkan_indexnow_submit_url($post_id, $post, $update) {
+    if (wp_is_post_revision($post_id) || wp_is_post_autosave($post_id)) {
+        return;
+    }
+
+    if (!$post || 'publish' !== $post->post_status || !is_post_type_viewable($post->post_type)) {
+        return;
+    }
+
+    $url = get_permalink($post_id);
+    if (!$url || wp_parse_url($url, PHP_URL_HOST) !== wp_parse_url(home_url('/'), PHP_URL_HOST)) {
+        return;
+    }
+
+    wp_remote_post(
+        'https://api.indexnow.org/indexnow',
+        array(
+            'timeout'  => 5,
+            'blocking' => false,
+            'headers'  => array('Content-Type' => 'application/json; charset=utf-8'),
+            'body'     => wp_json_encode(
+                array(
+                    'host'        => wp_parse_url(home_url('/'), PHP_URL_HOST),
+                    'key'         => KALKAN_INDEXNOW_KEY,
+                    'keyLocation' => home_url('/' . KALKAN_INDEXNOW_KEY . '.txt'),
+                    'urlList'     => array($url),
+                )
+            ),
+        )
+    );
+}
+add_action('wp_after_insert_post', 'kalkan_indexnow_submit_url', 10, 3);
+
 /* ── Anti-spam: honeypot + time-check helpers ─────────────────────────────── */
 
 /**
