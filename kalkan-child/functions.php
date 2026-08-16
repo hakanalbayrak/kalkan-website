@@ -114,6 +114,20 @@ function kalkan_bing_webmaster_verification() {
 }
 add_action('wp_head', 'kalkan_bing_webmaster_verification', 1);
 
+/**
+ * Keep the Yandex Webmaster verification file available at the site root.
+ */
+function kalkan_yandex_webmaster_verification() {
+    $path = ABSPATH . 'yandex_23bc325a4706bde3.html';
+    $content = '<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head>'
+        . '<body>Verification: 23bc325a4706bde3</body></html>';
+
+    if (!file_exists($path) || file_get_contents($path) !== $content) {
+        file_put_contents($path, $content, LOCK_EX);
+    }
+}
+add_action('init', 'kalkan_yandex_webmaster_verification');
+
 /* ── Anti-spam: honeypot + time-check helpers ─────────────────────────────── */
 
 /**
