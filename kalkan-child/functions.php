@@ -1791,9 +1791,15 @@ add_action('template_redirect', function () {
  * 301 redirect old slug /en/how-to-use-kalkan-app/ to correct /en/how-to-use-kalkan/.
  */
 add_action('template_redirect', function () {
-    if (is_page('how-to-use-kalkan-app')) {
+    $request_path = isset($_SERVER['REQUEST_URI'])
+        ? (string) parse_url(wp_unslash($_SERVER['REQUEST_URI']), PHP_URL_PATH)
+        : '';
+
+    // The old page no longer exists, so is_page() is false on its 404 response.
+    // Match the exact legacy path instead and leave every other 404 untouched.
+    if (untrailingslashit($request_path) === '/en/how-to-use-kalkan-app') {
         $correct_url = home_url('/en/how-to-use-kalkan/');
-        wp_redirect($correct_url, 301);
+        wp_safe_redirect($correct_url, 301);
         exit;
     }
 });
