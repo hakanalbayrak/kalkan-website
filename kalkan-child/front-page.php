@@ -439,7 +439,7 @@ $is_front_page = true;
 		<section class="kk-hero kk-section" aria-labelledby="kk-hero-title">
 			<?php
 			$app_demo_suffix = 'en' === $lang ? 'en' : 'tr';
-			$app_demo_video  = get_stylesheet_directory_uri() . '/assets/video/kalkan-app-' . $app_demo_suffix . '.mp4';
+			$app_demo_video  = get_stylesheet_directory_uri() . '/assets/video/kalkan-app-' . $app_demo_suffix . '.mp4?ver=1.0.5-109-2';
 			$app_demo_poster = get_stylesheet_directory_uri() . '/assets/images/video-posters/kalkan-app-' . $app_demo_suffix . '.jpg';
 			?>
 			<div class="kk-shell kk-hero__layout">
