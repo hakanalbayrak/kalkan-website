@@ -106,6 +106,14 @@ function kalkan_indexnow_submit_url($post_id, $post, $update) {
 }
 add_action('wp_after_insert_post', 'kalkan_indexnow_submit_url', 10, 3);
 
+/**
+ * Bing Webmaster Tools ownership verification.
+ */
+function kalkan_bing_webmaster_verification() {
+    echo '<meta name="msvalidate.01" content="5D2ACD45126FB449B85EBFE4619DC6FA">' . "\n";
+}
+add_action('wp_head', 'kalkan_bing_webmaster_verification', 1);
+
 /* ── Anti-spam: honeypot + time-check helpers ─────────────────────────────── */
 
 /**
