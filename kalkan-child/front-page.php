@@ -119,16 +119,20 @@ $is_front_page = true;
   overflow: hidden;
   border-radius: 40px;
 }
-.phone-screen img {
+.phone-screen img,
+.phone-screen video {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+}
+.phone-screen img {
   opacity: 0;
   animation: kk-phone-screen-cycle 20s infinite;
 }
+.phone-screen video { background: #000; }
 .phone-screen img:nth-child(1) { animation-delay: 0s; }
 .phone-screen img:nth-child(2) { animation-delay: 5s; }
 .phone-screen img:nth-child(3) { animation-delay: 10s; }
@@ -270,6 +274,17 @@ $is_front_page = true;
 }
 .kk-screen img { display: block; width: 100%; height: auto; border-radius: calc(var(--kk-radius) - 0.4rem); }
 .kk-screen figcaption { padding: 0.75rem 0.25rem 0.15rem; text-align: center; color: var(--kk-text-muted); font-size: 0.88rem; }
+.kk-app-demo { display: grid; gap: 2rem; align-items: center; }
+.kk-app-demo__visual { display: flex; justify-content: center; }
+.phone-frame--showcase { width: min(320px, 80vw); }
+.kk-app-demo__list {
+  display: grid; gap: 1rem; margin: 0; padding: 0; list-style: none;
+}
+.kk-app-demo__list li {
+  padding: 1rem 1.1rem; border: 1px solid var(--kk-border); border-radius: var(--kk-radius-sm);
+  background: rgba(255,255,255,0.04); color: var(--kk-text-muted); line-height: 1.55;
+}
+.kk-app-demo__list strong { display: block; margin-bottom: 0.25rem; color: var(--kk-text); }
 
 .kk-cta__card {
   padding: clamp(1.75rem, 4vw, 2.5rem); text-align: center;
@@ -408,6 +423,7 @@ $is_front_page = true;
   .kk-outcome-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .kk-outcome-card--updates { grid-column: auto; min-height: 30rem; }
   .kk-trust__layout { grid-template-columns: 0.3fr 1fr; align-items: center; gap: 4rem; }
+  .kk-app-demo { grid-template-columns: 0.85fr 1.15fr; gap: 4rem; }
 }
 </style>
 </head>
@@ -421,6 +437,11 @@ $is_front_page = true;
 
 		<!-- ── HERO ─────────────────────────────────────────────────────────── -->
 		<section class="kk-hero kk-section" aria-labelledby="kk-hero-title">
+			<?php
+			$app_demo_suffix = 'en' === $lang ? 'en' : 'tr';
+			$app_demo_video  = get_stylesheet_directory_uri() . '/assets/video/kalkan-app-' . $app_demo_suffix . '.mp4';
+			$app_demo_poster = get_stylesheet_directory_uri() . '/assets/images/video-posters/kalkan-app-' . $app_demo_suffix . '.jpg';
+			?>
 			<div class="kk-shell kk-hero__layout">
 
 				<div class="kk-hero__content">
@@ -447,22 +468,12 @@ $is_front_page = true;
 					</div>
 				</div>
 
-				<div class="kk-hero__visual kk-animate kk-animate-delay-2" aria-hidden="true">
-					<?php
-					$hero_screen_names = ( 'tr' === $lang )
-						? array( 'home-tr.jpg', 'news-tr.jpg', 'settings-tr.jpg', 'premium-tr.jpg' )
-						: array( 'home-en.jpg', 'onboarding-en.jpg', 'settings-en.jpg', 'premium-en.jpg' );
-					?>
+				<div class="kk-hero__visual kk-animate kk-animate-delay-2">
 					<div class="phone-frame">
 						<div class="phone-screen">
-							<?php foreach ( $hero_screen_names as $index => $hero_screen_name ) : ?>
-								<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/hero/' . $hero_screen_name ); ?>"
-									alt=""
-									width="1179"
-									height="2556"
-									loading="<?php echo 0 === $index ? 'eager' : 'lazy'; ?>"
-									decoding="async">
-							<?php endforeach; ?>
+							<video class="kk-app-video" autoplay muted loop playsinline preload="metadata" poster="<?php echo esc_url( $app_demo_poster ); ?>" aria-label="<?php echo esc_attr( $__( 'Kalkan uygulamasının güncel kullanım akışı', 'Current Kalkan app usage flow' ) ); ?>">
+								<source src="<?php echo esc_url( $app_demo_video ); ?>" type="video/mp4">
+							</video>
 						</div>
 					</div>
 				</div>
@@ -556,7 +567,7 @@ $is_front_page = true;
 						<img class="kk-outcome-card__image" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/marketing/family-protection.jpg' ); ?>" alt="<?php echo esc_attr( $__( 'Telefonunu rahatça kullanan bir aile büyüğü', 'An older family member using a phone comfortably' ) ); ?>" width="900" height="1124" loading="lazy" decoding="async">
 						<div class="kk-outcome-card__content">
 							<h3><?php echo esc_html( $__( 'Yakınlarınızı İstenmeyen Aramalara Karşı Koruyun.', 'Help Protect Your Loved Ones From Unwanted Calls.' ) ); ?></h3>
-							<p><?php echo esc_html( $__( 'Ailenizin telefon deneyimi daha sakin ve daha anlaşılır olsun.', 'Give your family a calmer and clearer phone experience.' ) ); ?></p>
+							<p><?php echo esc_html( $__( 'Huzur bozacak senaryolara karşı önleminiz olsun.', 'Be prepared for calls that could disturb your peace.' ) ); ?></p>
 						</div>
 					</article>
 
@@ -581,19 +592,21 @@ $is_front_page = true;
 					<h2 id="kk-screens-title"><?php echo esc_html( $__( 'Korumanızı Kolayca Yönetin', 'Manage Your Protection Easily' ) ); ?></h2>
 					<p class="kk-lead"><?php echo esc_html( $__( 'Koruma durumunu görün, iPhone ayarlarını tamamlayın ve şüpheli aramalar hakkında bilgi alın.', 'Check protection status, complete iPhone setup, and learn about suspicious calls.' ) ); ?></p>
 				</div>
-				<div class="kk-screen-grid">
-					<figure class="kk-screen kk-animate kk-animate-delay-1">
-						<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/Main-Screen-1-' . ( 'en' === $lang ? 'en' : 'tr' ) . '.jpg' ); ?>" alt="<?php echo esc_attr( $__( 'Kalkan ana ekranı ve koruma durumu', 'Kalkan home screen and protection status' ) ); ?>" loading="lazy" decoding="async">
-						<figcaption><?php echo esc_html( $__( 'Ana ekrandan koruma durumunu yönetin', 'Manage protection from the home screen' ) ); ?></figcaption>
-					</figure>
-					<figure class="kk-screen kk-animate kk-animate-delay-2">
-						<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/Settings-Screen-1-' . ( 'en' === $lang ? 'en' : 'tr' ) . '.jpg' ); ?>" alt="<?php echo esc_attr( $__( 'Kalkan iPhone ayarları ekranı', 'Kalkan iPhone settings screen' ) ); ?>" loading="lazy" decoding="async">
-						<figcaption><?php echo esc_html( $__( 'Ayarları ve Premium durumunu inceleyin', 'Review settings and Premium status' ) ); ?></figcaption>
-					</figure>
-					<figure class="kk-screen kk-animate kk-animate-delay-3">
-						<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/Information-Screen-1-' . ( 'en' === $lang ? 'en' : 'tr' ) . '.jpg' ); ?>" alt="<?php echo esc_attr( $__( 'Kalkan bilgilendirme ekranı', 'Kalkan information screen' ) ); ?>" loading="lazy" decoding="async">
-						<figcaption><?php echo esc_html( $__( 'Birkaç adımda korumayı başlatın', 'Start protection in a few steps' ) ); ?></figcaption>
-					</figure>
+				<div class="kk-app-demo">
+					<div class="kk-app-demo__visual kk-animate kk-animate-delay-1">
+						<div class="phone-frame phone-frame--showcase">
+							<div class="phone-screen">
+								<video class="kk-app-video" autoplay muted loop playsinline preload="metadata" poster="<?php echo esc_url( $app_demo_poster ); ?>" aria-label="<?php echo esc_attr( $__( 'Kalkan uygulamasının güncel ekranları', 'Current Kalkan app screens' ) ); ?>">
+									<source src="<?php echo esc_url( $app_demo_video ); ?>" type="video/mp4">
+								</video>
+							</div>
+						</div>
+					</div>
+					<ul class="kk-app-demo__list kk-animate kk-animate-delay-2">
+						<li><strong><?php echo esc_html( $__( 'Koruma durumunu görün', 'See your protection status' ) ); ?></strong><?php echo esc_html( $__( 'Kalkan aktif olduğunda telefonunuzun korunma durumunu tek bakışta kontrol edin.', 'Check your phone’s protection status at a glance when Kalkan is active.' ) ); ?></li>
+						<li><strong><?php echo esc_html( $__( 'Koruma verilerini güncelleyin', 'Update protection data' ) ); ?></strong><?php echo esc_html( $__( 'Bilinen istenmeyen numaralara karşı güncel koruma verilerini kolayca alın.', 'Easily receive current protection data against known unwanted numbers.' ) ); ?></li>
+						<li><strong><?php echo esc_html( $__( 'Duyuruları ve yenilikleri takip edin', 'Follow announcements and updates' ) ); ?></strong><?php echo esc_html( $__( 'Yeni özellikleri, sürüm notlarını ve Kalkan içeriğini uygulama içinde görün.', 'See new features, release notes, and Kalkan content inside the app.' ) ); ?></li>
+					</ul>
 				</div>
 			</div>
 		</section>
@@ -762,6 +775,13 @@ $is_front_page = true;
 
 <?php include get_stylesheet_directory() . '/inc/kalkan-scripts.php'; ?>
 <script>
+(function(){
+  if (!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll('.kk-app-video').forEach(function(video){
+    video.pause();
+    video.removeAttribute('autoplay');
+  });
+})();
 (function(){
   var form = document.getElementById('kk-subscribe-form');
   if (!form) return;
