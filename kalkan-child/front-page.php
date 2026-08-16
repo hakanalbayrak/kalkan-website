@@ -183,6 +183,44 @@ $is_front_page = true;
   letter-spacing: 0.04em;
 }
 
+.kk-outcomes { background: rgba(10,3,24,0.72); }
+.kk-outcome-grid { display: grid; gap: 1.25rem; }
+.kk-outcome-card {
+  position: relative; min-height: 30rem; margin: 0; overflow: hidden;
+  border: 1px solid var(--kk-border); border-radius: var(--kk-radius);
+  background: #120725; isolation: isolate;
+}
+.kk-outcome-card::after {
+  content: ''; position: absolute; inset: 35% 0 0; z-index: 1;
+  background: linear-gradient(180deg, transparent 0%, rgba(10,3,24,0.8) 45%, rgba(10,3,24,0.98) 100%);
+  pointer-events: none;
+}
+.kk-outcome-card__image {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; display: block;
+}
+.kk-outcome-card__content {
+  position: absolute; inset: auto 0 0; z-index: 2;
+  padding: clamp(1.35rem, 4vw, 1.8rem);
+}
+.kk-outcome-card__content h3 { margin-bottom: 0.55rem; font-size: clamp(1.35rem, 3vw, 1.75rem); }
+.kk-outcome-card__content p { margin: 0; color: var(--kk-text-muted); line-height: 1.65; }
+.kk-outcome-card--updates {
+  display: flex; align-items: center; min-height: 22rem;
+  background:
+    radial-gradient(circle at 72% 20%, rgba(52,211,153,0.2), transparent 35%),
+    linear-gradient(145deg, rgba(109,40,217,0.36), rgba(10,3,24,0.95) 68%);
+}
+.kk-outcome-card--updates::after { display: none; }
+.kk-outcome-card--updates .kk-outcome-card__content { position: relative; inset: auto; }
+.kk-outcome-card__mark {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 4.5rem; height: 4.5rem; margin-bottom: 1.25rem; border-radius: 1.35rem;
+  color: var(--kk-green); background: rgba(52,211,153,0.11);
+  border: 1px solid rgba(52,211,153,0.28); box-shadow: 0 18px 45px rgba(0,0,0,0.24);
+}
+.kk-outcome-card__mark svg { width: 2.4rem; height: 2.4rem; }
+
 .kk-trust { background: rgba(26,5,51,0.6); position: relative; overflow: hidden; }
 .kk-trust::before {
   content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
@@ -354,6 +392,8 @@ $is_front_page = true;
 @media (min-width: 40rem) {
   .kk-steps { grid-template-columns: repeat(3, 1fr); }
   .kk-feature-grid { grid-template-columns: repeat(2, 1fr); }
+  .kk-outcome-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kk-outcome-card--updates { grid-column: 1 / -1; }
 }
 @media (max-width: 39.99rem) {
   .kk-screen-grid { grid-template-columns: 1fr; }
@@ -365,6 +405,8 @@ $is_front_page = true;
 @media (min-width: 64rem) {
   .kk-hero__layout { grid-template-columns: 1.1fr 0.9fr; align-items: center; gap: 4rem; }
   .kk-feature-grid { grid-template-columns: repeat(2, 1fr); }
+  .kk-outcome-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .kk-outcome-card--updates { grid-column: auto; min-height: 30rem; }
   .kk-trust__layout { grid-template-columns: 0.3fr 1fr; align-items: center; gap: 4rem; }
 }
 </style>
@@ -475,12 +517,12 @@ $is_front_page = true;
 					<div class="kk-feature-card kk-glass kk-animate kk-animate-delay-2">
 						<div class="kk-feature-card__icon" aria-hidden="true"><?php echo $icon( 'phone' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
 						<h3><?php echo esc_html( $__( 'Arayan Kimliği', 'Caller Identification' ) ); ?></h3>
-						<p><?php echo esc_html( $__( 'Bilinmeyen numaralar hakkında bilgi görüntüler. Kimin aradığını tahmin etmenize gerek kalmaz.', 'Shows information about unknown numbers. No more guessing who\'s calling.' ) ); ?></p>
+						<p><?php echo esc_html( $__( 'Kimin aradığını bilin. Yanıtlamadan önce arayanın kimliğini görün.', 'Know who is calling. See the caller\'s identity before you answer.' ) ); ?></p>
 					</div>
 					<div class="kk-feature-card kk-glass kk-animate kk-animate-delay-3">
 						<div class="kk-feature-card__icon" aria-hidden="true"><?php echo $icon( 'lock' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
 						<h3><?php echo esc_html( $__( 'Ekstra Koruma', 'Extra Protection' ) ); ?></h3>
-						<p><?php echo esc_html( $__( 'Genişletilmiş koruma ile daha fazla spam numara engellenir. Sürekli güncellenen veritabanı ile kapsamlı güvenlik.', 'Extended protection blocks even more spam numbers. Comprehensive security with continuously updated database.' ) ); ?></p>
+						<p><?php echo esc_html( $__( 'Genişletilmiş koruma daha fazla bilinen spam numarayı kapsar. Sürekli güncellenen koruma verileri, kötü niyetli numaralara karşı korunmanıza yardımcı olur.', 'Extended protection covers more known spam numbers. Continuously updated protection data helps protect you against malicious numbers.' ) ); ?></p>
 						<span class="kk-badge-free"><?php echo esc_html( $__( 'Kalkan Premium', 'Kalkan Premium' ) ); ?></span>
 					</div>
 					<div class="kk-feature-card kk-glass kk-animate kk-animate-delay-4">
@@ -488,6 +530,45 @@ $is_front_page = true;
 						<h3><?php echo esc_html( $__( 'İletişim Bildirimi', 'Communication Reporting' ) ); ?></h3>
 						<p><?php echo esc_html( $__( 'Şüpheli numaraları doğrudan Telefon uygulamasından veya Kalkan içinden kolayca bildirin.', 'Easily report suspicious numbers directly from the Phone app or from within Kalkan.' ) ); ?></p>
 					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ── EVERYDAY BENEFITS ─────────────────────────────────────────────── -->
+		<section class="kk-outcomes kk-section" aria-labelledby="kk-outcomes-title">
+			<div class="kk-shell">
+				<div class="kk-section-header kk-animate">
+					<span class="kk-eyebrow"><?php echo esc_html( $__( 'Günlük Yaşam', 'Everyday Life' ) ); ?></span>
+					<h2 id="kk-outcomes-title"><?php echo esc_html( $__( 'Kalkan Size Ne Kazandırır?', 'What Does Kalkan Give You?' ) ); ?></h2>
+					<p class="kk-lead"><?php echo esc_html( $__( 'Daha sakin, daha anlaşılır ve daha az bölünen bir telefon deneyimi.', 'A calmer, clearer phone experience with fewer interruptions.' ) ); ?></p>
+				</div>
+
+				<div class="kk-outcome-grid">
+					<article class="kk-outcome-card kk-animate kk-animate-delay-1">
+						<img class="kk-outcome-card__image" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/marketing/focus-protection.jpg' ); ?>" alt="<?php echo esc_attr( $__( 'Çalışma masasında dikkatini işine veren bir Kalkan kullanıcısı', 'A Kalkan user focused at a work desk' ) ); ?>" width="900" height="1124" loading="lazy" decoding="async">
+						<div class="kk-outcome-card__content">
+							<h3><?php echo esc_html( $__( 'Arama Engellenir. Odağınız Dağılmaz.', 'The Call Is Blocked. Your Focus Stays.' ) ); ?></h3>
+							<p><?php echo esc_html( $__( 'Çalışırken, üretirken veya öğrenirken gereksiz aramalarla bölünmeyin.', 'Avoid unnecessary interruptions while you work, create, or learn.' ) ); ?></p>
+						</div>
+					</article>
+
+					<article class="kk-outcome-card kk-animate kk-animate-delay-2">
+						<img class="kk-outcome-card__image" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/marketing/family-protection.jpg' ); ?>" alt="<?php echo esc_attr( $__( 'Telefonunu rahatça kullanan bir aile büyüğü', 'An older family member using a phone comfortably' ) ); ?>" width="900" height="1124" loading="lazy" decoding="async">
+						<div class="kk-outcome-card__content">
+							<h3><?php echo esc_html( $__( 'Yakınlarınızı İstenmeyen Aramalara Karşı Koruyun.', 'Help Protect Your Loved Ones From Unwanted Calls.' ) ); ?></h3>
+							<p><?php echo esc_html( $__( 'Ailenizin telefon deneyimi daha sakin ve daha anlaşılır olsun.', 'Give your family a calmer and clearer phone experience.' ) ); ?></p>
+						</div>
+					</article>
+
+					<article class="kk-outcome-card kk-outcome-card--updates kk-animate kk-animate-delay-3">
+						<div class="kk-outcome-card__content">
+							<div class="kk-outcome-card__mark" aria-hidden="true">
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8.1 8.1 0 1 1-2.3-5.7L20 8"/><path d="M20 3v5h-5"/><path d="m9 12 2 2 4-4"/></svg>
+							</div>
+							<h3><?php echo esc_html( $__( 'Korumanız Her Zaman Güncel Kalsın.', 'Keep Your Protection Up to Date.' ) ); ?></h3>
+							<p><?php echo esc_html( $__( 'Sürekli güncellenen koruma verileri, bilinen kötü niyetli telefon numaralarına karşı korunmanıza yardımcı olur.', 'Continuously updated protection data helps protect you against known malicious phone numbers.' ) ); ?></p>
+						</div>
+					</article>
 				</div>
 			</div>
 		</section>
@@ -547,7 +628,7 @@ $is_front_page = true;
 			<div class="kk-shell">
 				<div class="kk-cta__card kk-animate">
 					<h2 id="kk-cta-title"><?php echo esc_html( $__( 'Kalkan ile Huzurlu Arama Deneyimi', 'Peaceful Calling Experience with Kalkan' ) ); ?></h2>
-					<p class="kk-lead"><?php echo esc_html( $__( 'Hemen indirin, spam aramalardan kurtulun.', 'Download now and get rid of spam calls.' ) ); ?></p>
+					<p class="kk-lead"><?php echo esc_html( $__( 'Hemen indirin ve istenmeyen aramalara karşı korumayı başlatın.', 'Download now and start protection against unwanted calls.' ) ); ?></p>
 					<div class="cta-appstore">
 						<a href="<?php echo esc_url( $appstore_link ); ?>">
 							<img src="<?php echo esc_url( $badge_url ); ?>" alt="<?php echo esc_attr( $__( 'App Store\'dan İndir', 'Download on the App Store' ) ); ?>" loading="lazy" decoding="async" width="120" height="40">
