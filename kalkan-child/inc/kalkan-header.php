@@ -29,6 +29,7 @@ $anchor_prefix = $is_front_page ? '' : $home_url;
 				<li><a href="<?php echo $what_is_url; ?>"><?php echo esc_html( $__( 'Kalkan Nedir?', 'What is Kalkan?' ) ); ?></a></li>
 				<li><a href="<?php echo $how_works_url; ?>"><?php echo esc_html( $__( 'Nasıl Çalışır?', 'How It Works?' ) ); ?></a></li>
 				<li><a href="<?php echo $how_to_use_url; ?>"><?php echo esc_html( $__( 'Nasıl Kullanılır?', 'How to Use?' ) ); ?></a></li>
+				<li><a href="<?php echo $documentation_url; ?>"><?php echo esc_html( $__( 'Dokümanlar', 'Documentation' ) ); ?></a></li>
 				<li><a href="<?php echo $blog_url; ?>">Blog</a></li>
 				<li><a href="<?php echo $contact_url; ?>"><?php echo esc_html( $__( 'İletişim', 'Contact' ) ); ?></a></li>
 			</ul>
@@ -71,6 +72,8 @@ $anchor_prefix = $is_front_page ? '' : $home_url;
 			<li><a href="<?php echo $what_is_url; ?>"><?php echo esc_html( $__( 'Kalkan Nedir?', 'What is Kalkan?' ) ); ?></a></li>
 			<li><a href="<?php echo $how_works_url; ?>"><?php echo esc_html( $__( 'Nasıl Çalışır?', 'How It Works?' ) ); ?></a></li>
 			<li><a href="<?php echo $how_to_use_url; ?>"><?php echo esc_html( $__( 'Nasıl Kullanılır?', 'How to Use?' ) ); ?></a></li>
+			<li><a href="<?php echo $documentation_url; ?>"><?php echo esc_html( $__( 'Dokümanlar', 'Documentation' ) ); ?></a></li>
+			<li><a href="<?php echo $version_history_url; ?>"><?php echo esc_html( $__( 'Sürüm Geçmişi', 'Version History' ) ); ?></a></li>
 			<li><a href="<?php echo $blog_url; ?>">Blog</a></li>
 			<li><a href="<?php echo $contact_url; ?>"><?php echo esc_html( $__( 'İletişim', 'Contact' ) ); ?></a></li>
 			<li><a href="<?php echo esc_url( $appstore_link ); ?>"><?php echo esc_html( $__( 'App Store\'dan İndir', 'Download on App Store' ) ); ?></a></li>

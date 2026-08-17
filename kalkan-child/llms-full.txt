@@ -1,135 +1,191 @@
-# Kalkan - iOS Spam Call Blocker & Caller ID
+# Kalkan — Full Product Reference
 
-> Kalkan is a free iOS application that blocks spam calls and identifies unknown phone numbers. It uses iOS Call Directory Extension to load a spam database directly on the device for offline protection. No access to contacts or call history.
+Last verified: 2026-08-17
 
-## About Kalkan
+## Identity
+- Product: Kalkan
+- Product type: unwanted-call blocking and caller identification application
+- Platform: iPhone, iOS 17.6 or later
+- App Store ID: 6759873828
+- Bundle ID: com.kalkan.website.kalkan
+- App Store URL: https://apps.apple.com/tr/app/kalkan-caller-id-block/id6759873828
+- Public version: 1.0.5 (109)
+- Pending version: 1.0.6 (110), Waiting for Review on 2026-08-17
+- Languages: Turkish and English
+- Primary category: Utilities; secondary category: Productivity
+- Website: https://kalkan.website/
+- Contact: info@kalkan.website
 
-Kalkan is developed for iPhone users in Turkey who want protection from spam calls, scam calls, and unknown callers. The app is particularly designed for:
+## Purpose
+Kalkan helps iPhone users reduce interruptions from known unwanted callers and understand who may be calling when an institutional or categorized number exists in Kalkan's identification dataset. The product uses Apple's Call Directory architecture. It is not a telecommunications carrier, does not intercept calls, and does not perform real-time call-audio analysis.
 
-- **Children** — Protection from unknown and suspicious callers
-- **Elderly** — Automatic scam call detection without requiring technical knowledge
-- **Everyone** — Minimizing disturbance from spam and telemarketing calls
+## Architecture and call-time behavior
+Kalkan downloads separate General identification and exact-blocking datasets over HTTPS. It validates and normalizes phone numbers, removes duplicates, filters blocked numbers out of identification output, and writes complete on-device artifacts shared with its Call Directory Extension. If the user has Extra access, pattern-based Extra blocking output is merged into the final blocking data. Blocking entries are loaded before identification entries and have precedence for overlaps. Kalkan then requests an iOS Call Directory reload. During an incoming call, iOS—not a continuously running Kalkan process—checks the number against the loaded Call Directory data.
 
-The name "Kalkan" means "Shield" in Turkish, reflecting the app's protective purpose.
+The Call Directory payload is a deterministic full source of truth rather than an incremental database. General Protection is isolated from Extra Protection: Extra failure or entitlement loss must not disable General.
 
-## How Kalkan Works
+## Features
 
-Kalkan operates through Apple's iOS Call Directory Extension system:
+### General Protection — free
+- Exact-number blocking for known unwanted numbers.
+- Caller identification for numbers in the identification dataset, including reviewed institutional labels.
+- General data download, compilation, application and refresh.
+- Independent from Premium and Extra Protection.
+- Core incoming-call matching can continue offline after data is loaded.
 
-1. **Database Download**: Kalkan downloads a comprehensive database of known spam phone numbers to the user's iPhone
-2. **iOS System Integration**: The database is loaded into iOS via the Call Directory Extension API
-3. **Call Checking**: When a call comes in, iOS checks the incoming number against the loaded database
-4. **Blocking or Flagging**: Known spam numbers are either blocked entirely or flagged with a "Spam" label
-5. **User Reporting**: Users can report suspicious numbers via Communication Reporting Extension
+### Extra Protection — Premium
+- Optional blocking derived from suspicious number patterns and extended ranges.
+- Only Extra Protection is gated by Kalkan Premium or durable grandfathered access from the one-time migration policy.
+- General Protection and caller identification remain available without Premium.
+- Entitlement loss removes Extra and safely rebuilds General-only Call Directory state when usable General artifacts exist.
 
-### Technical Details
-- All processing happens locally on the device — no server-side call interception
-- iOS does not allow real-time call analysis; Kalkan uses a preloaded database approach
-- The database is regularly updated when the user opens the app
-- No internet connection required for call blocking after initial database download
-- Compatible with iPhone running iOS 16.0 or later
+### Kalkan Premium
+- Product ID: com.kalkan.website.kalkan.premium.yearly
+- Type: yearly auto-renewable subscription
+- Storefront availability: Türkiye for the documented release
+- Türkiye price configured for the release: TRY 99.90 per year
+- Introductory offer: three months free for eligible Apple accounts
+- StoreKit 2 is used for verified purchase, entitlement updates, restore purchases and Apple's subscription-management flow.
+- The application reads localized price and offer eligibility from StoreKit rather than treating website text as an entitlement source.
 
-## Key Features
+### Caller identification
+- iOS displays a Kalkan label when the incoming number matches the loaded identification dataset.
+- Identification data is static/preloaded at call time; there is no remote lookup during the ringing call.
+- A label is informational. It does not cryptographically authenticate the caller, guarantee safety, or prevent caller-ID spoofing.
 
-### Spam Protection (Free)
-Automatically blocks known spam numbers using a regularly updated database. The database includes Turkish spam numbers, telemarketing numbers, and known scam numbers.
+### Suspicious-number reporting
+- The in-app reporting form submits to the Kalkan backend and supports spam, fraud and other/investigation use cases.
+- The iOS Communication Reporting extension uses Apple's IdentityLookup system-managed handoff for preset categories.
+- In the system extension, the user must complete Apple's Done/checkmark step; Kalkan does not claim backend receipt before that step.
+- Submitted numbers are moderation inputs. They are not automatically approved, blocked or published to production datasets.
 
-### Caller Identification (Free)
-Shows information about unknown incoming calls. If a number is in the database, it displays a label so users know the nature of the call before answering.
+### Announcements and release notes
+- The Home interface provides General and Updates content.
+- Remote content is cached-first and merged with permanent localized fallback content.
+- The installed-version release note remains available even when the remote feed is unavailable.
+- Announcement failure is non-blocking and does not change Call Directory or protection behavior.
 
-### Extra Protection (Currently Free)
-An advanced protection layer that blocks extended number patterns beyond the standard spam list. Uses pattern matching to catch numbers that rotate frequently.
+### Protection-data update reminders
+- Offered only after a successful user-triggered Home data update.
+- User-selectable intervals: one month, three months, six months or one year.
+- Implemented as local notifications scheduled from the actual last successful update date.
+- The feature does not silently update the app binary, promise continuous background execution, or request notification permission without explicit enable intent.
 
-### Communication Reporting (Free)
-Users can report suspicious numbers directly from the iOS Phone app or from within Kalkan. Reports help improve the database for all users.
+### Focus Setup Assistant
+- Free guidance for Apple Focus scenarios: Work, Weekend and Project.
+- Explains people, schedules, repeated calls and emergency exceptions.
+- Stores only the selected scenario/completion marker locally.
+- Does not access Contacts, read Focus configuration, change iOS settings, silence calls directly, decline calls or send automatic replies.
 
-## Privacy & Data Protection
+### Settings and support
+- Protection status and setup/recovery guidance.
+- Manual protection-data refresh.
+- Premium purchase, restore and manage-subscription actions.
+- Reminder interval settings.
+- Support, number-removal and allowlist request forms where available.
+- Privacy, terms and product information links.
 
-Kalkan takes privacy seriously:
+## Setup
+1. Install Kalkan from the App Store.
+2. Open the app and complete General Protection data preparation.
+3. Open iOS Settings > Apps > Phone > Call Blocking & Identification.
+4. Enable Kalkan.
+5. Return to Kalkan and confirm that protection is active.
+6. Optionally enable Kalkan under SMS/Call Reporting in iOS Phone settings for the system reporting extension.
+7. Use the Home update action regularly to refresh protection data.
 
-- **No contact access**: Kalkan never reads your address book or contacts
-- **No call log access**: Your call history is never accessed or stored
-- **On-device processing**: All call blocking happens locally on your iPhone
-- **No data selling**: User data is never sold to third parties
-- **KVKK compliant**: Fully compliant with Turkish Personal Data Protection Law (KVKK)
-- **Minimal data collection**: Only reported numbers are sent to servers, and only when users explicitly choose to report
+## Update semantics
+- Passive/background refresh performs heavy apply/reload work only when meaningful data changed.
+- A manual Home refresh can force reapplication from usable cached artifacts and request a Call Directory reload even when the server reports no changed version.
+- Repeated Home update taps are single-flight to avoid overlapping apply operations.
+- Failed, cancelled, partial or reload-failed updates do not create a new reminder date.
 
-## Download
+## Privacy
+- Kalkan does not request Contacts access for its protection or Focus guidance.
+- Kalkan does not read the user's address book.
+- Kalkan does not read or store the user's call history.
+- Kalkan does not analyze call audio or conversation content.
+- Call blocking and identification matching happen through on-device iOS Call Directory data.
+- A user explicitly submitting a report sends the reported number and report metadata required for moderation.
 
-- **App Store**: https://apple.co/4cYKmRG
-- **Price**: Free
-- **Requirements**: iOS 16.0+, iPhone
+## Limitations
+- Kalkan cannot guarantee detection of every new, unknown or spoofed number.
+- iOS does not allow this product to perform unrestricted real-time call analysis.
+- Data must be downloaded and Kalkan must be enabled in iOS settings before protection can work.
+- An institutional label describes the reviewed dataset entry, not proof that the current caller is genuine.
+- Internet is needed for fresh datasets, report submission, announcements and StoreKit state refresh. Already-loaded core Call Directory matching can work offline.
+- Kalkan does not automatically update its App Store binary; update reminders concern protection data.
 
-## Website & Contact
+## Version history
 
-- **Website**: https://kalkan.website
-- **Email**: info@kalkan.website
+### 1.0.6 (110) — submitted 2026-08-17, not yet public
+- Refreshed Turkish and English App Store visuals.
+- Clarified General versus Extra Protection descriptions.
+- Minor stability improvements.
 
-## Website Pages
+### 1.0.5 (109) — released 2026-07-27 Türkiye time
+- Added General and Updates announcement feeds inside Kalkan.
+- Added local protection-data update reminders for 1, 3, 6 or 12 months.
+- Added the Focus Setup Assistant for Work, Weekend and Project scenarios.
+- Improved Light/Dark Mode contrast and button readability.
 
-- **Homepage**: https://kalkan.website — Main landing page with features, how it works, and FAQ
-- **What is Kalkan?**: https://kalkan.website/kalkan-nedir/ — Detailed explanation of the app
-- **How Kalkan Works**: https://kalkan.website/kalkan-nasil-calisir/ — Technical flow and system architecture
-- **How to Use Kalkan**: https://kalkan.website/kalkan-nasil-kullanilir/ — Step-by-step setup guide
-- **Privacy Policy**: https://kalkan.website/privacy-policy/
-- **KVKK Notice**: https://kalkan.website/kvkk/
-- **Blog**: https://kalkan.website/blog/
-- **Contact**: https://kalkan.website/iletisim/
+### 1.0.4 (108) — July 2026
+- Added yearly Kalkan Premium support for Extra Protection.
+- Kept General Protection free and independent.
+- Added StoreKit 2 purchase, restore and subscription-management behavior.
+- Included reliability improvements.
 
-## Blog Articles
+### 1.0.3 — April 2026
+- Improved suspicious-number reporting flow.
+- Clarified protection states and update feedback.
+- Improved Light/Dark appearance, performance and stability.
 
-### Spam Arama Engelleme (Spam Call Blocking)
-https://kalkan.website/spam-arama-engelleme/
-Guide on blocking spam calls on iPhone using Kalkan and built-in iOS features. Covers automatic blocking, Silence Unknown Callers, and manual blocking.
+### 1.0.2 — March 2026
+- Improved Extra Protection and spam-protection reliability.
+- Improved setup, reactivation, update checks and offline protection.
+- Added bug fixes and performance improvements.
 
-### Numara Sorgulama (Number Lookup)
-https://kalkan.website/numara-sorgulama-rehberi/
-Free methods to look up unknown phone numbers including Kalkan caller ID, Google search, and complaint websites.
+### 1.0.1 — initial public release, 2026-03-09
+- Introduced free General Protection and caller identification through iOS Call Directory.
+- Introduced known-spam blocking, institutional caller labels and suspicious-number reporting.
+- Provided on-device protection without Contacts access.
 
-### Dolandırıcı Numara Tanıma (Scam Number Recognition)
-https://kalkan.website/dolandirici-numara-tanima/
-How to identify phone scam numbers. Covers urgency tactics, personal information requests, and foreign number fraud patterns.
+## Frequently asked questions
 
-### Bilinmeyen Numara Kimin (Who Is This Unknown Number)
-https://kalkan.website/bilinmeyen-numara-kimin/
-Methods to find out who an unknown number belongs to, including Kalkan caller ID, Google search, and WhatsApp profile checks.
+### Is Kalkan free?
+General Protection, basic caller identification, General data updates, reporting, announcements, settings and General onboarding are free. Only Extra Protection requires Kalkan Premium or valid grandfathered access.
 
-### Sürekli Arayan Numara Engelleme (Blocking Persistent Callers)
-https://kalkan.website/surekli-arayan-numara-engelleme/
-How to block numbers that keep calling repeatedly. Covers Kalkan automatic blocking, manual iPhone blocking, and Do Not Disturb mode.
+### Does Kalkan block every unwanted call?
+No. iOS can only block or identify numbers represented in the loaded data. New, unlisted or spoofed numbers may pass through.
 
-### Kalkan Uygulaması Yayında (Kalkan App Is Live)
-https://kalkan.website/kalkan-uygulamasi-yayinda/
-Announcement of Kalkan's App Store launch. Overview of all features and target user groups.
+### Does Kalkan run continuously in the background?
+No. Kalkan prepares datasets and requests a Call Directory reload. iOS performs the incoming-call match.
 
-## Frequently Asked Questions
+### Does Kalkan access contacts or call history?
+No. The documented production behavior does not access contacts or call history.
 
-**Q: Is Kalkan free?**
-A: Yes. General Protection, Caller Identification, and Communication Reporting features are completely free. Extra Protection is also currently offered for free.
+### What is the difference between General and Extra Protection?
+General Protection uses exact-number blocking and identification lists. Extra Protection adds blocking expanded from suspicious number patterns and is the only Premium-gated protection layer.
 
-**Q: Does Kalkan work offline?**
-A: Yes. The spam database is downloaded to the device and call blocking works without an internet connection.
+### Does reporting a number block it immediately?
+No. Reporting, human/automated moderation, approval and dataset publication are separate stages.
 
-**Q: Does Kalkan access my contacts?**
-A: No. Kalkan never accesses your contacts, address book, or call history.
+### Can Kalkan verify that a caller is genuine?
+No. A label is an informational dataset match and cannot eliminate caller-ID spoofing.
 
-**Q: How does Kalkan block calls?**
-A: Through iOS Call Directory Extension. Kalkan loads a preloaded spam database into the iOS system, which then checks incoming calls against it.
+### When should protection data be updated?
+Use the Home update action regularly. Optional reminders can be scheduled for 1, 3, 6 or 12 months after the last successful manual update.
 
-**Q: Is Kalkan suitable for elderly users?**
-A: Yes. Kalkan automatically protects against scam and spam calls without requiring any user interaction after initial setup.
-
-**Q: Does Kalkan do real-time call analysis?**
-A: No. iOS does not allow third-party apps to perform real-time call analysis. Kalkan uses a preloaded database approach, which is Apple's approved method for call blocking.
-
-**Q: What is Extra Protection?**
-A: Extra Protection is an advanced blocking layer that uses pattern matching to block number ranges frequently used by spammers, beyond the standard individual number blocking.
-
-**Q: How do I enable Kalkan after installation?**
-A: Go to Settings → Phone → Call Blocking & Identification → Enable Kalkan. Then open the Kalkan app to download the latest database.
-
-**Q: Can I report spam numbers?**
-A: Yes. You can report suspicious numbers directly from the iOS Phone app or from within the Kalkan app. Reports help improve protection for all users.
-
-**Q: Is Kalkan available on Android?**
-A: Currently, Kalkan is only available for iOS (iPhone). There are no immediate plans for an Android version.
+## Canonical links
+- Documentation TR: https://kalkan.website/dokumantasyon/
+- Documentation EN: https://kalkan.website/en/documentation/
+- Version history TR: https://kalkan.website/surum-gecmisi/
+- Version history EN: https://kalkan.website/en/version-history/
+- What is Kalkan?: https://kalkan.website/kalkan-nedir/
+- How Kalkan works: https://kalkan.website/kalkan-nasil-calisir/
+- How to use Kalkan: https://kalkan.website/kalkan-nasil-kullanilir/
+- Privacy Policy: https://kalkan.website/privacy-policy/
+- KVKK Notice: https://kalkan.website/kvkk/
+- Blog: https://kalkan.website/blog/
+- Contact: https://kalkan.website/iletisim/
+- X: https://x.com/Kalkan_App

@@ -85,6 +85,9 @@ $how_to_use_url  = $how_to_use_page
 	? $_kk_pll_url( $how_to_use_page->ID )
 	: esc_url( kalkan_page_url( 'kalkan-nasil-kullanilir', 'how-to-use-kalkan' ) );
 
+$documentation_url = esc_url( kalkan_page_url( 'dokumantasyon', 'documentation' ) );
+$version_history_url = esc_url( kalkan_page_url( 'surum-gecmisi', 'version-history' ) );
+
 $terms_page = get_page_by_path( 'kullanim-kosullari' );
 if ( ! $terms_page ) {
 	$terms_page = get_page_by_path( 'terms-of-use' );

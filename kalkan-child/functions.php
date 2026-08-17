@@ -786,7 +786,7 @@ function kalkan_organization_schema() {
         'logo'      => get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png',
         'email'     => 'info@kalkan.website',
         'sameAs'    => array(
-            'https://apps.apple.com/app/kalkan/id6746268015',
+            'https://apps.apple.com/tr/app/kalkan-caller-id-block/id6759873828',
             'https://x.com/Kalkan_App',
         ),
     );
@@ -1787,6 +1787,159 @@ function kalkan_fix_info_page_templates() {
     update_option('kalkan_info_templates_fixed_v1', true);
 }
 add_action('init', 'kalkan_fix_info_page_templates', 16);
+
+/**
+ * Create and connect the bilingual documentation and version-history pages.
+ */
+function kalkan_create_product_reference_pages() {
+    if (get_option('kalkan_product_reference_pages_v1')) return;
+
+    $definitions = array(
+        'documentation' => array(
+            'tr' => array(
+                'title' => 'Kalkan Dokümantasyonu ve SSS',
+                'slug' => 'dokumantasyon',
+                'template' => 'product-documentation.php',
+                'seo_title' => 'Kalkan Dokümantasyonu ve SSS | Özellikler ve Teknik Çalışma',
+                'seo_desc' => 'Kalkan özellikleri, Genel ve Ekstra Koruma farkı, iOS Call Directory çalışma modeli, kurulum, gizlilik, sınırlar ve sık sorulan sorular.',
+            ),
+            'en' => array(
+                'title' => 'Kalkan Documentation and FAQ',
+                'slug' => 'documentation',
+                'template' => 'product-documentation.php',
+                'seo_title' => 'Kalkan Documentation and FAQ | Features and Technical Operation',
+                'seo_desc' => 'Kalkan features, General and Extra Protection, iOS Call Directory operation, setup, privacy, limitations and frequently asked questions.',
+            ),
+        ),
+        'version_history' => array(
+            'tr' => array(
+                'title' => 'Kalkan Sürüm Geçmişi',
+                'slug' => 'surum-gecmisi',
+                'template' => 'version-history.php',
+                'seo_title' => 'Kalkan Sürüm Geçmişi | iOS Güncelleme Notları',
+                'seo_desc' => 'Kalkan iOS uygulamasının tarihli sürüm geçmişi, yeni özellikleri, güvenilirlik geliştirmeleri ve güncelleme notları.',
+            ),
+            'en' => array(
+                'title' => 'Kalkan Version History',
+                'slug' => 'version-history',
+                'template' => 'version-history.php',
+                'seo_title' => 'Kalkan Version History | iOS Release Notes',
+                'seo_desc' => 'Dated Kalkan iOS version history with new features, reliability improvements and release notes.',
+            ),
+        ),
+    );
+
+    foreach ($definitions as $translations) {
+        $ids = array();
+        foreach ($translations as $language => $page_data) {
+            $existing = get_page_by_path($page_data['slug']);
+            $page_id = $existing ? (int) $existing->ID : wp_insert_post(array(
+                'post_title' => $page_data['title'],
+                'post_name' => $page_data['slug'],
+                'post_status' => 'publish',
+                'post_type' => 'page',
+                'post_content' => '',
+            ));
+
+            if (!$page_id || is_wp_error($page_id)) continue;
+
+            update_post_meta($page_id, '_wp_page_template', $page_data['template']);
+            update_post_meta($page_id, '_seopress_titles_title', $page_data['seo_title']);
+            update_post_meta($page_id, '_seopress_titles_desc', $page_data['seo_desc']);
+            $is_documentation = 'product-documentation.php' === $page_data['template'];
+            $focus_keyword = $is_documentation
+                ? ('en' === $language ? 'Kalkan documentation' : 'Kalkan dokümantasyonu')
+                : ('en' === $language ? 'Kalkan version history' : 'Kalkan sürüm geçmişi');
+            update_post_meta($page_id, '_seopress_analysis_target_kw', $focus_keyword);
+
+            if (function_exists('pll_set_post_language')) {
+                pll_set_post_language($page_id, $language);
+            }
+            $ids[$language] = $page_id;
+        }
+
+        if (count($ids) === 2 && function_exists('pll_save_post_translations')) {
+            pll_save_post_translations($ids);
+        }
+    }
+
+    update_option('kalkan_product_reference_pages_v1', true);
+}
+add_action('init', 'kalkan_create_product_reference_pages', 17);
+
+/**
+ * Structured data for the public product reference pages.
+ */
+function kalkan_product_reference_schema() {
+    if (!is_singular('page')) return;
+    $slug = get_post_field('post_name', get_the_ID());
+    if (!in_array($slug, array('dokumantasyon', 'documentation', 'surum-gecmisi', 'version-history'), true)) return;
+
+    $lang = function_exists('pll_current_language') ? pll_current_language('slug') : 'tr';
+    if (!$lang) $lang = 'tr';
+
+    if (in_array($slug, array('dokumantasyon', 'documentation'), true)) {
+        $schema = array(
+            '@context' => 'https://schema.org',
+            '@type' => 'TechArticle',
+            'headline' => 'en' === $lang ? 'Kalkan Documentation and FAQ' : 'Kalkan Dokümantasyonu ve SSS',
+            'description' => 'en' === $lang ? 'Technical product documentation for Kalkan iOS call blocking and caller identification.' : 'Kalkan iOS arama engelleme ve arayan kimliği uygulamasının teknik ürün dokümantasyonu.',
+            'dateModified' => '2026-08-17',
+            'inLanguage' => $lang,
+            'mainEntityOfPage' => get_permalink(),
+            'about' => array('@type' => 'SoftwareApplication', 'name' => 'Kalkan', 'operatingSystem' => 'iOS'),
+            'author' => array('@type' => 'Organization', 'name' => 'Kalkan', 'url' => home_url('/')),
+        );
+    } else {
+        $schema = array(
+            '@context' => 'https://schema.org',
+            '@type' => 'ItemList',
+            'name' => 'en' === $lang ? 'Kalkan Version History' : 'Kalkan Sürüm Geçmişi',
+            'itemListOrder' => 'https://schema.org/ItemListOrderDescending',
+            'numberOfItems' => 6,
+            'itemListElement' => array_map(static function ($version, $position) {
+                return array('@type' => 'ListItem', 'position' => $position, 'name' => 'Kalkan ' . $version);
+            }, array('1.0.6', '1.0.5', '1.0.4', '1.0.3', '1.0.2', '1.0.1'), range(1, 6)),
+        );
+    }
+
+    echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</script>\n";
+}
+add_action('wp_head', 'kalkan_product_reference_schema', 99);
+
+/**
+ * FAQ schema mirrors the visible questions on the documentation page.
+ */
+function kalkan_product_documentation_faq_schema() {
+    if (!is_singular('page')) return;
+    $slug = get_post_field('post_name', get_the_ID());
+    if (!in_array($slug, array('dokumantasyon', 'documentation'), true)) return;
+
+    $lang = function_exists('pll_current_language') ? pll_current_language('slug') : 'tr';
+    if (!$lang) $lang = 'tr';
+    $faqs = 'en' === $lang ? array(
+        array('Is Kalkan free?', 'General Protection, basic caller identification, General updates, announcements and settings are free. Only Extra Protection requires Kalkan Premium or valid grandfathered access.'),
+        array('Does Kalkan block every unwanted call?', 'No. iOS can only block or identify matches in the loaded dataset. New or unlisted numbers may pass through.'),
+        array('Does the app run continuously in the background?', 'No. Kalkan prepares data; iOS performs the match when a call arrives.'),
+        array('What is the difference between General and Extra Protection?', 'General Protection contains exact-number blocking and identification lists. Extra Protection adds blocking expanded from suspicious number patterns.'),
+        array('When should I update protection data?', 'Use the Home update action regularly. You can schedule a local 1, 3, 6 or 12-month reminder from the last successful update.'),
+        array('Is a reported number blocked immediately?', 'No. Reports are reviewed; approval and dataset publication are separate processes.'),
+    ) : array(
+        array('Kalkan ücretsiz mi?', 'Genel Koruma, temel arayan kimliği, Genel güncellemeler, duyurular ve ayarlar ücretsizdir. Yalnızca Ekstra Koruma, Kalkan Premium veya geçerli önceki erişim gerektirir.'),
+        array('Kalkan bütün istenmeyen aramaları engeller mi?', 'Hayır. iOS yalnızca yüklenmiş veri setindeki eşleşmeleri engeller veya tanımlar. Yeni ya da listede olmayan numaralar geçebilir.'),
+        array('Uygulama arka planda sürekli çalışır mı?', 'Hayır. Kalkan veriyi hazırlar; gelen çağrıda eşleştirmeyi iOS yapar.'),
+        array('Genel ve Ekstra Koruma arasındaki fark nedir?', 'Genel Koruma kesin numara engelleme ve tanımlama listeleridir. Ekstra Koruma, şüpheli numara desenlerinden genişletilen ek engelleme katmanıdır.'),
+        array('Veriyi ne zaman güncellemeliyim?', 'Ana ekrandaki Güncelle işlemini düzenli kullanın. Son başarılı güncellemeden itibaren 1, 3, 6 veya 12 aylık yerel hatırlatıcı kurabilirsiniz.'),
+        array('Numara bildirince hemen engellenir mi?', 'Hayır. Bildirimler incelenir; onay ve veri seti yayını ayrı süreçlerdir.'),
+    );
+
+    $items = array_map(static function($faq) {
+        return array('@type' => 'Question', 'name' => $faq[0], 'acceptedAnswer' => array('@type' => 'Answer', 'text' => $faq[1]));
+    }, $faqs);
+
+    echo '<script type="application/ld+json">' . wp_json_encode(array('@context' => 'https://schema.org', '@type' => 'FAQPage', 'mainEntity' => $items), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</script>\n";
+}
+add_action('wp_head', 'kalkan_product_documentation_faq_schema', 100);
 
 /**
  * SEOPress fixes — taxonomy meta, RSS excerpt, posts per page.
