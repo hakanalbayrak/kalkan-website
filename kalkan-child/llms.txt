@@ -3,11 +3,11 @@
 ## Canonical product summary
 Kalkan is an iPhone application for identifying known callers and blocking known unwanted numbers. It prepares on-device datasets for Apple's iOS Call Directory framework. iOS performs incoming-call matching; Kalkan does not listen to calls, inspect call audio, access contacts, or perform real-time voice analysis.
 
-## Current availability (checked 2026-08-17)
+## Current availability
 - Public App Store version: 1.0.5 (109), released 2026-07-27 in Türkiye time
 - Version 1.0.6 (110): submitted to Apple App Review; not yet public
 - Platform: iPhone / iOS 17.6 or later
-- App Store: https://apps.apple.com/tr/app/kalkan-caller-id-block/id6759873828
+- [Download Kalkan on the App Store](https://apps.apple.com/tr/app/kalkan-caller-id-block/id6759873828): Official iPhone application listing.
 - Languages: Turkish and English
 
 ## Feature boundaries
@@ -35,12 +35,16 @@ Kalkan is an iPhone application for identifying known callers and blocking known
 - Internet is required for fresh data, report submission, announcements and StoreKit refresh; already loaded Call Directory matching can work offline.
 
 ## Canonical pages
-- Product documentation and FAQ: https://kalkan.website/documentation/ (TR: https://kalkan.website/dokumantasyon/)
-- Version history: https://kalkan.website/version-history/ (TR: https://kalkan.website/surum-gecmisi/)
-- What is Kalkan?: https://kalkan.website/kalkan-nedir/
-- How Kalkan works: https://kalkan.website/kalkan-nasil-calisir/
-- How to use Kalkan: https://kalkan.website/kalkan-nasil-kullanilir/
-- Privacy Policy: https://kalkan.website/privacy-policy/
-- KVKK Notice: https://kalkan.website/kvkk/
+- [Kalkan homepage](https://kalkan.website/): Product overview and App Store access.
+- [Product documentation and FAQ](https://kalkan.website/dokumantasyon/): Turkish feature, setup, privacy and technical reference.
+- [Product documentation and FAQ in English](https://kalkan.website/documentation/): English feature, setup, privacy and technical reference.
+- [Version history](https://kalkan.website/surum-gecmisi/): Turkish dated release notes.
+- [Version history in English](https://kalkan.website/version-history/): English dated release notes.
+- [What is Kalkan?](https://kalkan.website/kalkan-nedir/): Product purpose and boundaries.
+- [How Kalkan works](https://kalkan.website/kalkan-nasil-calisir/): Call Directory operating model.
+- [How to use Kalkan](https://kalkan.website/kalkan-nasil-kullanilir/): Installation and activation guidance.
+- [Privacy Policy](https://kalkan.website/privacy-policy/): Privacy practices.
+- [KVKK Notice](https://kalkan.website/kvkk/): Turkish data-protection notice.
+- [Blog and announcements](https://kalkan.website/duyurular/): Product and telephone-safety articles.
+- [Full machine-readable reference](https://kalkan.website/llms-full.txt): Extended product and technical reference.
 - Contact: info@kalkan.website
-- Full machine-readable reference: https://kalkan.website/llms-full.txt

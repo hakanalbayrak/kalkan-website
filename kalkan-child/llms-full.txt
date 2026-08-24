@@ -1,6 +1,6 @@
 # Kalkan — Full Product Reference
 
-Last verified: 2026-08-17
+Last verified: 2026-08-24
 
 ## Identity
 - Product: Kalkan

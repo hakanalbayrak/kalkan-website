@@ -1603,19 +1603,25 @@ add_action('init', 'kalkan_set_homepage_seo', 25);
 /**
  * Serve llms.txt at site root for AI platform crawlers.
  */
-add_action('init', 'kalkan_serve_llms_txt');
+add_action('template_redirect', 'kalkan_serve_llms_txt', 0);
 function kalkan_serve_llms_txt() {
     if (!isset($_SERVER['REQUEST_URI'])) return;
-    $path = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+    $request_path = wp_parse_url(wp_unslash($_SERVER['REQUEST_URI']), PHP_URL_PATH);
+    $path = is_string($request_path) ? trim($request_path, '/') : '';
 
     if ($path === 'llms.txt' || $path === 'llms-full.txt') {
         $file = get_stylesheet_directory() . '/' . $path;
-        if (file_exists($file)) {
+        if (is_readable($file)) {
+            status_header(200);
+            nocache_headers();
             header('Content-Type: text/plain; charset=utf-8');
             header('Cache-Control: public, max-age=86400');
             readfile($file);
             exit;
         }
+
+        status_header(404);
+        exit;
     }
 }
 
