@@ -37,9 +37,9 @@ Kalkan is an iPhone application for identifying known callers and blocking known
 ## Canonical pages
 - [Kalkan homepage](https://kalkan.website/): Product overview and App Store access.
 - [Product documentation and FAQ](https://kalkan.website/dokumantasyon/): Turkish feature, setup, privacy and technical reference.
-- [Product documentation and FAQ in English](https://kalkan.website/documentation/): English feature, setup, privacy and technical reference.
+- [Product documentation and FAQ in English](https://kalkan.website/en/documentation/): English feature, setup, privacy and technical reference.
 - [Version history](https://kalkan.website/surum-gecmisi/): Turkish dated release notes.
-- [Version history in English](https://kalkan.website/version-history/): English dated release notes.
+- [Version history in English](https://kalkan.website/en/version-history/): English dated release notes.
 - [What is Kalkan?](https://kalkan.website/kalkan-nedir/): Product purpose and boundaries.
 - [How Kalkan works](https://kalkan.website/kalkan-nasil-calisir/): Call Directory operating model.
 - [How to use Kalkan](https://kalkan.website/kalkan-nasil-kullanilir/): Installation and activation guidance.
