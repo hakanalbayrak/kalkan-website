@@ -43,7 +43,7 @@ $is_front_page = false;
 			<p class="kk-release-note"><?php echo esc_html( $__( 'Tarihler App Store kayıtlarına göre verilmiştir. İncelemedeki sürümler, Apple onaylayana kadar kullanıcılara açık değildir.', 'Dates are based on App Store records. Versions under review are not available to users until Apple approves them.' ) ); ?></p>
 			<div class="kk-release-list">
 				<article class="kk-release kk-glass">
-					<div class="kk-release__top"><div><h2 class="kk-release__version">1.0.6 (110)</h2><span class="kk-release__status"><?php echo esc_html( $__( 'Apple incelemesinde', 'In Apple review' ) ); ?></span></div><time class="kk-release__date" datetime="2026-08-17"><?php echo esc_html( $__( '17 Ağustos 2026', '17 August 2026' ) ); ?></time></div>
+					<div class="kk-release__top"><div><h2 class="kk-release__version">1.0.6 (110)</h2><span class="kk-release__status"><?php echo esc_html( $__( 'Yayında', 'Released' ) ); ?></span></div><time class="kk-release__date" datetime="2026-08-19"><?php echo esc_html( $__( '19 Ağustos 2026', '19 August 2026' ) ); ?></time></div>
 					<p><?php echo esc_html( $__( 'App Store sunumu ve koruma açıklamaları daha anlaşılır hale getirildi.', 'The App Store presentation and protection descriptions were made clearer.' ) ); ?></p>
 					<ul><li><?php echo esc_html( $__( 'Türkçe ve İngilizce App Store görselleri yenilendi.', 'Turkish and English App Store visuals were refreshed.' ) ); ?></li><li><?php echo esc_html( $__( 'Genel ve Ekstra Koruma ayrımı daha açık anlatıldı.', 'The distinction between General and Extra Protection was clarified.' ) ); ?></li><li><?php echo esc_html( $__( 'Küçük kararlılık iyileştirmeleri yapıldı.', 'Minor stability improvements were included.' ) ); ?></li></ul>
 				</article>

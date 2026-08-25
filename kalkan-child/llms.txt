@@ -4,8 +4,7 @@
 Kalkan is an iPhone application for identifying known callers and blocking known unwanted numbers. It prepares on-device datasets for Apple's iOS Call Directory framework. iOS performs incoming-call matching; Kalkan does not listen to calls, inspect call audio, access contacts, or perform real-time voice analysis.
 
 ## Current availability
-- Public App Store version: 1.0.5 (109), released 2026-07-27 in Türkiye time
-- Version 1.0.6 (110): submitted to Apple App Review; not yet public
+- Public App Store version: 1.0.6 (110), released 2026-08-19 in Türkiye time
 - Platform: iPhone / iOS 17.6 or later
 - [Download Kalkan on the App Store](https://apps.apple.com/tr/app/kalkan-caller-id-block/id6759873828): Official iPhone application listing.
 - Languages: Turkish and English

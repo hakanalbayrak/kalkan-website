@@ -9,8 +9,7 @@ Last verified: 2026-08-24
 - App Store ID: 6759873828
 - Bundle ID: com.kalkan.website.kalkan
 - App Store URL: https://apps.apple.com/tr/app/kalkan-caller-id-block/id6759873828
-- Public version: 1.0.5 (109)
-- Pending version: 1.0.6 (110), Waiting for Review on 2026-08-17
+- Public version: 1.0.6 (110), released 2026-08-19 in Türkiye time
 - Languages: Turkish and English
 - Primary category: Utilities; secondary category: Productivity
 - Website: https://kalkan.website/
@@ -118,7 +117,7 @@ The Call Directory payload is a deterministic full source of truth rather than a
 
 ## Version history
 
-### 1.0.6 (110) — submitted 2026-08-17, not yet public
+### 1.0.6 (110) — released 2026-08-19 in Türkiye time
 - Refreshed Turkish and English App Store visuals.
 - Clarified General versus Extra Protection descriptions.
 - Minor stability improvements.
