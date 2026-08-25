@@ -101,23 +101,48 @@ $is_front_page = true;
 .phone-frame {
   position: relative;
   width: 280px;
-  aspect-ratio: 1179 / 2556;
-  background: #000000;
-  border-radius: 44px;
-  border: 4px solid #2a2a3a;
+  padding: 5px;
+  box-sizing: border-box;
+  background: linear-gradient(145deg, #777783 0%, #292932 16%, #09090d 52%, #3d3d47 84%, #8a8a94 100%);
+  border-radius: 46px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.08),
-    0 30px 80px rgba(0, 0, 0, 0.5),
-    0 0 40px rgba(139, 92, 246, 0.12),
-    inset 0 0 2px rgba(255, 255, 255, 0.05);
-  overflow: hidden;
+    0 0 0 1px rgba(0, 0, 0, 0.8),
+    0 32px 90px rgba(0, 0, 0, 0.55),
+    0 0 48px rgba(139, 92, 246, 0.16),
+    inset 1px 1px 1px rgba(255, 255, 255, 0.28),
+    inset -1px -1px 1px rgba(0, 0, 0, 0.72);
+  isolation: isolate;
+}
+.phone-frame::before,
+.phone-frame::after {
+  content: '';
+  position: absolute;
+  right: -4px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: linear-gradient(180deg, #555560, #17171d 55%, #45454f);
+  box-shadow: 1px 0 1px rgba(255,255,255,0.08);
+}
+.phone-frame::before { top: 22%; height: 12%; }
+.phone-frame::after { top: 38%; height: 18%; }
+.phone-frame:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.8),
+    0 38px 100px rgba(0, 0, 0, 0.6),
+    0 0 58px rgba(139, 92, 246, 0.22),
+    inset 1px 1px 1px rgba(255, 255, 255, 0.28),
+    inset -1px -1px 1px rgba(0, 0, 0, 0.72);
 }
 .phone-screen {
   position: relative;
   width: 100%;
-  height: 100%;
+  aspect-ratio: 6 / 13;
   overflow: hidden;
   border-radius: 40px;
+  background: #000;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
 }
 .phone-screen img,
 .phone-screen video {
@@ -133,6 +158,13 @@ $is_front_page = true;
   animation: kk-phone-screen-cycle 20s infinite;
 }
 .phone-screen video { background: #000; }
+.phone-frame,
+.phone-frame:hover {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .phone-frame:hover { transform: none; }
+}
 .phone-screen img:nth-child(1) { animation-delay: 0s; }
 .phone-screen img:nth-child(2) { animation-delay: 5s; }
 .phone-screen img:nth-child(3) { animation-delay: 10s; }
