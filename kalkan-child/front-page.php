@@ -384,7 +384,7 @@ $is_front_page = true;
   background: transparent; border: none; outline: none;
   color: var(--kk-text); font-family: inherit; font-size: 0.95rem;
 }
-.kk-subscribe-input::placeholder { color: #c4b5fd; opacity: 1; }
+.kk-subscribe-input::placeholder { color: #ffffff; opacity: 1; }
 .kk-subscribe-btn {
   display: inline-flex; align-items: center; justify-content: center;
   padding: 0.7rem 2rem; border: none; cursor: pointer; border-radius: 10px;
@@ -494,7 +494,7 @@ $is_front_page = true;
 							<img src="<?php echo esc_url( $badge_url ); ?>" alt="<?php echo esc_attr( $__( 'App Store\'dan İndir', 'Download on the App Store' ) ); ?>" loading="eager" decoding="async" width="120" height="40">
 						</a>
 						<a class="hero-secondary-btn" href="#kk-how">
-							<?php echo esc_html( $__( 'Nasıl çalışır?', 'How it works?' ) ); ?>
+							<?php echo esc_html( $__( '3 adımlı akışı görün', 'See the 3-step flow' ) ); ?>
 						</a>
 					</div>
 				</div>

@@ -190,10 +190,12 @@ function kalkan_child_optimize_front_page_styles() {
         return;
     }
 
-    wp_dequeue_style( 'blocksy-style' );
-    wp_dequeue_style( 'kalkan-child-style' );
+    global $wp_styles;
+    foreach ( (array) $wp_styles->queue as $handle ) {
+        wp_dequeue_style( $handle );
+    }
 }
-add_action( 'wp_enqueue_scripts', 'kalkan_child_optimize_front_page_styles', 100 );
+add_action( 'wp_enqueue_scripts', 'kalkan_child_optimize_front_page_styles', PHP_INT_MAX );
 
 /**
  * Register lightweight theme settings used by code-rendered homepage.
