@@ -194,6 +194,13 @@ function kalkan_child_optimize_front_page_styles() {
     foreach ( (array) $wp_styles->queue as $handle ) {
         wp_dequeue_style( $handle );
     }
+
+    // The self-contained homepage does not use Blocksy's interaction bundle.
+    // Site Kit analytics remains loaded; only scripts that currently throw on
+    // this independent template are removed.
+    wp_dequeue_script( 'ct-scripts' );
+    wp_dequeue_script( 'wp-consent-api' );
+    wp_dequeue_script( 'googlesitekit-events-provider-content-events' );
 }
 add_action( 'wp_enqueue_scripts', 'kalkan_child_optimize_front_page_styles', PHP_INT_MAX );
 
