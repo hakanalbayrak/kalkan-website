@@ -34,9 +34,6 @@ $is_front_page = true;
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 <?php wp_head(); ?>
 <?php echo $_kk_seo_tags(); ?>
 <?php include get_stylesheet_directory() . '/inc/kalkan-styles.php'; ?>
@@ -373,12 +370,12 @@ $is_front_page = true;
 }
 
 /* ===== SUBSCRIBE FORM ===== */
-.kk-subscribe { background: rgba(19,7,40,0.4); }
+.kk-subscribe { background: #130728; }
 .kk-subscribe-form { margin-top: 1rem; }
 .kk-subscribe-row {
   display: flex; gap: 0; border-radius: 12px; overflow: hidden;
   border: 1px solid var(--kk-border);
-  background: rgba(255,255,255,0.04);
+  background: #24163b;
   transition: border-color 0.2s;
 }
 .kk-subscribe-row:focus-within { border-color: rgba(139,92,246,0.5); }
@@ -387,7 +384,7 @@ $is_front_page = true;
   background: transparent; border: none; outline: none;
   color: var(--kk-text); font-family: inherit; font-size: 0.95rem;
 }
-.kk-subscribe-input::placeholder { color: var(--kk-text-dim); }
+.kk-subscribe-input::placeholder { color: #c4b5fd; opacity: 1; }
 .kk-subscribe-btn {
   display: inline-flex; align-items: center; justify-content: center;
   padding: 0.7rem 2rem; border: none; cursor: pointer; border-radius: 10px;
@@ -473,7 +470,8 @@ $is_front_page = true;
 			$app_demo_suffix = 'en' === $lang ? 'en' : 'tr';
 			$app_demo_filename = 'tr' === $app_demo_suffix ? 'kalkan-app-tr-v2.mp4' : 'kalkan-app-en.mp4';
 			$app_demo_video    = get_stylesheet_directory_uri() . '/assets/video/' . $app_demo_filename;
-			$app_demo_poster = get_stylesheet_directory_uri() . '/assets/images/video-posters/kalkan-app-' . $app_demo_suffix . '.jpg';
+			$app_demo_poster   = get_stylesheet_directory_uri() . '/assets/images/video-posters/kalkan-app-' . $app_demo_suffix . '-320.webp';
+			$app_demo_captions = get_stylesheet_directory_uri() . '/assets/captions/kalkan-app-' . $app_demo_suffix . '.vtt';
 			?>
 			<div class="kk-shell kk-hero__layout">
 
@@ -506,6 +504,7 @@ $is_front_page = true;
 						<div class="phone-screen">
 							<video class="kk-app-video" autoplay muted loop playsinline preload="metadata" poster="<?php echo esc_url( $app_demo_poster ); ?>" aria-label="<?php echo esc_attr( $__( 'Kalkan uygulamasının güncel kullanım akışı', 'Current Kalkan app usage flow' ) ); ?>">
 								<source src="<?php echo esc_url( $app_demo_video ); ?>" type="video/mp4">
+								<track kind="captions" src="<?php echo esc_url( $app_demo_captions ); ?>" srclang="<?php echo esc_attr( $app_demo_suffix ); ?>" label="<?php echo esc_attr( $__( 'Türkçe', 'English' ) ); ?>">
 							</video>
 						</div>
 					</div>
@@ -631,6 +630,7 @@ $is_front_page = true;
 							<div class="phone-screen">
 								<video class="kk-app-video" autoplay muted loop playsinline preload="metadata" poster="<?php echo esc_url( $app_demo_poster ); ?>" aria-label="<?php echo esc_attr( $__( 'Kalkan uygulamasının güncel ekranları', 'Current Kalkan app screens' ) ); ?>">
 									<source src="<?php echo esc_url( $app_demo_video ); ?>" type="video/mp4">
+									<track kind="captions" src="<?php echo esc_url( $app_demo_captions ); ?>" srclang="<?php echo esc_attr( $app_demo_suffix ); ?>" label="<?php echo esc_attr( $__( 'Türkçe', 'English' ) ); ?>">
 								</video>
 							</div>
 						</div>

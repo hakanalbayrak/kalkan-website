@@ -20,7 +20,7 @@ $anchor_prefix = $is_front_page ? '' : $home_url;
 	<div class="kk-shell kk-header__inner">
 
 		<a class="kk-brand" href="<?php echo $home_url; ?>" aria-label="Kalkan">
-			<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png' ); ?>" alt="Kalkan" class="kk-brand__icon" width="40" height="40">
+			<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon-80.webp' ); ?>" alt="" class="kk-brand__icon" width="40" height="40" decoding="async">
 			<span class="kk-brand__name">Kalkan</span>
 		</a>
 

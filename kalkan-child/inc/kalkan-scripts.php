@@ -94,5 +94,39 @@
 			});
 		});
 	});
+
+	/* ── WebMCP: read-only product context for supporting browser agents ── */
+	if (document.modelContext && typeof document.modelContext.registerTool === 'function') {
+		var webMcpController = new AbortController();
+
+		document.modelContext.registerTool({
+			name: 'get_kalkan_product_summary',
+			description: 'Return a concise, factual summary of Kalkan and its documented privacy and platform limitations.',
+			inputSchema: { type: 'object', properties: {}, additionalProperties: false },
+			annotations: { readOnlyHint: true },
+			execute: async function () {
+				return { content: [{
+					type: 'text',
+					text: document.documentElement.lang === 'en-US'
+						? 'Kalkan is an iOS spam-call blocker and caller-ID app. It uses preloaded on-device Call Directory data, does not upload contacts or call history, and cannot guarantee detection of every new number or authenticate callers against spoofing.'
+						: 'Kalkan, iOS için spam arama engelleme ve arayan kimliği uygulamasıdır. Cihaza önceden yüklenmiş Call Directory verilerini kullanır; rehberi veya arama geçmişini yüklemez. Her yeni numarayı tespit etmeyi veya arayanı sahteciliğe karşı doğrulamayı garanti etmez.'
+				}] };
+			}
+		}, { signal: webMcpController.signal });
+
+		document.modelContext.registerTool({
+			name: 'list_kalkan_page_sections',
+			description: 'List the visible titled sections on the current Kalkan page so an agent can navigate the public documentation accurately.',
+			inputSchema: { type: 'object', properties: {}, additionalProperties: false },
+			annotations: { readOnlyHint: true },
+			execute: async function () {
+				var sections = Array.from(document.querySelectorAll('main section[id], main h1[id], main h2[id]')).map(function (el) {
+					var heading = el.matches('h1,h2') ? el : el.querySelector('h1,h2');
+					return heading ? { id: el.id || heading.id, title: heading.textContent.trim() } : null;
+				}).filter(Boolean);
+				return { content: [{ type: 'text', text: JSON.stringify(sections) }] };
+			}
+		}, { signal: webMcpController.signal });
+	}
 }());
 </script>

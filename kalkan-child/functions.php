@@ -182,6 +182,20 @@ function kalkan_child_enqueue_styles() {
 add_action('wp_enqueue_scripts', 'kalkan_child_enqueue_styles', 20);
 
 /**
+ * The homepage renders its complete critical CSS inline. Avoid downloading the
+ * parent and duplicate child stylesheets on this route.
+ */
+function kalkan_child_optimize_front_page_styles() {
+    if ( ! is_front_page() ) {
+        return;
+    }
+
+    wp_dequeue_style( 'blocksy-style' );
+    wp_dequeue_style( 'kalkan-child-style' );
+}
+add_action( 'wp_enqueue_scripts', 'kalkan_child_optimize_front_page_styles', 100 );
+
+/**
  * Register lightweight theme settings used by code-rendered homepage.
  */
 function kalkan_child_customize_register($wp_customize) {
@@ -388,12 +402,8 @@ add_action('after_setup_theme', 'kalkan_child_theme_setup');
  * Enqueue Google Fonts: Plus Jakarta Sans + Inter.
  */
 function kalkan_child_enqueue_google_fonts() {
-    wp_enqueue_style(
-        'kalkan-google-fonts',
-        'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap',
-        array(),
-        null
-    );
+    // Fonts are self-hosted in inc/kalkan-styles.php to remove a render-blocking
+    // third-party request and keep Turkish glyph delivery deterministic.
 }
 add_action('wp_enqueue_scripts', 'kalkan_child_enqueue_google_fonts', 5);
 
@@ -418,7 +428,9 @@ function kalkan_subscribe_shortcode() {
 
     ob_start();
     ?>
-    <form class="kk-subscribe-form" id="kk-subscribe-form" novalidate>
+    <form class="kk-subscribe-form" id="kk-subscribe-form" novalidate
+        toolname="subscribe_to_kalkan_updates"
+        tooldescription="<?php echo esc_attr( 'Subscribe an email address to Kalkan product updates after the user accepts the privacy notice. Never submit without explicit user confirmation.' ); ?>">
         <input type="hidden" name="kk_nonce" value="<?php echo esc_attr( $nonce ); ?>">
         <?php echo kalkan_antispam_fields(); ?>
         <div class="kk-subscribe-row">
