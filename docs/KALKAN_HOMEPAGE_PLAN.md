@@ -108,3 +108,28 @@ This document defines the first production-ready homepage structure and copy dir
 - Use Blocksy typography and spacing settings; do not over-customize in v1.
 - Validate legibility on mobile (large tap targets, readable font sizes, clear spacing).
 - Keep links to Privacy Policy, Terms, and Contact/Support visible in both homepage body and footer.
+
+## 7. AI Discoverability Roadmap
+
+WebMCP is treated as a future-facing agent usability layer, not as a direct SEO or AI-ranking shortcut.
+
+### Completed baseline
+
+- Keep the public product summary and page-section discovery tools read-only.
+- Expose the newsletter action declaratively so compatible browser agents can understand the form.
+- Preserve normal HTML, accessible navigation, canonical metadata, structured data, sitemap coverage, and strong mobile performance as the primary discovery foundation.
+
+### Next priorities
+
+1. Maintain a concise, factual product summary that matches the current App Store release and never promises guaranteed caller identity or protection.
+2. Add read-only WebMCP tools only where they reduce agent ambiguity, such as product capabilities, supported platforms, version history, help topics, and public article discovery.
+3. Keep write actions approval-gated. Subscriptions, contact forms, reports, account changes, publication, and dataset changes must never run silently through an agent.
+4. Measure agent-originated visits and App Store clicks before expanding the WebMCP surface. Do not invest in speculative tools without evidence of usage.
+5. Reassess WebMCP quarterly as browser and AI-platform support matures; prioritize content quality, schema, indexing, ASO, and reputable external references in the meantime.
+
+### Success criteria
+
+- AI/browser agents can accurately summarize Kalkan and locate its public help, version, privacy, and download information.
+- The site remains fully usable without WebMCP.
+- No protected app, backend, subscription, reporting, or dataset flow is exposed to unintended automation.
+- New agent features have measurable discovery or conversion value and low maintenance cost.
