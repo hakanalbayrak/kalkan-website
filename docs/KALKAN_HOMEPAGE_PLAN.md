@@ -1,6 +1,6 @@
 # Kalkan Homepage Plan (V1)
 
-This document defines the first production-ready homepage structure and copy direction for `kalkan.website`, built for WordPress + Blocksy.
+This document defines the first production-ready homepage structure and copy direction for `kalkanapp.com`, built for WordPress + Blocksy.
 
 ## 1. Recommended Homepage Section Order
 

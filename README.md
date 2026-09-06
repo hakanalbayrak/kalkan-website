@@ -2,7 +2,7 @@
 
 This repository is the durable documentation and structure layer for the Kalkan website.
 
-WordPress handles page/content publishing at `kalkan.website`. This repository keeps long-term project memory, implementation rules, and future custom logic in version control.
+WordPress handles page/content publishing at `kalkanapp.com`. The legacy `kalkan.website` hostname redirects to the canonical domain during the migration period. This repository keeps long-term project memory, implementation rules, and future custom logic in version control.
 
 ## Website Purpose
 
