@@ -12,8 +12,8 @@ Last verified: 2026-08-24
 - Public version: 1.0.6 (110), released 2026-08-19 in Türkiye time
 - Languages: Turkish and English
 - Primary category: Utilities; secondary category: Productivity
-- Website: https://kalkan.website/
-- Contact: info@kalkan.website
+- Website: https://kalkanapp.com/
+- Contact: info@kalkanapp.com
 
 ## Purpose
 Kalkan helps iPhone users reduce interruptions from known unwanted callers and understand who may be calling when an institutional or categorized number exists in Kalkan's identification dataset. The product uses Apple's Call Directory architecture. It is not a telecommunications carrier, does not intercept calls, and does not perform real-time call-audio analysis.
@@ -176,15 +176,15 @@ No. A label is an informational dataset match and cannot eliminate caller-ID spo
 Use the Home update action regularly. Optional reminders can be scheduled for 1, 3, 6 or 12 months after the last successful manual update.
 
 ## Canonical links
-- Documentation TR: https://kalkan.website/dokumantasyon/
-- Documentation EN: https://kalkan.website/en/documentation/
-- Version history TR: https://kalkan.website/surum-gecmisi/
-- Version history EN: https://kalkan.website/en/version-history/
-- What is Kalkan?: https://kalkan.website/kalkan-nedir/
-- How Kalkan works: https://kalkan.website/kalkan-nasil-calisir/
-- How to use Kalkan: https://kalkan.website/kalkan-nasil-kullanilir/
-- Privacy Policy: https://kalkan.website/privacy-policy/
-- KVKK Notice: https://kalkan.website/kvkk/
-- Blog: https://kalkan.website/blog/
-- Contact: https://kalkan.website/iletisim/
+- Documentation TR: https://kalkanapp.com/dokumantasyon/
+- Documentation EN: https://kalkanapp.com/en/documentation/
+- Version history TR: https://kalkanapp.com/surum-gecmisi/
+- Version history EN: https://kalkanapp.com/en/version-history/
+- What is Kalkan?: https://kalkanapp.com/kalkan-nedir/
+- How Kalkan works: https://kalkanapp.com/kalkan-nasil-calisir/
+- How to use Kalkan: https://kalkanapp.com/kalkan-nasil-kullanilir/
+- Privacy Policy: https://kalkanapp.com/privacy-policy/
+- KVKK Notice: https://kalkanapp.com/kvkk/
+- Blog: https://kalkanapp.com/blog/
+- Contact: https://kalkanapp.com/iletisim/
 - X: https://x.com/Kalkan_App

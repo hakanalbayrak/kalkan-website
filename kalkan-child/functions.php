@@ -803,9 +803,9 @@ function kalkan_organization_schema() {
         '@context'  => 'https://schema.org',
         '@type'     => 'Organization',
         'name'      => 'Kalkan',
-        'url'       => 'https://kalkan.website',
+        'url'       => 'https://kalkanapp.com',
         'logo'      => get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png',
-        'email'     => 'info@kalkan.website',
+        'email'     => 'info@kalkanapp.com',
         'sameAs'    => array(
             'https://apps.apple.com/tr/app/kalkan-caller-id-block/id6759873828',
             'https://x.com/Kalkan_App',
@@ -828,7 +828,7 @@ function kalkan_website_schema() {
         '@context'        => 'https://schema.org',
         '@type'           => 'WebSite',
         'name'            => 'Kalkan',
-        'url'             => 'https://kalkan.website',
+        'url'             => 'https://kalkanapp.com',
         'inLanguage'      => array('tr', 'en'),
         'description'     => 'Kalkan - iOS spam arama engelleyici ve arayan kimliği uygulaması.',
     );
@@ -856,7 +856,7 @@ function kalkan_add_structured_data() {
         'operatingSystem'     => 'iOS',
         'applicationCategory' => 'UtilitiesApplication',
         'description'         => $desc,
-        'url'                 => 'https://kalkan.website',
+        'url'                 => 'https://kalkanapp.com',
         'downloadUrl'         => apply_filters('kalkan_app_store_url', 'https://apple.co/4cYKmRG'),
         'offers'              => array(
             '@type'         => 'Offer',
@@ -866,8 +866,8 @@ function kalkan_add_structured_data() {
         'author'              => array(
             '@type' => 'Organization',
             'name'  => 'Kalkan',
-            'url'   => 'https://kalkan.website',
-            'email' => 'info@kalkan.website',
+            'url'   => 'https://kalkanapp.com',
+            'email' => 'info@kalkanapp.com',
         ),
         'inLanguage'          => array('tr', 'en'),
     );
@@ -932,7 +932,7 @@ function kalkan_breadcrumb_schema() {
         '@type'    => 'ListItem',
         'position' => 1,
         'name'     => 'Kalkan',
-        'item'     => 'https://kalkan.website',
+        'item'     => 'https://kalkanapp.com',
     );
 
     $pos = 2;
@@ -941,7 +941,7 @@ function kalkan_breadcrumb_schema() {
             '@type'    => 'ListItem',
             'position' => $pos++,
             'name'     => 'Blog',
-            'item'     => 'https://kalkan.website/blog/',
+            'item'     => 'https://kalkanapp.com/blog/',
         );
         $items[] = array(
             '@type'    => 'ListItem',
@@ -994,7 +994,7 @@ function kalkan_blogposting_schema() {
         'author'        => array(
             '@type' => 'Organization',
             'name'  => 'Kalkan',
-            'url'   => 'https://kalkan.website',
+            'url'   => 'https://kalkanapp.com',
         ),
         'publisher'     => array(
             '@type' => 'Organization',

@@ -54,7 +54,7 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['kk_contact_nonce'] 
 			$form_status  = 'error';
 			$form_message = implode( ' ', $errors );
 		} else {
-			$to      = 'info@kalkan.website';
+			$to      = 'info@kalkanapp.com';
 			$headers = array(
 				'Content-Type: text/plain; charset=UTF-8',
 				'Reply-To: ' . $name . ' <' . $email . '>',

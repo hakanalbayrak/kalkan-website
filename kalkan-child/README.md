@@ -1,6 +1,6 @@
 # Kalkan Child Theme
 
-This is the controlled customization layer for `kalkan.website`.
+This is the controlled customization layer for `kalkanapp.com`.
 
 ## Parent Theme
 

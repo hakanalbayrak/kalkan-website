@@ -56,8 +56,8 @@ $page_title    = 'en' === $lang ? 'Legal Notice — Kalkan' : 'KVKK Aydınlatma 
 
 					<h2>1. Veri Sorumlusu</h2>
 					<p>
-						Veri sorumlusu: kalkan.website<br>
-						İletişim: <a href="mailto:info@kalkan.website">info@kalkan.website</a>
+						Veri sorumlusu: kalkanapp.com<br>
+						İletişim: <a href="mailto:info@kalkanapp.com">info@kalkanapp.com</a>
 					</p>
 
 					<h2>2. İşlenen Kişisel Veriler</h2>
@@ -97,17 +97,17 @@ $page_title    = 'en' === $lang ? 'Legal Notice — Kalkan' : 'KVKK Aydınlatma 
 						<li>İşlenen verilerin münhasıran otomatik sistemler vasıtasıyla analiz edilmesi suretiyle aleyhinize bir sonucun ortaya çıkmasına itiraz etme</li>
 						<li>Kanuna aykırı işlenmesi sebebiyle zarara uğraması hâlinde zararın giderilmesini talep etme</li>
 					</ul>
-					<p>Haklarınızı kullanmak için <a href="mailto:info@kalkan.website">info@kalkan.website</a> adresine başvurabilirsiniz.</p>
+					<p>Haklarınızı kullanmak için <a href="mailto:info@kalkanapp.com">info@kalkanapp.com</a> adresine başvurabilirsiniz.</p>
 
 					<h2>8. Abonelikten Çıkma</h2>
-					<p>Web sitesindeki abonelikten çıkma bağlantısını kullanarak veya <a href="mailto:info@kalkan.website">info@kalkan.website</a> adresine e-posta göndererek aboneliğinizi iptal edebilirsiniz.</p>
+					<p>Web sitesindeki abonelikten çıkma bağlantısını kullanarak veya <a href="mailto:info@kalkanapp.com">info@kalkanapp.com</a> adresine e-posta göndererek aboneliğinizi iptal edebilirsiniz.</p>
 
 				<?php else : ?>
 
 					<h2>1. Data Controller</h2>
 					<p>
-						Data Controller: kalkan.website<br>
-						Contact: <a href="mailto:info@kalkan.website">info@kalkan.website</a>
+						Data Controller: kalkanapp.com<br>
+						Contact: <a href="mailto:info@kalkanapp.com">info@kalkanapp.com</a>
 					</p>
 
 					<h2>2. Personal Data Processed</h2>
@@ -147,10 +147,10 @@ $page_title    = 'en' === $lang ? 'Legal Notice — Kalkan' : 'KVKK Aydınlatma 
 						<li>To object to outcomes arising from automated analysis of your data</li>
 						<li>To seek compensation for damages arising from unlawful processing</li>
 					</ul>
-					<p>To exercise these rights, please contact <a href="mailto:info@kalkan.website">info@kalkan.website</a>.</p>
+					<p>To exercise these rights, please contact <a href="mailto:info@kalkanapp.com">info@kalkanapp.com</a>.</p>
 
 					<h2>8. Unsubscribe</h2>
-					<p>You may cancel your subscription via the unsubscribe link on the website or by emailing <a href="mailto:info@kalkan.website">info@kalkan.website</a>.</p>
+					<p>You may cancel your subscription via the unsubscribe link on the website or by emailing <a href="mailto:info@kalkanapp.com">info@kalkanapp.com</a>.</p>
 
 				<?php endif; ?>
 
