@@ -50,3 +50,10 @@ This file records durable website/growth decisions.
 - Date or commit reference: 2026-07-25
 - Decision: Reuse the existing GA4 setup to record `app_store_click` events and keep the destination URL centrally configurable for a future App Store Connect campaign link.
 - Rationale: Adds useful conversion-funnel evidence without another plugin, SDK, or tracking service.
+
+## Decision 008
+
+- Short title: Keep website mockups aligned with live App Store visuals
+- Date or commit reference: 2026-09-07
+- Decision: Use the current localized App Store screen sequence (active protection, incoming caller ID, recent calls, Premium, and settings) inside the homepage phone mockups. Serve optimized WebP files at the real iPhone screen ratio and provide a reduced-motion fallback instead of maintaining separate promotional videos.
+- Rationale: Prevents the website from drifting behind the released app, removes screenshot-to-frame cropping, and keeps the homepage lightweight and accessible.

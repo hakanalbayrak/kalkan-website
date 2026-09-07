@@ -97,11 +97,11 @@ $is_front_page = true;
 .kk-hero__visual { display: flex; justify-content: center; align-items: center; }
 .phone-frame {
   position: relative;
-  width: 280px;
-  padding: 5px;
+  width: 300px;
+  padding: 7px;
   box-sizing: border-box;
   background: linear-gradient(145deg, #777783 0%, #292932 16%, #09090d 52%, #3d3d47 84%, #8a8a94 100%);
-  border-radius: 46px;
+  border-radius: 52px;
   border: 1px solid rgba(255, 255, 255, 0.22);
   box-shadow:
     0 0 0 1px rgba(0, 0, 0, 0.8),
@@ -135,26 +135,24 @@ $is_front_page = true;
 .phone-screen {
   position: relative;
   width: 100%;
-  aspect-ratio: 6 / 13;
+  aspect-ratio: 1206 / 2622;
   overflow: hidden;
-  border-radius: 40px;
+  border-radius: 45px;
   background: #000;
   box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
 }
-.phone-screen img,
-.phone-screen video {
+.phone-screen .kk-phone-shot {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center top;
   display: block;
-}
-.phone-screen img {
   opacity: 0;
-  animation: kk-phone-screen-cycle 20s infinite;
+  animation: kk-phone-screen-cycle 25s infinite both;
+  will-change: opacity;
 }
-.phone-screen video { background: #000; }
 .phone-frame,
 .phone-frame:hover {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -162,17 +160,18 @@ $is_front_page = true;
 @media (prefers-reduced-motion: reduce) {
   .phone-frame:hover { transform: none; }
 }
-.phone-screen img:nth-child(1) { animation-delay: 0s; }
-.phone-screen img:nth-child(2) { animation-delay: 5s; }
-.phone-screen img:nth-child(3) { animation-delay: 10s; }
-.phone-screen img:nth-child(4) { animation-delay: 15s; }
+.phone-screen .kk-phone-shot:nth-child(1) { animation-delay: 0s; }
+.phone-screen .kk-phone-shot:nth-child(2) { animation-delay: 5s; }
+.phone-screen .kk-phone-shot:nth-child(3) { animation-delay: 10s; }
+.phone-screen .kk-phone-shot:nth-child(4) { animation-delay: 15s; }
+.phone-screen .kk-phone-shot:nth-child(5) { animation-delay: 20s; }
 @keyframes kk-phone-screen-cycle {
-  0%, 20% { opacity: 1; }
-  25%, 100% { opacity: 0; }
+  0%, 16% { opacity: 1; }
+  20%, 100% { opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .phone-screen img { animation: none; opacity: 0; }
-  .phone-screen img:first-child { opacity: 1; }
+  .phone-screen .kk-phone-shot { animation: none; opacity: 0; }
+  .phone-screen .kk-phone-shot:first-child { opacity: 1; }
 }
 
 .kk-how { background: rgba(19,7,40,0.6); }
@@ -468,10 +467,18 @@ $is_front_page = true;
 		<section class="kk-hero kk-section" aria-labelledby="kk-hero-title">
 			<?php
 			$app_demo_suffix = 'en' === $lang ? 'en' : 'tr';
-			$app_demo_filename = 'tr' === $app_demo_suffix ? 'kalkan-app-tr-v2.mp4' : 'kalkan-app-en.mp4';
-			$app_demo_video    = get_stylesheet_directory_uri() . '/assets/video/' . $app_demo_filename;
-			$app_demo_poster   = get_stylesheet_directory_uri() . '/assets/images/video-posters/kalkan-app-' . $app_demo_suffix . '-320.webp';
-			$app_demo_captions = get_stylesheet_directory_uri() . '/assets/captions/kalkan-app-' . $app_demo_suffix . '.vtt';
+			$app_screen_base   = get_stylesheet_directory_uri() . '/assets/images/app-screens/';
+			$app_demo_screens  = array(
+				array( 'slug' => 'home', 'height' => 1565 ),
+				array( 'slug' => 'incoming', 'height' => 1561 ),
+				array( 'slug' => 'recents', 'height' => 1561 ),
+				array( 'slug' => 'premium', 'height' => 1565 ),
+				array( 'slug' => 'settings', 'height' => 1565 ),
+			);
+			$app_demo_label = $__(
+				'Kalkan uygulamasında aktif koruma, gelen arayan kimliği, son aramalar, Premium ve ayarlar ekranları',
+				'Kalkan active protection, incoming caller ID, recent calls, Premium, and settings screens'
+			);
 			?>
 			<div class="kk-shell kk-hero__layout">
 
@@ -501,11 +508,10 @@ $is_front_page = true;
 
 				<div class="kk-hero__visual kk-animate kk-animate-delay-2">
 					<div class="phone-frame">
-						<div class="phone-screen">
-							<video class="kk-app-video" autoplay muted loop playsinline preload="metadata" poster="<?php echo esc_url( $app_demo_poster ); ?>" aria-label="<?php echo esc_attr( $__( 'Kalkan uygulamasının güncel kullanım akışı', 'Current Kalkan app usage flow' ) ); ?>">
-								<source src="<?php echo esc_url( $app_demo_video ); ?>" type="video/mp4">
-								<track kind="captions" src="<?php echo esc_url( $app_demo_captions ); ?>" srclang="<?php echo esc_attr( $app_demo_suffix ); ?>" label="<?php echo esc_attr( $__( 'Türkçe', 'English' ) ); ?>">
-							</video>
+						<div class="phone-screen" role="img" aria-label="<?php echo esc_attr( $app_demo_label ); ?>">
+							<?php foreach ( $app_demo_screens as $screen_index => $screen ) : ?>
+								<img class="kk-phone-shot" src="<?php echo esc_url( $app_screen_base . $screen['slug'] . '-' . $app_demo_suffix . '.webp' ); ?>" alt="" width="720" height="<?php echo esc_attr( (string) $screen['height'] ); ?>" loading="<?php echo 0 === $screen_index ? 'eager' : 'lazy'; ?>" decoding="async"<?php echo 0 === $screen_index ? ' fetchpriority="high"' : ''; // phpcs:ignore WordPress.Security.EscapeOutput ?> aria-hidden="true">
+							<?php endforeach; ?>
 						</div>
 					</div>
 				</div>
@@ -627,11 +633,10 @@ $is_front_page = true;
 				<div class="kk-app-demo">
 					<div class="kk-app-demo__visual kk-animate kk-animate-delay-1">
 						<div class="phone-frame phone-frame--showcase">
-							<div class="phone-screen">
-								<video class="kk-app-video" autoplay muted loop playsinline preload="metadata" poster="<?php echo esc_url( $app_demo_poster ); ?>" aria-label="<?php echo esc_attr( $__( 'Kalkan uygulamasının güncel ekranları', 'Current Kalkan app screens' ) ); ?>">
-									<source src="<?php echo esc_url( $app_demo_video ); ?>" type="video/mp4">
-									<track kind="captions" src="<?php echo esc_url( $app_demo_captions ); ?>" srclang="<?php echo esc_attr( $app_demo_suffix ); ?>" label="<?php echo esc_attr( $__( 'Türkçe', 'English' ) ); ?>">
-								</video>
+							<div class="phone-screen" role="img" aria-label="<?php echo esc_attr( $app_demo_label ); ?>">
+								<?php foreach ( $app_demo_screens as $screen ) : ?>
+									<img class="kk-phone-shot" src="<?php echo esc_url( $app_screen_base . $screen['slug'] . '-' . $app_demo_suffix . '.webp' ); ?>" alt="" width="720" height="<?php echo esc_attr( (string) $screen['height'] ); ?>" loading="lazy" decoding="async" aria-hidden="true">
+								<?php endforeach; ?>
 							</div>
 						</div>
 					</div>
@@ -808,13 +813,6 @@ $is_front_page = true;
 
 <?php include get_stylesheet_directory() . '/inc/kalkan-scripts.php'; ?>
 <script>
-(function(){
-  if (!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  document.querySelectorAll('.kk-app-video').forEach(function(video){
-    video.pause();
-    video.removeAttribute('autoplay');
-  });
-})();
 (function(){
   var form = document.getElementById('kk-subscribe-form');
   if (!form) return;
