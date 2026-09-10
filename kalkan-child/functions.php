@@ -2410,11 +2410,24 @@ function kalkan_exclude_posts_pages_from_page_sitemap($args, $post_type) {
 add_filter('seopress_sitemaps_single_query', 'kalkan_exclude_posts_pages_from_page_sitemap', 20, 2);
 
 /**
+ * /duyurular/ is the canonical category archive and belongs in the taxonomy
+ * sitemap. Prevent SEOPress from repeating it as the post-type archive entry.
+ */
+function kalkan_remove_post_archive_from_post_sitemap($sitemap_url, $post_type) {
+    if ('post' === $post_type) {
+        return false;
+    }
+
+    return $sitemap_url;
+}
+add_filter('seopress_sitemaps_no_archive_link', 'kalkan_remove_post_archive_from_post_sitemap', 20, 2);
+
+/**
  * Purge the page cache once so crawlers stop receiving metadata generated
  * before the canonical/hreflang corrections were deployed.
  */
-function kalkan_purge_technical_seo_cache_v5() {
-    if (get_option('kalkan_technical_seo_cache_purged_v5')) {
+function kalkan_purge_technical_seo_cache_v6() {
+    if (get_option('kalkan_technical_seo_cache_purged_v6')) {
         return;
     }
 
@@ -2422,6 +2435,6 @@ function kalkan_purge_technical_seo_cache_v5() {
         do_action('litespeed_purge_all');
     }
 
-    update_option('kalkan_technical_seo_cache_purged_v5', true);
+    update_option('kalkan_technical_seo_cache_purged_v6', true);
 }
-add_action('init', 'kalkan_purge_technical_seo_cache_v5', 999);
+add_action('init', 'kalkan_purge_technical_seo_cache_v6', 999);
