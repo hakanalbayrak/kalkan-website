@@ -791,6 +791,25 @@ function kalkan_page_url($slug_tr, $slug_en = null) {
 }
 
 /**
+ * Keep the public language-home canonicals aligned with their clean Polylang
+ * URLs. The English front page is backed by the `home-english` WordPress page,
+ * but its public canonical is /en/, never the internal page slug.
+ */
+function kalkan_language_home_canonical($canonical) {
+    if (!is_front_page()) {
+        return $canonical;
+    }
+
+    $lang = function_exists('pll_current_language') ? pll_current_language('slug') : 'tr';
+    if ('en' === $lang) {
+        return function_exists('pll_home_url') ? pll_home_url('en') : home_url('/en/');
+    }
+
+    return function_exists('pll_home_url') ? pll_home_url('tr') : home_url('/');
+}
+add_filter('seopress_titles_canonical', 'kalkan_language_home_canonical', 20);
+
+/**
  * Organization schema — output on every page for consistent brand signals.
  */
 add_action('wp_head', 'kalkan_organization_schema', 98);
@@ -2306,3 +2325,20 @@ function kalkan_repair_external_source_links_v1() {
     }
 }
 add_action('init', 'kalkan_repair_external_source_links_v1', 42);
+
+/**
+ * Purge the page cache once so crawlers stop receiving metadata generated
+ * before the canonical/hreflang corrections were deployed.
+ */
+function kalkan_purge_technical_seo_cache_v1() {
+    if (get_option('kalkan_technical_seo_cache_purged_v1')) {
+        return;
+    }
+
+    if (defined('LSCWP_V')) {
+        do_action('litespeed_purge_all');
+    }
+
+    update_option('kalkan_technical_seo_cache_purged_v1', true);
+}
+add_action('init', 'kalkan_purge_technical_seo_cache_v1', 999);
