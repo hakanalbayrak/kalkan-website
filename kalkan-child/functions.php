@@ -812,6 +812,25 @@ function kalkan_language_home_canonical($canonical) {
 add_filter('seopress_titles_canonical', 'kalkan_language_home_canonical', 20);
 
 /**
+ * Polylang emits the correct reciprocal links on the English posts page but
+ * skips them on the Turkish posts page. Supply only the missing Turkish pair.
+ */
+function kalkan_turkish_blog_hreflang() {
+    if (!is_home()) {
+        return;
+    }
+
+    $lang = function_exists('pll_current_language') ? pll_current_language('slug') : 'tr';
+    if ('tr' !== $lang) {
+        return;
+    }
+
+    echo '<link rel="alternate" hreflang="tr" href="' . esc_url(home_url('/duyurular/')) . '" />' . "\n";
+    echo '<link rel="alternate" hreflang="en" href="' . esc_url(home_url('/en/blog/')) . '" />' . "\n";
+}
+add_action('wp_head', 'kalkan_turkish_blog_hreflang', 20);
+
+/**
  * Organization schema — output on every page for consistent brand signals.
  */
 add_action('wp_head', 'kalkan_organization_schema', 98);
@@ -2329,11 +2348,44 @@ function kalkan_repair_external_source_links_v1() {
 add_action('init', 'kalkan_repair_external_source_links_v1', 42);
 
 /**
+ * Retire the legacy empty Number Lookup page. It duplicated the intent of the
+ * published Turkish guide while providing no indexable content.
+ */
+function kalkan_retire_empty_number_lookup_page_v1() {
+    if (get_option('kalkan_empty_number_lookup_retired_v1')) {
+        return;
+    }
+
+    $page = get_page_by_path('number-lookup', OBJECT, 'page');
+    if ($page && '' === trim(wp_strip_all_tags($page->post_content))) {
+        wp_update_post(array(
+            'ID' => (int) $page->ID,
+            'post_status' => 'draft',
+        ));
+    }
+
+    update_option('kalkan_empty_number_lookup_retired_v1', true);
+}
+add_action('init', 'kalkan_retire_empty_number_lookup_page_v1', 43);
+
+function kalkan_redirect_legacy_number_lookup_page() {
+    $request_path = isset($_SERVER['REQUEST_URI'])
+        ? (string) parse_url(wp_unslash($_SERVER['REQUEST_URI']), PHP_URL_PATH)
+        : '';
+
+    if ('/number-lookup' === untrailingslashit($request_path)) {
+        wp_safe_redirect(home_url('/numara-sorgulama/'), 301);
+        exit;
+    }
+}
+add_action('template_redirect', 'kalkan_redirect_legacy_number_lookup_page', 5);
+
+/**
  * Purge the page cache once so crawlers stop receiving metadata generated
  * before the canonical/hreflang corrections were deployed.
  */
-function kalkan_purge_technical_seo_cache_v2() {
-    if (get_option('kalkan_technical_seo_cache_purged_v2')) {
+function kalkan_purge_technical_seo_cache_v3() {
+    if (get_option('kalkan_technical_seo_cache_purged_v3')) {
         return;
     }
 
@@ -2341,6 +2393,6 @@ function kalkan_purge_technical_seo_cache_v2() {
         do_action('litespeed_purge_all');
     }
 
-    update_option('kalkan_technical_seo_cache_purged_v2', true);
+    update_option('kalkan_technical_seo_cache_purged_v3', true);
 }
-add_action('init', 'kalkan_purge_technical_seo_cache_v2', 999);
+add_action('init', 'kalkan_purge_technical_seo_cache_v3', 999);
