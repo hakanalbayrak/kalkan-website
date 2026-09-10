@@ -2386,11 +2386,35 @@ function kalkan_redirect_legacy_number_lookup_page() {
 add_action('template_redirect', 'kalkan_redirect_legacy_number_lookup_page', 5);
 
 /**
+ * The Turkish and English posts landing pages are already emitted by SEOPress
+ * in the post sitemap. Keep the same URLs out of the page sitemap so every
+ * canonical URL is declared only once across the sitemap set.
+ */
+function kalkan_exclude_posts_pages_from_page_sitemap($args, $post_type) {
+    if ('page' !== $post_type) {
+        return $args;
+    }
+
+    $excluded_ids = array((int) get_option('page_for_posts'));
+    $english_blog = get_page_by_path('blog', OBJECT, 'page');
+    if ($english_blog instanceof WP_Post) {
+        $excluded_ids[] = (int) $english_blog->ID;
+    }
+
+    $excluded_ids = array_filter($excluded_ids);
+    $existing_ids = isset($args['post__not_in']) ? (array) $args['post__not_in'] : array();
+    $args['post__not_in'] = array_values(array_unique(array_merge($existing_ids, $excluded_ids)));
+
+    return $args;
+}
+add_filter('seopress_sitemaps_single_query', 'kalkan_exclude_posts_pages_from_page_sitemap', 20, 2);
+
+/**
  * Purge the page cache once so crawlers stop receiving metadata generated
  * before the canonical/hreflang corrections were deployed.
  */
-function kalkan_purge_technical_seo_cache_v4() {
-    if (get_option('kalkan_technical_seo_cache_purged_v4')) {
+function kalkan_purge_technical_seo_cache_v5() {
+    if (get_option('kalkan_technical_seo_cache_purged_v5')) {
         return;
     }
 
@@ -2398,6 +2422,6 @@ function kalkan_purge_technical_seo_cache_v4() {
         do_action('litespeed_purge_all');
     }
 
-    update_option('kalkan_technical_seo_cache_purged_v4', true);
+    update_option('kalkan_technical_seo_cache_purged_v5', true);
 }
-add_action('init', 'kalkan_purge_technical_seo_cache_v4', 999);
+add_action('init', 'kalkan_purge_technical_seo_cache_v5', 999);
