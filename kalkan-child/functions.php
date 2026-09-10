@@ -816,7 +816,12 @@ add_filter('seopress_titles_canonical', 'kalkan_language_home_canonical', 20);
  * skips them on the Turkish posts page. Supply only the missing Turkish pair.
  */
 function kalkan_turkish_blog_hreflang() {
-    if (!is_home()) {
+    if (!is_category()) {
+        return;
+    }
+
+    $term = get_queried_object();
+    if (!$term instanceof WP_Term || 'duyurular' !== $term->slug) {
         return;
     }
 
@@ -2384,8 +2389,8 @@ add_action('template_redirect', 'kalkan_redirect_legacy_number_lookup_page', 5);
  * Purge the page cache once so crawlers stop receiving metadata generated
  * before the canonical/hreflang corrections were deployed.
  */
-function kalkan_purge_technical_seo_cache_v3() {
-    if (get_option('kalkan_technical_seo_cache_purged_v3')) {
+function kalkan_purge_technical_seo_cache_v4() {
+    if (get_option('kalkan_technical_seo_cache_purged_v4')) {
         return;
     }
 
@@ -2393,6 +2398,6 @@ function kalkan_purge_technical_seo_cache_v3() {
         do_action('litespeed_purge_all');
     }
 
-    update_option('kalkan_technical_seo_cache_purged_v3', true);
+    update_option('kalkan_technical_seo_cache_purged_v4', true);
 }
-add_action('init', 'kalkan_purge_technical_seo_cache_v3', 999);
+add_action('init', 'kalkan_purge_technical_seo_cache_v4', 999);
