@@ -837,8 +837,12 @@ function kalkan_website_schema() {
 
 /**
  * MobileApplication schema — homepage only.
+ *
+ * Google requires a real aggregate rating or review for the Software app rich
+ * result. Kalkan does not publish that data here, so this schema stays
+ * available for a future verified implementation but is intentionally not
+ * attached to wp_head.
  */
-add_action('wp_head', 'kalkan_add_structured_data', 99);
 function kalkan_add_structured_data() {
     if (!is_front_page()) return;
 
@@ -1207,7 +1211,7 @@ function kalkan_seo_optimized_posts() {
 <h2>Dolandırıcı Numara Belirtileri</h2>
 
 <h3>1. Aciliyet Yaratma</h3>
-<p>"Hesabınız kapatılacak", "Son dakika" gibi panik ifadeleri dolandırıcılığın en yaygın işaretidir. Gerçek kurumlar sizi telefonla arayıp acil işlem yapmanızı istemez. <a href="https://www.btk.gov.tr/ihbar-merkezi" target="_blank" rel="noopener">BTK İhbar Merkezi</a> üzerinden şüpheli numaraları bildirebilirsiniz.</p>
+<p>"Hesabınız kapatılacak", "Son dakika" gibi panik ifadeleri dolandırıcılığın en yaygın işaretidir. Gerçek kurumlar sizi telefonla arayıp acil işlem yapmanızı istemez. <a href="https://www.btk.gov.tr/iletisim" target="_blank" rel="noopener">BTK iletişim kanalları</a> üzerinden şüpheli numaraları bildirebilirsiniz.</p>
 
 <h3>2. Kişisel Bilgi İsteme</h3>
 <p>TC kimlik, banka kartı bilgileri veya SMS kodu isteyen aramalar kesinlikle dolandırıcılıktır. Hiçbir banka bu bilgileri telefonla istemez.</p>
@@ -1914,7 +1918,7 @@ function kalkan_product_reference_schema() {
             'dateModified' => '2026-08-17',
             'inLanguage' => $lang,
             'mainEntityOfPage' => get_permalink(),
-            'about' => array('@type' => 'SoftwareApplication', 'name' => 'Kalkan', 'operatingSystem' => 'iOS'),
+            'about' => array('@type' => 'Thing', 'name' => 'Kalkan', 'url' => home_url('/')),
             'author' => array('@type' => 'Organization', 'name' => 'Kalkan', 'url' => home_url('/')),
         );
     } else {
@@ -1925,7 +1929,13 @@ function kalkan_product_reference_schema() {
             'itemListOrder' => 'https://schema.org/ItemListOrderDescending',
             'numberOfItems' => 6,
             'itemListElement' => array_map(static function ($version, $position) {
-                return array('@type' => 'ListItem', 'position' => $position, 'name' => 'Kalkan ' . $version);
+                $anchor = 'version-' . str_replace('.', '-', $version);
+                return array(
+                    '@type' => 'ListItem',
+                    'position' => $position,
+                    'name' => 'Kalkan ' . $version,
+                    'url' => get_permalink() . '#' . $anchor,
+                );
             }, array('1.0.6', '1.0.5', '1.0.4', '1.0.3', '1.0.2', '1.0.1'), range(1, 6)),
         );
     }
@@ -2239,3 +2249,60 @@ function kalkan_remove_protection_guide_body_logo_v1() {
     update_option('kalkan_protection_guide_body_logo_removed_v1', true);
 }
 add_action('init', 'kalkan_remove_protection_guide_body_logo_v1', 41);
+
+/**
+ * Repair official-source URLs that moved after the articles were published.
+ * The replacement is deliberately exact and runs once after deployment.
+ */
+function kalkan_repair_external_source_links_v1() {
+    if (get_option('kalkan_external_source_links_repaired_v1')) {
+        return;
+    }
+
+    global $wpdb;
+
+    $replacements = array(
+        'https://www.bddk.org.tr/Kurulus/Liste/77' => 'https://www.bddk.gov.tr/Kurulus/Liste/77',
+        'https://www.bddk.org.tr/Iletisim' => 'https://www.bddk.gov.tr/Iletisim',
+        'https://www.bddk.org.tr/Duyuru/EkGetir/573?ekId=593' => 'https://www.bddk.gov.tr/Duyuru/EkGetir/573?ekId=593',
+        'https://consumer.ftc.gov/consumer-alerts/2025/04/how-avoid-tech-support-scams' => 'https://consumer.ftc.gov/articles/how-spot-avoid-and-report-tech-support-scams',
+        '<a href="https://www.btk.gov.tr/ihbar-merkezi" target="_blank" rel="noopener">BTK İhbar Merkezi</a>' => '<a href="https://www.btk.gov.tr/iletisim" target="_blank" rel="noopener">BTK iletişim kanalları</a>',
+    );
+
+    $like_clauses = array();
+    foreach (array_keys($replacements) as $old_url) {
+        $like_clauses[] = $wpdb->prepare('post_content LIKE %s', '%' . $wpdb->esc_like($old_url) . '%');
+    }
+
+    $posts = $wpdb->get_results(
+        "SELECT ID, post_content FROM {$wpdb->posts} WHERE " . implode(' OR ', $like_clauses)
+    );
+    if (!is_array($posts)) {
+        return;
+    }
+
+    $all_repaired = true;
+    foreach ($posts as $post) {
+        $updated_content = str_replace(array_keys($replacements), array_values($replacements), $post->post_content);
+        if ($updated_content === $post->post_content) {
+            continue;
+        }
+        $result = $wpdb->update(
+            $wpdb->posts,
+            array('post_content' => $updated_content),
+            array('ID' => (int) $post->ID),
+            array('%s'),
+            array('%d')
+        );
+        if (false === $result) {
+            $all_repaired = false;
+            continue;
+        }
+        clean_post_cache((int) $post->ID);
+    }
+
+    if ($all_repaired) {
+        update_option('kalkan_external_source_links_repaired_v1', true);
+    }
+}
+add_action('init', 'kalkan_repair_external_source_links_v1', 42);
