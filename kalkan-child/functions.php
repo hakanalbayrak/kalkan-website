@@ -2519,3 +2519,17 @@ function kalkan_purge_technical_seo_cache_v6() {
     update_option('kalkan_technical_seo_cache_purged_v6', true);
 }
 add_action('init', 'kalkan_purge_technical_seo_cache_v6', 999);
+
+/** Purge stale audit metadata after the September title/link corrections. */
+function kalkan_purge_technical_seo_cache_v7() {
+    if (get_option('kalkan_technical_seo_cache_purged_v7')) {
+        return;
+    }
+
+    if (defined('LSCWP_V')) {
+        do_action('litespeed_purge_all');
+    }
+
+    update_option('kalkan_technical_seo_cache_purged_v7', true);
+}
+add_action('init', 'kalkan_purge_technical_seo_cache_v7', 1000);
