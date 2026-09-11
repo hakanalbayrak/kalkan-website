@@ -830,10 +830,35 @@ function kalkan_turkish_blog_hreflang() {
         return;
     }
 
-    echo '<link rel="alternate" hreflang="tr" href="' . esc_url(home_url('/duyurular/')) . '" />' . "\n";
-    echo '<link rel="alternate" hreflang="en" href="' . esc_url(home_url('/en/blog/')) . '" />' . "\n";
+    $paged  = max(1, (int) get_query_var('paged'));
+    $tr_url = $paged > 1 ? get_pagenum_link($paged) : home_url('/duyurular/');
+
+    // Every archive page must reference its own canonical URL. The English
+    // archive has no equivalent paginated URLs, so only pair the first pages.
+    echo '<link rel="alternate" hreflang="tr" href="' . esc_url($tr_url) . '" />' . "\n";
+    if (1 === $paged) {
+        echo '<link rel="alternate" hreflang="en" href="' . esc_url(home_url('/en/blog/')) . '" />' . "\n";
+    }
 }
 add_action('wp_head', 'kalkan_turkish_blog_hreflang', 20);
+
+/**
+ * Keep article H1 text concise while making each search-result title distinct.
+ */
+function kalkan_article_seo_title($title) {
+    if (!is_singular('post')) {
+        return $title;
+    }
+
+    $post_title = trim(wp_strip_all_tags(get_the_title()));
+    if ('' === $post_title) {
+        return $title;
+    }
+
+    return $post_title . ' | Kalkan';
+}
+add_filter('seopress_titles_title', 'kalkan_article_seo_title', 50);
+add_filter('pre_get_document_title', 'kalkan_article_seo_title', 50);
 
 /**
  * Organization schema — output on every page for consistent brand signals.
@@ -2351,6 +2376,60 @@ function kalkan_repair_external_source_links_v1() {
     }
 }
 add_action('init', 'kalkan_repair_external_source_links_v1', 42);
+
+/**
+ * BDDK currently returns HTTP 500 to external crawlers on its own website.
+ * Preserve the official source reference through BDDK's stable e-Devlet page
+ * so readers and accessibility/SEO crawlers receive a working destination.
+ */
+function kalkan_repair_bddk_crawler_links_v2() {
+    if (get_option('kalkan_bddk_crawler_links_repaired_v2')) {
+        return;
+    }
+
+    global $wpdb;
+
+    $official_bddk = 'https://www.turkiye.gov.tr/bankacilik-duzenleme-ve-denetleme-kurumu';
+    $old_urls = array(
+        'https://www.bddk.gov.tr/Kurulus/Liste/77',
+        'https://www.bddk.gov.tr/Iletisim',
+        'https://www.bddk.gov.tr/Duyuru/EkGetir/573?ekId=593',
+    );
+
+    $like_clauses = array();
+    foreach ($old_urls as $old_url) {
+        $like_clauses[] = $wpdb->prepare('post_content LIKE %s', '%' . $wpdb->esc_like($old_url) . '%');
+    }
+
+    $posts = $wpdb->get_results(
+        "SELECT ID, post_content FROM {$wpdb->posts} WHERE " . implode(' OR ', $like_clauses)
+    );
+    if (!is_array($posts)) {
+        return;
+    }
+
+    foreach ($posts as $post) {
+        $updated_content = str_replace($old_urls, $official_bddk, $post->post_content);
+        if ($updated_content === $post->post_content) {
+            continue;
+        }
+
+        $result = $wpdb->update(
+            $wpdb->posts,
+            array('post_content' => $updated_content),
+            array('ID' => (int) $post->ID),
+            array('%s'),
+            array('%d')
+        );
+        if (false === $result) {
+            return;
+        }
+        clean_post_cache((int) $post->ID);
+    }
+
+    update_option('kalkan_bddk_crawler_links_repaired_v2', true);
+}
+add_action('init', 'kalkan_repair_bddk_crawler_links_v2', 44);
 
 /**
  * Retire the legacy empty Number Lookup page. It duplicated the intent of the
