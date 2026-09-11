@@ -36,7 +36,7 @@ $not_found   = 'en' === $lang ? 'Email not found in our list.' : 'E-posta listem
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 <?php wp_head(); ?>
 <?php echo $_kk_seo_tags(); ?>
-<?php include get_stylesheet_directory() . '/inc/kalkan-styles.php'; ?>
+<link rel="stylesheet" href="<?php echo esc_url(kalkan_ui_stylesheet_url()); ?>">
 <style>
 .kk-unsub-form { max-width: 28rem; margin: 0 auto; }
 .kk-unsub-row {

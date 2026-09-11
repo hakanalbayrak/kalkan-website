@@ -29,7 +29,7 @@ $page_title    = 'en' === $lang ? 'Legal Notice — Kalkan' : 'KVKK Aydınlatma 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 <?php wp_head(); ?>
 <?php echo $_kk_seo_tags(); ?>
-<?php include get_stylesheet_directory() . '/inc/kalkan-styles.php'; ?>
+<link rel="stylesheet" href="<?php echo esc_url(kalkan_ui_stylesheet_url()); ?>">
 </head>
 <body <?php body_class(); ?>>
 

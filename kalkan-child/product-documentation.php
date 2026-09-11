@@ -22,7 +22,7 @@ $is_front_page = false;
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
-<?php wp_head(); ?><?php echo $_kk_seo_tags(); ?><?php include get_stylesheet_directory() . '/inc/kalkan-styles.php'; ?>
+<?php wp_head(); ?><?php echo $_kk_seo_tags(); ?><link rel="stylesheet" href="<?php echo esc_url(kalkan_ui_stylesheet_url()); ?>">
 <style>
 .kk-doc-grid{display:grid;gap:1rem;grid-template-columns:repeat(2,minmax(0,1fr));margin:1.2rem 0 2.2rem}.kk-doc-card{padding:1.25rem}.kk-doc-card p{margin-top:.55rem;color:var(--kk-text-dim)}.kk-doc-card ul{margin:.7rem 0 0 1.15rem;color:var(--kk-text-dim)}.kk-doc-card li+li{margin-top:.35rem}.kk-doc-table{width:100%;border-collapse:collapse;margin:1rem 0 2rem}.kk-doc-table th,.kk-doc-table td{text-align:left;vertical-align:top;padding:.8rem;border-bottom:1px solid var(--kk-border)}.kk-doc-table th{color:var(--kk-text-muted)}.kk-doc-faq{padding:1.1rem 0;border-bottom:1px solid var(--kk-border)}.kk-doc-faq h3{margin-bottom:.4rem}.kk-doc-code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em;color:var(--kk-green)}@media(max-width:720px){.kk-doc-grid{grid-template-columns:1fr}.kk-doc-table{display:block;overflow-x:auto}}
 </style>

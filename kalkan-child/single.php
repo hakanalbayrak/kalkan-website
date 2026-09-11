@@ -38,7 +38,7 @@ $page_title    = $display_title . ' — Kalkan';
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 <?php wp_head(); ?>
 <?php echo $_kk_seo_tags(); ?>
-<?php include get_stylesheet_directory() . '/inc/kalkan-styles.php'; ?>
+<link rel="stylesheet" href="<?php echo esc_url(kalkan_ui_stylesheet_url()); ?>">
 <style>
 /* ── Single post styles ───────────────────────────────────────────────────── */
 .kk-post {
@@ -108,6 +108,19 @@ $page_title    = $display_title . ' — Kalkan';
 .kk-post__nav a:hover {
   text-decoration: underline;
 }
+.kk-post__adjacent {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+.kk-post__adjacent a {
+  display: block;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+}
 </style>
 </head>
 <body <?php body_class(); ?>>
@@ -142,8 +155,16 @@ $page_title    = $display_title . ' — Kalkan';
 				</div>
 
 				<div class="kk-post__nav">
+					<div class="kk-post__adjacent">
+						<?php previous_post_link('%link', '&larr; %title'); ?>
+						<?php next_post_link('%link', '%title &rarr;'); ?>
+					</div>
 					<a href="<?php echo esc_url( $blog_url ); ?>">
 						&larr; <?php echo esc_html( $__( 'Blog\'a Dön', 'Back to Blog' ) ); ?>
+					</a>
+					<span aria-hidden="true"> · </span>
+					<a href="<?php echo esc_url($documentation_url); ?>">
+						<?php echo esc_html($__( 'Kalkan Dokümantasyonu', 'Kalkan Documentation' )); ?>
 					</a>
 				</div>
 			</article>

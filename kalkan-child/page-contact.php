@@ -90,7 +90,7 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['kk_contact_nonce'] 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 <?php wp_head(); ?>
 <?php echo $_kk_seo_tags(); ?>
-<?php include get_stylesheet_directory() . '/inc/kalkan-styles.php'; ?>
+<link rel="stylesheet" href="<?php echo esc_url(kalkan_ui_stylesheet_url()); ?>">
 </head>
 <body <?php body_class(); ?>>
 
@@ -112,6 +112,16 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['kk_contact_nonce'] 
 
 		<section class="kk-section">
 			<div class="kk-shell">
+
+				<div class="kk-page-content" style="max-width:40rem;margin:0 auto 2rem;padding:0;">
+					<?php if ('tr' === $lang) : ?>
+						<p>Kurulum, koruma güncellemesi, Kalkan Premium, şüpheli numara bildirimi veya web sitesiyle ilgili sorularınız için bu formu kullanabilirsiniz. Sorununuzu daha hızlı inceleyebilmemiz için cihaz modelini, iOS sürümünü, Kalkan sürümünü ve gördüğünüz hata mesajını yazın. Lütfen parola, doğrulama kodu, banka bilgisi veya başka bir hassas kişisel bilgi göndermeyin.</p>
+						<p>Bir telefon numarasını bildirmek istiyorsanız, mümkün olduğunda Kalkan uygulamasındaki bildirim özelliğini kullanın. Bu yol numarayı doğru biçimde ve seçtiğiniz kategoriyle moderasyon kuyruğuna iletir.</p>
+					<?php else : ?>
+						<p>Use this form for questions about setup, protection updates, Kalkan Premium, suspicious-number reporting, or the website. To help us investigate efficiently, include your device model, iOS version, Kalkan version, and the exact error message you saw. Never send passwords, verification codes, banking details, or other sensitive personal information.</p>
+						<p>If you want to report a telephone number, use the reporting feature inside Kalkan whenever possible. It sends the number in a consistent format with the category you select so the moderation queue can process it correctly.</p>
+					<?php endif; ?>
+				</div>
 
 				<?php if ( ! empty( $form_message ) ) : ?>
 					<div class="kk-form-message kk-form-message--<?php echo esc_attr( $form_status ); ?>" style="max-width:40rem;margin:0 auto 2rem;">

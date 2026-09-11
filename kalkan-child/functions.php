@@ -181,6 +181,14 @@ function kalkan_child_enqueue_styles() {
 }
 add_action('wp_enqueue_scripts', 'kalkan_child_enqueue_styles', 20);
 
+/** Return the cache-busted URL for the shared self-contained page stylesheet. */
+function kalkan_ui_stylesheet_url() {
+    $path    = get_stylesheet_directory() . '/assets/css/kalkan-ui.css';
+    $version = is_readable($path) ? (string) filemtime($path) : wp_get_theme()->get('Version');
+
+    return add_query_arg('ver', rawurlencode($version), get_stylesheet_directory_uri() . '/assets/css/kalkan-ui.css');
+}
+
 /**
  * The homepage renders its complete critical CSS inline. Avoid downloading the
  * parent and duplicate child stylesheets on this route.
@@ -411,7 +419,7 @@ add_action('after_setup_theme', 'kalkan_child_theme_setup');
  * Enqueue Google Fonts: Plus Jakarta Sans + Inter.
  */
 function kalkan_child_enqueue_google_fonts() {
-    // Fonts are self-hosted in inc/kalkan-styles.php to remove a render-blocking
+    // Fonts are self-hosted in assets/css/kalkan-ui.css to remove a render-blocking
     // third-party request and keep Turkish glyph delivery deterministic.
 }
 add_action('wp_enqueue_scripts', 'kalkan_child_enqueue_google_fonts', 5);
@@ -2533,3 +2541,17 @@ function kalkan_purge_technical_seo_cache_v7() {
     update_option('kalkan_technical_seo_cache_purged_v7', true);
 }
 add_action('init', 'kalkan_purge_technical_seo_cache_v7', 1000);
+
+/** Purge once after moving shared presentation CSS out of page HTML. */
+function kalkan_purge_technical_seo_cache_v8() {
+    if (get_option('kalkan_technical_seo_cache_purged_v8')) {
+        return;
+    }
+
+    if (defined('LSCWP_V')) {
+        do_action('litespeed_purge_all');
+    }
+
+    update_option('kalkan_technical_seo_cache_purged_v8', true);
+}
+add_action('init', 'kalkan_purge_technical_seo_cache_v8', 1001);

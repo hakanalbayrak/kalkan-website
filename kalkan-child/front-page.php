@@ -36,7 +36,7 @@ $is_front_page = true;
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <?php wp_head(); ?>
 <?php echo $_kk_seo_tags(); ?>
-<?php include get_stylesheet_directory() . '/inc/kalkan-styles.php'; ?>
+<link rel="stylesheet" href="<?php echo esc_url(kalkan_ui_stylesheet_url()); ?>">
 <style>
 /* ─── Homepage-specific styles ───────────────────────────────────────────────── */
 

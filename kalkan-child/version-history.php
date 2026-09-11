@@ -25,7 +25,7 @@ $is_front_page = false;
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 <?php wp_head(); ?>
 <?php echo $_kk_seo_tags(); ?>
-<?php include get_stylesheet_directory() . '/inc/kalkan-styles.php'; ?>
+<link rel="stylesheet" href="<?php echo esc_url(kalkan_ui_stylesheet_url()); ?>">
 <style>
 .kk-release-list{display:grid;gap:1rem}.kk-release{padding:1.35rem}.kk-release__top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.8rem}.kk-release__version{font-size:1.3rem}.kk-release__date{color:var(--kk-text-muted);font-size:.9rem;white-space:nowrap}.kk-release__status{display:inline-flex;padding:.24rem .65rem;border:1px solid var(--kk-border);border-radius:999px;color:var(--kk-green);font-size:.76rem;font-weight:700;margin-top:.45rem}.kk-release ul{margin:.75rem 0 0 1.2rem;color:var(--kk-text-dim)}.kk-release li+li{margin-top:.4rem}.kk-release-note{margin:0 0 2rem;padding:1rem 1.1rem;border-left:3px solid var(--kk-purple);background:rgba(139,92,246,.08);border-radius:.5rem;color:var(--kk-text-dim)}@media(max-width:620px){.kk-release__top{display:block}.kk-release__date{display:block;margin-top:.4rem}}
 </style>

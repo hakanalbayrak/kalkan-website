@@ -38,7 +38,7 @@ $page_title = $archive_title . ' — Kalkan';
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 <?php wp_head(); ?>
 <?php echo $_kk_seo_tags(); ?>
-<?php include get_stylesheet_directory() . '/inc/kalkan-styles.php'; ?>
+<link rel="stylesheet" href="<?php echo esc_url(kalkan_ui_stylesheet_url()); ?>">
 </head>
 <body <?php body_class(); ?>>
 
@@ -60,6 +60,13 @@ $page_title = $archive_title . ' — Kalkan';
 
 		<section class="kk-section">
 			<div class="kk-shell">
+				<div class="kk-page-content" style="max-width:52rem;margin:0 auto 2.5rem;padding:0;">
+					<?php if ('tr' === $lang) : ?>
+						<p>Kalkan blogunda istenmeyen aramalar, telefon dolandırıcılığı, sahte kurum aramaları ve iPhone arama güvenliği hakkında uygulanabilir rehberler bulabilirsiniz. İçerikler, bir aramaya yanıt vermeden önce hangi işaretlere bakmanız gerektiğini, şüpheli talepleri nasıl doğrulayacağınızı ve kişisel bilgilerinizi nasıl koruyacağınızı açıklar. Ürün duyuruları ve sürüm notları da Kalkan'ın koruma özelliklerindeki değişiklikleri takip etmenize yardımcı olur.</p>
+					<?php else : ?>
+						<p>The Kalkan blog provides practical guidance on unwanted calls, telephone fraud, impersonation attempts and iPhone call safety. Articles explain what to check before answering or acting on a request, how to verify an organization through an independent official channel, and how to protect account and identity information. Product announcements and release notes also document changes to Kalkan's on-device call protection and caller identification features.</p>
+					<?php endif; ?>
+				</div>
 
 				<?php if ( have_posts() ) : ?>
 
