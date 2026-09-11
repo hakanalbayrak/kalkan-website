@@ -181,6 +181,23 @@ function kalkan_child_enqueue_styles() {
 }
 add_action('wp_enqueue_scripts', 'kalkan_child_enqueue_styles', 20);
 
+/**
+ * The public site uses a complete custom design system and no block-theme
+ * presets. WordPress' generated global stylesheet adds roughly 23 KB of
+ * unused inline CSS to every HTML response, so omit it on the front end.
+ */
+function kalkan_remove_unused_global_styles() {
+    if (is_admin()) {
+        return;
+    }
+
+    wp_dequeue_style('global-styles');
+    wp_deregister_style('global-styles');
+}
+add_action('wp_enqueue_scripts', 'kalkan_remove_unused_global_styles', PHP_INT_MAX);
+remove_action('wp_enqueue_scripts', 'wp_enqueue_global_styles');
+remove_action('wp_footer', 'wp_enqueue_global_styles', 1);
+
 /** Return the cache-busted URL for the shared self-contained page stylesheet. */
 function kalkan_ui_stylesheet_url() {
     $path    = get_stylesheet_directory() . '/assets/css/kalkan-ui.css';
@@ -2580,3 +2597,17 @@ function kalkan_purge_technical_seo_cache_v9() {
     update_option('kalkan_technical_seo_cache_purged_v9', true);
 }
 add_action('init', 'kalkan_purge_technical_seo_cache_v9', 1002);
+
+/** Purge once after removing the unused global stylesheet. */
+function kalkan_purge_technical_seo_cache_v10() {
+    if (get_option('kalkan_technical_seo_cache_purged_v10')) {
+        return;
+    }
+
+    if (defined('LSCWP_V')) {
+        do_action('litespeed_purge_all');
+    }
+
+    update_option('kalkan_technical_seo_cache_purged_v10', true);
+}
+add_action('init', 'kalkan_purge_technical_seo_cache_v10', 1003);
