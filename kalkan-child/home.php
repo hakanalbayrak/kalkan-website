@@ -63,8 +63,10 @@ $page_title = $archive_title . ' — Kalkan';
 				<div class="kk-page-content" style="max-width:52rem;margin:0 auto 2.5rem;padding:0;">
 					<?php if ('tr' === $lang) : ?>
 						<p>Kalkan blogunda istenmeyen aramalar, telefon dolandırıcılığı, sahte kurum aramaları ve iPhone arama güvenliği hakkında uygulanabilir rehberler bulabilirsiniz. İçerikler, bir aramaya yanıt vermeden önce hangi işaretlere bakmanız gerektiğini, şüpheli talepleri nasıl doğrulayacağınızı ve kişisel bilgilerinizi nasıl koruyacağınızı açıklar. Ürün duyuruları ve sürüm notları da Kalkan'ın koruma özelliklerindeki değişiklikleri takip etmenize yardımcı olur.</p>
+						<p>Bir arayanın ekranda görünen numarası veya kurum adı tek başına güven kanıtı değildir. Şüpheli bir görüşmede işlemi durdurun; kuruma yalnızca resmî web sitesi, mobil uygulama veya kartınızın üzerindeki bağımsız iletişim kanalından ulaşın. Kalkan'ın rehberleri bu doğrulama alışkanlığını günlük kullanımda daha kolay uygulamanız için hazırlanır.</p>
 					<?php else : ?>
 						<p>The Kalkan blog provides practical guidance on unwanted calls, telephone fraud, impersonation attempts and iPhone call safety. Articles explain what to check before answering or acting on a request, how to verify an organization through an independent official channel, and how to protect account and identity information. Product announcements and release notes also document changes to Kalkan's on-device call protection and caller identification features.</p>
+						<p>A displayed number or organization name is not proof that a caller is genuine. If a request feels suspicious, stop the conversation and contact the organization through an independent channel from its official website, app, or your physical card. Kalkan's guides turn that verification habit into clear steps you can use during everyday calls.</p>
 					<?php endif; ?>
 				</div>
 

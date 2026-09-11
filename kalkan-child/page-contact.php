@@ -117,9 +117,11 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['kk_contact_nonce'] 
 					<?php if ('tr' === $lang) : ?>
 						<p>Kurulum, koruma güncellemesi, Kalkan Premium, şüpheli numara bildirimi veya web sitesiyle ilgili sorularınız için bu formu kullanabilirsiniz. Sorununuzu daha hızlı inceleyebilmemiz için cihaz modelini, iOS sürümünü, Kalkan sürümünü ve gördüğünüz hata mesajını yazın. Lütfen parola, doğrulama kodu, banka bilgisi veya başka bir hassas kişisel bilgi göndermeyin.</p>
 						<p>Bir telefon numarasını bildirmek istiyorsanız, mümkün olduğunda Kalkan uygulamasındaki bildirim özelliğini kullanın. Bu yol numarayı doğru biçimde ve seçtiğiniz kategoriyle moderasyon kuyruğuna iletir.</p>
+						<p>Destek taleplerini yalnızca hizmeti incelemek ve yanıtlamak için kullanırız. Kalkan rehberinize, arama sesine veya kişisel arama geçmişinize erişmez. Yanıt süresi talebin kapsamına göre değişebilir; aynı konu için birden fazla form göndermek incelemeyi hızlandırmaz.</p>
 					<?php else : ?>
 						<p>Use this form for questions about setup, protection updates, Kalkan Premium, suspicious-number reporting, or the website. To help us investigate efficiently, include your device model, iOS version, Kalkan version, and the exact error message you saw. Never send passwords, verification codes, banking details, or other sensitive personal information.</p>
 						<p>If you want to report a telephone number, use the reporting feature inside Kalkan whenever possible. It sends the number in a consistent format with the category you select so the moderation queue can process it correctly.</p>
+						<p>Support submissions are used only to investigate and answer your request. Kalkan does not access your contacts, call audio, or personal call history. Response times may vary with the issue, and sending the same request more than once does not accelerate review.</p>
 					<?php endif; ?>
 				</div>
 

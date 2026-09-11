@@ -2490,6 +2490,17 @@ function kalkan_exclude_posts_pages_from_page_sitemap($args, $post_type) {
         $excluded_ids[] = (int) $english_blog->ID;
     }
 
+    // This transactional utility page has no search intent or editorial body.
+    $unsubscribe_pages = get_posts(array(
+        'post_type'      => 'page',
+        'post_status'    => 'publish',
+        'name'           => 'unsubscribe',
+        'posts_per_page' => -1,
+        'fields'         => 'ids',
+        'lang'           => '',
+    ));
+    $excluded_ids = array_merge($excluded_ids, array_map('intval', $unsubscribe_pages));
+
     $excluded_ids = array_filter($excluded_ids);
     $existing_ids = isset($args['post__not_in']) ? (array) $args['post__not_in'] : array();
     $args['post__not_in'] = array_values(array_unique(array_merge($existing_ids, $excluded_ids)));
@@ -2555,3 +2566,17 @@ function kalkan_purge_technical_seo_cache_v8() {
     update_option('kalkan_technical_seo_cache_purged_v8', true);
 }
 add_action('init', 'kalkan_purge_technical_seo_cache_v8', 1001);
+
+/** Purge once after the final content-depth and sitemap adjustments. */
+function kalkan_purge_technical_seo_cache_v9() {
+    if (get_option('kalkan_technical_seo_cache_purged_v9')) {
+        return;
+    }
+
+    if (defined('LSCWP_V')) {
+        do_action('litespeed_purge_all');
+    }
+
+    update_option('kalkan_technical_seo_cache_purged_v9', true);
+}
+add_action('init', 'kalkan_purge_technical_seo_cache_v9', 1002);
