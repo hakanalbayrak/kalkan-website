@@ -831,7 +831,9 @@ function kalkan_turkish_blog_hreflang() {
     }
 
     $paged  = max(1, (int) get_query_var('paged'));
-    $tr_url = $paged > 1 ? get_pagenum_link($paged) : home_url('/duyurular/');
+    $tr_url = $paged > 1
+        ? home_url(user_trailingslashit('duyurular/page/' . $paged))
+        : home_url('/duyurular/');
 
     // Every archive page must reference its own canonical URL. The English
     // archive has no equivalent paginated URLs, so only pair the first pages.
