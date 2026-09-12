@@ -182,6 +182,38 @@ function kalkan_child_enqueue_styles() {
 add_action('wp_enqueue_scripts', 'kalkan_child_enqueue_styles', 20);
 
 /**
+ * Measure App Store CTA clicks before LiteSpeed's delayed JavaScript runs.
+ *
+ * Most theme JavaScript is deliberately delayed until the first interaction.
+ * A footer listener would therefore miss that first outbound click. This small
+ * delegated listener is excluded from optimization and queues the event through
+ * the Google tag stub that Site Kit installs in the document head.
+ */
+function kalkan_child_app_store_click_tracking() {
+    ?>
+    <script data-no-optimize="1">
+    (function () {
+        'use strict';
+        document.addEventListener('click', function (event) {
+            var link = event.target.closest('a[href*="apple.co/"], a[href*="apps.apple.com/"]');
+            if (!link || typeof window.gtag !== 'function') {
+                return;
+            }
+
+            window.gtag('event', 'app_store_click', {
+                link_url: link.href,
+                link_text: (link.getAttribute('aria-label') || link.textContent || 'App Store').trim(),
+                page_path: window.location.pathname,
+                transport_type: 'beacon'
+            });
+        }, true);
+    }());
+    </script>
+    <?php
+}
+add_action('wp_head', 'kalkan_child_app_store_click_tracking', 30);
+
+/**
  * The public site uses a complete custom design system and no block-theme
  * presets. WordPress' generated global stylesheet adds roughly 23 KB of
  * unused inline CSS to every HTML response, so omit it on the front end.

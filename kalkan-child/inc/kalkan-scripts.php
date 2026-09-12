@@ -80,21 +80,6 @@
 		});
 	});
 
-	/* ── App Store CTA measurement (works with an existing GA4 gtag setup) ── */
-	document.querySelectorAll('a[href*="apple.co/"], a[href*="apps.apple.com/"]').forEach(function (link) {
-		link.addEventListener('click', function () {
-			if (typeof window.gtag !== 'function') {
-				return;
-			}
-
-			window.gtag('event', 'app_store_click', {
-				link_url: this.href,
-				link_text: (this.getAttribute('aria-label') || this.textContent || 'App Store').trim(),
-				page_path: window.location.pathname
-			});
-		});
-	});
-
 	/* ── WebMCP: read-only product context for supporting browser agents ── */
 	if (document.modelContext && typeof document.modelContext.registerTool === 'function') {
 		var webMcpController = new AbortController();
