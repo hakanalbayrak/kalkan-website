@@ -57,3 +57,10 @@ This file records durable website/growth decisions.
 - Date or commit reference: 2026-09-07
 - Decision: Use the current localized App Store screen sequence (active protection, incoming caller ID, recent calls, Premium, and settings) inside the homepage phone mockups. Serve optimized WebP files at the real iPhone screen ratio and provide a reduced-motion fallback instead of maintaining separate promotional videos.
 - Rationale: Prevents the website from drifting behind the released app, removes screenshot-to-frame cropping, and keeps the homepage lightweight and accessible.
+
+## Decision 009
+
+- Short title: Relationship-intent content without keyword cannibalization
+- Date or commit reference: 2026-09-13
+- Decision: Publish standalone guides only for distinct high-intent questions such as blocking an ex-partner or former employer. Expand existing child, family, and unknown-caller guides when a proposed topic overlaps their search intent. Keep “suspicious” language neutral and distinguish known spam, user reports, and institutional matches.
+- Rationale: Captures natural Turkish search demand without creating thin duplicate pages or implying that Kalkan identifies private relationships, guarantees caller identity, or offers manual person lookup.
