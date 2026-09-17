@@ -64,3 +64,10 @@ This file records durable website/growth decisions.
 - Date or commit reference: 2026-09-13
 - Decision: Publish standalone guides only for distinct high-intent questions such as blocking an ex-partner or former employer. Expand existing child, family, and unknown-caller guides when a proposed topic overlaps their search intent. Keep “suspicious” language neutral and distinguish known spam, user reports, and institutional matches.
 - Rationale: Captures natural Turkish search demand without creating thin duplicate pages or implying that Kalkan identifies private relationships, guarantees caller identity, or offers manual person lookup.
+
+## Decision 010
+
+- Short title: Keep iOS version history aligned with public App Store releases
+- Date or commit reference: 2026-09-17
+- Decision: Seed the verified 1.0.7 and 1.0.8 release notes, then check Apple's public Turkish storefront lookup daily at 16:59 Türkiye time. Add a new version to the bilingual version-history pages only when both Turkish and English public lookup results match the Kalkan app ID, bundle ID, version, and release date. Do not show App Review approvals or Pending Developer Release versions as released. Persist only newly observed versions in a WordPress option; the daily check does not write when unchanged.
+- Rationale: Prevents the website from claiming a release before users can download it, and removes repetitive manual edits without App Store Connect credentials or a new plugin. WordPress Cron is traffic-driven, so an otherwise idle site may run the check after 16:59 rather than exactly then.

@@ -9,6 +9,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+require_once __DIR__ . '/inc/kalkan-release-history.php';
+
 // Serve SEOPress sitemap index at /sitemap.xml (no redirect).
 // Rewrite REQUEST_URI early so WordPress & SEOPress see /sitemaps.xml internally,
 // but the public URL remains /sitemap.xml.
@@ -2051,12 +2053,13 @@ function kalkan_product_reference_schema() {
             'author' => array('@type' => 'Organization', 'name' => 'Kalkan', 'url' => home_url('/')),
         );
     } else {
+        $versions = array_merge(array_keys(kalkan_ios_release_history_entries()), array('1.0.6', '1.0.5', '1.0.4', '1.0.3', '1.0.2', '1.0.1'));
         $schema = array(
             '@context' => 'https://schema.org',
             '@type' => 'ItemList',
             'name' => 'en' === $lang ? 'Kalkan Version History' : 'Kalkan Sürüm Geçmişi',
             'itemListOrder' => 'https://schema.org/ItemListOrderDescending',
-            'numberOfItems' => 6,
+            'numberOfItems' => count($versions),
             'itemListElement' => array_map(static function ($version, $position) {
                 $anchor = 'version-' . str_replace('.', '-', $version);
                 return array(
@@ -2065,7 +2068,7 @@ function kalkan_product_reference_schema() {
                     'name' => 'Kalkan ' . $version,
                     'url' => get_permalink() . '#' . $anchor,
                 );
-            }, array('1.0.6', '1.0.5', '1.0.4', '1.0.3', '1.0.2', '1.0.1'), range(1, 6)),
+            }, $versions, range(1, count($versions))),
         );
     }
 

@@ -40,8 +40,22 @@ $is_front_page = false;
 			<p class="kk-lead"><?php echo esc_html( $__( 'Her iOS sürümünde eklenen özellikler ve yapılan önemli iyileştirmeler.', 'Features and important improvements included in each iOS release.' ) ); ?></p>
 		</div></div>
 		<div class="kk-page-content"><div class="kk-shell" style="max-width:56rem;">
-			<p class="kk-release-note"><?php echo esc_html( $__( 'Tarihler App Store kayıtlarına göre verilmiştir. İncelemedeki sürümler, Apple onaylayana kadar kullanıcılara açık değildir.', 'Dates are based on App Store records. Versions under review are not available to users until Apple approves them.' ) ); ?></p>
+			<p class="kk-release-note"><?php echo esc_html( $__( 'Tarihler App Store kayıtlarına göre verilmiştir. İncelemedeki veya geliştirici yayınını bekleyen sürümler, mağazada görünmeden burada listelenmez.', 'Dates are based on App Store records. Versions under review or awaiting developer release appear here only after they are visible on the store.' ) ); ?></p>
 			<div class="kk-release-list">
+				<?php foreach ( kalkan_ios_release_history_entries() as $release ) :
+					$version = $release['version'];
+					$notes = 'en' === $lang ? ( $release['notes_en'] ?? $release['notes_tr'] ) : $release['notes_tr'];
+					$lines = array_filter( array_map( 'trim', preg_split( '/\R/u', $notes ) ) );
+				?>
+				<article id="version-<?php echo esc_attr( str_replace( '.', '-', $version ) ); ?>" class="kk-release kk-glass">
+					<div class="kk-release__top"><div><h2 class="kk-release__version"><?php echo esc_html( $version ); ?></h2><span class="kk-release__status"><?php echo esc_html( $__( 'Yayında', 'Released' ) ); ?></span></div><time class="kk-release__date" datetime="<?php echo esc_attr( $release['date'] ); ?>"><?php echo esc_html( kalkan_ios_release_history_date( $release['date'], $lang ) ); ?></time></div>
+					<ul>
+						<?php foreach ( $lines as $line ) : ?>
+						<li><?php echo esc_html( preg_replace( '/^[•\-–]\s*/u', '', $line ) ); ?></li>
+						<?php endforeach; ?>
+					</ul>
+				</article>
+				<?php endforeach; ?>
 				<article id="version-1-0-6" class="kk-release kk-glass">
 					<div class="kk-release__top"><div><h2 class="kk-release__version">1.0.6 (110)</h2><span class="kk-release__status"><?php echo esc_html( $__( 'Yayında', 'Released' ) ); ?></span></div><time class="kk-release__date" datetime="2026-08-19"><?php echo esc_html( $__( '19 Ağustos 2026', '19 August 2026' ) ); ?></time></div>
 					<p><?php echo esc_html( $__( 'App Store sunumu ve koruma açıklamaları daha anlaşılır hale getirildi.', 'The App Store presentation and protection descriptions were made clearer.' ) ); ?></p>
