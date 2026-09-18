@@ -53,10 +53,16 @@ $page_title    = $display_title . ' — Kalkan';
   text-align: center;
 }
 .kk-ad-slot__label {
-  display: block;
+  display: none;
   margin-bottom: 0.5rem;
   color: rgba(245, 243, 255, 0.55);
   font-size: 0.75rem;
+}
+.kk-ad-slot:has(ins.adsbygoogle[data-ad-status="filled"]) .kk-ad-slot__label {
+  display: block;
+}
+.kk-ad-slot:has(ins.adsbygoogle[data-ad-status="unfilled"]) {
+  display: none;
 }
 .kk-ad-slot--article {
   margin: 3rem auto 0;
@@ -64,6 +70,9 @@ $page_title    = $display_title . ' — Kalkan';
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 .kk-ad-rail { display: none; }
+@media (max-width: 360px) {
+  .kk-post { padding-inline: 0.625rem; }
+}
 @media (min-width: 1200px) {
   .kk-post-layout {
     display: grid;

@@ -54,7 +54,7 @@ $page_title    = 'en' === $lang ? 'Privacy Policy — Kalkan' : 'Gizlilik Politi
 
 				<?php if ( 'tr' === $lang ) : ?>
 
-					<p class="kk-effective">Yürürlük Tarihi: 01.03.2026</p>
+					<p class="kk-effective">Son güncelleme: 18.09.2026</p>
 
 					<h2>Genel</h2>
 					<p>Kalkan, kullanıcı gizliliğine önem verir. Bu politika, uygulamayı ve web sitesini kullanırken toplanan ve işlenen verileri açıklamaktadır.</p>
@@ -76,7 +76,11 @@ $page_title    = 'en' === $lang ? 'Privacy Policy — Kalkan' : 'Gizlilik Politi
 					<p>Kullanıcılardan gelen raporlar değerlendirilip koruma verimliliğini arttırmak amacıyla şüpheli numaralar veritabanımızda işlenerek koruma uygulaması güncellenmektedir.</p>
 
 					<h2>Veri paylaşımı</h2>
-					<p>Kişisel veri toplanmamaktadır. İletilen raporlar içerisindeki numaralar moderasyon ekibi tarafından gerekli kontroller yapıldıktan sonra veritabanımızda ilgili kategori içerisinde listelenmektedir.</p>
+					<p>Telefon rehberiniz ve kişisel arama geçmişiniz toplanmaz. İlettiğiniz raporlardaki numaralar moderasyon ekibi tarafından gerekli kontroller yapıldıktan sonra ilgili koruma kategorisinde işlenebilir.</p>
+
+					<h2>Web sitesi reklamları ve çerezler</h2>
+					<p>Web sitesindeki makalelerde Google AdSense reklamları gösterilebilir. Google ve diğer reklam sağlayıcıları, bu sitedeki veya başka sitelerdeki önceki ziyaretlerinize dayalı reklam sunmak ve reklamların performansını ölçmek için çerezler veya benzer teknolojiler kullanabilir. Reklam istekleri sırasında tarayıcı ve cihaz bilgileri Google tarafından işlenebilir. Bu, Kalkan uygulamasının telefon rehberinizi veya kişisel arama geçmişinizi sunucularımıza yüklediği anlamına gelmez.</p>
+					<p>Kişiselleştirilmiş reklam tercihlerinizi <a href="https://myadcenter.google.com/" rel="noopener noreferrer">Google Reklam Merkezim</a> üzerinden yönetebilirsiniz. Google'ın veri kullanımına ilişkin açıklaması için <a href="https://policies.google.com/technologies/partner-sites" rel="noopener noreferrer">Google iş ortağı siteleri bilgilendirmesine</a> bakın.</p>
 
 					<h2>Veri saklama</h2>
 					<p>Bildirimler, kötüye kullanımın önlenmesi ve hizmet kalitesi için gerektiği sürece saklanabilir.</p>
@@ -92,7 +96,7 @@ $page_title    = 'en' === $lang ? 'Privacy Policy — Kalkan' : 'Gizlilik Politi
 
 				<?php else : ?>
 
-					<p class="kk-effective">Effective Date: March 01, 2026</p>
+					<p class="kk-effective">Last updated: September 18, 2026</p>
 
 					<h2>Overview</h2>
 					<p>Kalkan respects your privacy. This policy explains what data is collected and processed when you use the app and website.</p>
@@ -115,6 +119,10 @@ $page_title    = 'en' === $lang ? 'Privacy Policy — Kalkan' : 'Gizlilik Politi
 
 					<h2>Data sharing</h2>
 					<p>We do not sell personal data. We may share aggregated, non-identifying stats for service improvement.</p>
+
+					<h2>Website advertising and cookies</h2>
+					<p>Articles on this website may display Google AdSense ads. Google and other advertising providers may use cookies or similar technologies to serve ads based on prior visits to this or other websites and to measure ad performance. Google may process browser and device information when an ad is requested. This does not mean the Kalkan app uploads your contacts or personal call history to our servers.</p>
+					<p>You can manage personalized ad preferences in <a href="https://myadcenter.google.com/" rel="noopener noreferrer">Google My Ad Center</a>. Read <a href="https://policies.google.com/technologies/partner-sites" rel="noopener noreferrer">Google's partner-site disclosure</a> to learn more about its data use.</p>
 
 					<h2>Data retention</h2>
 					<p>Reports may be retained as needed for abuse prevention and service quality.</p>
