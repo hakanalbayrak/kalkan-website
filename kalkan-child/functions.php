@@ -26,14 +26,17 @@ if (isset($_SERVER['REQUEST_URI']) && preg_match('#^/sitemap\.xml(\?.*)?$#', $_S
     }, 1);
 }
 
-// One-time: write app-ads.txt to public_html root and minefinder subdomain.
+// Keep Google's seller declarations at the site root. The same publisher ID
+// serves the iOS app (app-ads.txt) and, after review, the website (ads.txt).
 add_action('init', function () {
     $content = "google.com, pub-2459893282569161, DIRECT, f08c47fec0942fa0\n";
 
     // Main domain
-    $main = ABSPATH . 'app-ads.txt';
-    if ( ! file_exists($main) ) {
-        file_put_contents($main, $content);
+    foreach (['app-ads.txt', 'ads.txt'] as $name) {
+        $path = ABSPATH . $name;
+        if (!file_exists($path)) {
+            file_put_contents($path, $content, LOCK_EX);
+        }
     }
 
     // Minefinder subdomain — try common cPanel subdomain paths
@@ -50,6 +53,15 @@ add_action('init', function () {
         }
     }
 });
+
+/** AdSense ownership code; manual units are intentionally limited to articles. */
+function kalkan_adsense_site_code() {
+    if (is_admin()) {
+        return;
+    }
+    echo '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2459893282569161" crossorigin="anonymous"></script>' . "\n";
+}
+add_action('wp_head', 'kalkan_adsense_site_code', 2);
 
 /* ── Search discovery: IndexNow ─────────────────────────────────────────── */
 

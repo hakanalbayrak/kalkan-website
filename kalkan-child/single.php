@@ -42,9 +42,41 @@ $page_title    = $display_title . ' — Kalkan';
 <style>
 /* ── Single post styles ───────────────────────────────────────────────────── */
 .kk-post {
+  min-width: 0;
+  padding: 2rem 1.5rem 5rem;
+}
+.kk-post-layout {
   max-width: 780px;
   margin: 0 auto;
-  padding: 2rem 1.5rem 5rem;
+}
+.kk-ad-slot {
+  text-align: center;
+}
+.kk-ad-slot__label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: rgba(245, 243, 255, 0.55);
+  font-size: 0.75rem;
+}
+.kk-ad-slot--article {
+  margin: 3rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.kk-ad-rail { display: none; }
+@media (min-width: 1200px) {
+  .kk-post-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 780px) 300px;
+    align-items: stretch;
+    gap: 2rem;
+    max-width: 1112px;
+  }
+  .kk-ad-rail { display: block; padding-top: 2rem; }
+  .kk-ad-rail__inner {
+    position: sticky;
+    top: calc(var(--kk-header-h, 80px) + 1rem);
+  }
 }
 .kk-post__meta {
   color: rgba(245, 243, 255, 0.5);
@@ -133,6 +165,7 @@ $page_title    = $display_title . ' — Kalkan';
 
 		<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 
+			<div class="kk-post-layout">
 			<article class="kk-post">
 				<div class="kk-post__meta">
 					<time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>">
@@ -162,6 +195,11 @@ $page_title    = $display_title . ' — Kalkan';
 					)); ?></p>
 				</aside>
 
+				<div class="kk-ad-slot kk-ad-slot--article" aria-label="<?php echo esc_attr( $__( 'Reklam', 'Advertisement' ) ); ?>">
+					<span class="kk-ad-slot__label"><?php echo esc_html( $__( 'Reklam', 'Advertisement' ) ); ?></span>
+					<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-2459893282569161" data-ad-slot="7666444396"></ins>
+				</div>
+
 				<div class="kk-post__nav">
 					<div class="kk-post__adjacent">
 						<?php previous_post_link('%link', '&larr; %title'); ?>
@@ -176,6 +214,13 @@ $page_title    = $display_title . ' — Kalkan';
 					</a>
 				</div>
 			</article>
+			<aside class="kk-ad-rail" aria-label="<?php echo esc_attr( $__( 'Reklam', 'Advertisement' ) ); ?>">
+				<div class="kk-ad-rail__inner kk-ad-slot">
+					<span class="kk-ad-slot__label"><?php echo esc_html( $__( 'Reklam', 'Advertisement' ) ); ?></span>
+					<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-2459893282569161" data-ad-slot="2573899813"></ins>
+				</div>
+			</aside>
+			</div>
 
 		<?php endwhile; endif; ?>
 
@@ -186,6 +231,22 @@ $page_title    = $display_title . ' — Kalkan';
 </div>
 
 <?php include get_stylesheet_directory() . '/inc/kalkan-scripts.php'; ?>
+<script>
+(function () {
+  window.adsbygoogle = window.adsbygoogle || [];
+  window.adsbygoogle.push({});
+  var rail = document.querySelector('.kk-ad-rail');
+  var loaded = false;
+  function loadRail() {
+    if (!loaded && rail && window.matchMedia('(min-width: 1200px)').matches) {
+      loaded = true;
+      window.adsbygoogle.push({});
+    }
+  }
+  loadRail();
+  window.addEventListener('resize', loadRail, { passive: true });
+})();
+</script>
 <?php wp_footer(); ?>
 </body>
 </html>
