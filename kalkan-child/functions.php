@@ -59,7 +59,7 @@ function kalkan_adsense_site_code() {
     if (is_admin()) {
         return;
     }
-    echo '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2459893282569161" crossorigin="anonymous"></script>' . "\n";
+    echo '<script async data-no-defer="1" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2459893282569161" crossorigin="anonymous"></script>' . "\n";
 }
 add_action('wp_head', 'kalkan_adsense_site_code', 2);
 

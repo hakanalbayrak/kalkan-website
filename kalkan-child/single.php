@@ -231,7 +231,7 @@ $page_title    = $display_title . ' — Kalkan';
 </div>
 
 <?php include get_stylesheet_directory() . '/inc/kalkan-scripts.php'; ?>
-<script>
+<script data-no-defer="1">
 (function () {
   window.adsbygoogle = window.adsbygoogle || [];
   window.adsbygoogle.push({});
