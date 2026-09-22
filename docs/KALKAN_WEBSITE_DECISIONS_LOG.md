@@ -71,3 +71,10 @@ This file records durable website/growth decisions.
 - Date or commit reference: 2026-09-17
 - Decision: Seed the verified 1.0.7 and 1.0.8 release notes, then check Apple's public Turkish storefront lookup daily at 16:59 Türkiye time. Add a new version to the bilingual version-history pages only when both Turkish and English public lookup results match the Kalkan app ID, bundle ID, version, and release date. Do not show App Review approvals or Pending Developer Release versions as released. Persist only newly observed versions in a WordPress option; the daily check does not write when unchanged.
 - Rationale: Prevents the website from claiming a release before users can download it, and removes repetitive manual edits without App Store Connect credentials or a new plugin. WordPress Cron is traffic-driven, so an otherwise idle site may run the check after 16:59 rather than exactly then.
+
+## Decision 011
+
+- Short title: Competitor-intent content without keyword stuffing
+- Date or commit reference: 2026-09-22
+- Decision: Address searches for Getcontact and similar products through factual, date-stamped comparison guides based on each product's official public documentation. Do not add competitor names to global homepage copy or obsolete meta-keywords fields, imply feature parity, or make unsupported superiority claims.
+- Rationale: Satisfies genuine comparison intent and creates a useful organic landing page while protecting accuracy, brand trust, and maintainable SEO.
