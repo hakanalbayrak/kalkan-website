@@ -1,6 +1,6 @@
 # Kalkan — Full Product Reference
 
-Last verified: 2026-08-24
+Last verified: 2026-09-27
 
 ## Identity
 - Product: Kalkan
@@ -9,7 +9,7 @@ Last verified: 2026-08-24
 - App Store ID: 6759873828
 - Bundle ID: com.kalkan.website.kalkan
 - App Store URL: https://apps.apple.com/tr/app/kalkan-caller-id-block/id6759873828
-- Public version: 1.0.6 (110), released 2026-08-19 in Türkiye time
+- Public version: 1.0.9, released 17 September 2026
 - Languages: Turkish and English
 - Primary category: Utilities; secondary category: Productivity
 - Website: https://kalkanapp.com/
@@ -116,6 +116,23 @@ The Call Directory payload is a deterministic full source of truth rather than a
 - Kalkan does not automatically update its App Store binary; update reminders concern protection data.
 
 ## Version history
+
+### 1.0.9 — released 17 September 2026
+- The setup Settings button now opens the iPhone Call Blocking & Identification screen directly.
+- Improved guidance for enabling protection.
+
+### 1.0.8 — released 7 September 2026
+- Refreshed Home and Settings screens with clearer protection status.
+- Added safe, trackable links to articles in Announcements.
+- Added in-app update reminders when a newer version is available.
+- Improved performance, ad placement, and reliability.
+
+### 1.0.7 — released 4 September 2026
+- Made protection-data freshness clearer on the Home screen.
+- Limited protection-data updates to once per day to reduce data use.
+- Added a one-time reminder for protection data older than one month.
+- Added privacy-permitted ad placements to Home and Settings.
+- Improved general performance and reliability.
 
 ### 1.0.6 (110) — released 2026-08-19 in Türkiye time
 - Refreshed Turkish and English App Store visuals.

@@ -1780,11 +1780,53 @@ function kalkan_serve_llms_txt() {
     if ($path === 'llms.txt' || $path === 'llms-full.txt') {
         $file = get_stylesheet_directory() . '/' . $path;
         if (is_readable($file)) {
+            $content = file_get_contents($file);
+            if (false === $content) {
+                status_header(500);
+                exit;
+            }
+
+            // Keep the machine-readable product references aligned with the
+            // same public App Store release data used by the version-history
+            // pages. Build numbers are intentionally omitted because Apple's
+            // public storefront lookup does not expose them.
+            $releases = function_exists('kalkan_ios_release_history_entries')
+                ? kalkan_ios_release_history_entries()
+                : array();
+            $latest = reset($releases);
+            if (is_array($latest) && !empty($latest['version']) && !empty($latest['date'])) {
+                $release_date = function_exists('kalkan_ios_release_history_date')
+                    ? kalkan_ios_release_history_date($latest['date'], 'en')
+                    : $latest['date'];
+                $replacement = '- Public App Store version: ' . $latest['version'] . ', released ' . $release_date;
+                $content = preg_replace('/^- Public App Store version:.*$/m', $replacement, $content, 1);
+                $content = preg_replace('/^- Public version:.*$/m', str_replace('Public App Store version', 'Public version', $replacement), $content, 1);
+
+                if ('llms-full.txt' === $path && false !== strpos($content, "## Version history\n") && false !== strpos($content, "### 1.0.6")) {
+                    $generated = "## Version history\n\n";
+                    foreach ($releases as $release) {
+                        if (version_compare($release['version'], '1.0.6', '<=')) {
+                            continue;
+                        }
+                        $date = function_exists('kalkan_ios_release_history_date')
+                            ? kalkan_ios_release_history_date($release['date'], 'en')
+                            : $release['date'];
+                        $notes = !empty($release['notes_en']) ? $release['notes_en'] : $release['notes_tr'];
+                        $generated .= '### ' . $release['version'] . ' — released ' . $date . "\n";
+                        foreach (array_filter(array_map('trim', preg_split('/\R/u', $notes))) as $note) {
+                            $generated .= '- ' . preg_replace('/^[•\-–]\s*/u', '', $note) . "\n";
+                        }
+                        $generated .= "\n";
+                    }
+                    $content = preg_replace('/## Version history\n\n.*?(?=### 1\.0\.6)/s', $generated, $content, 1);
+                }
+            }
+
             status_header(200);
             nocache_headers();
             header('Content-Type: text/plain; charset=utf-8');
             header('Cache-Control: public, max-age=86400');
-            readfile($file);
+            echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- plain text response assembled from sanitized release data.
             exit;
         }
 
@@ -2658,3 +2700,184 @@ function kalkan_purge_technical_seo_cache_v10() {
     update_option('kalkan_technical_seo_cache_purged_v10', true);
 }
 add_action('init', 'kalkan_purge_technical_seo_cache_v10', 1003);
+
+/**
+ * Publish the approved, neutral Getcontact comparison once. The English
+ * adaptation lives in post meta because this site renders both languages from
+ * the same editorial record.
+ */
+function kalkan_publish_getcontact_comparison_v1() {
+    if (get_option('kalkan_getcontact_comparison_published_v1')) {
+        return;
+    }
+
+    $slug = 'getcontact-ve-kalkan-arasindaki-farklar';
+    $category = get_term_by('slug', 'numara-sorgulama', 'category');
+    if (!$category instanceof WP_Term) {
+        $created = wp_insert_term('Numara Sorgulama', 'category', array(
+            'slug' => 'numara-sorgulama',
+            'description' => 'Bilinmeyen numara sorgulama ve arayan kimliği',
+        ));
+        if (is_wp_error($created)) {
+            return;
+        }
+        $category = get_term((int) $created['term_id'], 'category');
+    }
+
+    $content_tr = <<<'HTML'
+<p><strong>Getcontact ve Kalkan</strong>, bilinmeyen veya istenmeyen aramalar konusunda daha fazla bağlam sağlamayı amaçlar; ancak kapsamları ve çalışma yöntemleri aynı değildir. Bu karşılaştırma, iki ürünün herkese açık resmî açıklamalarına dayanır. Özellikler ülkeye, platforma ve sürüme göre değişebilir.</p>
+
+<h2>Getcontact ve Kalkan aynı tür uygulamalar mı?</h2>
+<p>Getcontact; numara sorgulama, topluluk etiketleri, arayan kimliği, spam koruması ve bazı ülkelerde ek iletişim hizmetleri sunan geniş bir platformdur. Kalkan ise Türkiye’deki iPhone kullanıcıları için bilinen istenmeyen numaraları engellemeye ve incelenmiş kurumsal numaraları arayan kimliği etiketiyle tanıtmaya odaklanır.</p>
+<p>Bu nedenle tek bir “hangisi daha iyi?” cevabı yoktur. Seçim; geniş bir topluluk ve numara sorgulama ekosistemi mi, yoksa iPhone’un yerel Call Directory altyapısına dayanan daha odaklı bir koruma mı istediğinize bağlıdır.</p>
+
+<h2>Kısa karşılaştırma</h2>
+<table><thead><tr><th>Başlık</th><th>Kalkan</th><th>Getcontact</th></tr></thead><tbody>
+<tr><td>Ana odak</td><td>Bilinen spam numaralarını engelleme ve kurumsal arayan kimliği</td><td>Numara sorgulama, topluluk etiketleri, arayan kimliği ve geniş iletişim hizmetleri</td></tr>
+<tr><td>Gelen çağrıdaki yöntem</td><td>Apple Call Directory ile cihazdaki liste üzerinden eşleştirme</td><td>Özelliğe, platforma ve ülkeye göre arayan kimliği ve spam uyarıları</td></tr>
+<tr><td>Veri yaklaşımı</td><td>İncelenen engelleme ve kurumsal kimlik verilerinin iPhone’a yüklenmesi</td><td>Topluluk geri bildirimleri ve çevrimiçi hizmet ekosistemi</td></tr>
+<tr><td>Rehber yaklaşımı</td><td>Temel koruma için rehber veya kişisel arama geçmişi yüklemez</td><td>Bazı hizmetlerin kullanımı için gizlilik politikasında açıklanan izinler ve eşitleme gerekebilir</td></tr>
+<tr><td>Kapsam</td><td>Arama koruması, kurumsal kimlik ve şüpheli numara bildirimi</td><td>Arama korumasına ek olarak numara sorgulama, etiketler ve ülkeye göre diğer hizmetler</td></tr>
+</tbody></table>
+
+<h2>Kalkan nasıl çalışır?</h2>
+<p>Kalkan, koruma ve arayan kimliği verilerini iPhone’a indirir. Kullanıcı Kalkan uzantılarını iOS ayarlarından etkinleştirdiğinde, gelen numarayla eşleşme kararını Apple’ın Call Directory sistemi verir.</p>
+<ul>
+<li>Bilinen istenmeyen numaralar cihazdaki engelleme listesiyle durdurulabilir.</li>
+<li>Listede bulunan kurumsal numaralar açıklayıcı bir Kalkan etiketiyle gösterilebilir.</li>
+<li>Temel eşleştirme için çağrı sesi dinlenmez ve gerçek zamanlı konuşma analizi yapılmaz.</li>
+<li>Yeni koruma verilerini almak için uygulamadaki veritabanı güncellemesi gerekir.</li>
+</ul>
+<p>Hiçbir arama engelleme uygulaması tüm yeni, taklit edilmiş veya henüz raporlanmamış numaraları yakalayamaz. Bir arayan kimliği etiketi de arayan kişiyi kriptografik olarak doğrulamaz. Hassas bilgi isteyen bir aramada görüşmeyi sonlandırıp kurumu resmî numarasından kendiniz arayın.</p>
+
+<h2>Getcontact nasıl konumlanıyor?</h2>
+<p>Getcontact’ın resmî sayfaları ürünü istenmeyen çağrı engelleme, arayan kişi tanımlama ve numara sorgulama hizmeti olarak tanımlar. Topluluk raporları ve etiketleri ürünün önemli parçalarıdır. Hizmet koşullarında sohbet, VoIP, ikinci numara, kanallar ve ülkeye göre sunulan başka özellikler de açıklanır.</p>
+<p>Bu geniş kapsam, bir numarayı ayrıca sorgulamak ve topluluk etiketlerini görmek isteyen kullanıcılar için anlamlı olabilir. Ancak kullanılabilir özellikler; ülke, işletim sistemi, abonelik planı ve verilen izinlere göre değişebilir. Güncel mağaza açıklamasını, ülke özelliklerini ve gizlilik politikasını kontrol etmek gerekir.</p>
+
+<h2>Temel fark: topluluk sorgusu ve cihazdaki koruma listesi</h2>
+<p>Getcontact’ın ayırt edici yönlerinden biri, geniş topluluk sinyalleriyle numara sorgulama ve etiket göstermesidir. Kalkan’ın yaklaşımı ise incelenmiş koruma verilerini iPhone’un sistem uzantılarına yükleyerek bilinen numaraları doğrudan cihazda eşleştirmektir.</p>
+<ul>
+<li>“Bu numara hakkında topluluk ne demiş?” sorusu önemliyse, geniş bir numara sorgulama ekosistemi daha uygun olabilir.</li>
+<li>“Bilinen istenmeyen numaralar iPhone’da sistem düzeyinde engellensin ve kurumsal numaralar etiketlensin” beklentiniz varsa, Kalkan’ın odaklı modeli daha uygun olabilir.</li>
+</ul>
+
+<h2>Gizlilik açısından nelere bakılmalı?</h2>
+<ol>
+<li>Rehber erişimi isteniyor mu ve neden?</li>
+<li>Arama veya mesaj günlükleri işleniyor mu?</li>
+<li>Numara sorguları bir hesapla ilişkilendiriliyor mu?</li>
+<li>Koruma kararı cihazda mı, sunucuda mı veriliyor?</li>
+<li>Hesap ve verileri silmek için açık bir yöntem var mı?</li>
+<li>Ücretsiz ve ücretli katmanlarda reklam veya veri kullanımı farkı var mı?</li>
+</ol>
+<p>Kalkan’ın temel Call Directory eşleştirmesi cihazda gerçekleşir ve Kalkan, rehberinizi veya kişisel arama geçmişinizi kendi sunucularına yüklemez. Getcontact’ın özelliğe bağlı veri işleme ve izin kapsamı, kendi güncel gizlilik belgelerinde açıklanır.</p>
+
+<h2>Hangi yaklaşım kimin için uygun?</h2>
+<h3>Kalkan’ı değerlendirebilirsiniz, eğer:</h3>
+<ul><li>Türkiye’de iPhone kullanıyorsanız,</li><li>sistem düzeyinde bilinen spam numarası engelleme istiyorsanız,</li><li>kurumsal numaraları arayan kimliği etiketiyle görmek istiyorsanız,</li><li>daha dar kapsamlı, arama korumasına odaklı bir ürün tercih ediyorsanız.</li></ul>
+<h3>Getcontact’ı değerlendirebilirsiniz, eğer:</h3>
+<ul><li>geniş topluluk etiketlerinden yararlanmak istiyorsanız,</li><li>bilinmeyen numaraları ayrıca sorgulamak sizin için önemliyse,</li><li>ülkenizde sunulan diğer iletişim hizmetlerine ihtiyaç duyuyorsanız.</li></ul>
+
+<h2>Sık sorulan sorular</h2>
+<h3>Kalkan bir Getcontact alternatifi mi?</h3>
+<p>Kısmen. İki ürün de arayan kimliği ve istenmeyen çağrı alanında çalışır; Getcontact daha geniş bir numara sorgulama ve iletişim ekosistemidir. Kalkan, iPhone Call Directory tabanlı arama korumasına odaklanır.</p>
+<h3>Kalkan bilinmeyen her numarayı tanır mı?</h3>
+<p>Hayır. Yalnızca mevcut tanımlama veya engelleme verisiyle eşleşen numaralar için işlem yapılabilir. Yeni, değiştirilmiş, taklit edilmiş veya veri setinde bulunmayan numaralar eşleşmeyebilir.</p>
+<h3>İki uygulama birlikte kullanılabilir mi?</h3>
+<p>iPhone birden fazla arama engelleme ve kimliklendirme uzantısına izin verebilir. Sonuçlar iOS sürümüne, uzantı sırasına ve uygulamaların yöntemine göre değişebileceği için etkin uzantıları tek tek test etmek en sağlıklı yaklaşımdır.</p>
+
+<p><strong>Sonuç:</strong> Getcontact topluluk temelli numara sorgulama ve geniş bir iletişim platformu sunar. Kalkan ise Türkiye’deki iPhone kullanıcıları için bilinen spam numaralarını engelleme, kurumsal arayan kimliği ve incelenmiş koruma verisini Apple’ın Call Directory altyapısıyla kullanma üzerine yoğunlaşır.</p>
+<p>Kalkan’ın çalışma şeklini ayrıntılı incelemek için <a href="/kalkan-nasil-calisir/">Kalkan nasıl çalışır?</a> sayfasına, şüpheli aramalar için <a href="/numara-sorgulama-rehberi/">Numara Sorgulama Rehberi</a> yazısına bakın.</p>
+
+<h2>Kaynaklar</h2>
+<ul>
+<li><a href="https://getcontact.com/tr/about" rel="nofollow noopener" target="_blank">Getcontact: Hakkımızda</a></li>
+<li><a href="https://getcontact.com/tr/country-features" rel="nofollow noopener" target="_blank">Getcontact: Ülke ve özellikler</a></li>
+<li><a href="https://getcontact.com/tr/privacy" rel="nofollow noopener" target="_blank">Getcontact: Gizlilik Politikası</a></li>
+<li><a href="https://getcontact.com/tr/terms" rel="nofollow noopener" target="_blank">Getcontact: Hizmet Koşulları</a></li>
+<li><a href="/dokumantasyon/">Kalkan ürün dokümantasyonu</a></li>
+</ul>
+HTML;
+
+    $content_en = <<<'HTML'
+<p><strong>Getcontact and Kalkan</strong> both help people understand or reduce unwanted calls, but they have different scopes and operating models. This neutral comparison uses the products’ public official descriptions; features can vary by country, platform, and version.</p>
+<h2>Are Getcontact and Kalkan the same kind of app?</h2>
+<p>Getcontact is a broad platform for number lookup, community tags, caller identification, spam protection, and additional communication services in supported markets. Kalkan has a narrower focus: helping iPhone users in Turkey block known unwanted numbers and identify reviewed institutional lines.</p>
+<h2>Quick comparison</h2>
+<table><thead><tr><th>Area</th><th>Kalkan</th><th>Getcontact</th></tr></thead><tbody>
+<tr><td>Primary focus</td><td>Known-number blocking and institutional caller identification</td><td>Number lookup, community tags, caller ID, and broader communication services</td></tr>
+<tr><td>Incoming-call method</td><td>On-device matching through Apple Call Directory</td><td>Caller ID and spam alerts depending on feature, platform, and country</td></tr>
+<tr><td>Data model</td><td>Reviewed blocking and identification data downloaded to the iPhone</td><td>Community signals and an online service ecosystem</td></tr>
+<tr><td>Scope</td><td>Call protection, institutional identity, and suspicious-number reporting</td><td>Call protection plus lookup, tags, and market-dependent services</td></tr>
+</tbody></table>
+<h2>How Kalkan works</h2>
+<p>Kalkan downloads protection and caller-identification data to the iPhone. After the user enables its extensions in iOS Settings, Apple Call Directory performs the match for incoming numbers. Known unwanted numbers can be blocked, while listed institutional lines can receive a descriptive label. Basic matching does not listen to call audio or perform live conversation analysis.</p>
+<p>No call-protection app can catch every new, spoofed, recycled, or not-yet-reported number. A displayed label is also not cryptographic proof of the caller’s identity. End calls that request sensitive information and independently call the organization’s official number.</p>
+<h2>How Getcontact is positioned</h2>
+<p>Getcontact’s official pages describe unwanted-call blocking, caller identification, and number lookup. Community reports and tags are central to that experience. Its terms also describe services such as chat, VoIP, second numbers, and channels where available. Availability can depend on country, operating system, subscription, and permissions.</p>
+<h2>The main distinction</h2>
+<p>Getcontact emphasizes broad community signals for lookup and tagging. Kalkan emphasizes reviewed protection data loaded into iPhone system extensions for on-device matching. Users who want to see what a community has said about a number may prefer a broad lookup ecosystem. Users who want focused, system-level blocking of listed numbers and institutional labels on iPhone may prefer Kalkan’s model.</p>
+<h2>Privacy questions worth asking</h2>
+<ol><li>Does the app request contacts access, and why?</li><li>Are call or message logs processed?</li><li>Are lookups linked to an account?</li><li>Is the protection decision made on-device or on a server?</li><li>Is there a clear account and data deletion process?</li><li>How do free and paid tiers differ in ads or data use?</li></ol>
+<p>Kalkan’s basic Call Directory match happens on the device, and Kalkan does not upload the user’s address book or personal call history to its servers. Getcontact documents its feature-dependent permissions and processing in its current privacy materials.</p>
+<h2>Which approach may suit you?</h2>
+<p>Consider Kalkan if you use an iPhone in Turkey, want system-level blocking for known spam numbers, want institutional caller labels, and prefer a focused protection product. Consider Getcontact if broad community tags, manual number lookup, or its wider set of supported communication services are important to you.</p>
+<h2>Frequently asked questions</h2>
+<h3>Is Kalkan a Getcontact alternative?</h3><p>Partly. Both operate in caller identification and unwanted-call protection, but Getcontact is a broader lookup and communication ecosystem. Kalkan focuses on iPhone Call Directory protection.</p>
+<h3>Can Kalkan identify every unknown number?</h3><p>No. It can act only when the incoming number matches current identification or blocking data.</p>
+<h3>Can both apps be enabled?</h3><p>iPhone can allow multiple call identification extensions. Results can vary with iOS, extension order, and implementation, so test enabled extensions individually if labels or blocking behave unexpectedly.</p>
+<p>Learn more in <a href="/en/how-does-kalkan-work/">How Kalkan works</a> and the <a href="/en/documentation/">Kalkan documentation</a>.</p>
+<h2>Sources</h2>
+<ul><li><a href="https://getcontact.com/tr/about" rel="nofollow noopener" target="_blank">Getcontact About</a></li><li><a href="https://getcontact.com/tr/country-features" rel="nofollow noopener" target="_blank">Getcontact country features</a></li><li><a href="https://getcontact.com/tr/privacy" rel="nofollow noopener" target="_blank">Getcontact Privacy Policy</a></li><li><a href="https://getcontact.com/tr/terms" rel="nofollow noopener" target="_blank">Getcontact Terms of Service</a></li></ul>
+HTML;
+
+    $existing = get_page_by_path($slug, OBJECT, 'post');
+    $post_data = array(
+        'post_title'    => 'Getcontact ve Kalkan Arasındaki Farklar',
+        'post_name'     => $slug,
+        'post_content'  => $content_tr,
+        'post_excerpt'  => 'Getcontact geniş bir topluluk ve numara sorgulama ekosistemi sunarken Kalkan, Türkiye odaklı iPhone arama korumasını Apple Call Directory ile uygular.',
+        'post_status'   => 'publish',
+        'post_type'     => 'post',
+        'post_category' => array((int) $category->term_id),
+    );
+    if ($existing instanceof WP_Post) {
+        $post_data['ID'] = (int) $existing->ID;
+    }
+    $post_id = wp_insert_post($post_data, true);
+    if (is_wp_error($post_id)) {
+        return;
+    }
+
+    update_post_meta($post_id, '_kalkan_title_en', 'Getcontact vs Kalkan: Key Differences');
+    update_post_meta($post_id, '_kalkan_content_en', $content_en);
+    update_post_meta($post_id, '_seopress_titles_title', 'Getcontact ve Kalkan Arasındaki Farklar | Karşılaştırma');
+    update_post_meta($post_id, '_seopress_titles_desc', 'Getcontact ve Kalkan’ın arayan kimliği, spam arama engelleme, veri yaklaşımı ve iPhone kullanım farklarını tarafsız biçimde karşılaştırın.');
+    update_post_meta($post_id, '_seopress_analysis_target_kw', 'Getcontact alternatifi, Getcontact ve Kalkan farkı');
+    update_post_meta($post_id, '_seopress_social_fb_title', 'Getcontact ve Kalkan Arasındaki Farklar');
+    update_post_meta($post_id, '_seopress_social_fb_desc', 'Numara sorgulama, arayan kimliği, spam engelleme ve veri yaklaşımını tarafsız biçimde karşılaştırın.');
+    update_post_meta($post_id, '_seopress_social_fb_img', get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png');
+    update_post_meta($post_id, '_seopress_social_twitter_title', 'Getcontact ve Kalkan Arasındaki Farklar');
+    update_post_meta($post_id, '_seopress_social_twitter_desc', 'Numara sorgulama, arayan kimliği, spam engelleme ve veri yaklaşımını tarafsız biçimde karşılaştırın.');
+    update_post_meta($post_id, '_seopress_social_twitter_img', get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png');
+    set_post_thumbnail($post_id, 50);
+
+    if (function_exists('pll_set_post_language')) {
+        pll_set_post_language($post_id, 'tr');
+    }
+
+    update_option('kalkan_getcontact_comparison_published_v1', true);
+}
+add_action('init', 'kalkan_publish_getcontact_comparison_v1', 45);
+
+/** Purge once after publishing the comparison and refreshing llms files. */
+function kalkan_purge_getcontact_and_llms_cache_v1() {
+    if (get_option('kalkan_getcontact_and_llms_cache_purged_v1')) {
+        return;
+    }
+    if (defined('LSCWP_V')) {
+        do_action('litespeed_purge_all');
+    }
+    update_option('kalkan_getcontact_and_llms_cache_purged_v1', true);
+}
+add_action('init', 'kalkan_purge_getcontact_and_llms_cache_v1', 1004);
