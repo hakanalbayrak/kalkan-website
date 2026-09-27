@@ -364,6 +364,52 @@ HTML;
 }
 add_action('init', 'kalkan_optimize_turkey_search_content_v1', 47);
 
+/** Move legacy lookup-category assignments into the canonical search hub. */
+function kalkan_consolidate_lookup_category_v1() {
+    if (get_option('kalkan_lookup_category_consolidated_v1')) {
+        return;
+    }
+
+    $canonical_lookup_term = get_term_by('slug', 'numara-sorgulama', 'category');
+    $legacy_lookup_term = get_term_by('slug', 'numara-sorgulama-rehberi', 'category');
+    if (!$canonical_lookup_term instanceof WP_Term || !$legacy_lookup_term instanceof WP_Term) {
+        return;
+    }
+
+    $legacy_lookup_posts = get_posts(array(
+        'post_type'        => 'post',
+        'post_status'      => array('publish', 'draft'),
+        'posts_per_page'   => -1,
+        'category'         => (int) $legacy_lookup_term->term_id,
+        'suppress_filters' => false,
+    ));
+    foreach ($legacy_lookup_posts as $legacy_lookup_post) {
+        $category_ids = wp_get_post_categories($legacy_lookup_post->ID);
+        $category_ids = array_values(array_diff($category_ids, array((int) $legacy_lookup_term->term_id)));
+        $category_ids[] = (int) $canonical_lookup_term->term_id;
+        wp_set_post_categories($legacy_lookup_post->ID, array_values(array_unique($category_ids)));
+    }
+
+    update_option('kalkan_lookup_category_consolidated_v1', gmdate('c'));
+    if (defined('LSCWP_V')) {
+        do_action('litespeed_purge_all');
+    }
+}
+add_action('init', 'kalkan_consolidate_lookup_category_v1', 48);
+
+/** Consolidate the duplicate legacy lookup archive into the canonical hub. */
+function kalkan_redirect_legacy_lookup_category_v1() {
+    $request_path = isset($_SERVER['REQUEST_URI'])
+        ? (string) wp_parse_url(wp_unslash($_SERVER['REQUEST_URI']), PHP_URL_PATH)
+        : '';
+
+    if ('/numara-sorgulama-rehberi' === untrailingslashit($request_path)) {
+        wp_safe_redirect(home_url('/numara-sorgulama/'), 301);
+        exit;
+    }
+}
+add_action('template_redirect', 'kalkan_redirect_legacy_lookup_category_v1', 5);
+
 /** Search-focused category metadata. */
 function kalkan_search_category_profile() {
     if (!is_category()) {
