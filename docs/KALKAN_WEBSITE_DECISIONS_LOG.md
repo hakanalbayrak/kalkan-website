@@ -1,5 +1,13 @@
 # Kalkan Website Decisions Log
 
+## 2026-09-27 — Turkey search-intent content architecture
+
+- Broad `numara sorgulama` intent is assigned to the category hub; the detailed guide uses the unique `/numara-sorgulama-ucretsiz/` slug so it no longer collides with a category archive.
+- Core articles target distinct intents: free number lookup, `bu numara kime ait`, `spam arama ne demek / engelleme`, and `telefon dolandırıcılığı nasıl anlaşılır`.
+- Public copy must distinguish open-source signals from proof of identity, explain caller-ID spoofing and number reassignment, and avoid presenting Kalkan as a private-person reverse directory.
+- Fraud reporting copy follows official EGM guidance: preserve available evidence and contact law enforcement or the public prosecutor; use 112 for an immediate emergency. The obsolete `BTK 137` claim was removed.
+- Homepage and archive hubs provide descriptive internal links to the four core guides. Visible article FAQs have matching FAQPage structured data.
+
 This file records durable website/growth decisions.
 
 ## Decision 001

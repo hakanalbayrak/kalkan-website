@@ -206,6 +206,8 @@ $is_front_page = true;
 .kk-feature-card__icon svg { width: 52px; height: 52px; display: block; }
 .kk-feature-card h3 { margin-bottom: 0.5rem; }
 .kk-feature-card p { color: var(--kk-text-dim); line-height: 1.7; }
+.kk-guide-card { color: inherit; text-decoration: none; display: block; }
+.kk-guide-card:focus-visible { outline: 3px solid var(--kk-orange); outline-offset: 4px; }
 
 .kk-badge-free {
   display: inline-block; margin-top: 0.85rem;
@@ -488,7 +490,7 @@ $is_front_page = true;
 						<?php echo esc_html( $__( 'Spam Aramalara Karşı Kalkanınız', 'Your Shield Against Spam Calls' ) ); ?>
 					</h1>
 					<p class="kk-hero__subtitle kk-animate kk-animate-delay-2">
-						<?php echo esc_html( $__( 'Kalkan, iOS cihazınızda istenmeyen aramaları engeller ve bilinmeyen numaraları tanımlar.', 'Kalkan blocks unwanted calls and identifies unknown numbers on your iPhone.' ) ); ?>
+						<?php echo esc_html( $__( 'Kalkan, iPhone’da bilinen spam ve şüpheli aramaları engellemeye, bilinmeyen numaraları tanımaya yardımcı olur.', 'Kalkan helps block known spam and suspicious calls and identify unknown numbers on your iPhone.' ) ); ?>
 					</p>
 					<ul class="kk-hero__proof kk-animate kk-animate-delay-2">
 						<li><?php echo esc_html( $__( 'Genel Koruma ücretsiz', 'General Protection is free' ) ); ?></li>
@@ -674,6 +676,37 @@ $is_front_page = true;
 			</div>
 		</section>
 
+		<?php if ( 'tr' === $lang ) : ?>
+		<!-- ── SEARCH GUIDES ───────────────────────────────────────────────── -->
+		<section class="kk-guides kk-section" aria-labelledby="kk-guides-title">
+			<div class="kk-shell">
+				<div class="kk-section-header kk-animate">
+					<span class="kk-eyebrow">Arama Güvenliği</span>
+					<h2 id="kk-guides-title">Numara Sorgulama ve Şüpheli Arama Rehberleri</h2>
+					<p class="kk-lead">Bilinmeyen bir aramayı güvenli biçimde değerlendirin, spam çağrıları azaltın ve dolandırıcılık işaretlerini tanıyın.</p>
+				</div>
+				<div class="kk-feature-grid">
+					<a class="kk-feature-card kk-guide-card kk-glass kk-animate kk-animate-delay-1" href="<?php echo esc_url( home_url( '/numara-sorgulama-ucretsiz/' ) ); ?>">
+						<h3>Ücretsiz Numara Sorgulama</h3>
+						<p>Telefon numarasını açık kaynaklarda araştırın ve kurumsal eşleşmeyi resmî kanaldan doğrulayın.</p>
+					</a>
+					<a class="kk-feature-card kk-guide-card kk-glass kk-animate kk-animate-delay-2" href="<?php echo esc_url( home_url( '/bilinmeyen-numara-kimin/' ) ); ?>">
+						<h3>Bu Numara Kime Ait?</h3>
+						<p>Bilinmeyen numara sorgulama sonuçlarını, yorumları ve arayan kimliği etiketlerini doğru yorumlayın.</p>
+					</a>
+					<a class="kk-feature-card kk-guide-card kk-glass kk-animate kk-animate-delay-3" href="<?php echo esc_url( home_url( '/spam-arama-engelleme/' ) ); ?>">
+						<h3>Spam Arama Engelleme</h3>
+						<p>Spam aramanın ne olduğunu ve iPhone’da bilinen istenmeyen numaraları nasıl engelleyebileceğinizi öğrenin.</p>
+					</a>
+					<a class="kk-feature-card kk-guide-card kk-glass kk-animate kk-animate-delay-4" href="<?php echo esc_url( home_url( '/dolandirici-numara-tanima/' ) ); ?>">
+						<h3>Telefon Dolandırıcılığı</h3>
+						<p>Şüpheli aramadaki baskı, kod, para transferi ve sahte kurum iddialarını tanıyın.</p>
+					</a>
+				</div>
+			</div>
+		</section>
+		<?php endif; ?>
+
 		<!-- ── CTA ───────────────────────────────────────────────────────────── -->
 		<section class="kk-cta kk-section" aria-labelledby="kk-cta-title">
 			<div class="kk-shell">
@@ -758,6 +791,26 @@ $is_front_page = true;
 						</button>
 						<div class="kk-faq-answer">
 							<p><?php echo esc_html( $__( 'Genel Koruma ve İletişim Bildirimi tamamen ücretsizdir. Yalnızca Ekstra Koruma, Kalkan Premium gerektirir. Uygun yeni aboneliklerde üç aylık ücretsiz deneme App Store\'da gösterilir.', 'General Protection and Communication Reporting are completely free. Only Extra Protection requires Kalkan Premium. A three-month free trial for eligible new subscriptions is shown on the App Store.' ) ); ?></p>
+						</div>
+					</div>
+
+					<div class="kk-faq-item">
+						<button class="kk-faq-question" type="button">
+							<span><?php echo esc_html( $__( 'Spam arama ne demek?', 'What is a spam call?' ) ); ?></span>
+							<span class="kk-faq-toggle">+</span>
+						</button>
+						<div class="kk-faq-answer">
+							<p><?php echo esc_html( $__( 'Spam arama; istemediğiniz, tekrarlanan veya çok sayıda kişiye otomatik biçimde yapılan telefon aramasıdır. Satış, anket, robot arama ve dolandırıcılık girişimleri bu gruba girebilir.', 'A spam call is an unwanted, repeated, or automated phone call. Sales, surveys, robocalls, and scam attempts may fall into this group.' ) ); ?></p>
+						</div>
+					</div>
+
+					<div class="kk-faq-item">
+						<button class="kk-faq-question" type="button">
+							<span><?php echo esc_html( $__( 'Bilinmeyen numara sorgulama nasıl yapılır?', 'How do I check an unknown number?' ) ); ?></span>
+							<span class="kk-faq-toggle">+</span>
+						</button>
+						<div class="kk-faq-answer">
+							<p><?php echo esc_html( $__( 'Numarayı hem yerel hem +90 biçimiyle arayın, kurumsal eşleşmeyi resmî HTTPS sayfasından doğrulayın ve topluluk yorumlarını kesin kanıt değil, araştırma sinyali olarak değerlendirin.', 'Search both local and international formats, verify business matches on an official HTTPS page, and treat community comments as research signals rather than proof.' ) ); ?></p>
 						</div>
 					</div>
 

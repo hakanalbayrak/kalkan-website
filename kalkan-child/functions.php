@@ -10,6 +10,7 @@ if (!defined('ABSPATH')) {
 }
 
 require_once __DIR__ . '/inc/kalkan-release-history.php';
+require_once __DIR__ . '/inc/kalkan-search-content.php';
 
 // Serve SEOPress sitemap index at /sitemap.xml (no redirect).
 // Rewrite REQUEST_URI early so WordPress & SEOPress see /sitemaps.xml internally,
@@ -1037,6 +1038,8 @@ function kalkan_homepage_faq_schema() {
         array('Ekstra Koruma nedir?', 'Ekstra Koruma, standart spam listesinin ötesindeki genişletilmiş numara kalıplarını engelleyen Premium katmandır. Kalkan Premium şu anda yalnızca Türkiye\'de sunulur.'),
         array('Verilerim güvende mi?', 'Evet. Kalkan rehberinize veya arama geçmişinize erişmez. Tüm arama koruma işlemleri cihazınızda yerel olarak gerçekleşir.'),
         array('Kalkan ücretsiz mi?', 'Genel Koruma ve İletişim Bildirimi tamamen ücretsizdir. Yalnızca Ekstra Koruma Kalkan Premium gerektirir. Uygun yeni aboneliklerde üç aylık ücretsiz deneme App Store\'da gösterilir.'),
+        array('Spam arama ne demek?', 'Spam arama; istemediğiniz, tekrarlanan veya çok sayıda kişiye otomatik biçimde yapılan telefon aramasıdır. Satış, anket, robot arama ve dolandırıcılık girişimleri bu gruba girebilir.'),
+        array('Bilinmeyen numara sorgulama nasıl yapılır?', 'Numarayı hem yerel hem +90 biçimiyle arayın, kurumsal eşleşmeyi resmî HTTPS sayfasından doğrulayın ve topluluk yorumlarını kesin kanıt değil, araştırma sinyali olarak değerlendirin.'),
     );
     $faqs_en = array(
         array('How does Kalkan work?', 'Kalkan loads a database of known spam numbers to your device. It works with iOS\'s call directory system to block or flag incoming calls. No internet connection required.'),
@@ -1044,6 +1047,8 @@ function kalkan_homepage_faq_schema() {
         array('What is Extra Protection?', 'Extra Protection is the Premium layer that blocks extended number patterns beyond the standard spam list. Kalkan Premium is currently available only in Türkiye.'),
         array('Is my data safe?', 'Yes. Kalkan doesn\'t access your contacts or call history. All call protection happens locally on your device.'),
         array('Is Kalkan free?', 'General Protection and Communication Reporting are completely free. Only Extra Protection requires Kalkan Premium. A three-month free trial for eligible new subscriptions is shown on the App Store.'),
+        array('What is a spam call?', 'A spam call is an unwanted, repeated, or automated phone call. Sales, surveys, robocalls, and scam attempts may fall into this group.'),
+        array('How do I check an unknown number?', 'Search both local and international formats, verify business matches on an official HTTPS page, and treat community comments as research signals rather than proof.'),
     );
 
     $faqs = ($lang === 'en') ? $faqs_en : $faqs_tr;
@@ -1293,7 +1298,7 @@ function kalkan_seo_optimized_posts() {
         // POST 2: Numara sorgulama
         array(
             'title' => 'Numara Sorgulama – Ücretsiz Yöntemler',
-            'slug' => 'numara-sorgulama-rehberi',
+            'slug' => 'numara-sorgulama-ucretsiz',
             'category' => $cat_numara,
             'focus_keyword' => 'numara sorgulama',
             'seo_title' => 'Numara Sorgulama – Kalkan',
@@ -1366,7 +1371,7 @@ function kalkan_seo_optimized_posts() {
 
 <ul>
 <li>Bilinmeyen aramalarda kişisel bilgi paylaşmayın</li>
-<li><a href="' . $home . 'numara-sorgulama-rehberi/">Şüpheli numarayı sorgulayın</a></li>
+<li><a href="' . $home . 'numara-sorgulama-ucretsiz/">Şüpheli numarayı sorgulayın</a></li>
 <li><a href="' . $home . '">Kalkan uygulamasını</a> kullanın — dolandırıcı numaraları otomatik işaretler</li>
 <li>Yaşlı aile üyelerinizi bilgilendirin — dolandırıcılar özellikle yaşlıları hedef alır</li>
 </ul>
@@ -1374,7 +1379,7 @@ function kalkan_seo_optimized_posts() {
 <h2>Sıkça Sorulan Sorular</h2>
 
 <h3>Dolandırıcı numarayı nereye şikayet edebilirim?</h3>
-<p>BTK ihbar hattı 137\'yi arayabilir veya Kalkan üzerinden numarayı bildirebilirsiniz.</p>
+<p>Elinizdeki bilgi ve belgelerle en yakın kolluk birimine veya Cumhuriyet Başsavcılığına başvurun. Acil tehlikede 112\'yi arayın.</p>
 
 <h3>Dolandırıcı aramayı açarsam ne olur?</h3>
 <p>Açmak tek başına tehlikeli değildir. Tehlike kişisel bilgi paylaşımında başlar. <a href="' . $home . 'spam-arama-engelleme/">Spam aramaları engellemeyi</a> öğrenin.</p>',
@@ -1394,7 +1399,7 @@ function kalkan_seo_optimized_posts() {
 <h2>How to Protect Against Scam Numbers</h2>
 <ul>
 <li>Never share personal information on unknown calls</li>
-<li><a href="' . $home . 'numara-sorgulama-rehberi/">Look up suspicious numbers</a></li>
+<li><a href="' . $home . 'numara-sorgulama-ucretsiz/">Look up suspicious numbers</a></li>
 <li>Use <a href="' . $home . '">Kalkan app</a> — it automatically flags scam numbers</li>
 <li>Inform elderly family members — scammers especially target them</li>
 </ul>',
@@ -1479,7 +1484,7 @@ function kalkan_seo_optimized_posts() {
 
 <h2>Sürekli Arayan Numara Engelleme İçin En İyi Çözüm</h2>
 
-<p>Tek bir numarayı engellemek kolaydır ama spam arayanlar sürekli numara değiştirir. Bu yüzden Kalkan gibi veritabanı tabanlı bir uygulama en etkili çözümdür. <a href="' . $home . 'numara-sorgulama-rehberi/">Numarayı sorgulayarak</a> kimin aradığını da öğrenebilirsiniz.</p>
+<p>Tek bir numarayı engellemek kolaydır ama spam arayanlar sürekli numara değiştirir. Bu yüzden Kalkan gibi veritabanı tabanlı bir uygulama daha geniş koruma sağlayabilir. <a href="' . $home . 'numara-sorgulama-ucretsiz/">Numarayı sorgulayarak</a> açık kaynaklardaki bilgileri de değerlendirebilirsiniz.</p>
 
 <h2>Sıkça Sorulan Sorular</h2>
 
@@ -2787,7 +2792,7 @@ function kalkan_publish_getcontact_comparison_v1() {
 <p>iPhone birden fazla arama engelleme ve kimliklendirme uzantısına izin verebilir. Sonuçlar iOS sürümüne, uzantı sırasına ve uygulamaların yöntemine göre değişebileceği için etkin uzantıları tek tek test etmek en sağlıklı yaklaşımdır.</p>
 
 <p><strong>Sonuç:</strong> Getcontact topluluk temelli numara sorgulama ve geniş bir iletişim platformu sunar. Kalkan ise Türkiye’deki iPhone kullanıcıları için bilinen spam numaralarını engelleme, kurumsal arayan kimliği ve incelenmiş koruma verisini Apple’ın Call Directory altyapısıyla kullanma üzerine yoğunlaşır.</p>
-<p>Kalkan’ın çalışma şeklini ayrıntılı incelemek için <a href="/kalkan-nasil-calisir/">Kalkan nasıl çalışır?</a> sayfasına, şüpheli aramalar için <a href="/numara-sorgulama-rehberi/">Numara Sorgulama Rehberi</a> yazısına bakın.</p>
+<p>Kalkan’ın çalışma şeklini ayrıntılı incelemek için <a href="/kalkan-nasil-calisir/">Kalkan nasıl çalışır?</a> sayfasına, şüpheli aramalar için <a href="/numara-sorgulama-ucretsiz/">Ücretsiz Numara Sorgulama</a> yazısına bakın.</p>
 
 <h2>Kaynaklar</h2>
 <ul>

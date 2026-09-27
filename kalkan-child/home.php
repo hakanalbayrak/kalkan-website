@@ -18,6 +18,9 @@ $is_front_page = false;
 $is_category_archive = is_category();
 $archive_title = $is_category_archive ? single_cat_title( '', false ) : 'Blog';
 $archive_lead  = $is_category_archive ? wp_strip_all_tags( category_description() ) : '';
+$is_number_lookup_archive = $is_category_archive && false !== stripos( $archive_title, 'Numara Sorgulama' );
+$is_spam_archive = $is_category_archive && false !== stripos( $archive_title, 'Spam' );
+$is_security_archive = $is_category_archive && false !== stripos( $archive_title, 'Güvenlik' );
 
 if ( '' === trim( $archive_lead ) ) {
 	$archive_lead = $__(
@@ -61,7 +64,16 @@ $page_title = $archive_title . ' — Kalkan';
 		<section class="kk-section">
 			<div class="kk-shell">
 				<div class="kk-page-content" style="max-width:52rem;margin:0 auto 2.5rem;padding:0;">
-					<?php if ('tr' === $lang) : ?>
+					<?php if ('tr' === $lang && $is_number_lookup_archive) : ?>
+						<p><strong>Numara sorgulama</strong>, bilinmeyen bir aramanın kaynağını açık ve resmî kaynaklarla değerlendirmeye yardımcı olur. <a href="<?php echo esc_url( home_url( '/numara-sorgulama-ucretsiz/' ) ); ?>">Ücretsiz numara sorgulama rehberi</a>, numarayı farklı biçimlerde aramayı ve kurumsal eşleşmeyi bağımsız kanaldan doğrulamayı açıklar.</p>
+						<p><a href="<?php echo esc_url( home_url( '/bilinmeyen-numara-kimin/' ) ); ?>">Bu numara kime ait?</a> rehberiyle şüpheli işaretleri kontrol edin; tekrarlanan çağrılar için <a href="<?php echo esc_url( home_url( '/spam-arama-engelleme/' ) ); ?>">iPhone spam arama engelleme</a> adımlarını uygulayın. İnternetteki isim ve etiketlerin arayanın kimliğini kesin olarak doğrulamadığını unutmayın.</p>
+					<?php elseif ('tr' === $lang && $is_spam_archive) : ?>
+						<p><strong>Spam arama</strong>; istenmeyen, tekrarlanan veya otomatik telefon aramasıdır. Buradaki rehberler spam aramanın ne anlama geldiğini, iPhone’da bilinen istenmeyen numaraları nasıl engelleyebileceğinizi ve şüpheli çağrılarda hangi bilgileri paylaşmamanız gerektiğini açıklar.</p>
+						<p><a href="<?php echo esc_url( home_url( '/spam-arama-engelleme/' ) ); ?>">Spam arama engelleme rehberinden</a> başlayın; arayanın talebi para veya kişisel bilgi içeriyorsa <a href="<?php echo esc_url( home_url( '/dolandirici-numara-tanima/' ) ); ?>">telefon dolandırıcılığı işaretlerini</a> kontrol edin.</p>
+					<?php elseif ('tr' === $lang && $is_security_archive) : ?>
+						<p>Telefon dolandırıcılığı ve şüpheli aramalarda en güvenli yaklaşım, görüşmeyi sonlandırıp kurumu bağımsız resmî kanaldan doğrulamaktır. Bu güvenlik rehberleri aciliyet, doğrulama kodu, para transferi ve uzaktan erişim talepleri gibi risk işaretlerini açıklar.</p>
+						<p><a href="<?php echo esc_url( home_url( '/dolandirici-numara-tanima/' ) ); ?>">Telefon dolandırıcılığı nasıl anlaşılır?</a> rehberini ve <a href="<?php echo esc_url( home_url( '/numara-sorgulama-ucretsiz/' ) ); ?>">ücretsiz numara sorgulama</a> adımlarını inceleyin.</p>
+					<?php elseif ('tr' === $lang) : ?>
 						<p>Kalkan blogunda istenmeyen aramalar, telefon dolandırıcılığı, sahte kurum aramaları ve iPhone arama güvenliği hakkında uygulanabilir rehberler bulabilirsiniz. İçerikler, bir aramaya yanıt vermeden önce hangi işaretlere bakmanız gerektiğini, şüpheli talepleri nasıl doğrulayacağınızı ve kişisel bilgilerinizi nasıl koruyacağınızı açıklar. Ürün duyuruları ve sürüm notları da Kalkan'ın koruma özelliklerindeki değişiklikleri takip etmenize yardımcı olur.</p>
 						<p>Bir arayanın ekranda görünen numarası veya kurum adı tek başına güven kanıtı değildir. Şüpheli bir görüşmede işlemi durdurun; kuruma yalnızca resmî web sitesi, mobil uygulama veya kartınızın üzerindeki bağımsız iletişim kanalından ulaşın. Kalkan'ın rehberleri bu doğrulama alışkanlığını günlük kullanımda daha kolay uygulamanız için hazırlanır. Her içerikte uygulanabilir kontrol adımlarına ve güvenli karar vermeyi destekleyen tarafsız açıklamalara öncelik verilir.</p>
 					<?php else : ?>
