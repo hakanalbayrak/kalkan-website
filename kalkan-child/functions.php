@@ -254,7 +254,13 @@ function kalkan_ui_stylesheet_contents() {
 
     $contents = file_get_contents($path);
 
-    return false === $contents ? '' : $contents;
+    if (false === $contents) {
+        return '';
+    }
+
+    $font_base_url = trailingslashit(get_stylesheet_directory_uri()) . 'assets/fonts/';
+
+    return str_replace('../fonts/', $font_base_url, $contents);
 }
 
 /**
@@ -2723,6 +2729,20 @@ function kalkan_purge_performance_cache_v11() {
     update_option('kalkan_performance_cache_purged_v11', true);
 }
 add_action('init', 'kalkan_purge_performance_cache_v11', 1004);
+
+/** Purge once after resolving inline stylesheet font URLs. */
+function kalkan_purge_performance_cache_v12() {
+    if (get_option('kalkan_performance_cache_purged_v12')) {
+        return;
+    }
+
+    if (defined('LSCWP_V')) {
+        do_action('litespeed_purge_all');
+    }
+
+    update_option('kalkan_performance_cache_purged_v12', true);
+}
+add_action('init', 'kalkan_purge_performance_cache_v12', 1005);
 
 /**
  * Publish the approved, neutral Getcontact comparison once. The English
