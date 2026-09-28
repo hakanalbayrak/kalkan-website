@@ -2745,6 +2745,28 @@ function kalkan_purge_performance_cache_v12() {
 add_action('init', 'kalkan_purge_performance_cache_v12', 1005);
 
 /**
+ * Disable LiteSpeed Guest Mode once. The public site has no visitor-specific
+ * homepage markup, so the guest.vary.php follow-up request only lengthens the
+ * first-view critical path. Standard LiteSpeed page caching remains enabled.
+ */
+function kalkan_disable_litespeed_guest_mode_v13() {
+    if (get_option('kalkan_litespeed_guest_mode_disabled_v13')) {
+        return;
+    }
+
+    if (has_action('litespeed_save_conf')) {
+        do_action('litespeed_save_conf', array(
+            'guest'      => false,
+            'guest_optm' => false,
+        ));
+        do_action('litespeed_purge_all');
+    }
+
+    update_option('kalkan_litespeed_guest_mode_disabled_v13', true);
+}
+add_action('init', 'kalkan_disable_litespeed_guest_mode_v13', 1006);
+
+/**
  * Publish the approved, neutral Getcontact comparison once. The English
  * adaptation lives in post meta because this site renders both languages from
  * the same editorial record.
