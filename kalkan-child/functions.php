@@ -55,15 +55,6 @@ add_action('init', function () {
     }
 });
 
-/** AdSense ownership code; manual units are intentionally limited to articles. */
-function kalkan_adsense_site_code() {
-    if (is_admin()) {
-        return;
-    }
-    echo '<script async data-no-defer="1" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2459893282569161" crossorigin="anonymous"></script>' . "\n";
-}
-add_action('wp_head', 'kalkan_adsense_site_code', 2);
-
 /* ── Search discovery: IndexNow ─────────────────────────────────────────── */
 
 /**
@@ -251,6 +242,19 @@ function kalkan_ui_stylesheet_url() {
     $version = is_readable($path) ? (string) filemtime($path) : wp_get_theme()->get('Version');
 
     return add_query_arg('ver', rawurlencode($version), get_stylesheet_directory_uri() . '/assets/css/kalkan-ui.css');
+}
+
+/** Return the shared UI stylesheet for routes that inline critical CSS. */
+function kalkan_ui_stylesheet_contents() {
+    $path = get_stylesheet_directory() . '/assets/css/kalkan-ui.css';
+
+    if (!is_readable($path)) {
+        return '';
+    }
+
+    $contents = file_get_contents($path);
+
+    return false === $contents ? '' : $contents;
 }
 
 /**

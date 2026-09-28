@@ -20,7 +20,7 @@ $anchor_prefix = $is_front_page ? '' : $home_url;
 	<div class="kk-shell kk-header__inner">
 
 		<a class="kk-brand" href="<?php echo $home_url; ?>" aria-label="Kalkan">
-			<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon-80.webp' ); ?>" alt="" class="kk-brand__icon" width="40" height="40" decoding="async">
+			<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon-80-optimized.webp' ); ?>" alt="" class="kk-brand__icon skip-lazy" width="40" height="40" loading="eager" decoding="async" fetchpriority="high" data-no-lazy="1">
 			<span class="kk-brand__name">Kalkan</span>
 		</a>
 
@@ -37,7 +37,7 @@ $anchor_prefix = $is_front_page ? '' : $home_url;
 
 		<div class="kk-header__right">
 			<a class="kk-header-appstore" href="<?php echo esc_url( $appstore_link ); ?>" aria-label="App Store">
-				<img src="<?php echo esc_url( $badge_url ); ?>" alt="App Store" loading="eager" width="120" height="40">
+				<img src="<?php echo esc_url( $badge_url ); ?>" alt="App Store" loading="eager" decoding="async" width="151" height="40">
 			</a>
 
 			<div class="kk-lang" aria-label="<?php echo esc_attr( $__( 'Dil seçimi', 'Language switcher' ) ); ?>">

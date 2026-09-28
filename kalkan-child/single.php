@@ -240,20 +240,73 @@ $page_title    = $display_title . ' — Kalkan';
 </div>
 
 <?php include get_stylesheet_directory() . '/inc/kalkan-scripts.php'; ?>
-<script data-no-defer="1">
+<script data-no-defer="1" data-no-optimize="1">
 (function () {
-  window.adsbygoogle = window.adsbygoogle || [];
-  window.adsbygoogle.push({});
-  var rail = document.querySelector('.kk-ad-rail');
-  var loaded = false;
-  function loadRail() {
-    if (!loaded && rail && window.matchMedia('(min-width: 1200px)').matches) {
-      loaded = true;
-      window.adsbygoogle.push({});
+  'use strict';
+
+  var client = 'ca-pub-2459893282569161';
+  var slots = Array.prototype.slice.call(document.querySelectorAll('ins.adsbygoogle'));
+  var scriptPromise;
+
+  function loadAdSense() {
+    if (scriptPromise) {
+      return scriptPromise;
     }
+
+    scriptPromise = new Promise(function (resolve, reject) {
+      var script = document.createElement('script');
+      script.async = true;
+      script.crossOrigin = 'anonymous';
+      script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + encodeURIComponent(client);
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+
+    return scriptPromise;
   }
-  loadRail();
-  window.addEventListener('resize', loadRail, { passive: true });
+
+  function requestAd(slot) {
+    if (!slot || slot.dataset.kalkanAdRequested === '1' || slot.offsetParent === null) {
+      return;
+    }
+
+    slot.dataset.kalkanAdRequested = '1';
+    loadAdSense().then(function () {
+      window.adsbygoogle = window.adsbygoogle || [];
+      window.adsbygoogle.push({});
+    }).catch(function () {
+      slot.dataset.kalkanAdRequested = '0';
+    });
+  }
+
+  if (!('IntersectionObserver' in window)) {
+    slots.forEach(requestAd);
+    return;
+  }
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        observer.unobserve(entry.target);
+        requestAd(entry.target);
+      }
+    });
+  }, { rootMargin: '800px 0px' });
+
+  slots.forEach(function (slot) {
+    if (slot.offsetParent !== null) {
+      observer.observe(slot);
+    }
+  });
+
+  window.addEventListener('resize', function () {
+    slots.forEach(function (slot) {
+      if (slot.offsetParent !== null && slot.dataset.kalkanAdRequested !== '1') {
+        observer.observe(slot);
+      }
+    });
+  }, { passive: true });
 })();
 </script>
 <?php wp_footer(); ?>

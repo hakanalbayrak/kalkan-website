@@ -87,3 +87,10 @@ This file records durable website/growth decisions.
 - Date or commit reference: 2026-09-22
 - Decision: Address searches for Getcontact and similar products through factual, date-stamped comparison guides based on each product's official public documentation. Do not add competitor names to global homepage copy or obsolete meta-keywords fields, imply feature parity, or make unsupported superiority claims.
 - Rationale: Satisfies genuine comparison intent and creates a useful organic landing page while protecting accuracy, brand trust, and maintainable SEO.
+
+## Decision 012
+
+- Short title: Keep the homepage critical path first-party and responsive
+- Date or commit reference: 2026-09-28
+- Decision: Inline the small shared UI stylesheet on the homepage, exclude the header icon from lazy loading, serve responsive phone screenshots, and load AdSense only when a real article ad slot approaches the viewport. Keep official localized App Store badges as local static assets.
+- Rationale: Removes the measured render-blocking request and homepage advertising payload, improves mobile image delivery, and preserves article ad revenue without adding a framework or plugin.

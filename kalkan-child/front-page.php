@@ -36,8 +36,13 @@ $is_front_page = true;
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <?php wp_head(); ?>
 <?php echo $_kk_seo_tags(); ?>
-<link rel="stylesheet" href="<?php echo esc_url(kalkan_ui_stylesheet_url()); ?>">
-<style>
+<?php $kalkan_ui_css = kalkan_ui_stylesheet_contents(); ?>
+<?php if ( '' !== $kalkan_ui_css ) : ?>
+<style id="kalkan-ui-critical-css" data-no-optimize="1"><?php echo $kalkan_ui_css; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></style>
+<?php else : ?>
+<link rel="stylesheet" href="<?php echo esc_url( kalkan_ui_stylesheet_url() ); ?>">
+<?php endif; ?>
+<style data-no-optimize="1">
 /* ─── Homepage-specific styles ───────────────────────────────────────────────── */
 
 /* Compact vertical rhythm — reduce section padding on homepage */
@@ -500,7 +505,7 @@ $is_front_page = true;
 
 					<div class="hero-buttons kk-animate kk-animate-delay-3">
 						<a href="<?php echo esc_url( $appstore_link ); ?>" class="hero-appstore">
-							<img src="<?php echo esc_url( $badge_url ); ?>" alt="<?php echo esc_attr( $__( 'App Store\'dan İndir', 'Download on the App Store' ) ); ?>" loading="eager" decoding="async" width="120" height="40">
+							<img src="<?php echo esc_url( $badge_url ); ?>" alt="<?php echo esc_attr( $__( 'App Store\'dan İndir', 'Download on the App Store' ) ); ?>" loading="eager" decoding="async" width="151" height="40">
 						</a>
 						<a class="hero-secondary-btn" href="#kk-how">
 							<?php echo esc_html( $__( '3 adımlı akışı görün', 'See the 3-step flow' ) ); ?>
@@ -512,7 +517,14 @@ $is_front_page = true;
 					<div class="phone-frame">
 						<div class="phone-screen" role="img" aria-label="<?php echo esc_attr( $app_demo_label ); ?>">
 							<?php foreach ( $app_demo_screens as $screen_index => $screen ) : ?>
-								<img class="kk-phone-shot" src="<?php echo esc_url( $app_screen_base . $screen['slug'] . '-' . $app_demo_suffix . '.webp' ); ?>" alt="" width="720" height="<?php echo esc_attr( (string) $screen['height'] ); ?>" loading="<?php echo 0 === $screen_index ? 'eager' : 'lazy'; ?>" decoding="async"<?php echo 0 === $screen_index ? ' fetchpriority="high"' : ''; // phpcs:ignore WordPress.Security.EscapeOutput ?> aria-hidden="true">
+								<?php
+								$screen_name   = $screen['slug'] . '-' . $app_demo_suffix;
+								$screen_src    = $app_screen_base . $screen_name . '.webp';
+								$screen_srcset = $app_screen_base . $screen_name . '-400.webp 400w, '
+									. $app_screen_base . $screen_name . '-480.webp 480w, '
+									. $screen_src . ' 720w';
+								?>
+								<img class="kk-phone-shot" src="<?php echo esc_url( $screen_src ); ?>" srcset="<?php echo esc_attr( $screen_srcset ); ?>" sizes="(max-width: 768px) 224px, 286px" alt="" width="720" height="<?php echo esc_attr( (string) $screen['height'] ); ?>" loading="<?php echo 0 === $screen_index ? 'eager' : 'lazy'; ?>" decoding="async"<?php echo 0 === $screen_index ? ' fetchpriority="high"' : ''; // phpcs:ignore WordPress.Security.EscapeOutput ?> aria-hidden="true">
 							<?php endforeach; ?>
 						</div>
 					</div>
@@ -637,7 +649,14 @@ $is_front_page = true;
 						<div class="phone-frame phone-frame--showcase">
 							<div class="phone-screen" role="img" aria-label="<?php echo esc_attr( $app_demo_label ); ?>">
 								<?php foreach ( $app_demo_screens as $screen ) : ?>
-									<img class="kk-phone-shot" src="<?php echo esc_url( $app_screen_base . $screen['slug'] . '-' . $app_demo_suffix . '.webp' ); ?>" alt="" width="720" height="<?php echo esc_attr( (string) $screen['height'] ); ?>" loading="lazy" decoding="async" aria-hidden="true">
+									<?php
+									$screen_name   = $screen['slug'] . '-' . $app_demo_suffix;
+									$screen_src    = $app_screen_base . $screen_name . '.webp';
+									$screen_srcset = $app_screen_base . $screen_name . '-400.webp 400w, '
+										. $app_screen_base . $screen_name . '-480.webp 480w, '
+										. $screen_src . ' 720w';
+									?>
+									<img class="kk-phone-shot" src="<?php echo esc_url( $screen_src ); ?>" srcset="<?php echo esc_attr( $screen_srcset ); ?>" sizes="(max-width: 768px) 224px, 306px" alt="" width="720" height="<?php echo esc_attr( (string) $screen['height'] ); ?>" loading="lazy" decoding="async" aria-hidden="true">
 								<?php endforeach; ?>
 							</div>
 						</div>
@@ -715,7 +734,7 @@ $is_front_page = true;
 					<p class="kk-lead"><?php echo esc_html( $__( 'Hemen indirin ve istenmeyen aramalara karşı korumayı başlatın.', 'Download now and start protection against unwanted calls.' ) ); ?></p>
 					<div class="cta-appstore">
 						<a href="<?php echo esc_url( $appstore_link ); ?>">
-							<img src="<?php echo esc_url( $badge_url ); ?>" alt="<?php echo esc_attr( $__( 'App Store\'dan İndir', 'Download on the App Store' ) ); ?>" loading="lazy" decoding="async" width="120" height="40">
+							<img src="<?php echo esc_url( $badge_url ); ?>" alt="<?php echo esc_attr( $__( 'App Store\'dan İndir', 'Download on the App Store' ) ); ?>" loading="lazy" decoding="async" width="151" height="40">
 						</a>
 					</div>
 				</div>

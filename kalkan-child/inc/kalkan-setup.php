@@ -107,8 +107,8 @@ $_kk_seo_tags = static function () : string {
 
 /* ── App Store badges (official Apple hosted) ──────────────────────────────── */
 $appstore_link = apply_filters( 'kalkan_app_store_url', 'https://apple.co/4cYKmRG' );
-$badge_lang    = ( 'tr' === $lang ) ? 'tr-tr' : 'en-us';
-$badge_url     = "https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/white/{$badge_lang}?releaseDate=1773014400";
+$badge_suffix  = ( 'tr' === $lang ) ? 'tr' : 'en';
+$badge_url     = get_stylesheet_directory_uri() . '/assets/badges/app-store-badge-' . $badge_suffix . '.svg';
 
 /* ── App icon ──────────────────────────────────────────────────────────────── */
 $app_icon_url  = esc_url( get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon.png' );
