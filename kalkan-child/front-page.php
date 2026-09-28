@@ -42,12 +42,14 @@ $hero_screen_src    = $app_screen_base . $hero_screen_name . '.webp';
 $hero_screen_srcset = $app_screen_base . $hero_screen_name . '-400.webp 400w, '
 	. $app_screen_base . $hero_screen_name . '-480.webp 480w, '
 	. $hero_screen_src . ' 720w';
+$brand_icon_src = get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon-80-optimized.webp';
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preload" as="image" href="<?php echo esc_url( $brand_icon_src ); ?>" type="image/webp" fetchpriority="high">
 <link rel="preload" as="image" href="<?php echo esc_url( $hero_screen_src ); ?>" imagesrcset="<?php echo esc_attr( $hero_screen_srcset ); ?>" imagesizes="(max-width: 768px) 224px, 286px" fetchpriority="high">
 <?php wp_head(); ?>
 <?php echo $_kk_seo_tags(); ?>

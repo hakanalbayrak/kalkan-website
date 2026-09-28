@@ -264,12 +264,12 @@ function kalkan_load_front_page_gtag_after_content() {
             });
         }
 
-        ['pointerdown', 'keydown', 'touchstart'].forEach(function (eventName) {
+        ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function (eventName) {
             window.addEventListener(eventName, loadGtag, { once: true, passive: true });
         });
 
         window.addEventListener('load', function () {
-            window.setTimeout(loadGtag, 2500);
+            window.setTimeout(loadGtag, 15000);
         }, { once: true });
     }());
     </script>
@@ -2837,6 +2837,20 @@ function kalkan_purge_performance_cache_v14() {
     update_option('kalkan_performance_cache_purged_v14', true);
 }
 add_action('init', 'kalkan_purge_performance_cache_v14', 1007);
+
+/** Purge once after moving the logo request ahead of CSS and delaying gtag. */
+function kalkan_purge_performance_cache_v15() {
+    if (get_option('kalkan_performance_cache_purged_v15')) {
+        return;
+    }
+
+    if (defined('LSCWP_V')) {
+        do_action('litespeed_purge_all');
+    }
+
+    update_option('kalkan_performance_cache_purged_v15', true);
+}
+add_action('init', 'kalkan_purge_performance_cache_v15', 1008);
 
 /**
  * Publish the approved, neutral Getcontact comparison once. The English
