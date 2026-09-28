@@ -220,6 +220,64 @@ function kalkan_child_app_store_click_tracking() {
 add_action('wp_head', 'kalkan_child_app_store_click_tracking', 30);
 
 /**
+ * Keep Site Kit analytics on the homepage without letting duplicate gtag
+ * library downloads compete with the hero image. Site Kit's inline commands
+ * still queue immediately; one shared gtag library processes them after load.
+ */
+function kalkan_defer_front_page_gtag_script($tag, $handle, $src) {
+    if (!is_front_page() || false === strpos((string) $src, 'googletagmanager.com/gtag/js')) {
+        return $tag;
+    }
+
+    return sprintf(
+        '<script type="application/json" data-kalkan-gtag-src="%s" data-kalkan-gtag-handle="%s"></script>' . "\n",
+        esc_url($src),
+        esc_attr($handle)
+    );
+}
+add_filter('script_loader_tag', 'kalkan_defer_front_page_gtag_script', 100, 3);
+
+/** Load the generic gtag library once after the homepage's visual content. */
+function kalkan_load_front_page_gtag_after_content() {
+    if (!is_front_page()) {
+        return;
+    }
+    ?>
+    <script data-no-optimize="1">
+    (function () {
+        'use strict';
+        var loaded = false;
+
+        function loadGtag() {
+            if (loaded) return;
+            var placeholders = document.querySelectorAll('[data-kalkan-gtag-src]');
+            if (!placeholders.length) return;
+
+            loaded = true;
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = placeholders[0].getAttribute('data-kalkan-gtag-src');
+            document.head.appendChild(script);
+
+            placeholders.forEach(function (placeholder) {
+                placeholder.remove();
+            });
+        }
+
+        ['pointerdown', 'keydown', 'touchstart'].forEach(function (eventName) {
+            window.addEventListener(eventName, loadGtag, { once: true, passive: true });
+        });
+
+        window.addEventListener('load', function () {
+            window.setTimeout(loadGtag, 2500);
+        }, { once: true });
+    }());
+    </script>
+    <?php
+}
+add_action('wp_footer', 'kalkan_load_front_page_gtag_after_content', 99);
+
+/**
  * The public site uses a complete custom design system and no block-theme
  * presets. WordPress' generated global stylesheet adds roughly 23 KB of
  * unused inline CSS to every HTML response, so omit it on the front end.
@@ -2765,6 +2823,20 @@ function kalkan_disable_litespeed_guest_mode_v13() {
     update_option('kalkan_litespeed_guest_mode_disabled_v13', true);
 }
 add_action('init', 'kalkan_disable_litespeed_guest_mode_v13', 1006);
+
+/** Purge once after preloading the hero and deferring the shared gtag library. */
+function kalkan_purge_performance_cache_v14() {
+    if (get_option('kalkan_performance_cache_purged_v14')) {
+        return;
+    }
+
+    if (defined('LSCWP_V')) {
+        do_action('litespeed_purge_all');
+    }
+
+    update_option('kalkan_performance_cache_purged_v14', true);
+}
+add_action('init', 'kalkan_purge_performance_cache_v14', 1007);
 
 /**
  * Publish the approved, neutral Getcontact comparison once. The English

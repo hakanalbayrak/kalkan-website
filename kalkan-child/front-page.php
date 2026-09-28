@@ -28,12 +28,27 @@ $icon = static function ( string $name ) use ( $icons ) : string {
 
 $page_title = 'en' === $lang ? 'Kalkan — Your Shield Against Spam Calls' : 'Kalkan — Spam Aramalara Karşı Kalkanınız';
 $is_front_page = true;
+$app_demo_suffix = 'en' === $lang ? 'en' : 'tr';
+$app_screen_base = get_stylesheet_directory_uri() . '/assets/images/app-screens/';
+$app_demo_screens = array(
+	array( 'slug' => 'home', 'height' => 1565 ),
+	array( 'slug' => 'incoming', 'height' => 1561 ),
+	array( 'slug' => 'recents', 'height' => 1561 ),
+	array( 'slug' => 'premium', 'height' => 1565 ),
+	array( 'slug' => 'settings', 'height' => 1565 ),
+);
+$hero_screen_name   = 'home-' . $app_demo_suffix;
+$hero_screen_src    = $app_screen_base . $hero_screen_name . '.webp';
+$hero_screen_srcset = $app_screen_base . $hero_screen_name . '-400.webp 400w, '
+	. $app_screen_base . $hero_screen_name . '-480.webp 480w, '
+	. $hero_screen_src . ' 720w';
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preload" as="image" href="<?php echo esc_url( $hero_screen_src ); ?>" imagesrcset="<?php echo esc_attr( $hero_screen_srcset ); ?>" imagesizes="(max-width: 768px) 224px, 286px" fetchpriority="high">
 <?php wp_head(); ?>
 <?php echo $_kk_seo_tags(); ?>
 <?php $kalkan_ui_css = kalkan_ui_stylesheet_contents(); ?>
@@ -473,15 +488,6 @@ $is_front_page = true;
 		<!-- ── HERO ─────────────────────────────────────────────────────────── -->
 		<section class="kk-hero kk-section" aria-labelledby="kk-hero-title">
 			<?php
-			$app_demo_suffix = 'en' === $lang ? 'en' : 'tr';
-			$app_screen_base   = get_stylesheet_directory_uri() . '/assets/images/app-screens/';
-			$app_demo_screens  = array(
-				array( 'slug' => 'home', 'height' => 1565 ),
-				array( 'slug' => 'incoming', 'height' => 1561 ),
-				array( 'slug' => 'recents', 'height' => 1561 ),
-				array( 'slug' => 'premium', 'height' => 1565 ),
-				array( 'slug' => 'settings', 'height' => 1565 ),
-			);
 			$app_demo_label = $__(
 				'Kalkan uygulamasında aktif koruma, gelen arayan kimliği, son aramalar, Premium ve ayarlar ekranları',
 				'Kalkan active protection, incoming caller ID, recent calls, Premium, and settings screens'
