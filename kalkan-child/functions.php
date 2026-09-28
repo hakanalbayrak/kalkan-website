@@ -2710,6 +2710,20 @@ function kalkan_purge_technical_seo_cache_v10() {
 }
 add_action('init', 'kalkan_purge_technical_seo_cache_v10', 1003);
 
+/** Purge once after the homepage PageSpeed critical-path update. */
+function kalkan_purge_performance_cache_v11() {
+    if (get_option('kalkan_performance_cache_purged_v11')) {
+        return;
+    }
+
+    if (defined('LSCWP_V')) {
+        do_action('litespeed_purge_all');
+    }
+
+    update_option('kalkan_performance_cache_purged_v11', true);
+}
+add_action('init', 'kalkan_purge_performance_cache_v11', 1004);
+
 /**
  * Publish the approved, neutral Getcontact comparison once. The English
  * adaptation lives in post meta because this site renders both languages from
