@@ -245,6 +245,35 @@ function kalkan_defer_front_page_gtag_script($tag, $handle, $src) {
 }
 add_filter('script_loader_tag', 'kalkan_defer_front_page_gtag_script', 100, 3);
 
+/**
+ * Catch analytics tags printed directly by plugins instead of wp_enqueue_script().
+ * Site Kit can render the same gtag library outside script_loader_tag, so the
+ * final homepage markup must also convert those tags into inert placeholders.
+ */
+function kalkan_defer_front_page_gtag_markup($html) {
+    if (!is_string($html) || false === stripos($html, 'googletagmanager.com/gtag/js')) {
+        return $html;
+    }
+
+    return preg_replace_callback(
+        '#<script\b[^>]*\bsrc=(["\'])(https://www\.googletagmanager\.com/gtag/js\?[^"\']+)\1[^>]*>\s*</script>#i',
+        static function ($matches) {
+            return sprintf(
+                '<script type="application/json" data-kalkan-gtag-src="%s"></script>',
+                esc_url(html_entity_decode($matches[2], ENT_QUOTES, 'UTF-8'))
+            );
+        },
+        $html
+    );
+}
+
+function kalkan_buffer_front_page_gtag_markup() {
+    if (is_front_page()) {
+        ob_start('kalkan_defer_front_page_gtag_markup');
+    }
+}
+add_action('template_redirect', 'kalkan_buffer_front_page_gtag_markup', 0);
+
 /** Expose the generic gtag loader for deliberate conversion interactions. */
 function kalkan_load_front_page_gtag_after_content() {
     if (!is_front_page()) {
@@ -2939,6 +2968,20 @@ function kalkan_purge_performance_cache_v21() {
     update_option('kalkan_performance_cache_purged_v21', true);
 }
 add_action('init', 'kalkan_purge_performance_cache_v21', 1014);
+
+/** Purge once after catching analytics tags printed outside the script API. */
+function kalkan_purge_performance_cache_v22() {
+    if (get_option('kalkan_performance_cache_purged_v22')) {
+        return;
+    }
+
+    if (has_action('litespeed_purge_all')) {
+        do_action('litespeed_purge_all');
+    }
+
+    update_option('kalkan_performance_cache_purged_v22', true);
+}
+add_action('init', 'kalkan_purge_performance_cache_v22', 1015);
 
 /**
  * Publish the approved, neutral Getcontact comparison once. The English
