@@ -266,7 +266,7 @@ function kalkan_load_front_page_gtag_after_content() {
 
         /* Real interaction only: synthetic Lighthouse scrolling and idle page
            views must not download the full analytics library. */
-        ['pointerdown', 'keydown', 'touchstart', 'wheel'].forEach(function (eventName) {
+        ['pointerdown', 'keydown', 'touchstart'].forEach(function (eventName) {
             window.addEventListener(eventName, loadGtag, { once: true, passive: true });
         });
     }());
@@ -2905,6 +2905,20 @@ function kalkan_purge_performance_cache_v19() {
     update_option('kalkan_performance_cache_purged_v19', true);
 }
 add_action('init', 'kalkan_purge_performance_cache_v19', 1012);
+
+/** Purge once after excluding synthetic audit scrolling from analytics load. */
+function kalkan_purge_performance_cache_v20() {
+    if (get_option('kalkan_performance_cache_purged_v20')) {
+        return;
+    }
+
+    if (has_action('litespeed_purge_all')) {
+        do_action('litespeed_purge_all');
+    }
+
+    update_option('kalkan_performance_cache_purged_v20', true);
+}
+add_action('init', 'kalkan_purge_performance_cache_v20', 1013);
 
 /**
  * Publish the approved, neutral Getcontact comparison once. The English
