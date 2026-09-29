@@ -2880,6 +2880,20 @@ function kalkan_purge_performance_cache_v17() {
 }
 add_action('init', 'kalkan_purge_performance_cache_v17', 1010);
 
+/** Purge once after adding the smallest responsive app-screen candidates. */
+function kalkan_purge_performance_cache_v18() {
+    if (get_option('kalkan_performance_cache_purged_v18')) {
+        return;
+    }
+
+    if (has_action('litespeed_purge_all')) {
+        do_action('litespeed_purge_all');
+    }
+
+    update_option('kalkan_performance_cache_purged_v18', true);
+}
+add_action('init', 'kalkan_purge_performance_cache_v18', 1011);
+
 /**
  * Publish the approved, neutral Getcontact comparison once. The English
  * adaptation lives in post meta because this site renders both languages from

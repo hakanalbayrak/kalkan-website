@@ -39,7 +39,8 @@ $app_demo_screens = array(
 );
 $hero_screen_name   = 'home-' . $app_demo_suffix;
 $hero_screen_src    = $app_screen_base . $hero_screen_name . '.webp';
-$hero_screen_srcset = $app_screen_base . $hero_screen_name . '-400.webp 400w, '
+$hero_screen_srcset = $app_screen_base . $hero_screen_name . '-224.webp 224w, '
+	. $app_screen_base . $hero_screen_name . '-400.webp 400w, '
 	. $app_screen_base . $hero_screen_name . '-480.webp 480w, '
 	. $hero_screen_src . ' 720w';
 
@@ -548,7 +549,8 @@ if ( is_readable( $brand_icon_path ) ) {
 								<?php
 								$screen_name   = $screen['slug'] . '-' . $app_demo_suffix;
 								$screen_src    = $app_screen_base . $screen_name . '.webp';
-								$screen_srcset = $app_screen_base . $screen_name . '-400.webp 400w, '
+								$screen_srcset = $app_screen_base . $screen_name . '-224.webp 224w, '
+									. $app_screen_base . $screen_name . '-400.webp 400w, '
 									. $app_screen_base . $screen_name . '-480.webp 480w, '
 									. $screen_src . ' 720w';
 								?>
@@ -636,7 +638,7 @@ if ( is_readable( $brand_icon_path ) ) {
 
 				<div class="kk-outcome-grid">
 					<article class="kk-outcome-card kk-animate kk-animate-delay-1">
-						<img class="kk-outcome-card__image" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/marketing/focus-protection-480.webp' ); ?>" srcset="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/marketing/focus-protection-480.webp' ); ?> 480w, <?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/marketing/focus-protection-720.webp' ); ?> 720w, <?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/marketing/focus-protection.jpg' ); ?> 900w" sizes="(max-width: 39.99rem) calc(100vw - 2rem), (max-width: 63.99rem) calc(50vw - 2rem), 383px" alt="<?php echo esc_attr( $__( 'Çalışma masasında dikkatini işine veren bir Kalkan kullanıcısı', 'A Kalkan user focused at a work desk' ) ); ?>" width="900" height="1124" loading="lazy" decoding="async">
+						<img class="kk-outcome-card__image" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/marketing/focus-protection-480.webp' ); ?>" alt="<?php echo esc_attr( $__( 'Çalışma masasında dikkatini işine veren bir Kalkan kullanıcısı', 'A Kalkan user focused at a work desk' ) ); ?>" width="480" height="600" loading="lazy" decoding="async">
 						<div class="kk-outcome-card__content">
 							<h3><?php echo esc_html( $__( 'Arama Engellenir. Odağınız Dağılmaz.', 'The Call Is Blocked. Your Focus Stays.' ) ); ?></h3>
 							<p><?php echo esc_html( $__( 'Çalışırken, üretirken veya öğrenirken gereksiz aramalarla bölünmeyin.', 'Avoid unnecessary interruptions while you work, create, or learn.' ) ); ?></p>
@@ -644,7 +646,7 @@ if ( is_readable( $brand_icon_path ) ) {
 					</article>
 
 					<article class="kk-outcome-card kk-animate kk-animate-delay-2">
-						<img class="kk-outcome-card__image" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/marketing/family-protection-480.webp' ); ?>" srcset="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/marketing/family-protection-480.webp' ); ?> 480w, <?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/marketing/family-protection-720.webp' ); ?> 720w, <?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/marketing/family-protection.jpg' ); ?> 900w" sizes="(max-width: 39.99rem) calc(100vw - 2rem), (max-width: 63.99rem) calc(50vw - 2rem), 383px" alt="<?php echo esc_attr( $__( 'Telefonunu rahatça kullanan bir aile büyüğü', 'An older family member using a phone comfortably' ) ); ?>" width="900" height="1124" loading="lazy" decoding="async">
+						<img class="kk-outcome-card__image" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/marketing/family-protection-480.webp' ); ?>" alt="<?php echo esc_attr( $__( 'Telefonunu rahatça kullanan bir aile büyüğü', 'An older family member using a phone comfortably' ) ); ?>" width="480" height="600" loading="lazy" decoding="async">
 						<div class="kk-outcome-card__content">
 							<h3><?php echo esc_html( $__( 'Yakınlarınızı İstenmeyen Aramalara Karşı Koruyun.', 'Help Protect Your Loved Ones From Unwanted Calls.' ) ); ?></h3>
 							<p><?php echo esc_html( $__( 'Huzur bozacak senaryolara karşı önleminiz olsun.', 'Be prepared for calls that could disturb your peace.' ) ); ?></p>
@@ -680,7 +682,8 @@ if ( is_readable( $brand_icon_path ) ) {
 									<?php
 									$screen_name   = $screen['slug'] . '-' . $app_demo_suffix;
 									$screen_src    = $app_screen_base . $screen_name . '.webp';
-									$screen_srcset = $app_screen_base . $screen_name . '-400.webp 400w, '
+									$screen_srcset = $app_screen_base . $screen_name . '-224.webp 224w, '
+										. $app_screen_base . $screen_name . '-400.webp 400w, '
 										. $app_screen_base . $screen_name . '-480.webp 480w, '
 										. $screen_src . ' 720w';
 									?>
