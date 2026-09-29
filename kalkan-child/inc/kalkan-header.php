@@ -14,13 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $is_front_page = isset( $is_front_page ) ? (bool) $is_front_page : false;
 $anchor_prefix = $is_front_page ? '' : $home_url;
+$brand_icon_src = isset( $brand_icon_src ) ? $brand_icon_src : get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon-80-optimized.webp';
 ?>
 <!-- ── HEADER ──────────────────────────────────────────────────────────── -->
 <header class="kk-header" id="kk-header">
 	<div class="kk-shell kk-header__inner">
 
 		<a class="kk-brand" href="<?php echo $home_url; ?>" aria-label="Kalkan">
-			<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon-80-optimized.webp' ); ?>" alt="" class="kk-brand__icon skip-lazy" width="40" height="40" loading="eager" decoding="async" fetchpriority="high" data-no-lazy="1">
+			<img src="<?php echo esc_attr( $brand_icon_src ); ?>" alt="" class="kk-brand__icon skip-lazy" width="40" height="40" loading="eager" decoding="async" fetchpriority="high" data-no-lazy="1">
 			<span class="kk-brand__name">Kalkan</span>
 		</a>
 
