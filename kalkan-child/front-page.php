@@ -42,6 +42,15 @@ $hero_screen_src    = $app_screen_base . $hero_screen_name . '.webp';
 $hero_screen_srcset = $app_screen_base . $hero_screen_name . '-400.webp 400w, '
 	. $app_screen_base . $hero_screen_name . '-480.webp 480w, '
 	. $hero_screen_src . ' 720w';
+
+/* Start the mobile LCP image request from the response headers, before HTML parsing. */
+if ( ! headers_sent() ) {
+	header(
+		'Link: <' . esc_url_raw( $app_screen_base . $hero_screen_name . '-400.webp' ) . '>; rel=preload; as=image; type=image/webp; fetchpriority=high',
+		false
+	);
+}
+
 $brand_icon_url  = get_stylesheet_directory_uri() . '/assets/images/KalkanAppIcon-80-optimized.webp';
 $brand_icon_path = get_stylesheet_directory() . '/assets/images/KalkanAppIcon-80-optimized.webp';
 $brand_icon_src  = $brand_icon_url;

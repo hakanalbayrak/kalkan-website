@@ -2866,6 +2866,20 @@ function kalkan_purge_performance_cache_v16() {
 }
 add_action('init', 'kalkan_purge_performance_cache_v16', 1009);
 
+/** Purge once after adding the response-header preload for the hero image. */
+function kalkan_purge_performance_cache_v17() {
+    if (get_option('kalkan_performance_cache_purged_v17')) {
+        return;
+    }
+
+    if (has_action('litespeed_purge_all')) {
+        do_action('litespeed_purge_all');
+    }
+
+    update_option('kalkan_performance_cache_purged_v17', true);
+}
+add_action('init', 'kalkan_purge_performance_cache_v17', 1010);
+
 /**
  * Publish the approved, neutral Getcontact comparison once. The English
  * adaptation lives in post meta because this site renders both languages from
