@@ -78,6 +78,13 @@ if ( is_readable( $brand_icon_path ) ) {
 <style data-no-optimize="1">
 /* ─── Homepage-specific styles ───────────────────────────────────────────────── */
 
+/* Keep the landing page render-blocking path network-free. The native UI stack
+   closely matches Kalkan's typography on Apple and Android devices. */
+body,
+body * {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif !important;
+}
+
 /* Compact vertical rhythm — reduce section padding on homepage */
 .kk-main > .kk-section { padding-block: clamp(2.5rem, 6vw, 3.5rem); }
 .kk-main > .kk-section .kk-section-header { margin-bottom: 1.5rem; }
@@ -466,6 +473,7 @@ if ( is_readable( $brand_icon_path ) ) {
   .phone-frame {
     width: 240px; margin: 0 auto;
   }
+  .kk-app-demo__visual { display: none; }
   .phone-screen { border-radius: 36px; }
   .hero-buttons {
     flex-direction: column; align-items: center; gap: 12px;
@@ -638,7 +646,7 @@ if ( is_readable( $brand_icon_path ) ) {
 
 				<div class="kk-outcome-grid">
 					<article class="kk-outcome-card kk-animate kk-animate-delay-1">
-						<img class="kk-outcome-card__image" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/marketing/focus-protection-480.webp' ); ?>" alt="<?php echo esc_attr( $__( 'Çalışma masasında dikkatini işine veren bir Kalkan kullanıcısı', 'A Kalkan user focused at a work desk' ) ); ?>" width="480" height="600" loading="lazy" decoding="async">
+						<img class="kk-outcome-card__image" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/marketing/focus-protection-384.webp' ); ?>" alt="<?php echo esc_attr( $__( 'Çalışma masasında dikkatini işine veren bir Kalkan kullanıcısı', 'A Kalkan user focused at a work desk' ) ); ?>" width="384" height="480" loading="lazy" decoding="async">
 						<div class="kk-outcome-card__content">
 							<h3><?php echo esc_html( $__( 'Arama Engellenir. Odağınız Dağılmaz.', 'The Call Is Blocked. Your Focus Stays.' ) ); ?></h3>
 							<p><?php echo esc_html( $__( 'Çalışırken, üretirken veya öğrenirken gereksiz aramalarla bölünmeyin.', 'Avoid unnecessary interruptions while you work, create, or learn.' ) ); ?></p>
@@ -646,7 +654,7 @@ if ( is_readable( $brand_icon_path ) ) {
 					</article>
 
 					<article class="kk-outcome-card kk-animate kk-animate-delay-2">
-						<img class="kk-outcome-card__image" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/marketing/family-protection-480.webp' ); ?>" alt="<?php echo esc_attr( $__( 'Telefonunu rahatça kullanan bir aile büyüğü', 'An older family member using a phone comfortably' ) ); ?>" width="480" height="600" loading="lazy" decoding="async">
+						<img class="kk-outcome-card__image" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/marketing/family-protection-384.webp' ); ?>" alt="<?php echo esc_attr( $__( 'Telefonunu rahatça kullanan bir aile büyüğü', 'An older family member using a phone comfortably' ) ); ?>" width="384" height="480" loading="lazy" decoding="async">
 						<div class="kk-outcome-card__content">
 							<h3><?php echo esc_html( $__( 'Yakınlarınızı İstenmeyen Aramalara Karşı Koruyun.', 'Help Protect Your Loved Ones From Unwanted Calls.' ) ); ?></h3>
 							<p><?php echo esc_html( $__( 'Huzur bozacak senaryolara karşı önleminiz olsun.', 'Be prepared for calls that could disturb your peace.' ) ); ?></p>
