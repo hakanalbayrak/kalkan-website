@@ -558,6 +558,7 @@ body * {
 								$screen_name   = $screen['slug'] . '-' . $app_demo_suffix;
 								$screen_src    = $app_screen_base . $screen_name . '.webp';
 								$screen_srcset = $app_screen_base . $screen_name . '-224.webp 224w, '
+									. $app_screen_base . $screen_name . '-288.webp 288w, '
 									. $app_screen_base . $screen_name . '-400.webp 400w, '
 									. $app_screen_base . $screen_name . '-480.webp 480w, '
 									. $screen_src . ' 720w';
@@ -691,11 +692,12 @@ body * {
 									$screen_name   = $screen['slug'] . '-' . $app_demo_suffix;
 									$screen_src    = $app_screen_base . $screen_name . '.webp';
 									$screen_srcset = $app_screen_base . $screen_name . '-224.webp 224w, '
+										. $app_screen_base . $screen_name . '-288.webp 288w, '
 										. $app_screen_base . $screen_name . '-400.webp 400w, '
 										. $app_screen_base . $screen_name . '-480.webp 480w, '
 										. $screen_src . ' 720w';
 									?>
-									<img class="kk-phone-shot" src="<?php echo esc_url( $screen_src ); ?>" srcset="<?php echo esc_attr( $screen_srcset ); ?>" sizes="(max-width: 768px) 224px, 306px" alt="" width="720" height="<?php echo esc_attr( (string) $screen['height'] ); ?>" loading="lazy" decoding="async" aria-hidden="true">
+									<img class="kk-phone-shot" src="<?php echo esc_url( $screen_src ); ?>" srcset="<?php echo esc_attr( $screen_srcset ); ?>" sizes="(max-width: 768px) 224px, 284px" alt="" width="720" height="<?php echo esc_attr( (string) $screen['height'] ); ?>" loading="lazy" decoding="async" aria-hidden="true">
 								<?php endforeach; ?>
 							</div>
 						</div>

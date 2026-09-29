@@ -2983,6 +2983,20 @@ function kalkan_purge_performance_cache_v22() {
 }
 add_action('init', 'kalkan_purge_performance_cache_v22', 1015);
 
+/** Purge once after adding exact desktop phone-screen image candidates. */
+function kalkan_purge_performance_cache_v23() {
+    if (get_option('kalkan_performance_cache_purged_v23')) {
+        return;
+    }
+
+    if (has_action('litespeed_purge_all')) {
+        do_action('litespeed_purge_all');
+    }
+
+    update_option('kalkan_performance_cache_purged_v23', true);
+}
+add_action('init', 'kalkan_purge_performance_cache_v23', 1016);
+
 /**
  * Publish the approved, neutral Getcontact comparison once. The English
  * adaptation lives in post meta because this site renders both languages from
