@@ -37,17 +37,18 @@ $app_demo_screens = array(
 	array( 'slug' => 'premium', 'height' => 1565 ),
 	array( 'slug' => 'settings', 'height' => 1565 ),
 );
-$hero_screen_name   = 'home-' . $app_demo_suffix;
-$hero_screen_src    = $app_screen_base . $hero_screen_name . '.webp';
-$hero_screen_srcset = $app_screen_base . $hero_screen_name . '-224.webp 224w, '
-	. $app_screen_base . $hero_screen_name . '-400.webp 400w, '
-	. $app_screen_base . $hero_screen_name . '-480.webp 480w, '
-	. $hero_screen_src . ' 720w';
+$hero_screen_name    = 'home-' . $app_demo_suffix;
+$hero_screen_mobile  = $app_screen_base . $hero_screen_name . '-224.webp';
+$hero_screen_desktop = $app_screen_base . $hero_screen_name . '-288.webp';
 
-/* Start the mobile LCP image request from the response headers, before HTML parsing. */
+/* Start the viewport-specific LCP image request before HTML parsing. */
 if ( ! headers_sent() ) {
 	header(
-		'Link: <' . esc_url_raw( $app_screen_base . $hero_screen_name . '-400.webp' ) . '>; rel=preload; as=image; type=image/webp; fetchpriority=high',
+		'Link: <' . esc_url_raw( $hero_screen_mobile ) . '>; rel=preload; as=image; type=image/webp; media="(max-width: 768px)"; fetchpriority=high',
+		false
+	);
+	header(
+		'Link: <' . esc_url_raw( $hero_screen_desktop ) . '>; rel=preload; as=image; type=image/webp; media="(min-width: 769px)"; fetchpriority=high',
 		false
 	);
 }
@@ -66,7 +67,8 @@ if ( is_readable( $brand_icon_path ) ) {
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preload" as="image" href="<?php echo esc_url( $hero_screen_src ); ?>" imagesrcset="<?php echo esc_attr( $hero_screen_srcset ); ?>" imagesizes="(max-width: 768px) 224px, 286px" fetchpriority="high">
+<link rel="preload" as="image" href="<?php echo esc_url( $hero_screen_mobile ); ?>" media="(max-width: 768px)" fetchpriority="high">
+<link rel="preload" as="image" href="<?php echo esc_url( $hero_screen_desktop ); ?>" media="(min-width: 769px)" fetchpriority="high">
 <?php wp_head(); ?>
 <?php echo $_kk_seo_tags(); ?>
 <?php $kalkan_ui_css = kalkan_ui_stylesheet_contents(); ?>
@@ -203,6 +205,7 @@ body * {
   animation: kk-phone-screen-cycle 25s infinite both;
   will-change: opacity;
 }
+.phone-screen picture { display: contents; }
 .phone-frame,
 .phone-frame:hover {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -210,18 +213,18 @@ body * {
 @media (prefers-reduced-motion: reduce) {
   .phone-frame:hover { transform: none; }
 }
-.phone-screen .kk-phone-shot:nth-child(1) { animation-delay: 0s; }
-.phone-screen .kk-phone-shot:nth-child(2) { animation-delay: 5s; }
-.phone-screen .kk-phone-shot:nth-child(3) { animation-delay: 10s; }
-.phone-screen .kk-phone-shot:nth-child(4) { animation-delay: 15s; }
-.phone-screen .kk-phone-shot:nth-child(5) { animation-delay: 20s; }
+.phone-screen picture:nth-child(1) .kk-phone-shot { animation-delay: 0s; }
+.phone-screen picture:nth-child(2) .kk-phone-shot { animation-delay: 5s; }
+.phone-screen picture:nth-child(3) .kk-phone-shot { animation-delay: 10s; }
+.phone-screen picture:nth-child(4) .kk-phone-shot { animation-delay: 15s; }
+.phone-screen picture:nth-child(5) .kk-phone-shot { animation-delay: 20s; }
 @keyframes kk-phone-screen-cycle {
   0%, 16% { opacity: 1; }
   20%, 100% { opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .phone-screen .kk-phone-shot { animation: none; opacity: 0; }
-  .phone-screen .kk-phone-shot:first-child { opacity: 1; }
+  .phone-screen picture:first-child .kk-phone-shot { opacity: 1; }
 }
 
 .kk-how { background: rgba(19,7,40,0.6); }
@@ -556,14 +559,14 @@ body * {
 							<?php foreach ( $app_demo_screens as $screen_index => $screen ) : ?>
 								<?php
 								$screen_name   = $screen['slug'] . '-' . $app_demo_suffix;
-								$screen_src    = $app_screen_base . $screen_name . '.webp';
-								$screen_srcset = $app_screen_base . $screen_name . '-224.webp 224w, '
-									. $app_screen_base . $screen_name . '-288.webp 288w, '
-									. $app_screen_base . $screen_name . '-400.webp 400w, '
-									. $app_screen_base . $screen_name . '-480.webp 480w, '
-									. $screen_src . ' 720w';
+								$screen_mobile  = $app_screen_base . $screen_name . '-224.webp';
+								$screen_desktop = $app_screen_base . $screen_name . '-288.webp';
 								?>
-								<img class="kk-phone-shot" src="<?php echo esc_url( $screen_src ); ?>" srcset="<?php echo esc_attr( $screen_srcset ); ?>" sizes="(max-width: 768px) 224px, 286px" alt="" width="720" height="<?php echo esc_attr( (string) $screen['height'] ); ?>" loading="<?php echo 0 === $screen_index ? 'eager' : 'lazy'; ?>" decoding="async"<?php echo 0 === $screen_index ? ' fetchpriority="high"' : ''; // phpcs:ignore WordPress.Security.EscapeOutput ?> aria-hidden="true">
+								<picture>
+									<source media="(max-width: 768px)" srcset="<?php echo esc_url( $screen_mobile ); ?>">
+									<source media="(min-width: 769px)" srcset="<?php echo esc_url( $screen_desktop ); ?>">
+									<img class="kk-phone-shot" src="<?php echo esc_url( $screen_desktop ); ?>" alt="" width="288" height="<?php echo esc_attr( (string) round( $screen['height'] * 0.4 ) ); ?>" loading="<?php echo 0 === $screen_index ? 'eager' : 'lazy'; ?>" decoding="async"<?php echo 0 === $screen_index ? ' fetchpriority="high"' : ''; // phpcs:ignore WordPress.Security.EscapeOutput ?> aria-hidden="true">
+								</picture>
 							<?php endforeach; ?>
 						</div>
 					</div>
@@ -690,14 +693,14 @@ body * {
 								<?php foreach ( $app_demo_screens as $screen ) : ?>
 									<?php
 									$screen_name   = $screen['slug'] . '-' . $app_demo_suffix;
-									$screen_src    = $app_screen_base . $screen_name . '.webp';
-									$screen_srcset = $app_screen_base . $screen_name . '-224.webp 224w, '
-										. $app_screen_base . $screen_name . '-288.webp 288w, '
-										. $app_screen_base . $screen_name . '-400.webp 400w, '
-										. $app_screen_base . $screen_name . '-480.webp 480w, '
-										. $screen_src . ' 720w';
+									$screen_mobile  = $app_screen_base . $screen_name . '-224.webp';
+									$screen_desktop = $app_screen_base . $screen_name . '-288.webp';
 									?>
-									<img class="kk-phone-shot" src="<?php echo esc_url( $screen_src ); ?>" srcset="<?php echo esc_attr( $screen_srcset ); ?>" sizes="(max-width: 768px) 224px, 284px" alt="" width="720" height="<?php echo esc_attr( (string) $screen['height'] ); ?>" loading="lazy" decoding="async" aria-hidden="true">
+									<picture>
+										<source media="(max-width: 768px)" srcset="<?php echo esc_url( $screen_mobile ); ?>">
+										<source media="(min-width: 769px)" srcset="<?php echo esc_url( $screen_desktop ); ?>">
+										<img class="kk-phone-shot" src="<?php echo esc_url( $screen_desktop ); ?>" alt="" width="288" height="<?php echo esc_attr( (string) round( $screen['height'] * 0.4 ) ); ?>" loading="lazy" decoding="async" aria-hidden="true">
+									</picture>
 								<?php endforeach; ?>
 							</div>
 						</div>
