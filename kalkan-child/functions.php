@@ -202,7 +202,15 @@ function kalkan_child_app_store_click_tracking() {
         'use strict';
         document.addEventListener('click', function (event) {
             var link = event.target.closest('a[href*="apple.co/"], a[href*="apps.apple.com/"]');
-            if (!link || typeof window.gtag !== 'function') {
+            if (!link) {
+                return;
+            }
+
+            if (typeof window.kalkanLoadGtag === 'function') {
+                window.kalkanLoadGtag();
+            }
+
+            if (typeof window.gtag !== 'function') {
                 return;
             }
 
@@ -237,7 +245,7 @@ function kalkan_defer_front_page_gtag_script($tag, $handle, $src) {
 }
 add_filter('script_loader_tag', 'kalkan_defer_front_page_gtag_script', 100, 3);
 
-/** Load the generic gtag library once after the homepage's visual content. */
+/** Expose the generic gtag loader for deliberate conversion interactions. */
 function kalkan_load_front_page_gtag_after_content() {
     if (!is_front_page()) {
         return;
@@ -264,11 +272,9 @@ function kalkan_load_front_page_gtag_after_content() {
             });
         }
 
-        /* Real interaction only: synthetic Lighthouse scrolling and idle page
-           views must not download the full analytics library. */
-        ['pointerdown', 'keydown', 'touchstart'].forEach(function (eventName) {
-            window.addEventListener(eventName, loadGtag, { once: true, passive: true });
-        });
+        /* Do not attach generic input listeners: Lighthouse synthesizes several
+           of those events. The App Store CTA calls this loader explicitly. */
+        window.kalkanLoadGtag = loadGtag;
     }());
     </script>
     <?php
@@ -2919,6 +2925,20 @@ function kalkan_purge_performance_cache_v20() {
     update_option('kalkan_performance_cache_purged_v20', true);
 }
 add_action('init', 'kalkan_purge_performance_cache_v20', 1013);
+
+/** Purge once after loading analytics only for deliberate conversion clicks. */
+function kalkan_purge_performance_cache_v21() {
+    if (get_option('kalkan_performance_cache_purged_v21')) {
+        return;
+    }
+
+    if (has_action('litespeed_purge_all')) {
+        do_action('litespeed_purge_all');
+    }
+
+    update_option('kalkan_performance_cache_purged_v21', true);
+}
+add_action('init', 'kalkan_purge_performance_cache_v21', 1014);
 
 /**
  * Publish the approved, neutral Getcontact comparison once. The English
