@@ -83,6 +83,12 @@ $is_front_page = false;
 					<h2>8. Duyurular ve Odak yardımı</h2>
 					<p>Ana ekrandaki duyurulardan Genel içerikleri ve Güncellemeler notlarını okuyabilirsiniz. Ayarlar'daki Odak Kurulum Yardımcısı, İş, Hafta Sonu ve Proje senaryoları için Apple Odak ayarlarını anlatır; Kalkan bu ayarları kendisi değiştirmez.</p>
 
+					<h2>Etiket veya engelleme görünmüyorsa</h2>
+					<p>Önce Kalkan ana ekranındaki koruma durumunu kontrol edin. Uzantılar kapalıysa iPhone Ayarları'ndan yeniden etkinleştirin; koruma verisi eskiyse Güncelle düğmesini kullanın. Bir numaranın listede olmaması uygulamanın bozuk olduğu anlamına gelmez: numara yeni, taklit edilmiş veya henüz incelenmemiş olabilir. Sorun devam ederse cihaz modeli, iOS sürümü, Kalkan sürümü ve gördüğünüz hata ile <a href="<?php echo esc_url( $contact_url ); ?>">iletişim sayfasından</a> destek isteyin.</p>
+
+					<h2>Sorumlu bildirim</h2>
+					<p>Yalnızca arama deneyiminize uygun kategoriyi seçin; kişisel bilgi, hakaret veya doğrulanmamış kimlik iddiası yazmayın. Bildirim bir araştırma sinyalidir ve otomatik olarak bir kişi ya da kurum hakkında kesin hüküm oluşturmaz. Numara başka bir kullanıcıya devredilmiş veya ekranda taklit edilmiş olabilir.</p>
+
 					<p><a href="<?php echo $documentation_url; ?>">Tüm özellikler, teknik çalışma modeli, gizlilik sınırları ve SSS için Kalkan dokümantasyonunu okuyun.</a></p>
 
 				<?php else : ?>
@@ -117,6 +123,12 @@ $is_front_page = false;
 
 					<h2>8. Announcements and Focus guidance</h2>
 					<p>Read General content and Updates notes from the Home announcements area. The Focus Setup Assistant explains Apple Focus settings for Work, Weekend and Project scenarios; Kalkan does not change those settings itself.</p>
+
+					<h2>If a label or block does not appear</h2>
+					<p>First check the protection status on the Kalkan Home screen. If the extensions are disabled, enable them again in iPhone Settings; if protection data is old, use Update. A number missing from the list does not necessarily mean the app is broken: the number may be new, spoofed or not yet reviewed. If the issue continues, contact us with the device model, iOS version, Kalkan version and exact error through the <a href="<?php echo esc_url( $contact_url ); ?>">Contact page</a>.</p>
+
+					<h2>Report responsibly</h2>
+					<p>Select only the category that matches your call experience, and do not submit personal data, abuse or an unverified identity claim. A report is a research signal, not an automatic finding about a person or organization. The number may have been reassigned or spoofed on the caller-ID display.</p>
 
 					<p><a href="<?php echo $documentation_url; ?>">Read the full Kalkan documentation for every feature, technical operation, privacy limitation and FAQ.</a></p>
 
