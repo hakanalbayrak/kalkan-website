@@ -122,13 +122,11 @@ add_action('template_redirect', 'kalkan_redirect_legacy_thin_posts', 4);
  */
 function kalkan_content_quality_robots($robots) {
     if (is_search() || is_author() || is_date() || is_tag() || is_attachment()) {
-        $robots['noindex'] = true;
-        $robots['follow'] = true;
-        unset($robots['index']);
+        return 'noindex, follow';
     }
     return $robots;
 }
-add_filter('wp_robots', 'kalkan_content_quality_robots', 30);
+add_filter('seopress_titles_robots', 'kalkan_content_quality_robots', 30);
 
 /** Redirect attachment pages to their parent article or the homepage. */
 function kalkan_redirect_attachment_pages() {
@@ -163,4 +161,3 @@ function kalkan_purge_content_quality_cache_v1() {
     update_option('kalkan_content_quality_cache_purged_v1', true);
 }
 add_action('init', 'kalkan_purge_content_quality_cache_v1', 1018);
-
