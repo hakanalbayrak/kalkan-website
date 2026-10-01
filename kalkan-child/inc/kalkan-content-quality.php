@@ -120,13 +120,28 @@ add_action('template_redirect', 'kalkan_redirect_legacy_thin_posts', 4);
  * Remove utility and duplicate archives from search results while keeping
  * useful topic categories indexable.
  */
+function kalkan_content_quality_is_utility_surface() {
+    return is_search() || is_author() || is_date() || is_tag() || is_attachment();
+}
+
 function kalkan_content_quality_robots($robots) {
-    if (is_search() || is_author() || is_date() || is_tag() || is_attachment()) {
-        return 'noindex, follow';
+    if (kalkan_content_quality_is_utility_surface()) {
+        $robots['noindex'] = true;
+        $robots['follow']  = true;
+        unset($robots['index'], $robots['nofollow']);
     }
     return $robots;
 }
-add_filter('seopress_titles_robots', 'kalkan_content_quality_robots', 30);
+add_filter('wp_robots', 'kalkan_content_quality_robots', 30);
+
+/**
+ * WordPress owns the single robots tag on utility surfaces. Prevent SEOPress
+ * from outputting a second, equivalent tag there.
+ */
+function kalkan_content_quality_suppress_seopress_robots($tag) {
+    return kalkan_content_quality_is_utility_surface() ? '' : $tag;
+}
+add_filter('seopress_titles_robots', 'kalkan_content_quality_suppress_seopress_robots', 30);
 
 /** Redirect attachment pages to their parent article or the homepage. */
 function kalkan_redirect_attachment_pages() {
