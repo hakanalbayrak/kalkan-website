@@ -103,6 +103,25 @@ $page_title    = $display_title . ' — Kalkan';
 .kk-post__author strong { color: #f5f3ff; }
 .kk-post__author p { margin: 0.45rem 0 0; color: rgba(245, 243, 255, 0.72); line-height: 1.65; }
 .kk-post__author a { color: #c4b5fd; text-underline-offset: 3px; }
+.kk-related {
+  margin-top: 2.75rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.kk-related h2 { margin: 0 0 1rem; color: #f5f3ff; font-size: 1.25rem; }
+.kk-related__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 0.85rem; }
+.kk-related__card {
+  display: block;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.025);
+  color: #f5f3ff;
+  text-decoration: none;
+  line-height: 1.45;
+  font-weight: 600;
+}
+.kk-related__card:hover { border-color: rgba(167, 139, 250, 0.65); color: #ddd6fe; }
 .kk-post__title {
   font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
   font-size: clamp(1.75rem, 4vw, 2.6rem);
@@ -212,6 +231,36 @@ $page_title    = $display_title . ' — Kalkan';
 					}
 					?>
 				</div>
+
+				<?php
+				$related_ids = get_posts(array(
+					'post_type'      => 'post',
+					'post_status'    => 'publish',
+					'posts_per_page' => 3,
+					'post__not_in'   => array(get_the_ID()),
+					'category__in'   => wp_get_post_categories(get_the_ID()),
+					'orderby'        => 'modified',
+					'order'          => 'DESC',
+					'fields'         => 'ids',
+				));
+				if ($related_ids) : ?>
+					<nav class="kk-related" aria-label="<?php echo esc_attr( $__( 'İlgili rehberler', 'Related guides' ) ); ?>">
+						<h2><?php echo esc_html( $__( 'İlgili rehberler', 'Related guides' ) ); ?></h2>
+						<div class="kk-related__grid">
+							<?php foreach ($related_ids as $related_id) :
+								$related_title = get_the_title($related_id);
+								if ('en' === $lang) {
+									$translated_title = get_post_meta($related_id, '_kalkan_title_en', true);
+									if ($translated_title) {
+										$related_title = $translated_title;
+									}
+								}
+							?>
+								<a class="kk-related__card" href="<?php echo esc_url(get_permalink($related_id)); ?>"><?php echo esc_html($related_title); ?></a>
+							<?php endforeach; ?>
+						</div>
+					</nav>
+				<?php endif; ?>
 
 				<aside class="kk-post__body" aria-label="<?php echo esc_attr($__( 'Kalkan hakkında', 'About Kalkan' )); ?>">
 					<h2><?php echo esc_html($__( 'Kalkan ile arama koruması', 'Call protection with Kalkan' )); ?></h2>
