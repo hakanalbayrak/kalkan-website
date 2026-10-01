@@ -94,3 +94,10 @@ This file records durable website/growth decisions.
 - Date or commit reference: 2026-09-28
 - Decision: Inline the small shared UI stylesheet on the homepage, exclude the header icon from lazy loading, serve responsive phone screenshots, and load AdSense only when a real article ad slot approaches the viewport. Keep official localized App Store badges as local static assets.
 - Rationale: Removes the measured render-blocking request and homepage advertising payload, improves mobile image delivery, and preserves article ad revenue without adding a framework or plugin.
+
+## Decision 013
+
+- Short title: Editorial transparency and low-value-content consolidation
+- Date or commit reference: 2026-10-01
+- Decision: Publish a bilingual editorial policy, show publication/update and editorial-team attribution on every article, and document the primary-source-first review and corrections process. Consolidate the two obsolete thin posts into the maintained spam guide and version history with permanent redirects. Keep useful topic categories indexable while excluding search, author, date, tag, and attachment utility surfaces.
+- Rationale: Gives readers and quality reviewers a verifiable content method, avoids word-count padding, preserves useful focused guides, and removes two genuinely thin duplicate pages from the indexable surface.

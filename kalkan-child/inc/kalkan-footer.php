@@ -31,6 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<a href="<?php echo $how_to_use_url; ?>"><?php echo esc_html( $__( 'Nasıl Kullanılır?', 'How to Use?' ) ); ?></a>
 			<a href="<?php echo $documentation_url; ?>"><?php echo esc_html( $__( 'Dokümantasyon ve SSS', 'Documentation & FAQ' ) ); ?></a>
 			<a href="<?php echo $version_history_url; ?>"><?php echo esc_html( $__( 'Sürüm Geçmişi', 'Version History' ) ); ?></a>
+			<a href="<?php echo $editorial_policy_url; ?>"><?php echo esc_html( $__( 'İçerik İlkeleri', 'Editorial Policy' ) ); ?></a>
 			<a href="<?php echo $privacy_url; ?>"><?php echo esc_html( $__( 'Gizlilik Politikası', 'Privacy Policy' ) ); ?></a>
 			<a href="<?php echo $kvkk_url; ?>"><?php echo esc_html( $__( 'KVKK Aydınlatma', 'Legal Notice' ) ); ?></a>
 			<a href="<?php echo $terms_url; ?>"><?php echo esc_html( $__( 'Kullanım Koşulları', 'Terms of Use' ) ); ?></a>

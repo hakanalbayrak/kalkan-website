@@ -87,6 +87,7 @@ $how_to_use_url  = $how_to_use_page
 
 $documentation_url = esc_url( kalkan_page_url( 'dokumantasyon', 'documentation' ) );
 $version_history_url = esc_url( kalkan_page_url( 'surum-gecmisi', 'version-history' ) );
+$editorial_policy_url = esc_url( kalkan_page_url( 'icerik-ilkeleri', 'editorial-policy' ) );
 
 $terms_page = get_page_by_path( 'kullanim-kosullari' );
 if ( ! $terms_page ) {

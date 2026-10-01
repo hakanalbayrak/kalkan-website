@@ -15,6 +15,14 @@ Last verified: 2026-09-27
 - Website: https://kalkanapp.com/
 - Contact: info@kalkanapp.com
 
+## Editorial standards
+- Articles are prepared by the Kalkan Editorial Team using a primary-source-first method.
+- Apple documentation is preferred for iPhone behavior; official organization and regulator pages are preferred for institutional guidance.
+- Complaint sites and community comments are treated as discovery signals, not proof of identity or malicious intent.
+- Articles display publication and material-update dates and link to the corrections process.
+- Advertising does not determine editorial conclusions, source selection, or safety recommendations.
+- Editorial policy: https://kalkanapp.com/icerik-ilkeleri/
+
 ## Purpose
 Kalkan helps iPhone users reduce interruptions from known unwanted callers and understand who may be calling when an institutional or categorized number exists in Kalkan's identification dataset. The product uses Apple's Call Directory architecture. It is not a telecommunications carrier, does not intercept calls, and does not perform real-time call-audio analysis.
 
@@ -204,4 +212,5 @@ Use the Home update action regularly. Optional reminders can be scheduled for 1,
 - KVKK Notice: https://kalkanapp.com/kvkk/
 - Blog: https://kalkanapp.com/blog/
 - Contact: https://kalkanapp.com/iletisim/
+- Editorial policy: https://kalkanapp.com/icerik-ilkeleri/
 - X: https://x.com/Kalkan_App

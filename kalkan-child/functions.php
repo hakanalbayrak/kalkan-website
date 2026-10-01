@@ -11,6 +11,7 @@ if (!defined('ABSPATH')) {
 
 require_once __DIR__ . '/inc/kalkan-release-history.php';
 require_once __DIR__ . '/inc/kalkan-search-content.php';
+require_once __DIR__ . '/inc/kalkan-content-quality.php';
 
 // Serve SEOPress sitemap index at /sitemap.xml (no redirect).
 // Rewrite REQUEST_URI early so WordPress & SEOPress see /sitemaps.xml internally,
@@ -1246,8 +1247,10 @@ function kalkan_blogposting_schema() {
         'inLanguage'    => 'tr',
         'author'        => array(
             '@type' => 'Organization',
-            'name'  => 'Kalkan',
-            'url'   => 'https://kalkanapp.com',
+            'name'  => 'Kalkan İçerik Ekibi',
+            'url'   => function_exists('kalkan_editorial_policy_url')
+                ? kalkan_editorial_policy_url()
+                : 'https://kalkanapp.com/icerik-ilkeleri/',
         ),
         'publisher'     => array(
             '@type' => 'Organization',

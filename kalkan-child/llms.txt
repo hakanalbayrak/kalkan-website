@@ -45,5 +45,6 @@ Kalkan is an iPhone application for identifying known callers and blocking known
 - [Privacy Policy](https://kalkanapp.com/privacy-policy/): Privacy practices.
 - [KVKK Notice](https://kalkanapp.com/kvkk/): Turkish data-protection notice.
 - [Blog and announcements](https://kalkanapp.com/duyurular/): Product and telephone-safety articles.
+- [Editorial policy](https://kalkanapp.com/icerik-ilkeleri/): Source hierarchy, review standards, corrections, and advertising independence.
 - [Full machine-readable reference](https://kalkanapp.com/llms-full.txt): Extended product and technical reference.
 - Contact: info@kalkanapp.com

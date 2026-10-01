@@ -92,6 +92,17 @@ $page_title    = $display_title . ' — Kalkan';
   font-size: 0.875rem;
   margin-bottom: 0.5rem;
 }
+.kk-post__meta a { color: inherit; text-underline-offset: 3px; }
+.kk-post__author {
+  margin-top: 2.75rem;
+  padding: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.035);
+}
+.kk-post__author strong { color: #f5f3ff; }
+.kk-post__author p { margin: 0.45rem 0 0; color: rgba(245, 243, 255, 0.72); line-height: 1.65; }
+.kk-post__author a { color: #c4b5fd; text-underline-offset: 3px; }
 .kk-post__title {
   font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
   font-size: clamp(1.75rem, 4vw, 2.6rem);
@@ -177,9 +188,15 @@ $page_title    = $display_title . ' — Kalkan';
 			<div class="kk-post-layout">
 			<article class="kk-post">
 				<div class="kk-post__meta">
-					<time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>">
-						<?php echo esc_html( get_the_date() ); ?>
-					</time>
+					<?php echo esc_html( $__( 'Yayınlandı', 'Published' ) ); ?>
+					<time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo esc_html( get_the_date() ); ?></time>
+					<?php if ( get_the_modified_time( 'U' ) > get_the_time( 'U' ) + DAY_IN_SECONDS ) : ?>
+						<span aria-hidden="true"> · </span>
+						<?php echo esc_html( $__( 'Güncellendi', 'Updated' ) ); ?>
+						<time datetime="<?php echo esc_attr( get_the_modified_date( 'c' ) ); ?>"><?php echo esc_html( get_the_modified_date() ); ?></time>
+					<?php endif; ?>
+					<span aria-hidden="true"> · </span>
+					<a href="<?php echo esc_url( $editorial_policy_url ); ?>"><?php echo esc_html( $__( 'Kalkan İçerik Ekibi', 'Kalkan Editorial Team' ) ); ?></a>
 				</div>
 
 				<h1 class="kk-post__title">
@@ -202,6 +219,14 @@ $page_title    = $display_title . ' — Kalkan';
 						'Kalkan, bilinen istenmeyen numaraları iOS Arama Dizini üzerinden cihazınızda engellemeye ve kurumsal numaraları arayan kimliği etiketiyle tanımanıza yardımcı olur. Rehberiniz ve kişisel arama geçmişiniz Kalkan sunucularına yüklenmez. Yeni veya taklit edilmiş numaralar her zaman ortaya çıkabileceği için, ekrandaki etiketten bağımsız olarak hassas talepleri kurumun resmî kanalından doğrulayın.',
 						'Kalkan uses iOS Call Directory to help block known unwanted numbers on your device and identify institutional numbers with caller-ID labels. Your contacts and personal call history are not uploaded to Kalkan servers. Because new or spoofed numbers can still appear, verify sensitive requests through the organization\'s independent official channel even when a label is displayed.'
 					)); ?></p>
+				</aside>
+
+				<aside class="kk-post__author" aria-label="<?php echo esc_attr( $__( 'Yazar ve inceleme bilgisi', 'Authorship and review information' ) ); ?>">
+					<strong><?php echo esc_html( $__( 'Kalkan İçerik Ekibi', 'Kalkan Editorial Team' ) ); ?></strong>
+					<p><?php echo esc_html( $__(
+						'Bu içerik resmî kaynaklar, güncel ürün davranışı ve açıkça belirtilen güvenlik sınırlamaları esas alınarak hazırlanır. Şikâyet ve topluluk yorumları kimlik veya kötü niyet kanıtı olarak sunulmaz.',
+						'This content is prepared using official sources, current product behavior, and clearly stated safety limitations. Complaint and community reports are not presented as proof of identity or malicious intent.'
+					) ); ?> <a href="<?php echo esc_url( $editorial_policy_url ); ?>"><?php echo esc_html( $__( 'İçerik yöntemimizi ve düzeltme sürecimizi inceleyin.', 'Read our editorial method and corrections process.' ) ); ?></a></p>
 				</aside>
 
 				<div class="kk-ad-slot kk-ad-slot--article" aria-label="<?php echo esc_attr( $__( 'Reklam', 'Advertisement' ) ); ?>">
