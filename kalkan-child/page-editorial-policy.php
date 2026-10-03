@@ -57,7 +57,7 @@ $page_title = $__( 'Kalkan İçerik İlkeleri', 'Kalkan Editorial Policy' ) . ' 
                     <p>Articles are prepared by the Kalkan Editorial Team. Before publication or material revision, we check the stated iOS path, current Kalkan behavior, internal links, factual limitations, and the availability of cited sources. Content must provide a concrete reader outcome: a verified setting path, a decision checklist, an official verification method, or a clear explanation of product behavior.</p>
 
                     <h2>Updates and corrections</h2>
-                    <p>Articles show their original publication date and a modified date after a material update. We review pages when iOS menus, Kalkan features, regulations, official source URLs, or known scam patterns change. If you find an error, send the page URL and the correction to <!--email_off--><a href="mailto:info@kalkanapp.com">info@kalkanapp.com</a><!--/email_off-->. We verify the report and correct confirmed errors without hiding the article’s updated date.</p>
+                    <p>Articles show their original publication date and a modified date after a material update. We review pages when iOS menus, Kalkan features, regulations, official source URLs, or known scam patterns change. If you find an error, send the page URL and the correction through our <a href="<?php echo esc_url($contact_url); ?>">contact form</a>. We verify the report and correct confirmed errors without hiding the article’s updated date.</p>
 
                     <h2>Advertising independence</h2>
                     <p>Advertising supports the website but does not determine an article’s conclusion, source selection, or safety recommendation. Ads are visually separated from editorial content. Paid placement does not make a phone number, organization, app, or service trusted. Product comparisons should explain meaningful differences and limitations rather than manufacture a winner.</p>
@@ -69,7 +69,7 @@ $page_title = $__( 'Kalkan İçerik İlkeleri', 'Kalkan Editorial Policy' ) . ' 
                     <p>Do not send passwords, one-time codes, banking information, private conversations, or unnecessary personal data when reporting a correction or suspicious call. We avoid copying complaint narratives or identifying private individuals. Read the <a href="<?php echo esc_url($privacy_url); ?>">Privacy Policy</a> for website and app data practices.</p>
 
                     <h2>Contact</h2>
-                    <p>Questions, source suggestions, and correction requests can be sent through the <a href="<?php echo esc_url($contact_url); ?>">contact page</a> or to <!--email_off--><a href="mailto:info@kalkanapp.com">info@kalkanapp.com</a><!--/email_off-->.</p>
+                    <p>Questions, source suggestions, and correction requests can be sent through the <a href="<?php echo esc_url($contact_url); ?>">contact page</a>.</p>
                 <?php else : ?>
                     <p><strong>Son güncelleme: 1 Ekim 2026.</strong> Kalkan; istenmeyen aramalar, arayan kimliği, iPhone arama ayarları ve telefon dolandırıcılığı işaretleri hakkında uygulanabilir içerikler yayımlar. Bu sayfa Kalkan İçerik Ekibinin kullandığı standartları ve bir arayan etiketi, açık kaynak yorumu veya numara sorgusunun neleri kanıtlayamayacağını açıklar.</p>
 
@@ -87,7 +87,7 @@ $page_title = $__( 'Kalkan İçerik İlkeleri', 'Kalkan Editorial Policy' ) . ' 
                     <p>İçerikler Kalkan İçerik Ekibi tarafından hazırlanır. Yayın veya önemli güncelleme öncesinde anlatılan iOS yolunu, Kalkan’ın güncel davranışını, iç bağlantıları, güvenlik sınırlamalarını ve kaynakların erişilebilirliğini kontrol ederiz. Her içerik okuyucuya somut bir sonuç sunmalıdır: doğrulanmış ayar yolu, karar kontrol listesi, resmî doğrulama yöntemi veya ürün davranışının açık açıklaması.</p>
 
                     <h2>Güncelleme ve düzeltmeler</h2>
-                    <p>Makalelerde ilk yayın tarihi ve önemli bir değişiklik yapıldığında güncellenme tarihi gösterilir. iOS menüleri, Kalkan özellikleri, mevzuat, resmî kaynak adresleri veya yaygın dolandırıcılık yöntemleri değiştiğinde ilgili sayfaları inceleriz. Bir hata görürseniz sayfa bağlantısını ve önerilen düzeltmeyi <!--email_off--><a href="mailto:info@kalkanapp.com">info@kalkanapp.com</a><!--/email_off--> adresine iletebilirsiniz. Bildirimi doğrular, doğrulanan hatayı düzeltir ve güncellenme tarihini görünür tutarız.</p>
+                    <p>Makalelerde ilk yayın tarihi ve önemli bir değişiklik yapıldığında güncellenme tarihi gösterilir. iOS menüleri, Kalkan özellikleri, mevzuat, resmî kaynak adresleri veya yaygın dolandırıcılık yöntemleri değiştiğinde ilgili sayfaları inceleriz. Bir hata görürseniz sayfa bağlantısını ve önerilen düzeltmeyi <a href="<?php echo esc_url($contact_url); ?>">iletişim formumuzdan</a> iletebilirsiniz. Bildirimi doğrular, doğrulanan hatayı düzeltir ve güncellenme tarihini görünür tutarız.</p>
 
                     <h2>Reklamdan bağımsızlık</h2>
                     <p>Reklamlar sitenin işletilmesine katkı sağlayabilir; ancak bir içeriğin sonucunu, kaynak seçimini veya güvenlik tavsiyesini belirlemez. Reklam alanları editoryal içerikten görsel olarak ayrılır. Ücretli gösterim bir telefon numarasını, kurumu, uygulamayı veya hizmeti güvenilir yapmaz. Ürün karşılaştırmaları yapay bir kazanan üretmek yerine anlamlı farkları ve sınırlamaları açıklamalıdır.</p>
@@ -99,7 +99,7 @@ $page_title = $__( 'Kalkan İçerik İlkeleri', 'Kalkan Editorial Policy' ) . ' 
                     <p>Düzeltme veya şüpheli arama bildirirken şifre, tek kullanımlık kod, banka bilgisi, özel konuşma ya da gereksiz kişisel veri göndermeyin. Şikâyet metinlerini kopyalamaktan ve özel kişileri teşhis etmekten kaçınırız. Uygulama ve web sitesi veri uygulamaları için <a href="<?php echo esc_url($privacy_url); ?>">Gizlilik Politikasını</a> inceleyin.</p>
 
                     <h2>İletişim</h2>
-                    <p>Soru, kaynak önerisi ve düzeltme taleplerinizi <a href="<?php echo esc_url($contact_url); ?>">iletişim sayfasından</a> veya <!--email_off--><a href="mailto:info@kalkanapp.com">info@kalkanapp.com</a><!--/email_off--> adresinden iletebilirsiniz.</p>
+                    <p>Soru, kaynak önerisi ve düzeltme taleplerinizi <a href="<?php echo esc_url($contact_url); ?>">iletişim sayfasından</a> iletebilirsiniz.</p>
                 <?php endif; ?>
                 </article>
             </div>
