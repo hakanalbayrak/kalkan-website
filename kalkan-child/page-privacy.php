@@ -86,13 +86,13 @@ $page_title    = 'en' === $lang ? 'Privacy Policy — Kalkan' : 'Gizlilik Politi
 					<p>Bildirimler, kötüye kullanımın önlenmesi ve hizmet kalitesi için gerektiği sürece saklanabilir.</p>
 
 					<h2>Veri Silme</h2>
-					<p>Verilerinizin silinmesini talep etmek için <a href="mailto:info@kalkanapp.com">info@kalkanapp.com</a> adresine e-posta gönderebilirsiniz.</p>
+					<p>Verilerinizin silinmesini talep etmek için <!--email_off--><a href="mailto:info@kalkanapp.com">info@kalkanapp.com</a><!--/email_off--> adresine e-posta gönderebilirsiniz.</p>
 
 					<h2>Bu politikadaki değişiklikler</h2>
 					<p>Bu Gizlilik Politikasını zaman zaman güncelleyebiliriz. Değişiklikler uygulama içinde ve web sitesinde yansıtılır.</p>
 
 					<h2>İletişim</h2>
-					<p>Gizlilik ile ilgili sorularınız için: <a href="mailto:info@kalkanapp.com">info@kalkanapp.com</a></p>
+					<p>Gizlilik ile ilgili sorularınız için: <!--email_off--><a href="mailto:info@kalkanapp.com">info@kalkanapp.com</a><!--/email_off--></p>
 
 				<?php else : ?>
 
@@ -128,13 +128,13 @@ $page_title    = 'en' === $lang ? 'Privacy Policy — Kalkan' : 'Gizlilik Politi
 					<p>Reports may be retained as needed for abuse prevention and service quality.</p>
 
 					<h2>Data Deletion</h2>
-					<p>To request deletion of your data, please email <a href="mailto:info@kalkanapp.com">info@kalkanapp.com</a>.</p>
+					<p>To request deletion of your data, please email <!--email_off--><a href="mailto:info@kalkanapp.com">info@kalkanapp.com</a><!--/email_off-->.</p>
 
 					<h2>Changes to this policy</h2>
 					<p>We may update this Privacy Policy from time to time. Changes will be reflected inside the app and on this website.</p>
 
 					<h2>Contact</h2>
-					<p>For privacy-related questions: <a href="mailto:info@kalkanapp.com">info@kalkanapp.com</a></p>
+					<p>For privacy-related questions: <!--email_off--><a href="mailto:info@kalkanapp.com">info@kalkanapp.com</a><!--/email_off--></p>
 
 				<?php endif; ?>
 
