@@ -37,9 +37,14 @@ $brand_icon_src = isset( $brand_icon_src ) ? $brand_icon_src : get_stylesheet_di
 		</nav>
 
 		<div class="kk-header__right">
-			<a class="kk-header-appstore" href="<?php echo esc_url( $appstore_link ); ?>" aria-label="App Store">
-				<img src="<?php echo esc_url( $badge_url ); ?>" alt="App Store" loading="eager" decoding="async" width="151" height="40">
-			</a>
+			<div class="kk-header-stores" aria-label="<?php echo esc_attr( $__( 'Uygulamayı indir', 'Download the app' ) ); ?>">
+				<a href="<?php echo esc_url( $appstore_link ); ?>" aria-label="App Store">
+					<img src="<?php echo esc_url( $badge_url ); ?>" alt="App Store" loading="eager" decoding="async" width="151" height="40">
+				</a>
+				<a href="<?php echo esc_url( $playstore_link ); ?>" aria-label="Google Play">
+					<img class="kk-googleplay-badge" src="<?php echo esc_url( $play_badge_url ); ?>" alt="Google Play" loading="eager" decoding="async" width="646" height="250">
+				</a>
+			</div>
 
 			<div class="kk-lang" aria-label="<?php echo esc_attr( $__( 'Dil seçimi', 'Language switcher' ) ); ?>">
 				<?php if ( function_exists( 'pll_the_languages' ) ) :
@@ -78,6 +83,7 @@ $brand_icon_src = isset( $brand_icon_src ) ? $brand_icon_src : get_stylesheet_di
 			<li><a href="<?php echo $blog_url; ?>">Blog</a></li>
 			<li><a href="<?php echo $contact_url; ?>"><?php echo esc_html( $__( 'İletişim', 'Contact' ) ); ?></a></li>
 			<li><a href="<?php echo esc_url( $appstore_link ); ?>"><?php echo esc_html( $__( 'App Store\'dan İndir', 'Download on App Store' ) ); ?></a></li>
+			<li><a href="<?php echo esc_url( $playstore_link ); ?>"><?php echo esc_html( $__( 'Google Play\'den İndir', 'Get it on Google Play' ) ); ?></a></li>
 		</ul>
 		<div class="kk-lang" style="margin-top:1rem;">
 			<?php if ( function_exists( 'pll_the_languages' ) ) :

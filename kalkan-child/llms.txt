@@ -1,17 +1,18 @@
-# Kalkan — iOS Call Blocker and Caller ID
+# Kalkan — iPhone and Android Call Protection
 
 ## Canonical product summary
-Kalkan is an iPhone application for identifying known callers and blocking known unwanted numbers. It prepares on-device datasets for Apple's iOS Call Directory framework. iOS performs incoming-call matching; Kalkan does not listen to calls, inspect call audio, access contacts, or perform real-time voice analysis.
+Kalkan is an iPhone and Android application for identifying known callers and blocking known unwanted numbers. The iPhone version prepares on-device datasets for Apple's Call Directory framework; the Android version uses Android's call-screening role and local protection data. Kalkan does not listen to calls or inspect call audio. Labels do not authenticate a caller.
 
 ## Current availability
 - Public App Store version: 1.0.9, released 17 September 2026
-- Platform: iPhone / iOS 17.6 or later
+- Platforms: iPhone / iOS 17.6 or later; Android 10 or later
 - [Download Kalkan on the App Store](https://apps.apple.com/tr/app/kalkan-caller-id-block/id6759873828): Official iPhone application listing.
+- [Download Kalkan on Google Play](https://play.google.com/store/apps/details?id=com.kalkan.website.kalkan): Official Android application listing.
 - Languages: Turkish and English
 
 ## Feature boundaries
 - General Protection: free exact-number blocking and caller identification. It works independently from Extra Protection.
-- Extra Protection: optional Premium layer that expands suspicious number patterns into additional blocking entries.
+- Extra Protection: expanded suspicious-number pattern protection; Premium on iPhone and free on Android.
 - Kalkan Premium: yearly auto-renewable subscription offered in Türkiye. Eligible new subscriptions may receive a three-month introductory trial shown by the App Store.
 - Caller identification: displays a dataset label when iOS finds a match. A label is not cryptographic identity verification and does not prevent caller-ID spoofing.
 - Reporting: users can submit suspicious-number reports. Reports are reviewed and do not enter production datasets automatically.

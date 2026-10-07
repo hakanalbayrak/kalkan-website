@@ -202,7 +202,7 @@ function kalkan_child_app_store_click_tracking() {
     (function () {
         'use strict';
         document.addEventListener('click', function (event) {
-            var link = event.target.closest('a[href*="apple.co/"], a[href*="apps.apple.com/"]');
+            var link = event.target.closest('a[href*="apple.co/"], a[href*="apps.apple.com/"], a[href*="play.google.com/store/apps/details"]');
             if (!link) {
                 return;
             }
@@ -215,9 +215,10 @@ function kalkan_child_app_store_click_tracking() {
                 return;
             }
 
-            window.gtag('event', 'app_store_click', {
+            var isGooglePlay = link.href.indexOf('play.google.com/store/apps/details') !== -1;
+            window.gtag('event', isGooglePlay ? 'google_play_click' : 'app_store_click', {
                 link_url: link.href,
-                link_text: (link.getAttribute('aria-label') || link.textContent || 'App Store').trim(),
+                link_text: (link.getAttribute('aria-label') || link.textContent || (isGooglePlay ? 'Google Play' : 'App Store')).trim(),
                 page_path: window.location.pathname,
                 transport_type: 'beacon'
             });

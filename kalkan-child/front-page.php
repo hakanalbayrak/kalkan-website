@@ -127,7 +127,7 @@ body * {
 .kk-hero__proof li::before { content: '✓'; color: var(--kk-green); font-weight: 800; margin-right: 0.4rem; }
 /* ===== HERO BUTTONS — DESKTOP ===== */
 .hero-buttons {
-  display: flex; flex-direction: row; align-items: center; gap: 16px; margin-top: 32px;
+  display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 32px;
 }
 .hero-appstore {
   display: inline-flex; align-items: center; text-decoration: none; flex-shrink: 0;
@@ -135,6 +135,8 @@ body * {
 .hero-appstore img {
   height: 44px; width: auto; display: block;
 }
+.hero-googleplay { display: inline-flex; align-items: center; min-height: 44px; flex-shrink: 0; }
+.hero-googleplay img { display: block; height: 56px; width: auto; margin-block: -6px; }
 .hero-secondary-btn {
   display: inline-flex; align-items: center; justify-content: center;
   height: 44px; padding: 0 24px; font-size: 15px; font-weight: 600;
@@ -146,7 +148,8 @@ body * {
 .hero-secondary-btn:hover {
   border-color: rgba(139,92,246,0.5); background: rgba(139,92,246,0.1); color: #f5f3ff;
 }
-.kk-hero__visual { display: flex; justify-content: center; align-items: center; }
+.kk-hero__visual { display: flex; flex-direction: column; justify-content: center; align-items: center; }
+.kk-platform-note { margin-top: 0.65rem; color: var(--kk-text-muted); font-size: 0.8rem; text-align: center; }
 .phone-frame {
   position: relative;
   width: 300px;
@@ -385,11 +388,12 @@ body * {
 .kk-cta__card .kk-lead { margin-inline: auto; }
 /* ===== CTA BADGE ===== */
 .cta-appstore {
-  display: flex; justify-content: center; margin-top: 28px;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 16px; margin-top: 28px;
 }
 .cta-appstore img {
   height: 44px; width: auto;
 }
+.cta-appstore .kk-googleplay-badge { height: 56px; margin-block: -6px; }
 
 .kk-faq { background: rgba(19,7,40,0.6); }
 .kk-accordion {
@@ -530,12 +534,12 @@ body * {
 			<div class="kk-shell kk-hero__layout">
 
 				<div class="kk-hero__content">
-					<span class="kk-eyebrow kk-animate"><?php echo esc_html( $__( 'iOS Spam Engelleyici', 'iOS Spam Blocker' ) ); ?></span>
+					<span class="kk-eyebrow kk-animate"><?php echo esc_html( $__( 'iPhone ve Android Arama Koruması', 'Call Protection for iPhone and Android' ) ); ?></span>
 					<h1 id="kk-hero-title" class="kk-animate kk-animate-delay-1">
 						<?php echo esc_html( $__( 'Spam Aramalara Karşı Kalkanınız', 'Your Shield Against Spam Calls' ) ); ?>
 					</h1>
 					<p class="kk-hero__subtitle kk-animate kk-animate-delay-2">
-						<?php echo esc_html( $__( 'Kalkan, iPhone’da bilinen spam ve şüpheli aramaları engellemeye, bilinmeyen numaraları tanımaya yardımcı olur.', 'Kalkan helps block known spam and suspicious calls and identify unknown numbers on your iPhone.' ) ); ?>
+						<?php echo esc_html( $__( 'Kalkan, iPhone ve Android’de bilinen spam ve şüpheli aramaları engellemeye, bilinmeyen numaraları tanımaya yardımcı olur.', 'Kalkan helps block known spam and suspicious calls and identify unknown numbers on iPhone and Android.' ) ); ?>
 					</p>
 					<ul class="kk-hero__proof kk-animate kk-animate-delay-2">
 						<li><?php echo esc_html( $__( 'Genel Koruma ücretsiz', 'General Protection is free' ) ); ?></li>
@@ -546,6 +550,9 @@ body * {
 					<div class="hero-buttons kk-animate kk-animate-delay-3">
 						<a href="<?php echo esc_url( $appstore_link ); ?>" class="hero-appstore">
 							<img src="<?php echo esc_url( $badge_url ); ?>" alt="<?php echo esc_attr( $__( 'App Store\'dan İndir', 'Download on the App Store' ) ); ?>" loading="eager" decoding="async" width="151" height="40">
+						</a>
+						<a href="<?php echo esc_url( $playstore_link ); ?>" class="hero-googleplay" aria-label="<?php echo esc_attr( $__( 'Google Play\'den İndir', 'Get it on Google Play' ) ); ?>">
+							<img src="<?php echo esc_url( $play_badge_url ); ?>" alt="" loading="eager" decoding="async" width="646" height="250">
 						</a>
 						<a class="hero-secondary-btn" href="#kk-how">
 							<?php echo esc_html( $__( '3 adımlı akışı görün', 'See the 3-step flow' ) ); ?>
@@ -570,6 +577,7 @@ body * {
 							<?php endforeach; ?>
 						</div>
 					</div>
+					<p class="kk-platform-note"><?php echo esc_html( $__( 'Gösterilen uygulama ekranları iPhone sürümündendir.', 'App screens shown are from the iPhone version.' ) ); ?></p>
 				</div>
 
 			</div>
@@ -588,7 +596,7 @@ body * {
 					<div class="kk-step kk-glass kk-animate kk-animate-delay-1">
 						<div class="kk-step__num">1</div>
 						<h3><?php echo esc_html( $__( 'İndir ve Kur', 'Download & Setup' ) ); ?></h3>
-						<p><?php echo esc_html( $__( 'Kalkan\'ı App Store\'dan indirin ve arama korumayı etkinleştirin.', 'Download Kalkan from the App Store and enable call protection.' ) ); ?></p>
+						<p><?php echo esc_html( $__( 'Kalkan\'ı App Store veya Google Play\'den indirin ve arama korumayı etkinleştirin.', 'Download Kalkan from the App Store or Google Play and enable call protection.' ) ); ?></p>
 					</div>
 					<div class="kk-step kk-glass kk-animate kk-animate-delay-2">
 						<div class="kk-step__num">2</div>
@@ -628,7 +636,7 @@ body * {
 						<div class="kk-feature-card__icon" aria-hidden="true"><?php echo $icon( 'lock' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
 						<h3><?php echo esc_html( $__( 'Ekstra Koruma', 'Extra Protection' ) ); ?></h3>
 						<p><?php echo esc_html( $__( 'Genişletilmiş koruma daha fazla bilinen spam numarayı kapsar. Sürekli güncellenen koruma verileri, kötü niyetli numaralara karşı korunmanıza yardımcı olur.', 'Extended protection covers more known spam numbers. Continuously updated protection data helps protect you against malicious numbers.' ) ); ?></p>
-						<span class="kk-badge-free"><?php echo esc_html( $__( 'Kalkan Premium', 'Kalkan Premium' ) ); ?></span>
+						<span class="kk-badge-free"><?php echo esc_html( $__( 'iPhone: Kalkan Premium · Android: ücretsiz', 'iPhone: Kalkan Premium · Android: free' ) ); ?></span>
 					</div>
 					<div class="kk-feature-card kk-glass kk-animate kk-animate-delay-4">
 						<div class="kk-feature-card__icon" aria-hidden="true"><?php echo $icon( 'flag' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
@@ -780,6 +788,9 @@ body * {
 						<a href="<?php echo esc_url( $appstore_link ); ?>">
 							<img src="<?php echo esc_url( $badge_url ); ?>" alt="<?php echo esc_attr( $__( 'App Store\'dan İndir', 'Download on the App Store' ) ); ?>" loading="lazy" decoding="async" width="151" height="40">
 						</a>
+						<a href="<?php echo esc_url( $playstore_link ); ?>" aria-label="<?php echo esc_attr( $__( 'Google Play\'den İndir', 'Get it on Google Play' ) ); ?>">
+							<img class="kk-googleplay-badge" src="<?php echo esc_url( $play_badge_url ); ?>" alt="" loading="lazy" decoding="async" width="646" height="250">
+						</a>
 					</div>
 				</div>
 			</div>
@@ -833,7 +844,7 @@ body * {
 							<span class="kk-faq-toggle">+</span>
 						</button>
 						<div class="kk-faq-answer">
-							<p><?php echo esc_html( $__( 'Ekstra Koruma, standart spam listesinin ötesindeki genişletilmiş numara kalıplarını engelleyen Premium katmandır. Kalkan Premium şu anda yalnızca Türkiye\'de sunulur.', 'Extra Protection is the Premium layer that blocks extended number patterns beyond the standard spam list. Kalkan Premium is currently available only in Türkiye.' ) ); ?></p>
+							<p><?php echo esc_html( $__( 'Ekstra Koruma, standart spam listesinin ötesindeki genişletilmiş numara kalıplarını kapsar. iPhone sürümünde Premium gerektirir; Android sürümünde ücretsizdir.', 'Extra Protection covers extended number patterns beyond the standard spam list. It requires Premium on iPhone and is free on Android.' ) ); ?></p>
 						</div>
 					</div>
 
@@ -853,7 +864,7 @@ body * {
 							<span class="kk-faq-toggle">+</span>
 						</button>
 						<div class="kk-faq-answer">
-							<p><?php echo esc_html( $__( 'Genel Koruma ve İletişim Bildirimi tamamen ücretsizdir. Yalnızca Ekstra Koruma, Kalkan Premium gerektirir. Uygun yeni aboneliklerde üç aylık ücretsiz deneme App Store\'da gösterilir.', 'General Protection and Communication Reporting are completely free. Only Extra Protection requires Kalkan Premium. A three-month free trial for eligible new subscriptions is shown on the App Store.' ) ); ?></p>
+							<p><?php echo esc_html( $__( 'Android sürümünde Genel ve Ekstra Koruma ücretsizdir; reklam gösterilebilir. iPhone’da Genel Koruma ve İletişim Bildirimi ücretsizdir, Ekstra Koruma ise Premium gerektirir. Uygun yeni iPhone aboneliklerinde üç aylık deneme App Store’da gösterilir.', 'General and Extra Protection are free on Android, where ads may appear. On iPhone, General Protection and Communication Reporting are free, while Extra Protection requires Premium. Eligible new iPhone subscriptions may see a three-month App Store trial.' ) ); ?></p>
 						</div>
 					</div>
 

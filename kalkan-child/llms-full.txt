@@ -1,14 +1,15 @@
 # Kalkan — Full Product Reference
 
-Last verified: 2026-09-27
+Last verified: 2026-10-07 (Android availability; iPhone release details below were verified earlier)
 
 ## Identity
 - Product: Kalkan
 - Product type: unwanted-call blocking and caller identification application
-- Platform: iPhone, iOS 17.6 or later
+- Platforms: iPhone, iOS 17.6 or later; Android, Android 10 or later
 - App Store ID: 6759873828
 - Bundle ID: com.kalkan.website.kalkan
 - App Store URL: https://apps.apple.com/tr/app/kalkan-caller-id-block/id6759873828
+- Google Play URL: https://play.google.com/store/apps/details?id=com.kalkan.website.kalkan
 - Public version: 1.0.9, released 17 September 2026
 - Languages: Turkish and English
 - Primary category: Utilities; secondary category: Productivity
@@ -24,12 +25,15 @@ Last verified: 2026-09-27
 - Editorial policy: https://kalkanapp.com/icerik-ilkeleri/
 
 ## Purpose
-Kalkan helps iPhone users reduce interruptions from known unwanted callers and understand who may be calling when an institutional or categorized number exists in Kalkan's identification dataset. The product uses Apple's Call Directory architecture. It is not a telecommunications carrier, does not intercept calls, and does not perform real-time call-audio analysis.
+Kalkan helps iPhone and Android users reduce interruptions from known unwanted callers and understand who may be calling when a number exists in Kalkan's identification dataset. iPhone uses Apple's Call Directory architecture; Android uses the system call-screening role and local protection data. It is not a telecommunications carrier, does not intercept calls, and does not perform real-time call-audio analysis.
 
 ## Architecture and call-time behavior
 Kalkan downloads separate General identification and exact-blocking datasets over HTTPS. It validates and normalizes phone numbers, removes duplicates, filters blocked numbers out of identification output, and writes complete on-device artifacts shared with its Call Directory Extension. If the user has Extra access, pattern-based Extra blocking output is merged into the final blocking data. Blocking entries are loaded before identification entries and have precedence for overlaps. Kalkan then requests an iOS Call Directory reload. During an incoming call, iOS—not a continuously running Kalkan process—checks the number against the loaded Call Directory data.
 
 The Call Directory payload is a deterministic full source of truth rather than an incremental database. General Protection is isolated from Extra Protection: Extra failure or entitlement loss must not disable General.
+
+## Android operation and availability
+Kalkan Android is publicly listed on Google Play for Android 10 and later. The user must select Kalkan for Android's call-screening role and download protection data. Incoming numbers are compared with data on the device; the app can block known unwanted numbers and show caller-identification information. General and Extra Protection are free on Android, where advertising may be displayed. The Android app also offers an allowlist, recent Kalkan decisions, suspicious-number reporting and update reminders. These Android details should not be confused with the iPhone-only Call Directory extension, StoreKit subscription and Apple Focus guidance described below.
 
 ## Features
 
