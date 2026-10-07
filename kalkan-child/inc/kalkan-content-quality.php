@@ -121,7 +121,7 @@ add_action('template_redirect', 'kalkan_redirect_legacy_thin_posts', 4);
  * useful topic categories indexable.
  */
 function kalkan_content_quality_is_utility_surface() {
-    return is_search() || is_author() || is_date() || is_tag() || is_attachment();
+    return is_search() || is_author() || is_date() || is_tag() || is_attachment() || is_feed();
 }
 
 function kalkan_content_quality_robots($robots) {
@@ -142,6 +142,42 @@ function kalkan_content_quality_suppress_seopress_robots($tag) {
     return kalkan_content_quality_is_utility_surface() ? '' : $tag;
 }
 add_filter('seopress_titles_robots', 'kalkan_content_quality_suppress_seopress_robots', 30);
+
+/**
+ * Feeds do not call wp_head(), so their noindex directive must be sent as an
+ * HTTP header rather than an HTML meta tag.
+ */
+function kalkan_content_quality_noindex_feed_header() {
+    if (is_feed()) {
+        header('X-Robots-Tag: noindex, follow', true);
+    }
+}
+add_action('send_headers', 'kalkan_content_quality_noindex_feed_header', 30);
+
+/** Correct stale Turkish SEO metadata on the English Terms of Use page. */
+function kalkan_content_quality_fix_english_terms_metadata_v1() {
+    if (get_option('kalkan_english_terms_metadata_fixed_v1')) {
+        return;
+    }
+
+    $page = get_page_by_path('terms-of-use', OBJECT, 'page');
+    if (!$page instanceof WP_Post) {
+        return;
+    }
+
+    $title = 'Terms of Use – Kalkan';
+    $desc  = 'Read the terms for using Kalkan, including service limitations, acceptable use, subscriptions, billing, cancellation, and refunds.';
+
+    update_post_meta($page->ID, '_seopress_titles_title', $title);
+    update_post_meta($page->ID, '_seopress_titles_desc', $desc);
+    update_post_meta($page->ID, '_seopress_social_fb_title', $title);
+    update_post_meta($page->ID, '_seopress_social_fb_desc', $desc);
+    update_post_meta($page->ID, '_seopress_social_twitter_title', $title);
+    update_post_meta($page->ID, '_seopress_social_twitter_desc', $desc);
+
+    update_option('kalkan_english_terms_metadata_fixed_v1', true);
+}
+add_action('init', 'kalkan_content_quality_fix_english_terms_metadata_v1', 48);
 
 /** Redirect attachment pages to their parent article or the homepage. */
 function kalkan_redirect_attachment_pages() {

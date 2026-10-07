@@ -216,6 +216,11 @@ $page_title    = $display_title . ' — Kalkan';
 					<?php endif; ?>
 					<span aria-hidden="true"> · </span>
 					<a href="<?php echo esc_url( $editorial_policy_url ); ?>"><?php echo esc_html( $__( 'Kalkan İçerik Ekibi', 'Kalkan Editorial Team' ) ); ?></a>
+					<?php $category_list = get_the_category_list( ', ' ); ?>
+					<?php if ( $category_list ) : ?>
+						<span aria-hidden="true"> · </span>
+						<span><?php echo esc_html( $__( 'Konular:', 'Topics:' ) ); ?> <?php echo wp_kses_post( $category_list ); ?></span>
+					<?php endif; ?>
 				</div>
 
 				<h1 class="kk-post__title">

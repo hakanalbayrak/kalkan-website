@@ -21,6 +21,8 @@ $archive_lead  = $is_category_archive ? wp_strip_all_tags( category_description(
 $is_number_lookup_archive = $is_category_archive && false !== stripos( $archive_title, 'Numara Sorgulama' );
 $is_spam_archive = $is_category_archive && false !== stripos( $archive_title, 'Spam' );
 $is_security_archive = $is_category_archive && false !== stripos( $archive_title, 'Güvenlik' );
+$is_fraud_archive = $is_category_archive && false !== stripos( $archive_title, 'Dolandırıcılık' );
+$is_app_archive = $is_category_archive && false !== stripos( $archive_title, 'Uygulama' );
 
 if ( '' === trim( $archive_lead ) ) {
 	$archive_lead = $__(
@@ -73,6 +75,12 @@ $page_title = $archive_title . ' — Kalkan';
 					<?php elseif ('tr' === $lang && $is_security_archive) : ?>
 						<p>Telefon dolandırıcılığı ve şüpheli aramalarda en güvenli yaklaşım, görüşmeyi sonlandırıp kurumu bağımsız resmî kanaldan doğrulamaktır. Bu güvenlik rehberleri aciliyet, doğrulama kodu, para transferi ve uzaktan erişim talepleri gibi risk işaretlerini açıklar.</p>
 						<p><a href="<?php echo esc_url( home_url( '/dolandirici-numara-tanima/' ) ); ?>">Telefon dolandırıcılığı nasıl anlaşılır?</a> rehberini ve <a href="<?php echo esc_url( home_url( '/numara-sorgulama-ucretsiz/' ) ); ?>">ücretsiz numara sorgulama</a> adımlarını inceleyin.</p>
+					<?php elseif ('tr' === $lang && $is_fraud_archive) : ?>
+						<p>Telefon dolandırıcıları banka, kargo, abonelik, teknik destek veya kamu kurumu adını kullanarak aciliyet oluşturabilir. Ekrandaki numara ya da kurum adı arayanın gerçek olduğunu tek başına kanıtlamaz.</p>
+						<p>Bu rehberlerde para transferi, doğrulama kodu ve uzaktan erişim taleplerini nasıl değerlendireceğinizi öğrenin. Şüpheli bir aramada görüşmeyi bitirin ve kuruma <a href="<?php echo esc_url( home_url( '/bankadan-aradigini-soyleyen-birini-nasil-dogrularsiniz/' ) ); ?>">bağımsız resmî kanalından ulaşın</a>.</p>
+					<?php elseif ('tr' === $lang && $is_app_archive) : ?>
+						<p>Kalkan uygulama rehberleri; iPhone arama engelleme ve numara belirleme uzantısını etkinleştirme, koruma verisini güncelleme, arayan kimliği etiketlerini yorumlama ve Premium özelliklerini kullanma adımlarını açıklar.</p>
+						<p>Kuruluma <a href="<?php echo esc_url( home_url( '/kalkan-nasil-aktif-edilir-iphone/' ) ); ?>">Kalkan’ı iPhone’da etkinleştirme rehberiyle</a> başlayın; uygulama Ayarlar’da görünmüyorsa <a href="<?php echo esc_url( home_url( '/kalkan-iphone-ayarlarinda-gorunmuyorsa-ne-yapmalisiniz/' ) ); ?>">sorun giderme adımlarını</a> izleyin.</p>
 					<?php elseif ('tr' === $lang) : ?>
 						<p>Kalkan blogunda istenmeyen aramalar, telefon dolandırıcılığı, sahte kurum aramaları ve iPhone arama güvenliği hakkında uygulanabilir rehberler bulabilirsiniz. İçerikler, bir aramaya yanıt vermeden önce hangi işaretlere bakmanız gerektiğini, şüpheli talepleri nasıl doğrulayacağınızı ve kişisel bilgilerinizi nasıl koruyacağınızı açıklar. Ürün duyuruları ve sürüm notları da Kalkan'ın koruma özelliklerindeki değişiklikleri takip etmenize yardımcı olur.</p>
 						<p>Bir arayanın ekranda görünen numarası veya kurum adı tek başına güven kanıtı değildir. Şüpheli bir görüşmede işlemi durdurun; kuruma yalnızca resmî web sitesi, mobil uygulama veya kartınızın üzerindeki bağımsız iletişim kanalından ulaşın. Kalkan'ın rehberleri bu doğrulama alışkanlığını günlük kullanımda daha kolay uygulamanız için hazırlanır. Her içerikte uygulanabilir kontrol adımlarına ve güvenli karar vermeyi destekleyen tarafsız açıklamalara öncelik verilir.</p>

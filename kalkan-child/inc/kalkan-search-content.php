@@ -442,6 +442,18 @@ function kalkan_search_category_profile() {
             'desc' => 'Telefon dolandırıcılığı işaretlerini, şüpheli numara doğrulama adımlarını ve resmî başvuru kanallarını Kalkan güvenlik rehberlerinde öğrenin.',
         );
     }
+    if ('dolandiricilik' === $slug || false !== stripos($name, 'Dolandırıcılık')) {
+        return array(
+            'title' => 'Telefon Dolandırıcılığı Yöntemleri ve Korunma | Kalkan',
+            'desc' => 'Sahte banka, kargo, abonelik ve kamu kurumu aramalarında kullanılan telefon dolandırıcılığı yöntemlerini ve doğrulama adımlarını inceleyin.',
+        );
+    }
+    if ('uygulama' === $slug || false !== stripos($name, 'Uygulama')) {
+        return array(
+            'title' => 'Kalkan Uygulama Rehberleri ve iPhone Kurulumu',
+            'desc' => 'Kalkan uygulamasını iPhone’da etkinleştirme, koruma verisini güncelleme, arayan kimliği ve Premium özelliklerini kullanma rehberleri.',
+        );
+    }
 
     return null;
 }
