@@ -207,7 +207,7 @@ $page_title    = $display_title . ' — Kalkan';
 			<div class="kk-post-layout">
 			<article class="kk-post">
 				<div class="kk-post__meta">
-					<?php echo esc_html( $__( 'Yayınlandı', 'Published' ) ); ?>
+					<?php echo esc_html( 'publish' === get_post_status() ? $__( 'Yayınlandı', 'Published' ) : $__( 'Taslak önizlemesi', 'Draft preview' ) ); ?>
 					<time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo esc_html( get_the_date() ); ?></time>
 					<?php if ( get_the_modified_time( 'U' ) > get_the_time( 'U' ) + DAY_IN_SECONDS ) : ?>
 						<span aria-hidden="true"> · </span>
