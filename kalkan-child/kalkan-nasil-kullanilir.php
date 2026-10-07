@@ -51,6 +51,9 @@ $is_front_page = false;
 			<div class="kk-shell" style="max-width:52rem;">
 
 				<?php if ( 'tr' === $lang ) : ?>
+					<h2>Android’de Kalkan</h2>
+					<p><a href="<?php echo esc_url( $playstore_link ); ?>">Kalkan’ı Google Play’den indirin</a>. Uygulamayı açın, Android’in arama tarama rolünde Kalkan’ı seçin, koruma verilerini güncelleyin ve ana ekranda “Kalkan Aktif” durumunu doğrulayın. Android’de Genel ve Ekstra Koruma ücretsizdir; reklam gösterilebilir. Aşağıdaki iPhone ayarları Android için geçerli değildir.</p>
+					<h2>iPhone’da Kalkan</h2>
 
 					<p>Kalkan'ı kullanmak oldukça basittir.</p>
 
@@ -92,6 +95,9 @@ $is_front_page = false;
 					<p><a href="<?php echo $documentation_url; ?>">Tüm özellikler, teknik çalışma modeli, gizlilik sınırları ve SSS için Kalkan dokümantasyonunu okuyun.</a></p>
 
 				<?php else : ?>
+					<h2>Kalkan on Android</h2>
+					<p><a href="<?php echo esc_url( $playstore_link ); ?>">Install Kalkan from Google Play</a>. Open the app, select Kalkan for Android's call-screening role, refresh protection data, and check for “Kalkan Active” on the Home screen. General and Extra Protection are free on Android; ads may appear. The iPhone settings below do not apply to Android.</p>
+					<h2>Kalkan on iPhone</h2>
 
 					<p>Using Kalkan is simple.</p>
 

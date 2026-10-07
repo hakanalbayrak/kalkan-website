@@ -34,7 +34,10 @@ $is_front_page = false;
 		<div class="kk-page-header"><div class="kk-shell"><span class="kk-eyebrow"><?php echo esc_html( $__( 'Ürün referansı', 'Product reference' ) ); ?></span><h1><?php echo esc_html( $__( 'Kalkan Dokümantasyonu', 'Kalkan Documentation' ) ); ?></h1><p class="kk-lead"><?php echo esc_html( $__( 'Özellikler, çalışma modeli, kurulum, sınırlar, gizlilik ve sık sorulan sorular.', 'Features, operating model, setup, limitations, privacy and frequently asked questions.' ) ); ?></p></div></div>
 		<div class="kk-page-content"><div class="kk-shell" style="max-width:62rem;">
 		<?php if ( 'tr' === $lang ) : ?>
-			<h2>Ürün özeti</h2>
+			<h2>Android sürümü</h2>
+			<p>Kalkan, Android 10 ve üzeri cihazlarda da kullanılabilir. Google Play’den yükledikten sonra uygulamayı Android’in arama tarama rolü için seçin, koruma verilerini güncelleyin ve ana ekranda “Kalkan Aktif” durumunu doğrulayın. Android’de Genel ve Ekstra Koruma ücretsizdir; reklam gösterilebilir. Arayan kimliği etiketi arayanın gerçek kimliğini garanti etmez.</p>
+			<p><a class="kk-btn kk-btn-ghost" href="<?php echo esc_url( $playstore_link ); ?>">Kalkan’ı Google Play’den indirin</a></p>
+			<h2>iPhone sürümü — ürün özeti</h2>
 			<p>Kalkan, iPhone için istenmeyen arama engelleme ve arayan kimliği uygulamasıdır. Uygulama, Apple'ın Call Directory altyapısına cihazda kullanılacak engelleme ve tanımlama verileri yükler. Gelen çağrı sırasında karar veren taraf iOS'tur; Kalkan görüşmeyi dinlemez veya gerçek zamanlı ses analizi yapmaz.</p>
 			<div class="kk-doc-grid">
 				<section class="kk-doc-card kk-glass"><h3>Genel Koruma — ücretsiz</h3><p>Bilinen istenmeyen numaraları engeller ve veri setindeki kurumsal/işletme numaralarını arama ekranında tanımlar.</p><ul><li>Ekstra Koruma'dan bağımsız çalışır.</li><li>İndirildikten sonra temel çağrı eşleştirmesi çevrimdışı çalışır.</li><li>Ana ekrandaki güncelleme işlemiyle veriler yenilenir ve iOS Arama Dizini yeniden yüklenir.</li></ul></section>
@@ -58,7 +61,9 @@ $is_front_page = false;
 			<div class="kk-doc-faq"><h3>Veriyi ne zaman güncellemeliyim?</h3><p>Ana ekrandaki Güncelle işlemini düzenli kullanın. İsterseniz son başarılı güncellemeden itibaren 1, 3, 6 veya 12 aylık yerel hatırlatıcı kurun.</p></div>
 			<div class="kk-doc-faq"><h3>Numara bildirince hemen engellenir mi?</h3><p>Hayır. Bildirimler veri kalitesini korumak için incelenir; onay ve veri seti yayını ayrı süreçlerdir.</p></div>
 		<?php else : ?>
-			<h2>Product summary</h2><p>Kalkan is an unwanted-call blocking and caller identification app for iPhone. It loads blocking and identification data into Apple's Call Directory framework. iOS makes the match during an incoming call; Kalkan does not listen to calls or perform real-time audio analysis.</p>
+			<h2>Android version</h2><p>Kalkan also supports Android 10 and later. Install it from Google Play, select Kalkan for Android's call-screening role, refresh protection data, and check for “Kalkan Active” on the Home screen. General and Extra Protection are free on Android; ads may appear. A caller-ID label does not authenticate the caller.</p>
+			<p><a class="kk-btn kk-btn-ghost" href="<?php echo esc_url( $playstore_link ); ?>">Get Kalkan on Google Play</a></p>
+			<h2>iPhone version — product summary</h2><p>Kalkan is an unwanted-call blocking and caller identification app for iPhone. It loads blocking and identification data into Apple's Call Directory framework. iOS makes the match during an incoming call; Kalkan does not listen to calls or perform real-time audio analysis.</p>
 			<div class="kk-doc-grid">
 			<section class="kk-doc-card kk-glass"><h3>General Protection — free</h3><p>Blocks known unwanted numbers and identifies institutional/business numbers present in the dataset.</p><ul><li>Works independently from Extra Protection.</li><li>Core matching works offline after data is loaded.</li><li>The Home update action refreshes data and reloads iOS Call Directory.</li></ul></section>
 			<section class="kk-doc-card kk-glass"><h3>Extra Protection — Premium</h3><p>Optional protection for suspicious number patterns and expanded ranges beyond individual exact numbers.</p><ul><li>Only Extra Protection is Premium-gated.</li><li>General Protection remains available without a subscription.</li><li>The annual product is offered in Türkiye; eligible new subscriptions may see a three-month App Store trial.</li></ul></section>

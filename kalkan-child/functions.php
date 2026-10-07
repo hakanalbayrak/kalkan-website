@@ -1077,7 +1077,7 @@ function kalkan_website_schema() {
         'name'            => 'Kalkan',
         'url'             => 'https://kalkanapp.com',
         'inLanguage'      => array('tr', 'en'),
-        'description'     => 'Kalkan - iOS spam arama engelleyici ve arayan kimliği uygulaması.',
+        'description'     => 'Kalkan - iPhone ve Android için spam arama engelleyici ve arayan kimliği uygulaması.',
     );
     echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</script>\n";
 }
@@ -1138,18 +1138,18 @@ function kalkan_homepage_faq_schema() {
     $faqs_tr = array(
         array('Kalkan nasıl çalışır?', 'Kalkan, bilinen spam numaraların veritabanını cihazınıza yükler. iOS\'un arama dizini sistemi ile entegre çalışarak gelen aramaları engeller veya işaretler. İnternet bağlantısı gerektirmez.'),
         array('Kalkan gerçek zamanlı arama analizi yapıyor mu?', 'Hayır. iOS platformu gerçek zamanlı arama analizine izin vermez. Kalkan, önceden yüklenmiş veritabanı ile çalışır. Bu Apple\'ın güvenlik kısıtlamalarından kaynaklanmaktadır.'),
-        array('Ekstra Koruma nedir?', 'Ekstra Koruma, standart spam listesinin ötesindeki genişletilmiş numara kalıplarını engelleyen Premium katmandır. Kalkan Premium şu anda yalnızca Türkiye\'de sunulur.'),
+        array('Ekstra Koruma nedir?', 'Ekstra Koruma, standart spam listesinin ötesindeki genişletilmiş numara kalıplarını kapsar. iPhone sürümünde Premium gerektirir; Android sürümünde ücretsizdir.'),
         array('Verilerim güvende mi?', 'Evet. Kalkan rehberinize veya arama geçmişinize erişmez. Tüm arama koruma işlemleri cihazınızda yerel olarak gerçekleşir.'),
-        array('Kalkan ücretsiz mi?', 'Genel Koruma ve İletişim Bildirimi tamamen ücretsizdir. Yalnızca Ekstra Koruma Kalkan Premium gerektirir. Uygun yeni aboneliklerde üç aylık ücretsiz deneme App Store\'da gösterilir.'),
+        array('Kalkan ücretsiz mi?', 'Android sürümünde Genel ve Ekstra Koruma ücretsizdir; reklam gösterilebilir. iPhone’da Genel Koruma ve İletişim Bildirimi ücretsizdir, Ekstra Koruma ise Premium gerektirir. Uygun yeni iPhone aboneliklerinde üç aylık deneme App Store’da gösterilir.'),
         array('Spam arama ne demek?', 'Spam arama; istemediğiniz, tekrarlanan veya çok sayıda kişiye otomatik biçimde yapılan telefon aramasıdır. Satış, anket, robot arama ve dolandırıcılık girişimleri bu gruba girebilir.'),
         array('Bilinmeyen numara sorgulama nasıl yapılır?', 'Numarayı hem yerel hem +90 biçimiyle arayın, kurumsal eşleşmeyi resmî HTTPS sayfasından doğrulayın ve topluluk yorumlarını kesin kanıt değil, araştırma sinyali olarak değerlendirin.'),
     );
     $faqs_en = array(
         array('How does Kalkan work?', 'Kalkan loads a database of known spam numbers to your device. It works with iOS\'s call directory system to block or flag incoming calls. No internet connection required.'),
         array('Does Kalkan do real-time call analysis?', 'No. iOS does not allow real-time call analysis. Kalkan works with a preloaded database. This is due to Apple\'s security restrictions.'),
-        array('What is Extra Protection?', 'Extra Protection is the Premium layer that blocks extended number patterns beyond the standard spam list. Kalkan Premium is currently available only in Türkiye.'),
+        array('What is Extra Protection?', 'Extra Protection covers extended number patterns beyond the standard spam list. It requires Premium on iPhone and is free on Android.'),
         array('Is my data safe?', 'Yes. Kalkan doesn\'t access your contacts or call history. All call protection happens locally on your device.'),
-        array('Is Kalkan free?', 'General Protection and Communication Reporting are completely free. Only Extra Protection requires Kalkan Premium. A three-month free trial for eligible new subscriptions is shown on the App Store.'),
+        array('Is Kalkan free?', 'General and Extra Protection are free on Android, where ads may appear. On iPhone, General Protection and Communication Reporting are free, while Extra Protection requires Premium. Eligible new iPhone subscriptions may see a three-month App Store trial.'),
         array('What is a spam call?', 'A spam call is an unwanted, repeated, or automated phone call. Sales, surveys, robocalls, and scam attempts may fall into this group.'),
         array('How do I check an unknown number?', 'Search both local and international formats, verify business matches on an official HTTPS page, and treat community comments as research signals rather than proof.'),
     );
