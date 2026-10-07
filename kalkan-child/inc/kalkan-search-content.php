@@ -454,6 +454,12 @@ function kalkan_search_category_profile() {
             'desc' => 'Kalkan uygulamasını iPhone’da etkinleştirme, koruma verisini güncelleme, arayan kimliği ve Premium özelliklerini kullanma rehberleri.',
         );
     }
+    if ('genel-tr' === $slug || 'Genel' === $name) {
+        return array(
+            'title' => 'Telefon Güvenliği ve Kalkan Rehberleri | Kalkan',
+            'desc' => 'Telefon güvenliği, şüpheli aramalar, Kalkan özellikleri ve iPhone koruma adımları hakkında güncel rehberleri tek yerde inceleyin.',
+        );
+    }
 
     return null;
 }

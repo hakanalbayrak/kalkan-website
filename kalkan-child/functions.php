@@ -2824,6 +2824,20 @@ function kalkan_purge_performance_cache_v11() {
 }
 add_action('init', 'kalkan_purge_performance_cache_v11', 1004);
 
+/** Purge once after the October indexability and archive-link improvements. */
+function kalkan_purge_indexability_cache_v25() {
+    if (get_option('kalkan_indexability_cache_purged_v25')) {
+        return;
+    }
+
+    if (defined('LSCWP_V')) {
+        do_action('litespeed_purge_all');
+    }
+
+    update_option('kalkan_indexability_cache_purged_v25', true);
+}
+add_action('init', 'kalkan_purge_indexability_cache_v25', 1018);
+
 /** Purge once after resolving inline stylesheet font URLs. */
 function kalkan_purge_performance_cache_v12() {
     if (get_option('kalkan_performance_cache_purged_v12')) {

@@ -23,6 +23,7 @@ $is_spam_archive = $is_category_archive && false !== stripos( $archive_title, 'S
 $is_security_archive = $is_category_archive && false !== stripos( $archive_title, 'Güvenlik' );
 $is_fraud_archive = $is_category_archive && false !== stripos( $archive_title, 'Dolandırıcılık' );
 $is_app_archive = $is_category_archive && false !== stripos( $archive_title, 'Uygulama' );
+$is_general_archive = $is_category_archive && ( false !== stripos( $archive_title, 'Genel' ) || is_category( 'genel-tr' ) );
 
 if ( '' === trim( $archive_lead ) ) {
 	$archive_lead = $__(
@@ -81,12 +82,27 @@ $page_title = $archive_title . ' — Kalkan';
 					<?php elseif ('tr' === $lang && $is_app_archive) : ?>
 						<p>Kalkan uygulama rehberleri; iPhone arama engelleme ve numara belirleme uzantısını etkinleştirme, koruma verisini güncelleme, arayan kimliği etiketlerini yorumlama ve Premium özelliklerini kullanma adımlarını açıklar.</p>
 						<p>Kuruluma <a href="<?php echo esc_url( home_url( '/kalkan-nasil-aktif-edilir-iphone/' ) ); ?>">Kalkan’ı iPhone’da etkinleştirme rehberiyle</a> başlayın; uygulama Ayarlar’da görünmüyorsa <a href="<?php echo esc_url( home_url( '/kalkan-iphone-ayarlarinda-gorunmuyorsa-ne-yapmalisiniz/' ) ); ?>">sorun giderme adımlarını</a> izleyin.</p>
+					<?php elseif ('tr' === $lang && $is_general_archive) : ?>
+						<p>Telefon güvenliği ve Kalkan hakkında temel rehberleri bu bölümde bulabilirsiniz. Bilinmeyen bir aramayı değerlendirirken ekrandaki numara veya kurum adını kesin kimlik doğrulaması olarak kabul etmeyin; talebi bağımsız ve resmî bir kanaldan kontrol edin.</p>
+						<p><a href="<?php echo esc_url( home_url( '/numara-sorgulama/' ) ); ?>">Numara sorgulama</a>, <a href="<?php echo esc_url( home_url( '/spam-aramalar/' ) ); ?>">spam aramalar</a>, <a href="<?php echo esc_url( home_url( '/guvenlik/' ) ); ?>">telefon güvenliği</a> ve <a href="<?php echo esc_url( home_url( '/uygulama/' ) ); ?>">Kalkan uygulama rehberleri</a> üzerinden ihtiyacınıza uygun adımlara ulaşabilirsiniz.</p>
 					<?php elseif ('tr' === $lang) : ?>
 						<p>Kalkan blogunda istenmeyen aramalar, telefon dolandırıcılığı, sahte kurum aramaları ve iPhone arama güvenliği hakkında uygulanabilir rehberler bulabilirsiniz. İçerikler, bir aramaya yanıt vermeden önce hangi işaretlere bakmanız gerektiğini, şüpheli talepleri nasıl doğrulayacağınızı ve kişisel bilgilerinizi nasıl koruyacağınızı açıklar. Ürün duyuruları ve sürüm notları da Kalkan'ın koruma özelliklerindeki değişiklikleri takip etmenize yardımcı olur.</p>
 						<p>Bir arayanın ekranda görünen numarası veya kurum adı tek başına güven kanıtı değildir. Şüpheli bir görüşmede işlemi durdurun; kuruma yalnızca resmî web sitesi, mobil uygulama veya kartınızın üzerindeki bağımsız iletişim kanalından ulaşın. Kalkan'ın rehberleri bu doğrulama alışkanlığını günlük kullanımda daha kolay uygulamanız için hazırlanır. Her içerikte uygulanabilir kontrol adımlarına ve güvenli karar vermeyi destekleyen tarafsız açıklamalara öncelik verilir.</p>
 					<?php else : ?>
 						<p>The Kalkan blog provides practical guidance on unwanted calls, telephone fraud, impersonation attempts and iPhone call safety. Articles explain what to check before answering or acting on a request, how to verify an organization through an independent official channel, and how to protect account and identity information. Product announcements and release notes also document changes to Kalkan's on-device call protection and caller identification features.</p>
 						<p>A displayed number or organization name is not proof that a caller is genuine. If a request feels suspicious, stop the conversation and contact the organization through an independent channel from its official website, app, or your physical card. Kalkan's guides turn that verification habit into clear steps you can use during everyday calls.</p>
+					<?php endif; ?>
+					<?php if ('tr' === $lang) : ?>
+						<nav aria-label="Rehber konuları">
+							<p><strong>Rehber konuları:</strong>
+								<a href="<?php echo esc_url( home_url( '/numara-sorgulama/' ) ); ?>">Numara sorgulama</a> ·
+								<a href="<?php echo esc_url( home_url( '/spam-aramalar/' ) ); ?>">Spam aramalar</a> ·
+								<a href="<?php echo esc_url( home_url( '/guvenlik/' ) ); ?>">Güvenlik</a> ·
+								<a href="<?php echo esc_url( home_url( '/dolandiricilik/' ) ); ?>">Dolandırıcılık</a> ·
+								<a href="<?php echo esc_url( home_url( '/uygulama/' ) ); ?>">Uygulama</a> ·
+								<a href="<?php echo esc_url( home_url( '/genel-tr/' ) ); ?>">Genel</a>
+							</p>
+						</nav>
 					<?php endif; ?>
 				</div>
 
