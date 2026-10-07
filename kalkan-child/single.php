@@ -270,8 +270,8 @@ $page_title    = $display_title . ' — Kalkan';
 				<aside class="kk-post__body" aria-label="<?php echo esc_attr($__( 'Kalkan hakkında', 'About Kalkan' )); ?>">
 					<h2><?php echo esc_html($__( 'Kalkan ile arama koruması', 'Call protection with Kalkan' )); ?></h2>
 					<p><?php echo esc_html($__(
-						'Kalkan, bilinen istenmeyen numaraları iOS Arama Dizini üzerinden cihazınızda engellemeye ve kurumsal numaraları arayan kimliği etiketiyle tanımanıza yardımcı olur. Rehberiniz ve kişisel arama geçmişiniz Kalkan sunucularına yüklenmez. Yeni veya taklit edilmiş numaralar her zaman ortaya çıkabileceği için, ekrandaki etiketten bağımsız olarak hassas talepleri kurumun resmî kanalından doğrulayın.',
-						'Kalkan uses iOS Call Directory to help block known unwanted numbers on your device and identify institutional numbers with caller-ID labels. Your contacts and personal call history are not uploaded to Kalkan servers. Because new or spoofed numbers can still appear, verify sensitive requests through the organization\'s independent official channel even when a label is displayed.'
+						'Kalkan, iPhone’da iOS Arama Dizini, Android’de arama tarama rolü üzerinden bilinen istenmeyen numaraları cihazınızda engellemeye ve arayan kimliği bilgisi göstermeye yardımcı olur. Rehberiniz ve kişisel arama geçmişiniz Kalkan sunucularına yüklenmez. Yeni veya taklit edilmiş numaralar ortaya çıkabileceği için, ekrandaki etiketten bağımsız olarak hassas talepleri kurumun resmî kanalından doğrulayın.',
+						'Kalkan uses iOS Call Directory on iPhone and the call-screening role on Android to help block known unwanted numbers on your device and display caller-ID information. Your contacts and personal call history are not uploaded to Kalkan servers. Because new or spoofed numbers can still appear, verify sensitive requests through the organization\'s independent official channel even when a label is displayed.'
 					)); ?></p>
 				</aside>
 
