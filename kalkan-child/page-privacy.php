@@ -76,7 +76,7 @@ $page_title    = 'en' === $lang ? 'Privacy Policy — Kalkan' : 'Gizlilik Politi
 					<p>Kullanıcılardan gelen raporlar değerlendirilip koruma verimliliğini arttırmak amacıyla şüpheli numaralar veritabanımızda işlenerek koruma uygulaması güncellenmektedir.</p>
 
 					<h2>İsteğe bağlı uygulama analitiği</h2>
-					<p>Bu özelliği sunan uygulama sürümlerinde, Ayarlar'daki analitik seçeneği varsayılan olarak kapalıdır. Yalnızca siz açarsanız Mixpanel aracılığıyla sistemde arama koruma izninin verildiği ve izinle birlikte koruma verisinin etkinleştiği durumlar ölçülür. Özelliği daha sonra aynı yerden kapatabilirsiniz; kapatma, daha önce gönderilmiş verileri kendiliğinden silmez.</p>
+					<p>Bu özelliği sunan uygulama sürümlerinde, Ayarlar'daki analitik seçeneği varsayılan olarak kapalıdır. Yalnızca siz açarsanız Mixpanel aracılığıyla analitik tercihinizi açma, sistemde arama koruma izninin verilmesi ve izinle birlikte koruma verisinin etkinleşmesi olayları ölçülür. Özelliği daha sonra aynı yerden kapatabilirsiniz; kapatma, daha önce gönderilmiş verileri kendiliğinden silmez.</p>
 					<p>Bu olaylara telefon numarası, rehber, arama geçmişi veya rapor notu eklemeyiz. Analitik hizmeti, olay zamanı, takma adlı cihaz/kurulum kimliği ve uygulama ile cihazın teknik bilgilerini işleyebilir. Ağ bağlantısı sırasında IP adresi teknik olarak işlenebilir; Mixpanel'in IP'den coğrafi konum türetme özelliği kapalıdır. Veriler Mixpanel'in Avrupa Birliği bölgesindeki projesine gönderilir. <a href="https://mixpanel.com/legal/privacy-policy/" rel="noopener noreferrer">Mixpanel gizlilik politikası</a> hizmetin veri işlemesini açıklar.</p>
 
 					<h2>Veri paylaşımı</h2>
@@ -122,7 +122,7 @@ $page_title    = 'en' === $lang ? 'Privacy Policy — Kalkan' : 'Gizlilik Politi
 					<p>Reports are used for moderation and to improve protection lists.</p>
 
 					<h2>Optional app analytics</h2>
-					<p>In app versions that offer this feature, analytics is off by default in Settings. Only if you turn it on do we use Mixpanel to measure when the system grants call-protection permission and when protection becomes active with protection data present. You can turn analytics off in Settings at any time; this does not automatically delete data already sent.</p>
+					<p>In app versions that offer this feature, analytics is off by default in Settings. Only if you turn it on do we use Mixpanel to measure the opt-in, when the system grants call-protection permission, and when protection becomes active with protection data present. You can turn analytics off in Settings at any time; this does not automatically delete data already sent.</p>
 					<p>We do not attach phone numbers, contacts, call history, or report notes to these events. The analytics service may process event timestamps, a pseudonymous device/installation identifier, and technical app and device information. The IP address may be processed to deliver the network request; Mixpanel's IP-based geolocation enrichment is disabled. Events are sent to our Mixpanel project in the European Union region. See the <a href="https://mixpanel.com/legal/privacy-policy/" rel="noopener noreferrer">Mixpanel Privacy Policy</a> for details of its processing.</p>
 
 					<h2>Data sharing</h2>
