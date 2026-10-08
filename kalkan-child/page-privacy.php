@@ -54,7 +54,7 @@ $page_title    = 'en' === $lang ? 'Privacy Policy — Kalkan' : 'Gizlilik Politi
 
 				<?php if ( 'tr' === $lang ) : ?>
 
-					<p class="kk-effective">Son güncelleme: 18.09.2026</p>
+					<p class="kk-effective">Son güncelleme: 08.10.2026</p>
 
 					<h2>Genel</h2>
 					<p>Kalkan, kullanıcı gizliliğine önem verir. Bu politika, uygulamayı ve web sitesini kullanırken toplanan ve işlenen verileri açıklamaktadır.</p>
@@ -75,8 +75,12 @@ $page_title    = 'en' === $lang ? 'Privacy Policy — Kalkan' : 'Gizlilik Politi
 					<h2>Veri nasıl kullanılıyor?</h2>
 					<p>Kullanıcılardan gelen raporlar değerlendirilip koruma verimliliğini arttırmak amacıyla şüpheli numaralar veritabanımızda işlenerek koruma uygulaması güncellenmektedir.</p>
 
+					<h2>İsteğe bağlı uygulama analitiği</h2>
+					<p>Bu özelliği sunan uygulama sürümlerinde, Ayarlar'daki analitik seçeneği varsayılan olarak kapalıdır. Yalnızca siz açarsanız Mixpanel aracılığıyla sistemde arama koruma izninin verildiği ve izinle birlikte koruma verisinin etkinleştiği durumlar ölçülür. Özelliği daha sonra aynı yerden kapatabilirsiniz; kapatma, daha önce gönderilmiş verileri kendiliğinden silmez.</p>
+					<p>Bu olaylara telefon numarası, rehber, arama geçmişi veya rapor notu eklemeyiz. Analitik hizmeti, olay zamanı, takma adlı cihaz/kurulum kimliği ve uygulama ile cihazın teknik bilgilerini işleyebilir. Ağ bağlantısı sırasında IP adresi teknik olarak işlenebilir; Mixpanel'in IP'den coğrafi konum türetme özelliği kapalıdır. Veriler Mixpanel'in Avrupa Birliği bölgesindeki projesine gönderilir. <a href="https://mixpanel.com/legal/privacy-policy/" rel="noopener noreferrer">Mixpanel gizlilik politikası</a> hizmetin veri işlemesini açıklar.</p>
+
 					<h2>Veri paylaşımı</h2>
-					<p>Telefon rehberiniz ve kişisel arama geçmişiniz toplanmaz. İlettiğiniz raporlardaki numaralar moderasyon ekibi tarafından gerekli kontroller yapıldıktan sonra ilgili koruma kategorisinde işlenebilir.</p>
+					<p>Telefon rehberiniz ve kişisel arama geçmişiniz toplanmaz. İlettiğiniz raporlardaki numaralar moderasyon ekibi tarafından gerekli kontroller yapıldıktan sonra ilgili koruma kategorisinde işlenebilir. İsteğe bağlı uygulama analitiğini açarsanız yukarıda açıklanan sınırlı olay ve teknik bilgiler ölçüm hizmeti sağlayıcımız Mixpanel ile paylaşılır.</p>
 
 					<h2>Web sitesi reklamları ve çerezler</h2>
 					<p>Web sitesindeki makalelerde Google AdSense reklamları gösterilebilir. Google ve diğer reklam sağlayıcıları, bu sitedeki veya başka sitelerdeki önceki ziyaretlerinize dayalı reklam sunmak ve reklamların performansını ölçmek için çerezler veya benzer teknolojiler kullanabilir. Reklam istekleri sırasında tarayıcı ve cihaz bilgileri Google tarafından işlenebilir. Bu, Kalkan uygulamasının telefon rehberinizi veya kişisel arama geçmişinizi sunucularımıza yüklediği anlamına gelmez.</p>
@@ -96,7 +100,7 @@ $page_title    = 'en' === $lang ? 'Privacy Policy — Kalkan' : 'Gizlilik Politi
 
 				<?php else : ?>
 
-					<p class="kk-effective">Last updated: September 18, 2026</p>
+					<p class="kk-effective">Last updated: October 8, 2026</p>
 
 					<h2>Overview</h2>
 					<p>Kalkan respects your privacy. This policy explains what data is collected and processed when you use the app and website.</p>
@@ -117,8 +121,12 @@ $page_title    = 'en' === $lang ? 'Privacy Policy — Kalkan' : 'Gizlilik Politi
 					<h2>How data is used</h2>
 					<p>Reports are used for moderation and to improve protection lists.</p>
 
+					<h2>Optional app analytics</h2>
+					<p>In app versions that offer this feature, analytics is off by default in Settings. Only if you turn it on do we use Mixpanel to measure when the system grants call-protection permission and when protection becomes active with protection data present. You can turn analytics off in Settings at any time; this does not automatically delete data already sent.</p>
+					<p>We do not attach phone numbers, contacts, call history, or report notes to these events. The analytics service may process event timestamps, a pseudonymous device/installation identifier, and technical app and device information. The IP address may be processed to deliver the network request; Mixpanel's IP-based geolocation enrichment is disabled. Events are sent to our Mixpanel project in the European Union region. See the <a href="https://mixpanel.com/legal/privacy-policy/" rel="noopener noreferrer">Mixpanel Privacy Policy</a> for details of its processing.</p>
+
 					<h2>Data sharing</h2>
-					<p>We do not sell personal data. We may share aggregated, non-identifying stats for service improvement.</p>
+					<p>We do not sell personal data or collect your contacts or personal call history. If you enable optional app analytics, we share the limited event and technical data described above with Mixpanel as our analytics provider.</p>
 
 					<h2>Website advertising and cookies</h2>
 					<p>Articles on this website may display Google AdSense ads. Google and other advertising providers may use cookies or similar technologies to serve ads based on prior visits to this or other websites and to measure ad performance. Google may process browser and device information when an ad is requested. This does not mean the Kalkan app uploads your contacts or personal call history to our servers.</p>

@@ -65,6 +65,7 @@ $page_title    = 'en' === $lang ? 'Legal Notice — Kalkan' : 'KVKK Aydınlatma 
 						<li>E-posta adresi</li>
 						<li>İşlem zaman damgası</li>
 						<li>IP adresi</li>
+						<li>Uygulama analitiğini isteğe bağlı açarsanız koruma izni/etkinleşme olayları, olay zamanı, takma adlı kurulum kimliği ve teknik cihaz/uygulama bilgileri</li>
 					</ul>
 
 					<h2>3. Kişisel Verilerin İşlenme Amaçları</h2>
@@ -72,6 +73,7 @@ $page_title    = 'en' === $lang ? 'Legal Notice — Kalkan' : 'KVKK Aydınlatma 
 						<li>Bilgilendirme e-postalarının gönderilmesi</li>
 						<li>Abonelik yönetimi</li>
 						<li>Güvenlik ve sahteciliğin önlenmesi</li>
+						<li>İsteğe bağlı analitik izni verilirse koruma kurulumunun çalışıp çalışmadığının ölçülmesi</li>
 					</ul>
 
 					<h2>4. Hukuki Sebep</h2>
@@ -80,7 +82,7 @@ $page_title    = 'en' === $lang ? 'Legal Notice — Kalkan' : 'KVKK Aydınlatma 
 					</p>
 
 					<h2>5. Verilerin Aktarılması</h2>
-					<p>Kişisel verileriniz kural olarak üçüncü taraflarla paylaşılmaz. Yasal zorunluluk halleri saklıdır.</p>
+					<p>Kişisel verileriniz kural olarak üçüncü taraflarla paylaşılmaz. İsteğe bağlı uygulama analitiğini açarsanız sınırlı olay ve teknik bilgiler ölçüm sağlayıcımız Mixpanel'in Avrupa Birliği bölgesindeki projesine aktarılır. Yasal zorunluluk halleri saklıdır. Ayrıntılar için <a href="<?php echo esc_url( $privacy_url ); ?>">Gizlilik Politikası</a>'na bakın.</p>
 
 					<h2>6. Verilerin Saklanma Süresi</h2>
 					<p>Verileriniz, abonelikten çıkmanız veya silme talebinde bulunmanız halinde silinir.</p>
@@ -115,6 +117,7 @@ $page_title    = 'en' === $lang ? 'Legal Notice — Kalkan' : 'KVKK Aydınlatma 
 						<li>Email address</li>
 						<li>Transaction timestamp</li>
 						<li>IP address</li>
+						<li>If you opt in to app analytics: protection-permission/activation events, event time, a pseudonymous installation identifier, and technical device/app information</li>
 					</ul>
 
 					<h2>3. Purposes of Processing</h2>
@@ -122,6 +125,7 @@ $page_title    = 'en' === $lang ? 'Legal Notice — Kalkan' : 'KVKK Aydınlatma 
 						<li>Sending informational emails</li>
 						<li>Subscription management</li>
 						<li>Security and fraud prevention</li>
+						<li>If you opt in to analytics, measuring whether protection setup is working</li>
 					</ul>
 
 					<h2>4. Legal Basis</h2>
@@ -130,7 +134,7 @@ $page_title    = 'en' === $lang ? 'Legal Notice — Kalkan' : 'KVKK Aydınlatma 
 					</p>
 
 					<h2>5. Data Transfers</h2>
-					<p>Personal data is generally not shared with third parties. Exceptions apply where required by law.</p>
+					<p>Personal data is generally not shared with third parties. If you opt in to optional app analytics, limited event and technical information is sent to our analytics provider Mixpanel's European Union project. Exceptions also apply where required by law. See our <a href="<?php echo esc_url( $privacy_url ); ?>">Privacy Policy</a> for details.</p>
 
 					<h2>6. Retention Period</h2>
 					<p>Your data is deleted upon unsubscription or upon a deletion request.</p>
