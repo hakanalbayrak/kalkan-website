@@ -483,11 +483,12 @@ body * {
   .kk-app-demo__visual { display: none; }
   .phone-screen { border-radius: 36px; }
   .hero-buttons {
-    flex-direction: column; align-items: center; gap: 12px;
+    flex-direction: row; justify-content: center; align-items: center; gap: 8px 12px; margin-top: 20px;
   }
-  .hero-appstore img { height: 44px; }
+  .hero-appstore img { height: 40px; }
+  .hero-googleplay img { height: 52px; }
   .hero-secondary-btn {
-    height: 44px; width: auto; padding: 0 32px; font-size: 14px;
+    height: 44px; width: 100%; padding: 0 32px; font-size: 14px;
   }
   .cta-appstore img { height: 44px; }
 }
@@ -541,12 +542,6 @@ body * {
 					<p class="kk-hero__subtitle kk-animate kk-animate-delay-2">
 						<?php echo esc_html( $__( 'Kalkan, iPhone ve Android’de bilinen spam ve şüpheli aramaları engellemeye, bilinmeyen numaraları tanımaya yardımcı olur.', 'Kalkan helps block known spam and suspicious calls and identify unknown numbers on iPhone and Android.' ) ); ?>
 					</p>
-					<ul class="kk-hero__proof kk-animate kk-animate-delay-2">
-						<li><?php echo esc_html( $__( 'Genel Koruma ücretsiz', 'General Protection is free' ) ); ?></li>
-						<li><?php echo esc_html( $__( 'Rehber ve arama geçmişi yüklenmez', 'No contacts or call history uploaded' ) ); ?></li>
-						<li><?php echo esc_html( $__( 'Koruma cihazınızda çalışır', 'Protection works on-device' ) ); ?></li>
-					</ul>
-
 					<div class="hero-buttons kk-animate kk-animate-delay-3">
 						<a href="<?php echo esc_url( $appstore_link ); ?>" class="hero-appstore">
 							<img src="<?php echo esc_url( $badge_url ); ?>" alt="<?php echo esc_attr( $__( 'App Store\'dan İndir', 'Download on the App Store' ) ); ?>" loading="eager" decoding="async" width="151" height="40">
@@ -558,6 +553,11 @@ body * {
 							<?php echo esc_html( $__( '3 adımlı akışı görün', 'See the 3-step flow' ) ); ?>
 						</a>
 					</div>
+					<ul class="kk-hero__proof kk-animate kk-animate-delay-2">
+						<li><?php echo esc_html( $__( 'Genel Koruma ücretsiz', 'General Protection is free' ) ); ?></li>
+						<li><?php echo esc_html( $__( 'Rehber ve arama geçmişi yüklenmez', 'No contacts or call history uploaded' ) ); ?></li>
+						<li><?php echo esc_html( $__( 'Koruma cihazınızda çalışır', 'Protection works on-device' ) ); ?></li>
+					</ul>
 				</div>
 
 				<div class="kk-hero__visual kk-animate kk-animate-delay-2">
