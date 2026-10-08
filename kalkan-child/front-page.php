@@ -130,13 +130,17 @@ body * {
   display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 32px;
 }
 .hero-appstore {
-  display: inline-flex; align-items: center; text-decoration: none; flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center; text-decoration: none; flex-shrink: 0;
+  width: 166px; height: 52px; overflow: hidden;
 }
 .hero-appstore img {
-  height: 44px; width: auto; display: block;
+  width: 100%; height: auto; display: block;
 }
-.hero-googleplay { display: inline-flex; align-items: center; min-height: 44px; flex-shrink: 0; }
-.hero-googleplay img { display: block; height: 56px; width: auto; margin-block: -6px; }
+.hero-googleplay {
+  display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+  width: 166px; height: 52px; overflow: hidden;
+}
+.hero-googleplay img { display: block; width: 100%; height: auto; max-width: none; }
 .hero-secondary-btn {
   display: inline-flex; align-items: center; justify-content: center;
   height: 44px; padding: 0 24px; font-size: 15px; font-weight: 600;
@@ -485,8 +489,7 @@ body * {
   .hero-buttons {
     flex-direction: row; justify-content: center; align-items: center; gap: 8px 12px; margin-top: 20px;
   }
-  .hero-appstore img { height: 40px; }
-  .hero-googleplay img { height: 52px; }
+  .hero-appstore, .hero-googleplay { width: 151px; height: 48px; }
   .hero-secondary-btn {
     height: 44px; width: 100%; padding: 0 32px; font-size: 14px;
   }
