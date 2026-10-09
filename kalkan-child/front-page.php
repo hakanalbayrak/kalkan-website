@@ -517,9 +517,217 @@ body * {
   .kk-trust__layout { grid-template-columns: 0.3fr 1fr; align-items: center; gap: 4rem; }
   .kk-app-demo { grid-template-columns: 0.85fr 1.15fr; gap: 4rem; }
 }
+
+/* Studio: light homepage, existing assets and network-critical image path retained. */
+body.kk-home-studio {
+  --kk-bg: #f6f8f8;
+  --kk-bg-2: #edf3f4;
+  --kk-bg-3: #e3edef;
+  --kk-bg-card: #ffffff;
+  --kk-border: #d4e0e3;
+  --kk-border-hover: #158976;
+  --kk-purple: #0e796a;
+  --kk-purple-light: #0d6e60;
+  --kk-purple-dark: #095e53;
+  --kk-green: #0e8069;
+  --kk-text: #112b3b;
+  --kk-text-muted: #4b6170;
+  --kk-text-dim: #516778;
+  background: #f6f8f8;
+  color: var(--kk-text);
+  color-scheme: light;
+}
+.kk-home-studio .kk-page { background: #f6f8f8; }
+.kk-home-studio .kk-header,
+.kk-home-studio .kk-mobile-nav {
+  background: #f8fafa;
+  border-color: #d8e3e6;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.kk-home-studio .kk-brand__name { color: #112b3b; }
+.kk-home-studio .kk-brand__icon { box-shadow: 0 2px 8px rgba(16, 42, 57, 0.12); }
+.kk-home-studio .kk-nav a { color: #354d5b; }
+.kk-home-studio .kk-nav a:hover,
+.kk-home-studio .kk-lang a:hover { background: #e8f0f1; color: #112b3b; }
+.kk-home-studio .kk-lang span.kk-lang--active { background: #0e796a; color: #fff; }
+.kk-home-studio .kk-menu-toggle span { background: #112b3b; }
+.kk-home-studio .kk-glass {
+  background: #fff;
+  border-color: #d4e0e3;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: 0 8px 26px rgba(16, 42, 57, 0.045);
+}
+.kk-home-studio .kk-eyebrow { color: #0e796a; }
+.kk-home-studio .kk-hero {
+  padding: 0;
+  background: #f8fafa;
+  border-bottom: 0;
+}
+.kk-home-studio .kk-hero::before {
+  inset: 0 0 auto auto;
+  width: 43%; height: calc(100% - 55px);
+  background: linear-gradient(135deg, #e3eff0, #d4e6e9);
+  clip-path: polygon(11% 0, 100% 0, 100% 100%, 0 100%);
+  pointer-events: none;
+}
+.kk-home-studio .kk-hero__layout { min-height: 610px; gap: 2rem; }
+.kk-home-studio .kk-hero__content { position: relative; z-index: 1; padding-block: 3rem; }
+.kk-home-studio .kk-hero__content > * + * { margin-top: 1.15rem; }
+.kk-home-studio .kk-hero .kk-eyebrow {
+  font-size: 0.82rem; letter-spacing: 0.065em; text-transform: none;
+}
+.kk-home-studio .kk-hero h1 {
+  max-width: 13ch;
+  font-size: clamp(3rem, 4.7vw, 4.35rem);
+  line-height: 1.06; letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+.kk-home-studio .kk-hero h1 span { color: #f27421; }
+.kk-home-studio .kk-hero__subtitle {
+  max-width: 37rem; color: #4b6170;
+  font-size: clamp(1rem, 1.7vw, 1.1rem); line-height: 1.55;
+}
+.kk-home-studio .hero-buttons { gap: 10px 13px; margin-top: 1.6rem; }
+.kk-home-studio .hero-appstore,
+.kk-home-studio .hero-googleplay { width: 166px; height: 52px; }
+.kk-home-studio .hero-appstore:focus-visible,
+.kk-home-studio .hero-googleplay:focus-visible,
+.kk-home-studio .cta-appstore a:focus-visible { outline: 3px solid #0e796a; outline-offset: 4px; border-radius: 4px; }
+.kk-home-studio .kk-hero__visual { min-height: 610px; overflow: hidden; justify-content: flex-end; }
+.kk-home-studio .kk-hero__visual::before {
+  content: ''; position: absolute; left: 50%; top: 48%;
+  width: 460px; height: 460px; border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255,255,255,0.22);
+  pointer-events: none;
+}
+.kk-home-studio .kk-hero .phone-frame {
+  width: 308px; transform: rotate(-4deg) translateY(58px);
+  border-color: #a7b0b2;
+  background: linear-gradient(135deg, #849294, #303a40 20%, #0e1115 46%, #6d797b 84%, #aeb7b7);
+  box-shadow: 0 3px 0 #17232b, 0 32px 58px rgba(16,42,57,.25);
+}
+.kk-home-studio .kk-hero .phone-frame:hover { transform: rotate(-4deg) translateY(54px); box-shadow: 0 3px 0 #17232b, 0 36px 65px rgba(16,42,57,.3); }
+.kk-home-studio .kk-platform-note { display: none; }
+.kk-home-studio .kk-hero__proof-band {
+  position: relative; z-index: 2;
+  background: #eaf1f2; border-block: 1px solid #d4e0e3;
+}
+.kk-home-studio .kk-hero__proof {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem; align-items: center;
+  margin: 0 auto; padding-block: 0.95rem;
+  color: #213b49; font-size: 0.86rem; font-weight: 650;
+}
+.kk-home-studio .kk-hero__proof li { min-width: 0; }
+.kk-home-studio .kk-hero__proof li::before { display: none; }
+.kk-home-studio .kk-main > .kk-section { padding-block: clamp(3rem, 6vw, 4.6rem); }
+.kk-home-studio .kk-main > .kk-hero { padding-block: 0; }
+.kk-home-studio .kk-section-header { max-width: 52rem; }
+.kk-home-studio .kk-how,
+.kk-home-studio .kk-screens,
+.kk-home-studio .kk-guides,
+.kk-home-studio .kk-faq { background: #f8fafa; }
+.kk-home-studio .kk-features,
+.kk-home-studio .kk-outcomes,
+.kk-home-studio .kk-trust,
+.kk-home-studio .kk-subscribe { background: #edf3f4; }
+.kk-home-studio .kk-step__num {
+  background: #e4f0ed; color: #0e796a;
+  box-shadow: none; border: 1px solid #c6ded8;
+}
+.kk-home-studio .kk-step p,
+.kk-home-studio .kk-feature-card p { color: #516778; }
+.kk-home-studio .kk-feature-card:hover { border-color: #82b6ac; box-shadow: 0 10px 30px rgba(16,42,57,.08); }
+.kk-home-studio .kk-feature-card__icon {
+  background: #edf6f3; border-color: #cee4dc;
+}
+.kk-home-studio .kk-badge-free {
+  background: #e9f3ef; color: #0d6e60; border-color: #c5ded6;
+}
+.kk-home-studio .kk-outcome-card:not(.kk-outcome-card--updates) h3 { color: #fff; }
+.kk-home-studio .kk-outcome-card:not(.kk-outcome-card--updates) p { color: #e5edf0; }
+.kk-home-studio .kk-outcome-card--updates {
+  background: linear-gradient(135deg, #d7ebe7, #f7fbfa);
+  border-color: #bddad3;
+}
+.kk-home-studio .kk-outcome-card--updates h3 { color: #112b3b; }
+.kk-home-studio .kk-outcome-card--updates p { color: #4b6170; }
+.kk-home-studio .kk-outcome-card__mark { background: #e5f4ef; border-color: #bbdacf; box-shadow: none; }
+.kk-home-studio .kk-outcome-card__mark svg { color: #0e796a; }
+.kk-home-studio .kk-trust::before { background: linear-gradient(90deg, transparent, #a2cbc1, transparent); }
+.kk-home-studio .kk-shield-icon {
+  background: #e0f0eb; border-color: #c2ded6;
+  box-shadow: 0 15px 35px rgba(16,42,57,.07);
+}
+.kk-home-studio .kk-trust__list li,
+.kk-home-studio .kk-app-demo__list li { color: #4b6170; }
+.kk-home-studio .kk-trust__links a { background: #fff; color: #284352; }
+.kk-home-studio .kk-trust__links a:hover { background: #e5f1ed; }
+.kk-home-studio .kk-app-demo__list li,
+.kk-home-studio .kk-screen,
+.kk-home-studio .kk-faq-item { background: #fff; border-color: #d4e0e3; }
+.kk-home-studio .kk-app-demo__list strong { color: #112b3b; }
+.kk-home-studio .kk-screen figcaption { color: #4b6170; }
+.kk-home-studio .kk-cta { background: #f8fafa; }
+.kk-home-studio .kk-cta__card {
+  background: linear-gradient(120deg, #e7f3f0, #f7fbfa);
+  border-color: #c8dfd9;
+}
+.kk-home-studio .kk-cta__card::before { display: none; }
+.kk-home-studio .kk-faq-item.active { border-color: #83bcb0; }
+.kk-home-studio .kk-faq-toggle { color: #0e796a; }
+.kk-home-studio .kk-faq-answer p { color: #516778; }
+.kk-home-studio .kk-subscribe-row { background: #fff; border-color: #bbcfd3; }
+.kk-home-studio .kk-subscribe-row:focus-within { border-color: #0e796a; box-shadow: 0 0 0 2px rgba(14,121,106,.12); }
+.kk-home-studio .kk-subscribe-input { color: #112b3b; }
+.kk-home-studio .kk-subscribe-input::placeholder { color: #526778; }
+.kk-home-studio .kk-subscribe-btn { background: #0e796a; color: #fff; }
+.kk-home-studio .kk-subscribe-consent a { color: #0b6b5d; }
+.kk-home-studio .kk-footer { background: #102b3a; border-top-color: #102b3a; }
+.kk-home-studio .kk-footer .kk-brand__name,
+.kk-home-studio .kk-footer h2,
+.kk-home-studio .kk-footer h3 { color: #f6f9fa; }
+.kk-home-studio .kk-footer__tagline,
+.kk-home-studio .kk-footer__nav a,
+.kk-home-studio .kk-footer__copy { color: #c6d4d9; }
+.kk-home-studio .kk-footer__nav a:hover { color: #fff; }
+.kk-home-studio .kk-footer .kk-social-link { color: #f6f9fa; border-color: #637b84; }
+.kk-home-studio :is(a,button,input):focus-visible { outline: 3px solid #0e796a; outline-offset: 3px; }
+@media (max-width: 1023px) {
+  .kk-home-studio .kk-hero::before { width: 48%; }
+  .kk-home-studio .kk-hero__layout { min-height: 560px; }
+  .kk-home-studio .kk-hero__visual { min-height: 560px; }
+  .kk-home-studio .kk-hero .phone-frame { width: 265px; }
+}
+@media (max-width: 767px) {
+  .kk-home-studio .kk-hero::before {
+    top: auto; bottom: 0; width: 100%; height: 43%;
+    clip-path: polygon(0 9%, 100% 0, 100% 100%, 0 100%);
+  }
+  .kk-home-studio .kk-hero__layout { min-height: 0; gap: 0; }
+  .kk-home-studio .kk-hero__content { padding-block: 3rem 1.5rem; }
+  .kk-home-studio .kk-hero h1 { max-width: 14ch; font-size: clamp(2.55rem, 10vw, 3.5rem); }
+  .kk-home-studio .kk-hero__subtitle { font-size: 1rem; }
+  .kk-home-studio .hero-buttons { justify-content: flex-start; gap: 8px; }
+  .kk-home-studio .hero-appstore,
+  .kk-home-studio .hero-googleplay { width: min(151px, 43vw); height: 48px; }
+  .kk-home-studio .kk-hero__visual { min-height: 360px; justify-content: flex-end; }
+  .kk-home-studio .kk-hero__visual::before { width: 320px; height: 320px; }
+  .kk-home-studio .kk-hero .phone-frame { width: 240px; transform: rotate(-4deg) translateY(100px); }
+  .kk-home-studio .kk-hero .phone-frame:hover { transform: rotate(-4deg) translateY(100px); }
+  .kk-home-studio .kk-hero__proof { grid-template-columns: 1fr; gap: .45rem; font-size: .82rem; }
+  .kk-home-studio .kk-outcome-grid { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kk-home-studio .kk-hero .phone-frame,
+  .kk-home-studio .kk-hero .phone-frame:hover { transition: none; }
+}
 </style>
 </head>
-<body <?php body_class(); ?>>
+<body <?php body_class( 'kk-home-studio' ); ?>>
 
 <div class="kk-page">
 
@@ -540,7 +748,7 @@ body * {
 				<div class="kk-hero__content">
 					<span class="kk-eyebrow kk-animate"><?php echo esc_html( $__( 'iPhone ve Android Arama Koruması', 'Call Protection for iPhone and Android' ) ); ?></span>
 					<h1 id="kk-hero-title" class="kk-animate kk-animate-delay-1">
-						<?php echo esc_html( $__( 'Spam Aramalara Karşı Kalkanınız', 'Your Shield Against Spam Calls' ) ); ?>
+						<?php if ( 'en' === $lang ) : ?>Your Shield Against <span>Spam Calls</span><?php else : ?>Spam Aramalara Karşı <span>Kalkanınız.</span><?php endif; ?>
 					</h1>
 					<p class="kk-hero__subtitle kk-animate kk-animate-delay-2">
 						<?php echo esc_html( $__( 'Kalkan, iPhone ve Android’de bilinen spam ve şüpheli aramaları engellemeye, bilinmeyen numaraları tanımaya yardımcı olur.', 'Kalkan helps block known spam and suspicious calls and identify unknown numbers on iPhone and Android.' ) ); ?>
@@ -552,15 +760,7 @@ body * {
 						<a href="<?php echo esc_url( $playstore_link ); ?>" class="hero-googleplay" aria-label="<?php echo esc_attr( $__( 'Google Play\'den İndir', 'Get it on Google Play' ) ); ?>">
 							<img src="<?php echo esc_url( $play_badge_url ); ?>" alt="" loading="eager" decoding="async" width="646" height="250">
 						</a>
-						<a class="hero-secondary-btn" href="#kk-how">
-							<?php echo esc_html( $__( '3 adımlı akışı görün', 'See the 3-step flow' ) ); ?>
-						</a>
 					</div>
-					<ul class="kk-hero__proof kk-animate kk-animate-delay-2">
-						<li><?php echo esc_html( $__( 'Genel Koruma ücretsiz', 'General Protection is free' ) ); ?></li>
-						<li><?php echo esc_html( $__( 'Rehber ve arama geçmişi yüklenmez', 'No contacts or call history uploaded' ) ); ?></li>
-						<li><?php echo esc_html( $__( 'Koruma cihazınızda çalışır', 'Protection works on-device' ) ); ?></li>
-					</ul>
 				</div>
 
 				<div class="kk-hero__visual kk-animate kk-animate-delay-2">
@@ -583,6 +783,13 @@ body * {
 					<p class="kk-platform-note"><?php echo esc_html( $__( 'Gösterilen uygulama ekranları iPhone sürümündendir.', 'App screens shown are from the iPhone version.' ) ); ?></p>
 				</div>
 
+			</div>
+			<div class="kk-hero__proof-band">
+				<ul class="kk-shell kk-hero__proof">
+					<li><?php echo esc_html( $__( 'Genel Koruma ücretsiz', 'General Protection is free' ) ); ?></li>
+					<li><?php echo esc_html( $__( 'Rehber ve arama geçmişi yüklenmez', 'No contacts or call history uploaded' ) ); ?></li>
+					<li><?php echo esc_html( $__( 'Koruma cihazınızda çalışır', 'Protection works on-device' ) ); ?></li>
+				</ul>
 			</div>
 		</section>
 
