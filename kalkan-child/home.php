@@ -39,9 +39,6 @@ $page_title = $archive_title . ' — Kalkan';
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 <?php wp_head(); ?>
 <?php echo $_kk_seo_tags(); ?>
 <link rel="stylesheet" href="<?php echo esc_url(kalkan_ui_stylesheet_url()); ?>">
