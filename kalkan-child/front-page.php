@@ -696,6 +696,9 @@ body.kk-home-studio {
 .kk-home-studio .kk-footer__nav a,
 .kk-home-studio .kk-footer__copy { color: #c6d4d9; }
 .kk-home-studio .kk-footer__nav a:hover { color: #fff; }
+.kk-home-studio .kk-footer .kk-lang a,
+.kk-home-studio .kk-footer .kk-lang span { color: #e6eef0; }
+.kk-home-studio .kk-footer .kk-lang a:hover { color: #fff; background: #284653; }
 .kk-home-studio .kk-footer .kk-social-link { color: #f6f9fa; border-color: #637b84; }
 .kk-home-studio :is(a,button,input):focus-visible { outline: 3px solid #0e796a; outline-offset: 3px; }
 @media (max-width: 1023px) {
