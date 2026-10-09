@@ -110,7 +110,7 @@ $_kk_seo_tags = static function () : string {
 $appstore_link = apply_filters( 'kalkan_app_store_url', 'https://apple.co/4cYKmRG' );
 $playstore_link = apply_filters( 'kalkan_google_play_url', 'https://play.google.com/store/apps/details?id=com.kalkan.website.kalkan' );
 $badge_suffix  = ( 'tr' === $lang ) ? 'tr' : 'en';
-$badge_url     = get_stylesheet_directory_uri() . '/assets/badges/app-store-badge-' . $badge_suffix . '.svg';
+$badge_url     = get_stylesheet_directory_uri() . '/assets/badges/app-store-badge-black-' . $badge_suffix . '.svg';
 $play_badge_url = get_stylesheet_directory_uri() . '/assets/badges/google-play-badge-' . $badge_suffix . '.webp';
 
 /* ── App icon ──────────────────────────────────────────────────────────────── */

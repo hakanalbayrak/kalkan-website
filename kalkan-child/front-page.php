@@ -652,13 +652,13 @@ body.kk-home-studio {
 .kk-home-studio .kk-outcome-card:not(.kk-outcome-card--updates) h3 { color: #fff; }
 .kk-home-studio .kk-outcome-card:not(.kk-outcome-card--updates) p { color: #e5edf0; }
 .kk-home-studio .kk-outcome-card--updates {
-  background: linear-gradient(135deg, #d7ebe7, #f7fbfa);
-  border-color: #bddad3;
+  background: #102b3a;
+  border-color: #d4e0e3;
 }
-.kk-home-studio .kk-outcome-card--updates h3 { color: #112b3b; }
-.kk-home-studio .kk-outcome-card--updates p { color: #4b6170; }
-.kk-home-studio .kk-outcome-card__mark { background: #e5f4ef; border-color: #bbdacf; box-shadow: none; }
-.kk-home-studio .kk-outcome-card__mark svg { color: #0e796a; }
+.kk-home-studio .kk-outcome-card--updates::after { display: block; }
+.kk-home-studio .kk-outcome-card--updates .kk-outcome-card__content { position: absolute; inset: auto 0 0; }
+.kk-home-studio .kk-outcome-card--updates h3 { color: #fff; }
+.kk-home-studio .kk-outcome-card--updates p { color: #e5edf0; }
 .kk-home-studio .kk-trust::before { background: linear-gradient(90deg, transparent, #a2cbc1, transparent); }
 .kk-home-studio .kk-shield-icon {
   background: #e0f0eb; border-color: #c2ded6;
@@ -889,10 +889,8 @@ body.kk-home-studio {
 					</article>
 
 					<article class="kk-outcome-card kk-outcome-card--updates kk-animate kk-animate-delay-3">
+						<img class="kk-outcome-card__image" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/marketing/update-protection-384.webp' ); ?>" alt="<?php echo esc_attr( $__( 'Evinde telefonundaki koruma durumunu kontrol eden kişi', 'A person checking phone protection status at home' ) ); ?>" width="384" height="480" loading="lazy" decoding="async">
 						<div class="kk-outcome-card__content">
-							<div class="kk-outcome-card__mark" aria-hidden="true">
-								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8.1 8.1 0 1 1-2.3-5.7L20 8"/><path d="M20 3v5h-5"/><path d="m9 12 2 2 4-4"/></svg>
-							</div>
 							<h3><?php echo esc_html( $__( 'Korumanız Her Zaman Güncel Kalsın.', 'Keep Your Protection Up to Date.' ) ); ?></h3>
 							<p><?php echo esc_html( $__( 'Sürekli güncellenen koruma verileri, bilinen kötü niyetli telefon numaralarına karşı korunmanıza yardımcı olur.', 'Continuously updated protection data helps protect you against known malicious phone numbers.' ) ); ?></p>
 						</div>
