@@ -584,7 +584,7 @@ body.kk-home-studio {
   line-height: 1.06; letter-spacing: -0.055em;
   text-wrap: balance;
 }
-.kk-home-studio .kk-hero h1 span { color: #f27421; }
+.kk-home-studio .kk-hero h1 span { color: #f27421; margin-inline-start: .12em; white-space: nowrap; }
 .kk-home-studio .kk-hero__subtitle {
   max-width: 37rem; color: #4b6170;
   font-size: clamp(1rem, 1.7vw, 1.1rem); line-height: 1.55;
@@ -644,6 +644,8 @@ body.kk-home-studio {
 .kk-home-studio .kk-feature-card__icon {
   background: #edf6f3; border-color: #cee4dc;
 }
+.kk-home-studio .kk-feature-card__icon stop:first-child { stop-color: #0e796a !important; }
+.kk-home-studio .kk-feature-card__icon stop:last-child { stop-color: #f27421 !important; }
 .kk-home-studio .kk-badge-free {
   background: #e9f3ef; color: #0d6e60; border-color: #c5ded6;
 }
@@ -709,7 +711,7 @@ body.kk-home-studio {
   }
   .kk-home-studio .kk-hero__layout { min-height: 0; gap: 0; }
   .kk-home-studio .kk-hero__content { padding-block: 3rem 1.5rem; }
-  .kk-home-studio .kk-hero h1 { max-width: 14ch; font-size: clamp(2.55rem, 10vw, 3.5rem); }
+  .kk-home-studio .kk-hero h1 { max-width: none; font-size: clamp(2.2rem, 9.2vw, 2.7rem); }
   .kk-home-studio .kk-hero__subtitle { font-size: 1rem; }
   .kk-home-studio .hero-buttons { justify-content: flex-start; gap: 8px; }
   .kk-home-studio .hero-appstore,
